@@ -10,6 +10,15 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  animation: bounceIn 1s ease-in-out;
+  @keyframes bounceIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 }
 
 * {
@@ -32,15 +41,6 @@ body {
   background-image: url('../../public/lines.svg'); /* Path is relative to the public directory */
   background-repeat: no-repeat;
   background-size: cover;
-  animation: bounceIn 1s ease-in-out;
-  @keyframes bounceIn {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
 }
 
 a {

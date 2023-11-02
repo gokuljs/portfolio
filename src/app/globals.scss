@@ -29,18 +29,20 @@
 
 html,
 body {
-  max-width: 100vw;
+  width: 100vw;
   overflow-x: hidden;
   min-height: 100vh;
+  max-width: 1800px;
 }
 
 body {
   min-height: 100vh;
   background-color: #181819;
   color: #ddddde;
-  background-image: url('../../public/lines.svg'); /* Path is relative to the public directory */
-  background-repeat: no-repeat;
-  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 a {

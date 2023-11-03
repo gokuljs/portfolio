@@ -1,7 +1,12 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import styles from '@styles/githubGraph.module.scss';
-import GitHubCalendar from 'react-github-calendar';
+import dynamic from 'next/dynamic';
+
+const GitHubCalendar = dynamic(
+  () => import('react-github-calendar').then((mod) => mod),
+  { ssr: false },
+);
 
 const GithubGraph = () => {
   const [loading, setIsLoading] = useState(true);

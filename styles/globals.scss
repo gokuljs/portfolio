@@ -10,6 +10,15 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  animation: bounceIn 1s ease-in-out;
+  @keyframes bounceIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 }
 
 * {
@@ -20,15 +29,20 @@
 
 html,
 body {
-  max-width: 100vw;
+  width: 100vw;
   overflow-x: hidden;
   min-height: 100vh;
+  max-width: 1800px;
 }
 
 body {
   min-height: 100vh;
   background-color: #181819;
   color: #ddddde;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 a {

@@ -5,38 +5,39 @@
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
-  .content {
-    flex: 1.5;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    .info {
-      margin-left: 10%;
-      width: 70%;
-    }
-    .heading {
-      color: #ddddde;
-      font-feature-settings: 'ss07' on, 'cv04' on, 'ss08' on;
-      font-family: SF Pro Display;
-      font-size: 2.5rem;
-      font-style: normal;
-      font-weight: 600;
-    }
-    .subtext {
-      margin-top: 20px;
-      color: var(--dark-base-fg-fg-3, #b9b9bc);
-      font-feature-settings: 'cv04' on, 'ss08' on;
-      font-family: SF Pro Text;
-      font-size: 1.25rem;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 1.75rem;
-    }
-  }
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
   .profile {
-    flex: 1;
-    height: 100%;
-    display: flex;
-    align-items: center;
+    border-radius: 100%;
+    object-fit: cover;
+    margin-top: 200px;
+  }
+  .heading {
+    color: var(--dark-base-fg-fg-2, #ddddde);
+    text-align: center;
+    font-feature-settings: 'ss07' on, 'cv04' on, 'ss08' on;
+    font-family: SF Pro Display;
+    font-size: 2.5rem;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: -0.05rem;
+    background: var(
+      --dark-brand-fg-fg-1,
+      linear-gradient(135deg, #f098a7 0%, #7e7ef1 100%)
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .subtext {
+    text-align: center;
+    color: var(--dark-base-fg-fg-3, #b9b9bc);
+    text-align: center;
+    font-feature-settings: 'cv04' on, 'ss08' on;
+    font-family: SF Pro Text;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 400;
   }
 }

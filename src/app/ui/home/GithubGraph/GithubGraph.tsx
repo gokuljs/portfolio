@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@styles/githubGraph.module.scss';
 import GitHubCalendar from 'react-github-calendar';
-import { ScrollArea } from '@radix-ui/themes';
 
 const GithubGraph = () => {
   const [loading, setIsLoading] = useState(true);
@@ -17,7 +16,7 @@ const GithubGraph = () => {
 
   return (
     <div className={styles.github}>
-      <h1></h1>
+      <h1 className={styles.heading}>Year in Review: GitHub Activity</h1>
       <div className={styles.container}>
         <GitHubCalendar
           username="gokuljs"
@@ -25,8 +24,12 @@ const GithubGraph = () => {
           blockSize={15}
           fontSize={12}
           loading={loading}
+          theme={{
+            light: ['#161b22', '#b8b9f8', '#7e7ef1', '#6768c9', '#5051a1'],
+            dark: ['#161b22', '#E5D8F7', '#BD9EEB', '#8E55E0', '#6000A6'],
+          }}
           style={{
-            color: '#47536B',
+            color: '#F7F7F7',
           }}
         />
       </div>

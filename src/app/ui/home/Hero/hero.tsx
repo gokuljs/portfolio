@@ -6,15 +6,17 @@ const Hero: React.FC = () => {
     <div className={styles.hero}>
       <div className={styles.content}>
         <div className={styles.info}>
-          <h1>Gokul JS</h1>
-          <p>Former Founding Engineer at AeroTime, YC W21</p>
-          <p>
-            Passionate about web development and in search of an exciting new
-            gig.
+          <h1 className={styles.heading}>
+            Developer. Innovator. Web Enthusiast.
+          </h1>
+          <p className={styles.subtext}>
+            Hey, I'm Gokul JS. Former Founding Engineer at AeroTime, YC W21.
+            Passionate about shaping the web's future and currently looking for
+            a new gig.
           </p>
         </div>
       </div>
-      <div className={styles.profile}>sasas</div>
+      <div className={styles.profile}></div>
     </div>
   );
 };

@@ -5,6 +5,17 @@ import GitHubCalendar from 'react-github-calendar';
 
 const GithubGraph = () => {
   const [loading, setIsLoading] = useState(true);
+  const [gitHubYearList, setGithubYearList] = useState<Number[]>([]);
+  useEffect(() => {
+    const arr = [];
+    for (let i = new Date().getFullYear(); i >= 2019; i--) {
+      arr.push(i);
+    }
+    setGithubYearList([...arr]);
+  }, []);
+
+  console.log(gitHubYearList);
+
   useEffect(() => {
     const timeOutFn = setTimeout(() => {
       setIsLoading(false);

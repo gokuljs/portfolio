@@ -8,8 +8,8 @@ const Hero: React.FC = () => {
       <Image
         className={styles.profile}
         src="/portfolio.jpeg"
-        width={300}
-        height={300}
+        width={200}
+        height={200}
         alt="Gokul JS"
       />
       <h1 className={styles.heading}>Developer. Innovator. Web Enthusiast</h1>

@@ -1,6 +1,9 @@
 import React from 'react';
 import styles from '@styles/hero.module.scss';
 import Image from 'next/image';
+import { TwitterLogoIcon } from '@radix-ui/react-icons';
+import { GitHubLogoIcon, LinkedInLogoIcon } from '@radix-ui/react-icons';
+import Link from 'next/link';
 
 const Hero: React.FC = () => {
   return (
@@ -8,8 +11,8 @@ const Hero: React.FC = () => {
       <Image
         className={styles.profile}
         src="/portfolio.jpeg"
-        width={200}
-        height={200}
+        width={180}
+        height={180}
         alt="Gokul JS"
       />
       <h1 className={styles.heading}>Developer. Innovator. Web Enthusiast</h1>
@@ -19,6 +22,17 @@ const Hero: React.FC = () => {
         Passionate about shaping the web's future and currently looking for a
         new gig.
       </p>
+      <div className={styles.logos}>
+        <Link target="_blank" href={'https://twitter.com/gokul_js029'}>
+          <TwitterLogoIcon className={styles.icon} />
+        </Link>
+        <Link target="_blank" href={'https://www.linkedin.com/in/gokul-js/'}>
+          <LinkedInLogoIcon className={styles.icon} />
+        </Link>
+        <Link target="_blank" href={'https://github.com/gokuljs'}>
+          <GitHubLogoIcon className={styles.icon} />
+        </Link>
+      </div>
     </div>
   );
 };

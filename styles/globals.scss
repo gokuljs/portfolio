@@ -58,3 +58,11 @@ a {
     color-scheme: dark;
   }
 }
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('/fonts/SF-Pro-Text-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* Use font-display for better performance */
+}

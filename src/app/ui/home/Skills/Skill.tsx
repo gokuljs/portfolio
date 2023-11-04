@@ -20,6 +20,7 @@ const Skill: React.FC = () => {
         { name: 'Next JS', proficiency: 'Intermediate' },
         { name: 'Vite', proficiency: 'Basic' },
         { name: 'Gatsby', proficiency: 'Basic' },
+        { name: 'Redux', proficiency: 'Advanced' },
       ],
     },
     {

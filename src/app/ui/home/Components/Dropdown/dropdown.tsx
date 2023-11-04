@@ -1,8 +1,9 @@
 import { DropdownProps } from '@/app/lib/dropdown';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { use, useEffect, useRef, useState } from 'react';
 import styles from 'styles/dropdown.module.scss';
 import { ChevronDownIcon } from '@radix-ui/react-icons';
 import clsx from 'clsx';
+import useOutsideClick from '@/app/lib/hooks/useOutsideClick';
 
 const Dropdown: React.FC<DropdownProps> = ({
   options,
@@ -14,6 +15,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const [currentIndex, setCurrentIndex] = useState<number>(-1);
   const [dropdownMouseActive, setDropdownMouseActive] = useState(false);
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent): void => {
       if (event.key === 'Escape' && dropdownState) {
@@ -39,6 +41,11 @@ const Dropdown: React.FC<DropdownProps> = ({
         dropdownRef.current.removeEventListener('keydown', handleKeyDown);
     };
   }, [dropdownState, currentIndex]);
+
+  useOutsideClick(dropdownRef, () => {
+    setDropdownState(false);
+  });
+
   return (
     <div
       className={styles.Dropdown}

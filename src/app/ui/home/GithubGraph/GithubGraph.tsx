@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@styles/githubGraph.module.scss';
 import dynamic from 'next/dynamic';
+import Dropdown from '../Components/Dropdown/dropdown';
 
 const GitHubCalendar = dynamic(
   () => import('react-github-calendar').then((mod) => mod),
@@ -10,7 +11,9 @@ const GitHubCalendar = dynamic(
 
 const GithubGraph = () => {
   const [loading, setIsLoading] = useState(true);
-  const [gitHubYearList, setGithubYearList] = useState<Number[]>([]);
+  const [gitHubYearList, setGithubYearList] = useState<number[]>([]);
+  const [dropdownState, setDropdownState] = useState<boolean>(false);
+  const [selectedYear, setSelectedYear] = useState<number | null>(null);
   useEffect(() => {
     const arr = [];
     for (let i = new Date().getFullYear(); i >= 2019; i--) {
@@ -34,8 +37,18 @@ const GithubGraph = () => {
     <div className={styles.github}>
       <h1 className={styles.heading}>Year in Review: GitHub Activity</h1>
       <div className={styles.container}>
+        <div className={styles.dropdown}>
+          <Dropdown
+            dropdownState={dropdownState}
+            setDropdownState={setDropdownState}
+            options={gitHubYearList}
+            value={selectedYear}
+            setValue={setSelectedYear}
+          />
+        </div>
         <GitHubCalendar
           username="gokuljs"
+          year={selectedYear ? selectedYear : undefined}
           colorScheme="dark"
           blockSize={15}
           fontSize={12}

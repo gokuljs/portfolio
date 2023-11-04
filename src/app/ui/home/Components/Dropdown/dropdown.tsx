@@ -1,7 +1,8 @@
 import { DropdownProps } from '@/app/lib/dropdown';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from 'styles/dropdown.module.scss';
 import { ChevronDownIcon } from '@radix-ui/react-icons';
+import clsx from 'clsx';
 
 const Dropdown: React.FC<DropdownProps> = ({
   options,
@@ -11,12 +12,24 @@ const Dropdown: React.FC<DropdownProps> = ({
   dropdownState,
 }) => {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const [currentIndex, setCurrentIndex] = useState<number>(-1);
+  const [dropdownMouseActive, setDropdownMouseActive] = useState(false);
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent): void => {
-      console.log(event.key, 'ssss');
       if (event.key === 'Escape' && dropdownState) {
         setDropdownState(false);
       }
+      if (event.key === 'ArrowDown' && dropdownState) {
+        const index = currentIndex;
+        setCurrentIndex(currentIndex < options.length - 1 ? index + 1 : 0);
+      }
+      if (event.key === 'ArrowUp' && dropdownState) {
+        setCurrentIndex(
+          currentIndex > 0 ? currentIndex - 1 : options.length - 1,
+        );
+      }
+      event.preventDefault();
+      event.stopPropagation();
     };
     if (dropdownRef.current) {
       dropdownRef.current.addEventListener('keydown', handleKeyDown);
@@ -25,7 +38,7 @@ const Dropdown: React.FC<DropdownProps> = ({
       dropdownRef.current &&
         dropdownRef.current.removeEventListener('keydown', handleKeyDown);
     };
-  }, [dropdownState]);
+  }, [dropdownState, currentIndex]);
   return (
     <div
       className={styles.Dropdown}
@@ -39,14 +52,24 @@ const Dropdown: React.FC<DropdownProps> = ({
       <ChevronDownIcon className={styles.icon} />
       {dropdownState && options.length > 0 && (
         <div className={styles.dropdownSelect}>
-          {options.map((item) => (
+          {options.map((item, index) => (
             <div
               onClick={() => {
                 setValue(item);
                 setDropdownState(false);
               }}
+              onMouseEnter={() => {
+                setDropdownMouseActive(true);
+                setCurrentIndex(index);
+              }}
+              onMouseLeave={() => {
+                setDropdownMouseActive(false);
+              }}
               key={item}
-              className={styles.dropdownItem}
+              className={clsx(styles.dropdownItem, {
+                [styles.itemActive]:
+                  index === currentIndex && !dropdownMouseActive,
+              })}
             >
               {item}
             </div>

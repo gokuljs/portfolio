@@ -30,6 +30,10 @@ const Dropdown: React.FC<DropdownProps> = ({
           currentIndex > 0 ? currentIndex - 1 : options.length - 1,
         );
       }
+      if (event.key === 'Enter' && dropdownState && !dropdownMouseActive) {
+        setValue(options[currentIndex]);
+        setDropdownState(false);
+      }
       event.preventDefault();
       event.stopPropagation();
     };

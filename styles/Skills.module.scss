@@ -35,11 +35,14 @@
       padding: 10px 20px;
       border-radius: 0.75rem;
       background: white;
-      background: var(--dark-base-bg-bg-2, #181819);
-      box-shadow: 0px 0.99752px 3px 0px rgba(113, 125, 150, 0.21),
-        0px 4px 8px 0px rgba(113, 125, 150, 0.1),
-        0px 15px 33px 0px rgba(45, 55, 72, 0.14),
-        0px 2px 2px 0px rgba(255, 255, 255, 0.25) inset;
+      background-color: #2b4162;
+      // box-shadow: 0px 0.99752px 3px 0px rgba(113, 125, 150, 0.21),
+      //   0px 4px 8px 0px rgba(113, 125, 150, 0.1),
+      //   0px 15px 33px 0px rgba(45, 55, 72, 0.14),
+      //   0px 2px 2px 0px rgba(255, 255, 255, 0.25) inset;
+      background-color: #4d4855;
+      background-image: linear-gradient(147deg, #4d4855 0%, #181819 74%);
+
       .header {
         font-size: 1rem;
         text-transform: capitalize;
@@ -65,18 +68,11 @@
 
       .SliderRange {
         position: absolute;
-        background-image: linear-gradient(
-          95deg,
-          hsl(261deg 95% 45%) 0%,
-          hsl(282deg 100% 39%) 38%,
-          hsl(299deg 100% 33%) 49%,
-          hsl(314deg 100% 36%) 53%,
-          hsl(325deg 100% 38%) 54%,
-          hsl(333deg 100% 39%) 55%,
-          hsl(339deg 100% 38%) 58%,
-          hsl(344deg 100% 37%) 64%,
-          hsl(349deg 100% 36%) 76%,
-          hsl(0deg 83% 37%) 100%
+        background: rgba(224, 114, 26, 1);
+        background: radial-gradient(
+          at right top,
+          rgba(224, 114, 26, 1),
+          rgba(235, 22, 219, 1)
         );
         border-radius: 9999px;
         height: 100%;

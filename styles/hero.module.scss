@@ -42,7 +42,6 @@
     color: var(--dark-base-fg-fg-2, #ddddde);
     text-align: center;
     font-feature-settings: 'ss07' on, 'cv04' on, 'ss08' on;
-    font-family: SF Pro Display;
     font-size: 2.5rem;
     font-style: normal;
     font-weight: 600;
@@ -66,7 +65,6 @@
     color: var(--dark-base-fg-fg-3, #b9b9bc);
     text-align: center;
     font-feature-settings: 'cv04' on, 'ss08' on;
-    font-family: SF Pro Text;
     font-size: 1.125rem;
     font-style: normal;
     font-weight: 400;
@@ -84,6 +82,7 @@
     justify-content: center;
     height: 60px;
     gap: 10px;
+
     .icon {
       width: 30px;
       height: 30px;

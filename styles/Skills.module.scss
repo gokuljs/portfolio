@@ -10,91 +10,59 @@
   background-repeat: no-repeat;
   background-size: cover;
   padding-bottom: 100px;
+  background-image: url(/public/lines.svg);
+  background-position: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+
   .heading {
     margin-bottom: 40px;
     font-size: 2.5rem;
     color: #f7f7f7;
   }
   .container {
-    width: 100%;
-    min-height: 140px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1.4rem;
-    display: flex;
-    align-items: stretch;
-    .card {
-      height: 40px;
-      border-radius: 0.5rem;
-      min-width: 60px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 10px 20px;
-      border-radius: 0.75rem;
-      background: white;
-      background-color: #2b4162;
-      // box-shadow: 0px 0.99752px 3px 0px rgba(113, 125, 150, 0.21),
-      //   0px 4px 8px 0px rgba(113, 125, 150, 0.1),
-      //   0px 15px 33px 0px rgba(45, 55, 72, 0.14),
-      //   0px 2px 2px 0px rgba(255, 255, 255, 0.25) inset;
-      background-color: #4d4855;
-      background-image: linear-gradient(147deg, #4d4855 0%, #181819 74%);
-      @media screen and (max-width: 500px) {
-        flex-grow: 1;
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 20px;
+    .category {
+      background: #444;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .category h2 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    .items span {
+      display: inline-block;
+      background: #555;
+      margin: 5px;
+      padding: 10px;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    .items span:hover {
+      background: #666;
+    }
+    /* Responsive styles */
+    @media (min-width: 600px) {
+      .items span {
+        display: inline-block; /* Inline-block for larger screens */
+        margin: 5px; /* Adjust margin for larger screens */
+      }
+    }
+
+    @media (max-width: 599px) {
+      .container {
+        grid-template-columns: 1fr; /* Stack the categories on top of each other on mobile */
       }
 
-      .header {
-        font-size: 1rem;
-        text-transform: capitalize;
-        color: #e0e0e0;
-      }
-      .SliderRoot {
-        position: relative;
-        display: flex;
-        align-items: center;
-        user-select: none;
-        touch-action: none;
-        width: 200px;
-        height: 20px;
-      }
-
-      .SliderTrack {
-        background-color: var(--black-a10);
-        position: relative;
-        flex-grow: 1;
-        border-radius: 9999px;
-        height: 4px;
-      }
-
-      .SliderRange {
-        position: absolute;
-        background: rgba(224, 114, 26, 1);
-        background: radial-gradient(
-          at right top,
-          rgba(224, 114, 26, 1),
-          rgba(235, 22, 219, 1)
-        );
-        border-radius: 9999px;
-        height: 100%;
-      }
-
-      .SliderThumb {
-        display: block;
-        width: 20px;
-        height: 20px;
-        background-color: white;
-        box-shadow: 0 2px 10px var(--black-a7);
-        border-radius: 10px;
-      }
-      .SliderThumb:hover {
-        background-color: var(--violet-3);
-      }
-      .SliderThumb:focus {
-        outline: none;
-        box-shadow: 0 0 0 5px var(--black-a8);
+      .category h2 {
+        font-size: 1.2em; /* Adjust font size for smaller screens */
       }
     }
   }

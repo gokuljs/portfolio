@@ -34,6 +34,7 @@
     .category h2 {
       font-size: 1.5em;
       margin-bottom: 10px;
+      text-transform: capitalize;
     }
 
     .items span {
@@ -43,6 +44,7 @@
       padding: 10px;
       border-radius: 4px;
       transition: background-color 0.3s;
+      text-transform: capitalize;
     }
 
     .items span:hover {

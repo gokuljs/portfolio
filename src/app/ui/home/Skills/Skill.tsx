@@ -24,18 +24,20 @@ const Skill: React.FC = () => {
   }, []);
   return (
     <div className={styles.skills}>
-      <h1 className={styles.heading}>What I know</h1>
-      <div className={styles.container}>
-        {skills?.map((item) => (
-          <section className={styles.category}>
-            <h2>{item.category}</h2>
-            <div className={styles.items}>
-              {item.contents.map((item) => (
-                <span>{item.name}</span>
-              ))}
-            </div>
-          </section>
-        ))}
+      <div className={styles.contain}>
+        <h1 className={styles.heading}>What I know</h1>
+        <div className={styles.container}>
+          {skills?.map((item) => (
+            <section className={styles.category}>
+              <h2>{item.category}</h2>
+              <div className={styles.items}>
+                {item.contents.map((item) => (
+                  <span>{item.name}</span>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -17,12 +17,20 @@ const TsParticles = () => {
     [],
   );
   return (
-    <div id="particle-background">
+    <div
+      id="particle-background"
+      style={{
+        zIndex: '-1',
+      }}
+    >
       <Particles
         id="tsparticles"
         init={particlesInit}
         loaded={particlesLoaded}
         options={{
+          // fullScreen: {
+          //   enable: false,
+          // },
           background: {
             color: {
               value: 'transparent',
@@ -53,10 +61,10 @@ const TsParticles = () => {
           },
           particles: {
             color: {
-              value: '#181819',
+              value: '#7e7ef1',
             },
             links: {
-              color: '#181819',
+              color: '#7e7ef1',
               distance: 150,
               enable: true,
               opacity: 0.5,

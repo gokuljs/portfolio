@@ -12,7 +12,7 @@ export default function Home() {
       <GithubGraph />
       <Skill />
       <Experience />
-      <TsParticles />
+      {/* <TsParticles /> */}
     </div>
   );
 }

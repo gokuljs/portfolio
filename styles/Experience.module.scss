@@ -28,20 +28,58 @@
     position: relative;
     margin: 100px auto;
     .container {
+      .company {
+        position: absolute;
+        width: 40px;
+        border-radius: 50%;
+        right: -20px;
+        top: 32px;
+        z-index: 10;
+      }
       padding: 10px 50px;
       position: relative;
       width: 50%;
-      background: var(--light-base-bg-bg-2, #fff);
-      box-shadow: 0px 2.03796px 3.62304px 0px rgba(71, 83, 107, 0.11),
-        0px 5.6347px 10.01724px 0px rgba(71, 83, 107, 0.16),
-        0px 13.56618px 24.11766px 0px rgba(71, 83, 107, 0.21),
-        0px 45px 80px 0px rgba(71, 83, 107, 0.32), 0px 10px 0px -4px #cfd3dc;
+
       .textBox {
         padding: 20px 30px;
         background: var(--light-base-bg-bg-2, #fff);
         position: relative;
         border-radius: 6px;
         font-size: 1rem;
+        background: var(--light-base-bg-bg-2, #fff);
+        box-shadow: 0px 2.03796px 3.62304px 0px rgba(71, 83, 107, 0.11),
+          0px 5.6347px 10.01724px 0px rgba(71, 83, 107, 0.16),
+          0px 13.56618px 24.11766px 0px rgba(71, 83, 107, 0.21),
+          0px 45px 80px 0px rgba(71, 83, 107, 0.32), 0px 10px 0px -4px #cfd3dc;
+        h2 {
+          font-weight: 600;
+        }
+        small {
+          display: inline-block;
+          margin-bottom: 15px;
+        }
+        .leftArrow {
+          width: 0;
+          height: 0;
+          position: absolute;
+          top: 28px;
+          z-index: 1;
+          border-top: 15px solid transparent;
+          border-bottom: 15px solid transparent;
+          border-left: 15px solid #ffff;
+          right: -15px;
+        }
+        .rightArrow {
+          width: 0;
+          height: 0;
+          position: absolute;
+          top: 28px;
+          z-index: 1;
+          border-top: 15px solid transparent;
+          border-bottom: 15px solid transparent;
+          border-right: 15px solid #ffff;
+          left: -15px;
+        }
       }
     }
     .leftContainer {
@@ -49,6 +87,20 @@
     }
     .rightContainer {
       left: 50%;
+      .company {
+        left: -20px;
+      }
     }
+  }
+  .timeline::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 100%;
+    background: black;
+    top: 0;
+    left: 50%;
+    margin-left: -3px;
+    z-index: -1;
   }
 }

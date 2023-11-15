@@ -58,7 +58,7 @@ const GithubGraph = () => {
             dark: ['#161b22', '#E5D8F7', '#BD9EEB', '#8E55E0', '#6000A6'],
           }}
           style={{
-            color: '#F7F7F7',
+            color: '#181819',
           }}
         />
       </div>

@@ -11,13 +11,13 @@ const Hero: React.FC = () => {
       <Image
         className={styles.profile}
         src="/portfolio.jpeg"
-        width={180}
-        height={180}
+        width={140}
+        height={140}
         alt="Gokul JS"
       />
-      <h1 className={styles.heading}>Developer. Innovator. Web Enthusiast</h1>
+      <h1 className={styles.heading}>Gokul JS</h1>
       <p className={styles.subtext}>
-        Hey, I'm Gokul JS. Former Founding Engineer at AeroTime, YC W21.
+        Founding Engineer at AeroTime, YC W21
         <br />
         Passionate about shaping the web's future and currently looking for a
         new gig.

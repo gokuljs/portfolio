@@ -35,17 +35,19 @@ body {
   width: 100vw;
   overflow-x: hidden;
   min-height: 100vh;
-  max-width: 1800px;
+  max-width: 100%;
 }
 
 body {
   min-height: 100vh;
-  background-color: #181819;
+  background-color: #ffffff;
   color: #ddddde;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  max-width: 2000px;
+  margin: 0 auto;
 }
 
 a {

@@ -7,6 +7,11 @@
   align-items: center;
   padding: 40px 30px;
   color: #181819;
+  background-image: url(../public/early-access-bg-1.svg);
+  background-position: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  max-width: 2500px;
   .heading {
     margin-bottom: 40px;
     font-size: 2.5rem;
@@ -27,6 +32,9 @@
     height: fit-content;
     position: relative;
     margin: 100px auto;
+    @media screen and (max-width: 600px) {
+      margin: 50px auto;
+    }
     .container {
       .company {
         position: absolute;
@@ -39,7 +47,18 @@
       padding: 10px 50px;
       position: relative;
       width: 50%;
-
+      animation: moveDown 1s linear forwards;
+      opacity: 0;
+      @keyframes moveDown {
+        0% {
+          opacity: 1;
+          transform: translateY(-30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0px);
+        }
+      }
       .textBox {
         padding: 20px 30px;
         background: var(--light-base-bg-bg-2, #fff);
@@ -58,6 +77,17 @@
           display: inline-block;
           margin-bottom: 15px;
         }
+        .companyAbout {
+          @media screen and (max-width: 600px) {
+            max-height: 330px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            padding-right: 8px;
+            padding-left: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+          }
+        }
         .leftArrow {
           width: 0;
           height: 0;
@@ -68,6 +98,11 @@
           border-bottom: 15px solid transparent;
           border-left: 15px solid #ffff;
           right: -15px;
+          @media screen and (max-width: 600px) {
+            border-right: 15px solid #ffff;
+            border-left: 0;
+            left: -15px;
+          }
         }
         .rightArrow {
           width: 0;
@@ -79,16 +114,52 @@
           border-bottom: 15px solid transparent;
           border-right: 15px solid #ffff;
           left: -15px;
+          @media screen and (max-width: 600px) {
+            border-right: 15px solid #ffff;
+            border-left: 0;
+            left: -15px;
+          }
+        }
+      }
+      @media screen and (max-width: 600px) {
+        width: 100%;
+        padding-left: 80px;
+        padding-right: 25px;
+        .textBox {
+          font-size: 13px;
+          small {
+            margin-bottom: 10px;
+          }
         }
       }
     }
+    .container:nth-child(1) {
+      animation-delay: 0s;
+    }
+    .container:nth-child(2) {
+      animation-delay: 3s;
+    }
+    .container:nth-child(3) {
+      animation-delay: 4s;
+    }
     .leftContainer {
       left: 0;
+      @media screen and (max-width: 600px) {
+        .company {
+          left: 10px;
+        }
+      }
     }
     .rightContainer {
       left: 50%;
       .company {
         left: -20px;
+      }
+      @media screen and (max-width: 600px) {
+        left: 0;
+        .company {
+          left: 10px;
+        }
       }
     }
   }
@@ -97,10 +168,33 @@
     position: absolute;
     width: 6px;
     height: 100%;
-    background: black;
+    background: #7f00ff; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to bottom,
+      #e100ff,
+      #7f00ff
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+      to bottom,
+      #e100ff,
+      #7f00ff
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     top: 0;
     left: 50%;
     margin-left: -3px;
     z-index: -1;
+    animation: moveLine 6s linear forwards;
+    @media screen and (max-width: 600px) {
+      left: 31px;
+    }
+  }
+  @keyframes moveLine {
+    0% {
+      height: 0%;
+    }
+    100% {
+      height: 100%;
+    }
   }
 }

@@ -18,7 +18,7 @@ const Experience = () => {
           <div className={styles.textBox}>
             <h2>Aerotime, Y Combinator (W21) | Founding Engineer</h2>
             <small>Nov 2022 – Nov 2023 | San Francisco, California</small>
-            <ul>
+            <ul className={styles.companyAbout}>
               <li>
                 Led the development of Aerotime's frontend infrastructure using
                 React, Vite, Next.js, Redux, and React Query, ensuring
@@ -64,7 +64,7 @@ const Experience = () => {
           <div className={styles.textBox}>
             <h2>Tifin Fintech (Previously 1stMain)</h2>
             <small>Mar 2022 – Nov 2022 | Bangalore, India</small>
-            <ul>
+            <ul className={styles.companyAbout}>
               <li>
                 Spearheaded frontend development for TIFIN Wealth using Next.js
                 and React.js, increasing productivity by 20% through strategic
@@ -101,7 +101,7 @@ const Experience = () => {
           <div className={styles.textBox}>
             <h2>1stMain</h2>
             <small>Nov 2021 – Feb 2022 | Bangalore, India</small>
-            <ul>
+            <ul className={styles.companyAbout}>
               <li>
                 Leveraged in-depth React expertise to enhance lifecycle methods,
                 boosting development efficiency by 40% and ensuring 100%

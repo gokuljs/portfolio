@@ -7,11 +7,6 @@ import { loadSlim } from 'tsparticles-slim';
 const TsParticles = () => {
   const particlesInit = useCallback(async (engine: Engine) => {
     console.log(engine);
-
-    // you can initialize the tsParticles instance (engine) here, adding custom shapes or presets
-    // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
-    // starting from v2 you can add only the features you need reducing the bundle size
-    //await loadFull(engine);
     await loadSlim(engine);
   }, []);
 
@@ -27,13 +22,15 @@ const TsParticles = () => {
         id="tsparticles"
         init={particlesInit}
         loaded={particlesLoaded}
+        height="100px"
+        width="100vw"
         options={{
           background: {
             color: {
               value: 'transparent',
             },
           },
-          fpsLimit: 120,
+          fpsLimit: 144,
           interactivity: {
             events: {
               onClick: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '@styles/hero.module.scss';
 import Image from 'next/image';
-import { TwitterLogoIcon } from '@radix-ui/react-icons';
+import { DiscordLogoIcon, TwitterLogoIcon } from '@radix-ui/react-icons';
 import { GitHubLogoIcon, LinkedInLogoIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
 
@@ -31,6 +31,9 @@ const Hero: React.FC = () => {
         </Link>
         <Link target="_blank" href={'https://github.com/gokuljs'}>
           <GitHubLogoIcon className={styles.icon} />
+        </Link>
+        <Link target="_blank" href={'https://github.com/gokuljs'}>
+          <DiscordLogoIcon className={styles.icon} />
         </Link>
       </div>
     </div>

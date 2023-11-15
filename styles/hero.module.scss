@@ -97,4 +97,25 @@
       }
     }
   }
+  @media screen and (max-width: 980px) {
+    align-items: center;
+    .profile {
+      margin-left: 0;
+    }
+    .heading {
+      margin-left: 0;
+      text-align: center;
+    }
+    .subtext {
+      margin-left: 0;
+      text-align: center;
+    }
+    .logos {
+      margin-left: 0;
+      justify-content: center;
+    }
+  }
+  @media screen and (max-width: 700px) {
+    max-height: 70vh;
+  }
 }

@@ -4,6 +4,7 @@ import GithubGraph from './ui/home/GithubGraph/GithubGraph';
 import Skill from './ui/home/Skills/Skill';
 import TsParticles from './ui/home/TsParticles/TsParticles';
 import Experience from './ui/home/Experience/Experience';
+import Footer from './ui/home/Footer/Footer';
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <GithubGraph />
       <Skill />
       <Experience />
+      <Footer />
       <TsParticles />
     </div>
   );

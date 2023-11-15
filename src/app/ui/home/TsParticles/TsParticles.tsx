@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 import Particles from 'react-particles';
 import type { Container, Engine } from 'tsparticles-engine';
 import { loadSlim } from 'tsparticles-slim';
+import styles from '@styles/tsParticles.module.scss';
 
 const TsParticles = () => {
   const particlesInit = useCallback(async (engine: Engine) => {
@@ -17,7 +18,7 @@ const TsParticles = () => {
     [],
   );
   return (
-    <div id="particle-background">
+    <div id="particle-background" className={styles.tsParticles}>
       <Particles
         id="tsparticles"
         init={particlesInit}
@@ -53,10 +54,10 @@ const TsParticles = () => {
           },
           particles: {
             color: {
-              value: '#181819',
+              value: '#7e7ef1',
             },
             links: {
-              color: '#181819',
+              color: '#7e7ef1',
               distance: 150,
               enable: true,
               opacity: 0.5,

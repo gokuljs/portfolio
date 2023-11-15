@@ -19,8 +19,8 @@ const Hero: React.FC = () => {
       <p className={styles.subtext}>
         Founding Engineer at AeroTime, YC W21
         <br />
-        Passionate about shaping the web's future and currently looking for a
-        new gig.
+        Passionate about shaping the web's future and currently looking for new
+        opportunities.
       </p>
       <div className={styles.logos}>
         <Link target="_blank" href={'https://twitter.com/gokul_js029'}>

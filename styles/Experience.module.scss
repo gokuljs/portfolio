@@ -1,5 +1,54 @@
 .Experience {
   width: 100vw;
   min-height: 100vh;
-  border: 1px solid black;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 30px;
+  color: #181819;
+  .heading {
+    margin-bottom: 40px;
+    font-size: 2.5rem;
+    color: #181819;
+    @media screen and (max-width: 750px) {
+      font-size: 2rem;
+    }
+    @media screen and (max-width: 600px) {
+      font-size: 1.75rem;
+    }
+    @media screen and (max-width: 500px) {
+      font-size: 1.45rem;
+    }
+  }
+  .timeline {
+    width: 100%;
+    min-height: 40px;
+    height: fit-content;
+    position: relative;
+    margin: 100px auto;
+    .container {
+      padding: 10px 50px;
+      position: relative;
+      width: 50%;
+      background: var(--light-base-bg-bg-2, #fff);
+      box-shadow: 0px 2.03796px 3.62304px 0px rgba(71, 83, 107, 0.11),
+        0px 5.6347px 10.01724px 0px rgba(71, 83, 107, 0.16),
+        0px 13.56618px 24.11766px 0px rgba(71, 83, 107, 0.21),
+        0px 45px 80px 0px rgba(71, 83, 107, 0.32), 0px 10px 0px -4px #cfd3dc;
+      .textBox {
+        padding: 20px 30px;
+        background: var(--light-base-bg-bg-2, #fff);
+        position: relative;
+        border-radius: 6px;
+        font-size: 1rem;
+      }
+    }
+    .leftContainer {
+      left: 0;
+    }
+    .rightContainer {
+      left: 50%;
+    }
+  }
 }

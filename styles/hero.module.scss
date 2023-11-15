@@ -1,6 +1,7 @@
 .hero {
   width: 100%;
   height: 100vh;
+  background-image: url(../public//hero.png);
   background-position: fixed;
   background-repeat: no-repeat;
   background-size: cover;
@@ -62,7 +63,7 @@
   }
   .subtext {
     text-align: center;
-    color: var(--dark-base-fg-fg-3, #b9b9bc);
+    color: #47536b;
     text-align: left;
     margin-left: 200px;
     font-feature-settings: 'cv04' on, 'ss08' on;

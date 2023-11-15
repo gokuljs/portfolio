@@ -22,8 +22,6 @@ const TsParticles = () => {
         id="tsparticles"
         init={particlesInit}
         loaded={particlesLoaded}
-        height="100px"
-        width="100vw"
         options={{
           background: {
             color: {
@@ -70,9 +68,9 @@ const TsParticles = () => {
               outModes: {
                 default: 'bounce',
               },
-              random: false,
-              speed: 6,
-              straight: false,
+              random: true,
+              speed: 4,
+              straight: true,
             },
             number: {
               density: {
@@ -85,7 +83,7 @@ const TsParticles = () => {
               value: 0.5,
             },
             shape: {
-              type: 'triangle',
+              type: 'circle',
             },
             size: {
               value: { min: 1, max: 5 },

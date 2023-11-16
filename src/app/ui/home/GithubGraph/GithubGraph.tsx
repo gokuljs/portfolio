@@ -22,8 +22,6 @@ const GithubGraph = () => {
     setGithubYearList([...arr]);
   }, []);
 
-  console.log(gitHubYearList);
-
   useEffect(() => {
     const timeOutFn = setTimeout(() => {
       setIsLoading(false);

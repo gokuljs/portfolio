@@ -30,6 +30,7 @@
         transition: all 0.15s ease-in-out;
         &:hover {
           color: #e17284;
+          transform: scale(1.1);
         }
       }
     }

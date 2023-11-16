@@ -54,8 +54,8 @@ const GithubGraph = () => {
           fontSize={12}
           loading={loading}
           theme={{
-            light: ['#161b22', '#b8b9f8', '#7e7ef1', '#6768c9', '#5051a1'],
-            dark: ['#161b22', '#E5D8F7', '#BD9EEB', '#8E55E0', '#6000A6'],
+            light: ['#F0F1F4', '#b8b9f8', '#7e7ef1', '#6768c9', '#5051a1'],
+            dark: ['#F0F1F4', '#E5D8F7', '#BD9EEB', '#8E55E0', '#6000A6'],
           }}
           style={{
             color: '#181819',

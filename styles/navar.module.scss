@@ -18,6 +18,31 @@
     padding: 10px 20px;
     gap: 1rem;
     justify-content: space-around;
+    @media screen and (max-width: 800px) {
+      display: none;
+    }
+    .topics {
+      display: flex;
+      height: 2.25rem;
+      padding: 0.5625rem 1rem;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--light-base-fg-fg-4, #717d96);
+      font-feature-settings: 'cv04' on, 'ss08' on;
+      /* Text 13-13 – Medium */
+      //   font-family: SF Pro Text;
+      font-size: 0.8125rem;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 0.8125rem;
+      text-transform: capitalize;
+      cursor: pointer;
+      transition: all 0.15s ease-in-out;
+      &:hover {
+        color: #386dff;
+      }
+    }
     .Resume {
       background: linear-gradient(#fff, #fff) padding-box,
         linear-gradient(170deg, #ea9daa, #7575eb) border-box;

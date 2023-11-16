@@ -29,7 +29,7 @@
         cursor: pointer;
         transition: all 0.15s ease-in-out;
         &:hover {
-          color: #e17284;
+          color: #8e2de2;
           transform: scale(1.1);
         }
       }
@@ -47,7 +47,7 @@
         &:hover {
           transform: scale(1.1);
           path {
-            fill: #e17284;
+            fill: #8e2de2;
             stroke-width: 10px;
           }
         }
@@ -56,6 +56,13 @@
     .copyright {
       width: 100%;
       height: 50%;
+      color: white;
+      font-feature-settings: 'cv04' on, 'ss08' on;
+      font-size: 0.8125rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.125rem;
+      text-align: center;
     }
   }
 }

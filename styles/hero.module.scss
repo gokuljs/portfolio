@@ -97,6 +97,16 @@
         transform: scale(1.1);
       }
     }
+    .svgIcon {
+      path {
+        fill: #4949af;
+        stroke-width: 10px;
+      }
+      transition: all 0.15s ease-in-out;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
   }
   @media screen and (max-width: 980px) {
     align-items: center;

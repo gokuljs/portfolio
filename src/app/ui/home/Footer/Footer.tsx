@@ -6,6 +6,7 @@ import {
   TwitterLogoIcon,
 } from '@radix-ui/react-icons';
 import Link from 'next/link';
+import Gmail from '../../../../../public/gmail.svg';
 const Footer = () => {
   return (
     <div className={styles.Footer}>
@@ -19,6 +20,9 @@ const Footer = () => {
           </Link>
           <Link target="_blank" href={'https://github.com/gokuljs'}>
             <GitHubLogoIcon className={styles.icon} />
+          </Link>
+          <Link target="_blank" href="mailto:jsgokul123@gmail.com">
+            <Gmail className={styles.svgIcon} />
           </Link>
         </div>
         <div className={styles.copyright}></div>

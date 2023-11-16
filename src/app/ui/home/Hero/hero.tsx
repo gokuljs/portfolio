@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { DiscordLogoIcon, TwitterLogoIcon } from '@radix-ui/react-icons';
 import { GitHubLogoIcon, LinkedInLogoIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
+import Gmail from '../../../../../public/gmail.svg';
 
 const Hero: React.FC = () => {
   return (
@@ -32,8 +33,8 @@ const Hero: React.FC = () => {
         <Link target="_blank" href={'https://github.com/gokuljs'}>
           <GitHubLogoIcon className={styles.icon} />
         </Link>
-        <Link target="_blank" href={'https://github.com/gokuljs'}>
-          <DiscordLogoIcon className={styles.icon} />
+        <Link target="_blank" href="mailto:jsgokul123@gmail.com">
+          <Gmail className={styles.svgIcon} />
         </Link>
       </div>
     </div>

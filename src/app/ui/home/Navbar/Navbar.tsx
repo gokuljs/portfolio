@@ -1,11 +1,14 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from '@styles/navar.module.scss';
 import { PinBottomIcon } from '@radix-ui/react-icons';
 import clsx from 'clsx';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const headerRef = useRef<HTMLDivElement | null>(null);
+  const [goingUp, setGoingUp] = useState(true);
+  const prevScrollY = useRef(0);
   const handleScroll = (): void => {
     const offset = window.scrollY;
 
@@ -22,8 +25,44 @@ const Navbar = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (
+        window.pageYOffset > 100 &&
+        prevScrollY.current < currentScrollY &&
+        goingUp
+      ) {
+        setGoingUp(false);
+      }
+      if (prevScrollY.current > currentScrollY && !goingUp) {
+        setGoingUp(true);
+      }
+      prevScrollY.current = currentScrollY;
+      if (headerRef.current) {
+        headerRef.current.style.background =
+          currentScrollY < 100 ? 'transparent' : '#fff';
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [goingUp]);
+
+  console.log(goingUp, 'ssss');
+
   return (
-    <div className={clsx(styles.Navbar, { [styles.scrolled]: scrolled })}>
+    <div
+      ref={headerRef}
+      className={clsx(
+        styles.Navbar,
+        { [styles.scrolled]: scrolled },
+        {
+          [styles.navHidden]: !goingUp,
+        },
+      )}
+    >
       <div className={styles.logo}></div>
       <div className={styles.items}>
         <div className={styles.topics}>skills</div>

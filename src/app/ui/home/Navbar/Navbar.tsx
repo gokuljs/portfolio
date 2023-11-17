@@ -50,8 +50,6 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [goingUp]);
 
-  console.log(goingUp, 'ssss');
-
   return (
     <div
       ref={headerRef}

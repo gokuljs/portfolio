@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import Image from 'next/image';
 const Experience = () => {
   return (
-    <div className={styles.Experience}>
+    <div className={styles.Experience} id="experience">
       <h1 className={styles.heading}>Professional Experience</h1>
       <div className={styles.timeline}>
         <div className={clsx(styles.container, styles.leftContainer)}>

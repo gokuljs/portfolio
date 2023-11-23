@@ -23,7 +23,7 @@ const Skill: React.FC = () => {
     );
   }, []);
   return (
-    <div className={styles.skills}>
+    <div className={styles.skills} id="skills">
       <div className={styles.contain}>
         <h1 className={styles.heading}>What I know</h1>
         <div className={styles.container}>

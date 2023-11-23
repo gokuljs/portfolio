@@ -7,7 +7,6 @@ import styles from '@styles/tsParticles.module.scss';
 
 const TsParticles = () => {
   const particlesInit = useCallback(async (engine: Engine) => {
-    console.log(engine);
     await loadSlim(engine);
   }, []);
 

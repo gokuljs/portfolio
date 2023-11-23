@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from '@styles/navar.module.scss';
 import { PinBottomIcon } from '@radix-ui/react-icons';
 import clsx from 'clsx';
-import Logo from '../../../../../public/test.svg';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -62,14 +61,7 @@ const Navbar = () => {
         },
       )}
     >
-      <div className={styles.logo}>
-        <Logo
-          style={{
-            width: '70',
-            height: 70,
-          }}
-        />
-      </div>
+      <div className={styles.logo}></div>
       <div className={styles.items}>
         <div className={styles.topics}>skills</div>
         <div className={styles.topics}>Projects</div>

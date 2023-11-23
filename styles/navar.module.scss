@@ -1,5 +1,5 @@
 .Navbar {
-  height: 100px;
+  height: 80px;
   width: 100%;
   position: fixed;
   z-index: 10;
@@ -8,6 +8,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transform: translateY(0%);
+  transition: 0.15s ease;
   .logo {
     padding-left: 40px;
     color: #1a202c;
@@ -75,4 +77,10 @@
       }
     }
   }
+}
+.scrolled {
+  background-color: white;
+}
+.navHidden {
+  transform: translateY(-100%);
 }

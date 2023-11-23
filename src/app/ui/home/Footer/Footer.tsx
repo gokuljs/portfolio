@@ -43,7 +43,7 @@ const Footer = () => {
         </linearGradient>
         <path
           fill="url(#myGradient)"
-          fill-opacity="1"
+          fillOpacity="1"
           d="M0,64L1440,192L1440,320L0,320Z"
         ></path>
       </svg>

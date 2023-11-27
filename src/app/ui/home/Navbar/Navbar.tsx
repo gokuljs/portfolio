@@ -4,6 +4,7 @@ import styles from '@styles/navar.module.scss';
 import { PinBottomIcon } from '@radix-ui/react-icons';
 import clsx from 'clsx';
 
+const RESUME = '/GokulJS.pdf';
 const Navbar = () => {
   const scrollToSection = (id: string): void => {
     const section = document.getElementById(id);
@@ -86,11 +87,11 @@ const Navbar = () => {
         >
           Experience
         </div>
-        <div className={styles.Resume}>
+        <a download="GokulJS.pdf" href={RESUME} className={styles.Resume}>
           <span>
             Download CV <PinBottomIcon className={styles.icon} />
           </span>
-        </div>
+        </a>
       </div>
     </div>
   );

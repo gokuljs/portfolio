@@ -20,36 +20,37 @@ const Experience = () => {
             <small>Nov 2022 – Nov 2023 | San Francisco, California</small>
             <ul className={styles.companyAbout}>
               <li>
-                Led the development of Aerotime's frontend infrastructure using
-                React, Vite, Next.js, Redux, and React Query, ensuring
-                scalability and efficiency.
+                Spearheaded the complete management and enhancement of the
+                frontend infrastructure, resulting in significant improvements
+                in web application performance.
+              </li>
+              <li>
+                Contributed to the development of a JavaScript SDK as part of a
+                team, facilitating third-party integrations and expanding the
+                application's functionalities.
               </li>
               <li>
                 Engaged directly with customers through discovery calls and
-                feedback sessions, using insights to drive user-centric product
-                development.
+                feedback sessions, utilizing these insights to drive
+                user-centric product development.
               </li>
               <li>
-                Communicated critical user feedback to company founders, playing
-                a key role in strategic decision-making and problem-solving
-                processes.
+                Communicated critical user feedback to the company founders,
+                playing a pivotal role in strategic decision-making and
+                problem-solving processes.
               </li>
               <li>
                 Deployed and managed open-source large language models like
-                LLaMA and Stable Diffusion, enhancing the company's AI
-                capabilities.
+                LLaMA and Stable Diffusion, substantially enhancing the
+                company's AI capabilities.
               </li>
               <li>
-                Employed advanced techniques from the Hugging Face library,
-                including DreamBooth and Textual Inversion, to optimize AI model
-                performance.
-              </li>
-              <li>
-                Maintained a focus on continuous technological improvement and
-                innovation, contributing to Aerotime's competitive edge in the
-                market.
+                Employed advanced techniques from the Hugging Face library, such
+                as DreamBooth and Textual Inversion, to optimize AI model
+                performance and efficiency.
               </li>
             </ul>
+
             <span className={styles.leftArrow}></span>
           </div>
         </div>

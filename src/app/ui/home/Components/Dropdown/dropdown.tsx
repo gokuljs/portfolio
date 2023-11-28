@@ -1,5 +1,5 @@
 import { DropdownProps } from '@/app/lib/dropdown';
-import React, { use, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from 'styles/dropdown.module.scss';
 import { ChevronDownIcon } from '@radix-ui/react-icons';
 import clsx from 'clsx';

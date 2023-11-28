@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '@styles/hero.module.scss';
 import Image from 'next/image';
-import { DiscordLogoIcon, TwitterLogoIcon } from '@radix-ui/react-icons';
+import { TwitterLogoIcon } from '@radix-ui/react-icons';
 import { GitHubLogoIcon, LinkedInLogoIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
 import Gmail from '../../../../../public/gmail.svg';

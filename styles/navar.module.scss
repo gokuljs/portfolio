@@ -10,10 +10,18 @@
   align-items: center;
   transform: translateY(0%);
   transition: 0.15s ease;
+  .mob-nav {
+    @media screen and (max-width: 800px) {
+      display: block;
+      border: 1px solid black;
+      padding-right: 10px;
+    }
+  }
   .logo {
     padding-left: 40px;
     color: #1a202c;
   }
+
   .items {
     display: flex;
     align-items: center;

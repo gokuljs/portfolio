@@ -69,6 +69,8 @@ const Navbar = () => {
       )}
     >
       <div className={styles.logo}></div>
+      <div className="mob-nav">hello</div>
+
       <div className={styles.items}>
         <div
           className={styles.topics}

@@ -14,6 +14,10 @@ const GithubGraph = () => {
   const [gitHubYearList, setGithubYearList] = useState<number[]>([]);
   const [dropdownState, setDropdownState] = useState<boolean>(false);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   useEffect(() => {
     const arr = [];
     for (let i = new Date().getFullYear(); i >= 2019; i--) {
@@ -30,7 +34,9 @@ const GithubGraph = () => {
       clearTimeout(timeOutFn);
     };
   }, []);
-
+  if (!isMounted) {
+    return null;
+  }
   return (
     <div className={styles.github}>
       <h1 className={styles.heading}>Year in Review: GitHub Activity</h1>

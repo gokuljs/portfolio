@@ -116,6 +116,11 @@
   justify-content: space-between;
   border: 1px solid black;
   padding: 20px 0px;
+  background-image: url(../public//hero.png);
+  background-position: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+
   .items {
     padding: 0 20px;
     display: flex;

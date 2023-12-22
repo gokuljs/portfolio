@@ -1,7 +1,11 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import styles from '@styles/navar.module.scss';
-import { DragHandleHorizontalIcon, PinBottomIcon } from '@radix-ui/react-icons';
+import {
+  DragHandleHorizontalIcon,
+  PinBottomIcon,
+  Cross2Icon,
+} from '@radix-ui/react-icons';
 import clsx from 'clsx';
 
 const RESUME = '/GokulJS.pdf';
@@ -99,7 +103,39 @@ const Navbar = () => {
           </a>
         </div>
       </div>
-      <div className={styles.navSlide}>asas</div>
+      <div className={styles.navSlide}>
+        <div className={styles.items}>
+          <div className={styles.crossIcon}>
+            <Cross2Icon className={styles.icon} />
+          </div>
+          <div className={styles.navItems}>
+            <div
+              className={styles.topics}
+              onClick={() => {
+                scrollToSection('skills');
+              }}
+            >
+              skills
+            </div>
+            {/* <div className={styles.topics}>Projects</div> */}
+            <div
+              className={styles.topics}
+              onClick={() => {
+                scrollToSection('experience');
+              }}
+            >
+              Experience
+            </div>
+          </div>
+        </div>
+        <div className={styles.download}>
+          <a download="GokulJS.pdf" href={RESUME} className={styles.Resume}>
+            <span>
+              Download CV <PinBottomIcon className={styles.icon} />
+            </span>
+          </a>
+        </div>
+      </div>
     </>
   );
 };

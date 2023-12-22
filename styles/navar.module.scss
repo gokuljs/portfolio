@@ -103,7 +103,7 @@
   border: 1px solid black;
   position: fixed;
   z-index: 999999;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   top: 0;
   left: 0;
@@ -111,4 +111,88 @@
   right: 0;
   background: white;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid black;
+  padding: 20px 0px;
+  .items {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    .crossIcon {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      .icon {
+        color: var(--light-base-fg-fg-4, #717d96);
+        height: 2rem;
+        width: 2rem;
+        cursor: pointer;
+      }
+    }
+    .navItems {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 1rem;
+      .topics {
+        display: flex;
+        height: 2.25rem;
+        padding: 0.5625rem 1rem;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--light-base-fg-fg-4, #717d96);
+        font-feature-settings: 'cv04' on, 'ss08' on;
+
+        font-size: 1.4125rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 0.8125rem;
+        text-transform: capitalize;
+        cursor: pointer;
+        transition: all 0.15s ease-in-out;
+        &:hover {
+          color: #386dff;
+        }
+      }
+    }
+  }
+
+  .download {
+    padding: 0 20px;
+    .Resume {
+      background: linear-gradient(#fff, #fff) padding-box,
+        linear-gradient(170deg, #ea9daa, #7575eb) border-box;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(56, 109, 255, 0.25),
+        0 4px 12px 2px rgba(56, 109, 255, 0.15), inset 0 -3px 0 #fff;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      height: 42px;
+      line-height: 16px;
+      padding: 0 20px;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      span {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        -webkit-text-fill-color: transparent;
+        background: linear-gradient(129.25deg, #d27d8c 15.07%, #4e4ecd 89.65%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        .icon {
+          fill: #4e4ecd;
+          color: #4e4ecd;
+        }
+      }
+    }
+  }
 }

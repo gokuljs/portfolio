@@ -10,13 +10,6 @@
   align-items: center;
   transform: translateY(0%);
   transition: 0.15s ease;
-  .mob-nav {
-    @media screen and (max-width: 800px) {
-      display: block;
-      border: 1px solid black;
-      padding-right: 10px;
-    }
-  }
   .logo {
     padding-left: 40px;
     color: #1a202c;
@@ -85,10 +78,37 @@
       }
     }
   }
+  .mobileNav {
+    display: none;
+    @media screen and (max-width: 800px) {
+      display: block;
+      margin-right: 10px;
+      .menu {
+        color: var(--light-base-fg-fg-4, #717d96);
+        font-size: 2.5rem;
+        height: 2rem;
+        width: 2rem;
+        cursor: pointer;
+      }
+    }
+  }
 }
 .scrolled {
   background-color: white;
 }
 .navHidden {
   transform: translateY(-100%);
+}
+.navSlide {
+  border: 1px solid black;
+  position: fixed;
+  z-index: 999999;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: white;
+  overflow: hidden;
 }

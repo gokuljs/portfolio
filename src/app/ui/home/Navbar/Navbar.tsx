@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import styles from '@styles/navar.module.scss';
-import { PinBottomIcon } from '@radix-ui/react-icons';
+import { DragHandleHorizontalIcon, PinBottomIcon } from '@radix-ui/react-icons';
 import clsx from 'clsx';
 
 const RESUME = '/GokulJS.pdf';
@@ -58,44 +58,49 @@ const Navbar = () => {
   }, [goingUp]);
 
   return (
-    <div
-      ref={headerRef}
-      className={clsx(
-        styles.Navbar,
-        { [styles.scrolled]: scrolled },
-        {
-          [styles.navHidden]: !goingUp,
-        },
-      )}
-    >
-      <div className={styles.logo}></div>
-      <div className="mob-nav">hello</div>
+    <>
+      <div
+        ref={headerRef}
+        className={clsx(
+          styles.Navbar,
+          { [styles.scrolled]: scrolled },
+          {
+            [styles.navHidden]: !goingUp,
+          },
+        )}
+      >
+        <div className={styles.logo}></div>
+        <div className={styles.mobileNav}>
+          <DragHandleHorizontalIcon className={styles.menu} />
+        </div>
 
-      <div className={styles.items}>
-        <div
-          className={styles.topics}
-          onClick={() => {
-            scrollToSection('skills');
-          }}
-        >
-          skills
+        <div className={styles.items}>
+          <div
+            className={styles.topics}
+            onClick={() => {
+              scrollToSection('skills');
+            }}
+          >
+            skills
+          </div>
+          {/* <div className={styles.topics}>Projects</div> */}
+          <div
+            className={styles.topics}
+            onClick={() => {
+              scrollToSection('experience');
+            }}
+          >
+            Experience
+          </div>
+          <a download="GokulJS.pdf" href={RESUME} className={styles.Resume}>
+            <span>
+              Download CV <PinBottomIcon className={styles.icon} />
+            </span>
+          </a>
         </div>
-        {/* <div className={styles.topics}>Projects</div> */}
-        <div
-          className={styles.topics}
-          onClick={() => {
-            scrollToSection('experience');
-          }}
-        >
-          Experience
-        </div>
-        <a download="GokulJS.pdf" href={RESUME} className={styles.Resume}>
-          <span>
-            Download CV <PinBottomIcon className={styles.icon} />
-          </span>
-        </a>
       </div>
-    </div>
+      <div className={styles.navSlide}>asas</div>
+    </>
   );
 };
 

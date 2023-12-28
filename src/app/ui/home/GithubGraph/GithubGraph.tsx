@@ -37,7 +37,7 @@ const GithubGraph = () => {
     initSuperflow('YOUR_API_KEY', {
       projectId: 'YOUR_PROJECT_ID',
     });
-  });
+  }, []);
 
   return (
     <div className={styles.github}>

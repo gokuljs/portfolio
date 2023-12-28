@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styles from '@styles/githubGraph.module.scss';
 import dynamic from 'next/dynamic';
 import Dropdown from '../Components/Dropdown/dropdown';
+import { initSuperflow } from '@usesuperflow/client';
 
 const GitHubCalendar = dynamic(
   () => import('react-github-calendar').then((mod) => mod),
@@ -29,6 +30,13 @@ const GithubGraph = () => {
     return () => {
       clearTimeout(timeOutFn);
     };
+  }, []);
+
+  useEffect(() => {
+    //initialize Superflow
+    initSuperflow('YOUR_API_KEY', {
+      projectId: 'YOUR_PROJECT_ID',
+    });
   }, []);
 
   return (

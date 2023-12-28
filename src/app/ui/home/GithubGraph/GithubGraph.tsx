@@ -32,12 +32,15 @@ const GithubGraph = () => {
     };
   }, []);
 
+  // initSuperflow('VbjQjpBkhVMpTD1tGncR', {
+  //   projectId: '948158540742083',
+  // });
   useEffect(() => {
     //initialize Superflow
-    initSuperflow('YOUR_API_KEY', {
-      projectId: 'YOUR_PROJECT_ID',
+    initSuperflow('VbjQjpBkhVMpTD1tGncR', {
+      projectId: '948158540742083',
     });
-  }, []);
+  });
 
   return (
     <div className={styles.github}>

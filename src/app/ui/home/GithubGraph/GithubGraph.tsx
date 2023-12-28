@@ -15,6 +15,8 @@ const GithubGraph = () => {
   const [gitHubYearList, setGithubYearList] = useState<number[]>([]);
   const [dropdownState, setDropdownState] = useState<boolean>(false);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
+  const [seconds, setSeconds] = useState(0);
+
   useEffect(() => {
     const arr = [];
     for (let i = new Date().getFullYear(); i >= 2019; i--) {
@@ -32,6 +34,15 @@ const GithubGraph = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setSeconds((prevSeconds) => prevSeconds + 1);
+    }, 1000);
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
+
   // initSuperflow('VbjQjpBkhVMpTD1tGncR', {
   //   projectId: '948158540742083',
   // });
@@ -41,7 +52,7 @@ const GithubGraph = () => {
     initSuperflow('VbjQjpBkhVMpTD1tGncR', {
       projectId: '948158540742083',
     });
-  }, []);
+  });
 
   return (
     <div className={styles.github}>

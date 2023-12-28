@@ -30,6 +30,7 @@ const GithubGraph = () => {
       clearTimeout(timeOutFn);
     };
   }, []);
+  console.log('');
 
   return (
     <div className={styles.github}>

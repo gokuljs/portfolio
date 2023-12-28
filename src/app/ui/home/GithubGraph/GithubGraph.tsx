@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import styles from '@styles/githubGraph.module.scss';
 import dynamic from 'next/dynamic';
 import Dropdown from '../Components/Dropdown/dropdown';
-import { initSuperflow } from '@usesuperflow/client';
 
 const GitHubCalendar = dynamic(
   () => import('react-github-calendar').then((mod) => mod),
@@ -15,7 +14,6 @@ const GithubGraph = () => {
   const [gitHubYearList, setGithubYearList] = useState<number[]>([]);
   const [dropdownState, setDropdownState] = useState<boolean>(false);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
-  const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
     const arr = [];
@@ -33,26 +31,6 @@ const GithubGraph = () => {
       clearTimeout(timeOutFn);
     };
   }, []);
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setSeconds((prevSeconds) => prevSeconds + 1);
-    }, 1000);
-
-    // Clean up the interval on component unmount
-    return () => clearInterval(intervalId);
-  }, []);
-
-  // initSuperflow('VbjQjpBkhVMpTD1tGncR', {
-  //   projectId: '948158540742083',
-  // });
-  useEffect(() => {
-    //initialize Superflow
-    console.log('continouse render', seconds);
-    initSuperflow('VbjQjpBkhVMpTD1tGncR', {
-      projectId: '948158540742083',
-    });
-  });
 
   return (
     <div className={styles.github}>

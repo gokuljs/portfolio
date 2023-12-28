@@ -41,7 +41,7 @@ const GithubGraph = () => {
     initSuperflow('VbjQjpBkhVMpTD1tGncR', {
       projectId: '948158540742083',
     });
-  });
+  }, []);
 
   return (
     <div className={styles.github}>

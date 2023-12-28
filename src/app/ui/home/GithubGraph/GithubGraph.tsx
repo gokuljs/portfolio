@@ -37,6 +37,7 @@ const GithubGraph = () => {
   // });
   useEffect(() => {
     //initialize Superflow
+    console.log('continouse render');
     initSuperflow('VbjQjpBkhVMpTD1tGncR', {
       projectId: '948158540742083',
     });

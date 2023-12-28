@@ -6,6 +6,11 @@ import TsParticles from './ui/home/TsParticles/TsParticles';
 import Experience from './ui/home/Experience/Experience';
 import Footer from './ui/home/Footer/Footer';
 import Navbar from './ui/home/Navbar/Navbar';
+import { initSuperflow } from '@usesuperflow/client';
+
+initSuperflow('VbjQjpBkhVMpTD1tGncR', {
+  projectId: '948158540742083',
+});
 
 export default function Home() {
   return (

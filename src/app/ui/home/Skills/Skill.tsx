@@ -27,12 +27,12 @@ const Skill: React.FC = () => {
       <div className={styles.contain}>
         <h1 className={styles.heading}>What I know</h1>
         <div className={styles.container}>
-          {skills?.map((item) => (
-            <section className={styles.category}>
+          {skills?.map((item, index) => (
+            <section key={index} className={styles.category}>
               <h2>{item.category}</h2>
               <div className={styles.items}>
-                {item.contents.map((item) => (
-                  <span>{item.name}</span>
+                {item.contents.map((item, index) => (
+                  <span key={index}>{item.name}</span>
                 ))}
               </div>
             </section>

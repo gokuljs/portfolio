@@ -41,7 +41,6 @@ const GithubGraph = () => {
           '.react-activity-calendar__scroll-container',
         );
 
-      console.log(targetElement);
       if (targetElement) {
         // Calculate the maximum scroll position
         const maxScrollLeft =

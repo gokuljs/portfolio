@@ -10,16 +10,18 @@ import clsx from 'clsx';
 
 const RESUME = '/GokulJS.pdf';
 const Navbar = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const headerRef = useRef<HTMLDivElement | null>(null);
+  const [goingUp, setGoingUp] = useState(true);
+  const prevScrollY = useRef(0);
+  const [isMobileNav, setIsMobileNav] = useState(false);
+  const [isNavActive, setIsNavActive] = useState(false);
   const scrollToSection = (id: string): void => {
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' });
     }
   };
-  const [scrolled, setScrolled] = useState(false);
-  const headerRef = useRef<HTMLDivElement | null>(null);
-  const [goingUp, setGoingUp] = useState(true);
-  const prevScrollY = useRef(0);
   const handleScroll = (): void => {
     const offset = window.scrollY;
 
@@ -75,7 +77,13 @@ const Navbar = () => {
       >
         <div className={styles.logo}></div>
         <div className={styles.mobileNav}>
-          <DragHandleHorizontalIcon className={styles.menu} />
+          <DragHandleHorizontalIcon
+            className={styles.menu}
+            onClick={() => {
+              setIsMobileNav(true);
+              setIsNavActive(true);
+            }}
+          />
         </div>
 
         <div className={styles.items}>
@@ -103,16 +111,25 @@ const Navbar = () => {
           </a>
         </div>
       </div>
-      <div className={styles.navSlide}>
+      <div
+        className={clsx(styles.navSlide, {
+          [styles.showNav]: isMobileNav,
+          [styles.showNavHidden]: !isMobileNav && isNavActive,
+        })}
+      >
         <div className={styles.items}>
           <div className={styles.crossIcon}>
-            <Cross2Icon className={styles.icon} />
+            <Cross2Icon
+              onClick={() => setIsMobileNav(false)}
+              className={styles.icon}
+            />
           </div>
           <div className={styles.navItems}>
             <div
               className={styles.topics}
               onClick={() => {
                 scrollToSection('skills');
+                setIsMobileNav(false);
               }}
             >
               skills
@@ -122,6 +139,7 @@ const Navbar = () => {
               className={styles.topics}
               onClick={() => {
                 scrollToSection('experience');
+                setIsMobileNav(false);
               }}
             >
               Experience

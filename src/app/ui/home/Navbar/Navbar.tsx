@@ -40,6 +40,14 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
+    if (isMobileNav) {
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.documentElement.style.overflow = 'auto';
+    }
+  }, [isMobileNav]);
+
+  useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       if (

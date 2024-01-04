@@ -14,7 +14,7 @@ const GithubGraph = () => {
   const [gitHubYearList, setGithubYearList] = useState<number[]>([]);
   const [dropdownState, setDropdownState] = useState<boolean>(false);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
-
+  const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     const arr = [];
     for (let i = new Date().getFullYear(); i >= 2019; i--) {
@@ -58,6 +58,13 @@ const GithubGraph = () => {
       }
     }
   }, [loading]);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <div className={styles.github} suppressHydrationWarning>

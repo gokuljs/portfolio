@@ -108,7 +108,7 @@
   left: 0;
   bottom: 0;
   right: 0;
-  background: white;
+  background: black;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -172,12 +172,12 @@
     padding: 0 30px;
     margin-bottom: 40px;
     .Resume {
-      background: linear-gradient(#fff, #fff) padding-box,
+      background: linear-gradient(black, black) padding-box,
         linear-gradient(170deg, #ea9daa, #7575eb) border-box;
       border: 2px solid transparent;
       border-radius: 8px;
       box-shadow: 0 1px 3px rgba(56, 109, 255, 0.25),
-        0 4px 12px 2px rgba(56, 109, 255, 0.15), inset 0 -3px 0 #fff;
+        0 4px 12px 2px rgba(56, 109, 255, 0.15), inset 0 -3px 0 black;
       cursor: pointer;
       font-size: 16px;
       font-weight: 600;

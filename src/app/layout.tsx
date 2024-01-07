@@ -61,6 +61,8 @@ export const metadata: Metadata = {
     'Backend',
     'Open Source',
     'Engineer',
+    'writer',
+    'builder',
   ],
 };
 

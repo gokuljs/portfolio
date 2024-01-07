@@ -17,7 +17,7 @@
   .heading {
     margin-bottom: 40px;
     font-size: 2.5rem;
-    color: #181819;
+    color: #f5f5f5;
     @media screen and (max-width: 750px) {
       font-size: 2rem;
     }
@@ -42,6 +42,7 @@
       0px 15px 33px 0px rgba(45, 55, 72, 0.14),
       0px 2px 2px 0px rgba(255, 255, 255, 0.25) inset;
     flex-direction: column;
+
     gap: 1rem;
     @media screen and (max-width: 1200px) {
       width: 100%;

@@ -63,7 +63,7 @@ const Navbar = () => {
       prevScrollY.current = currentScrollY;
       if (headerRef.current) {
         headerRef.current.style.background =
-          currentScrollY < 100 ? 'transparent' : '#fff';
+          currentScrollY < 100 ? 'transparent' : 'black';
       }
     };
 

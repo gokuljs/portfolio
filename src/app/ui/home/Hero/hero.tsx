@@ -18,7 +18,7 @@ const Hero: React.FC = () => {
       />
       <h1 className={styles.heading}>Gokul JS</h1>
       <p className={styles.subtext}>
-        Founding Engineer at AeroTime, YC W21
+        Ex-Founding Engineer at AeroTime, YC W21
         <br />
         Passionate about shaping the web's future and currently looking for new
         opportunities.

@@ -24,7 +24,7 @@
     .heading {
       margin-bottom: 40px;
       font-size: 2.5rem;
-      color: #181819;
+      color: #f5f5f5;
     }
     .container {
       width: 90%;
@@ -35,17 +35,17 @@
         border-radius: 8px;
         padding: 20px;
         border-radius: 0.75rem;
-        background: var(--light-base-bg-bg-2, #fff);
+        background: black;
         box-shadow: 0px 4px 8px 0px rgba(26, 32, 44, 0.1),
           0px 8px 24px 0px rgba(45, 55, 72, 0.03),
           0px 8px 16px 0px rgba(45, 55, 72, 0.03),
-          0px 4px 8px 0px rgba(45, 55, 72, 0.05), 0px -1px 0px 0px #f0f1f4;
+          0px 4px 8px 0px rgba(45, 55, 72, 0.05), 0px -1px 0px 0px #444476;
       }
 
       .category h2 {
         font-size: 1.5em;
         margin-bottom: 10px;
-        color: #2f4858;
+        color: #d6d3d1;
       }
 
       .items span {
@@ -55,14 +55,13 @@
         padding: 10px;
         border-radius: 4px;
         transition: background-color 0.3s;
-        color: #ffffff;
-        background: var(--light-base-bg-bg-4, #f0f1f4);
-        color: var(--light-base-fg-fg-1, #1a202c);
+        color: #fafaf9;
+        background: #1c1917;
         font-feature-settings: 'cv04' on, 'ss08' on;
       }
 
       .items span:hover {
-        background: var(--light-base-bg-bg-4, #f0f1f4);
+        background: #3f3f46;
       }
       /* Responsive styles */
     }

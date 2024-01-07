@@ -29,24 +29,6 @@ const Footer = () => {
           © 2023 Gokuljs. All rights reserved
         </div>
       </div>
-      <svg
-        className={styles.waves}
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1440 320"
-      >
-        <linearGradient id="myGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" style={{ stopColor: '#4A00E0', stopOpacity: 1 }} />
-          <stop
-            offset="100%"
-            style={{ stopColor: '#8E2DE2', stopOpacity: 1 }}
-          />
-        </linearGradient>
-        <path
-          fill="url(#myGradient)"
-          fillOpacity="1"
-          d="M0,64L1440,192L1440,320L0,320Z"
-        ></path>
-      </svg>
     </div>
   );
 };

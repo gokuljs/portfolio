@@ -17,7 +17,7 @@
   .heading {
     margin-bottom: 40px;
     font-size: 2.5rem;
-    color: #181819;
+    color: #f5f5f5;
     @media screen and (max-width: 750px) {
       font-size: 2rem;
     }
@@ -36,12 +36,26 @@
     height: fit-content;
     justify-content: center;
     border-radius: 0.75rem;
-    background: #ffffff;
+    background: black;
     box-shadow: 0px 0.99752px 3px 0px rgba(113, 125, 150, 0.21),
       0px 4px 8px 0px rgba(113, 125, 150, 0.1),
       0px 15px 33px 0px rgba(45, 55, 72, 0.14),
       0px 2px 2px 0px rgba(255, 255, 255, 0.25) inset;
     flex-direction: column;
+    background-color: #71717a;
+    opacity: 0.8;
+    box-shadow: 0px 0px 10px 2px #444cf7,
+      /* First shadow in blue */ 0px 0px 10px 4px #f9a8d4;
+    background-image: radial-gradient(circle at center center, #444cf7, #f9a8d4),
+      repeating-radial-gradient(
+        circle at center center,
+        #444cf7,
+        #444cf7,
+        10px,
+        transparent 20px,
+        transparent 10px
+      );
+    background-blend-mode: multiply;
     gap: 1rem;
     @media screen and (max-width: 1200px) {
       width: 100%;

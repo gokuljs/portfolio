@@ -43,16 +43,16 @@
       cursor: pointer;
       transition: all 0.15s ease-in-out;
       &:hover {
-        color: #386dff;
+        color: #ea9daa;
       }
     }
     .Resume {
-      background: linear-gradient(#fff, #fff) padding-box,
+      background: linear-gradient(#0c0b0b, #0f0e0e) padding-box,
         linear-gradient(170deg, #ea9daa, #7575eb) border-box;
       border: 2px solid transparent;
       border-radius: 8px;
       box-shadow: 0 1px 3px rgba(56, 109, 255, 0.25),
-        0 4px 12px 2px rgba(56, 109, 255, 0.15), inset 0 -3px 0 #fff;
+        0 4px 12px 2px rgba(56, 109, 255, 0.15), inset 0 -3px 0 #0f0e0e;
       cursor: pointer;
       font-size: 16px;
       font-weight: 600;
@@ -94,7 +94,7 @@
   }
 }
 .scrolled {
-  background-color: white;
+  background-color: transparent;
 }
 .navHidden {
   transform: translateY(-100%);
@@ -163,7 +163,7 @@
         cursor: pointer;
         transition: all 0.15s ease-in-out;
         &:hover {
-          color: #386dff;
+          color: #ea9daa;
         }
       }
     }

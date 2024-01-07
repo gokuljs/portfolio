@@ -71,11 +71,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <link
-        rel="icon"
-        type="image/svg+xml"
-        href="/assets/images/favicon.svg"
-      ></link>
       <body className={inter.className}>
         <Navbar />
         {children}

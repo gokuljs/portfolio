@@ -61,21 +61,23 @@
       }
       .textBox {
         padding: 20px 30px;
-        background: var(--light-base-bg-bg-2, #fff);
+        background: black;
         position: relative;
         border-radius: 6px;
         font-size: 1rem;
-        background: var(--light-base-bg-bg-2, #fff);
+        background: black;
         box-shadow: 0px 4px 8px 0px rgba(26, 32, 44, 0.1),
           0px 8px 24px 0px rgba(45, 55, 72, 0.03),
           0px 8px 16px 0px rgba(45, 55, 72, 0.03),
-          0px 4px 8px 0px rgba(45, 55, 72, 0.05), 0px -1px 0px 0px #f0f1f4;
+          0px 4px 8px 0px rgba(45, 55, 72, 0.05), 0px -1px 0px 0px black;
         h2 {
           font-weight: 600;
+          color: #f4f4f5;
         }
         small {
           display: inline-block;
           margin-bottom: 15px;
+          color: #a8a29e;
         }
         .companyAbout {
           @media screen and (max-width: 600px) {
@@ -96,10 +98,10 @@
           z-index: 1;
           border-top: 15px solid transparent;
           border-bottom: 15px solid transparent;
-          border-left: 15px solid #ffff;
+          border-left: 15px solid #1c1917;
           right: -15px;
           @media screen and (max-width: 600px) {
-            border-right: 15px solid #ffff;
+            border-right: 15px solid #1c1917;
             border-left: 0;
             left: -15px;
           }
@@ -112,10 +114,10 @@
           z-index: 1;
           border-top: 15px solid transparent;
           border-bottom: 15px solid transparent;
-          border-right: 15px solid #ffff;
+          border-right: 15px solid #1c1917;
           left: -15px;
           @media screen and (max-width: 600px) {
-            border-right: 15px solid #ffff;
+            border-right: 15px solid #1c1917;
             border-left: 0;
             left: -15px;
           }

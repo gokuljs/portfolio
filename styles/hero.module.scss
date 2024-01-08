@@ -13,6 +13,7 @@
     object-fit: cover;
     margin-top: 30vh;
     margin-left: 200px;
+    z-index: 9;
     animation: bling-shadow 6s infinite;
     @keyframes bling-shadow {
       0%,

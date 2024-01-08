@@ -1,5 +1,6 @@
 .Experience {
   width: 100vw;
+  z-index: 99;
   min-height: 100vh;
   height: fit-content;
   display: flex;
@@ -32,6 +33,7 @@
     height: fit-content;
     position: relative;
     margin: 100px auto;
+    z-index: 9;
     @media screen and (max-width: 600px) {
       margin: 50px auto;
     }

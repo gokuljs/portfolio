@@ -32,6 +32,7 @@
       grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
       gap: 20px;
       .category {
+        z-index: 99;
         border-radius: 8px;
         padding: 20px;
         border-radius: 0.75rem;

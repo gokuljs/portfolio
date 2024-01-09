@@ -29,24 +29,20 @@
 
       .icon {
         width: 40px;
-        height: 40px;
+        height: 35px;
         color: #7e7ef1;
         background-color: black;
-        border-radius: 100%;
-        padding: 5px;
+        // padding: 5px;
         cursor: pointer;
         transition: all 0.15s ease-in-out;
         &:hover {
-          color: #8e2de2;
+          color: #f098a7;
           transform: scale(1.1);
         }
       }
       .svgIcon {
         background-color: black;
-        border-radius: 100%;
-        padding: 5px;
-        width: 40px;
-        height: 40px;
+        height: 50px;
         path {
           fill: #4949af;
           stroke-width: 10px;
@@ -55,7 +51,7 @@
         &:hover {
           transform: scale(1.1);
           path {
-            fill: #8e2de2;
+            fill: #f098a7;
             stroke-width: 10px;
           }
         }

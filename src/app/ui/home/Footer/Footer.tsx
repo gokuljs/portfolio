@@ -7,6 +7,8 @@ import {
 } from '@radix-ui/react-icons';
 import Link from 'next/link';
 import Gmail from '../../../../../public/gmail.svg';
+import Substack from '../../../../../public/Substack.svg';
+
 const Footer = () => {
   return (
     <div className={styles.Footer}>
@@ -22,7 +24,23 @@ const Footer = () => {
             <GitHubLogoIcon className={styles.icon} />
           </Link>
           <Link target="_blank" href="mailto:jsgokul123@gmail.com">
-            <Gmail className={styles.svgIcon} />
+            <Gmail
+              className={styles.svgIcon}
+              style={{
+                width: '45px',
+              }}
+            />
+          </Link>
+          <Link
+            target="_blank"
+            href="https://substack.com/@gokuljs?utm_source=profile-page"
+          >
+            <Substack
+              className={styles.svgIcon}
+              style={{
+                height: '30px',
+              }}
+            />
           </Link>
         </div>
         <div className={styles.copyright}>

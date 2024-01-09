@@ -5,6 +5,7 @@ import { TwitterLogoIcon } from '@radix-ui/react-icons';
 import { GitHubLogoIcon, LinkedInLogoIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
 import Gmail from '../../../../../public/gmail.svg';
+import Substack from '../../../../../public/Substack.svg';
 
 const Hero: React.FC = () => {
   return (
@@ -24,17 +25,45 @@ const Hero: React.FC = () => {
         opportunities.
       </p>
       <div className={styles.logos}>
-        <Link target="_blank" href={'https://twitter.com/gokul_js029'}>
+        <Link
+          target="_blank"
+          href={'https://twitter.com/gokul_js029'}
+          className={styles.container}
+        >
           <TwitterLogoIcon className={styles.icon} />
         </Link>
-        <Link target="_blank" href={'https://www.linkedin.com/in/gokul-js/'}>
+        <Link
+          target="_blank"
+          href={'https://www.linkedin.com/in/gokul-js/'}
+          className={styles.container}
+        >
           <LinkedInLogoIcon className={styles.icon} />
         </Link>
-        <Link target="_blank" href={'https://github.com/gokuljs'}>
+        <Link
+          target="_blank"
+          href={'https://github.com/gokuljs'}
+          className={styles.container}
+        >
           <GitHubLogoIcon className={styles.icon} />
         </Link>
-        <Link target="_blank" href="mailto:jsgokul123@gmail.com">
+        <Link
+          target="_blank"
+          href="mailto:jsgokul123@gmail.com"
+          className={styles.container}
+        >
           <Gmail className={styles.svgIcon} />
+        </Link>
+        <Link
+          target="_blank"
+          href="https://substack.com/@gokuljs?utm_source=profile-page"
+          className={styles.container}
+        >
+          <Substack
+            className={styles.svgIcon}
+            style={{
+              height: '25px',
+            }}
+          />
         </Link>
       </div>
     </div>

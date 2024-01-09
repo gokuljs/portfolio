@@ -61,7 +61,7 @@ const Hero: React.FC = () => {
           <Substack
             className={styles.svgIcon}
             style={{
-              height: '25px',
+              height: '20px',
             }}
           />
         </Link>

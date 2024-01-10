@@ -19,10 +19,14 @@ const Hero: React.FC = () => {
       />
       <h1 className={styles.heading}>Gokul JS</h1>
       <p className={styles.subtext}>
-        Ex-Founding Engineer at AeroTime, YC W21
+        <span className={styles.bgBlack}>
+          Ex-Founding Engineer at AeroTime, YC W21
+        </span>
         <br />
-        Passionate about shaping the web's future and currently looking for new
-        opportunities.
+        <span className={styles.bgBlack}>
+          Passionate about shaping the web's future and currently looking for
+          new opportunities.
+        </span>
       </p>
       <div className={styles.logos}>
         <Link

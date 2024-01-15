@@ -1,0 +1,13 @@
+.projects {
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  background-color: #000000;
+  opacity: 0.8;
+  background-image: repeating-radial-gradient(
+      circle at 0 0,
+      transparent 0,
+      #000000 10px
+    ),
+    repeating-linear-gradient(#e5e5e955, #e5e5e9);
+}

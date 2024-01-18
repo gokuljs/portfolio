@@ -53,22 +53,12 @@ body {
   justify-content: flex-start;
   max-width: 2500px;
   margin: 0 auto;
-  --dot-bg: black;
-  --dot-color: white;
-  --dot-size: 1px;
-  --dot-space: 22px;
-  background: linear-gradient(
-        90deg,
-        var(--dot-bg) calc(var(--dot-space) - var(--dot-size)),
-        transparent 1%
-      )
-      center / var(--dot-space) var(--dot-space),
-    linear-gradient(
-        var(--dot-bg) calc(var(--dot-space) - var(--dot-size)),
-        transparent 1%
-      )
-      center / var(--dot-space) var(--dot-space),
-    var(--dot-color);
+  background-color: #000;
+  opacity: 0.9;
+  background-image: radial-gradient(#ffffff 2px, transparent 2px),
+    radial-gradient(#ffffff 2px, #000 2px);
+  background-size: 80px 80px;
+  background-position: 0 0, 40px 40px;
 }
 
 a {

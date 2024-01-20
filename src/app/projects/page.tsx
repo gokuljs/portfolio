@@ -2,6 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import styles from '@styles/projects.module.scss';
 import gsap from 'gsap';
+import Image from 'next/image';
 
 class Meteor {
   canvas: HTMLCanvasElement;
@@ -342,19 +343,23 @@ const Page = () => {
         <div className={styles.line}>
           <canvas className={styles.meteor}></canvas>
         </div>
-        {/* <article></article> */}
-        {/* <div className={`${styles.line} ${styles['line--collider']}`}>
-          <canvas className={styles.meteor} data-offset="-40"></canvas>
-        </div> */}
-        <div className="line line--collider">
-          <canvas className={styles.meteor} data-offset="50"></canvas>
+
+        <div className={styles.card}>
+          <div className={styles.container}>
+            <div className={styles.image}>
+              <Image
+                src="/Notion.jpeg"
+                layout="fill"
+                objectFit="cover"
+                className={styles.img}
+                alt="Notion"
+              />
+            </div>
+          </div>
+          <div className={styles.container}></div>
+          <div className={styles.container}></div>
         </div>
-        <div className="line line--collider">
-          <canvas className={styles.meteor} data-offset="50"></canvas>
-        </div>{' '}
-        <div className="line line--collider">
-          <canvas className={styles.meteor} data-offset="50"></canvas>
-        </div>
+
         <svg
           className={styles['sr-only']}
           viewBox="0 0 30 10"

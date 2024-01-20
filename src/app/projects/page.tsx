@@ -343,9 +343,15 @@ const Page = () => {
           <canvas className={styles.meteor}></canvas>
         </div>
         {/* <article></article> */}
-        <div className={`${styles.line} ${styles['line--collider']}`}>
+        {/* <div className={`${styles.line} ${styles['line--collider']}`}>
           <canvas className={styles.meteor} data-offset="-40"></canvas>
+        </div> */}
+        <div className="line line--collider">
+          <canvas className={styles.meteor} data-offset="50"></canvas>
         </div>
+        <div className="line line--collider">
+          <canvas className={styles.meteor} data-offset="50"></canvas>
+        </div>{' '}
         <div className="line line--collider">
           <canvas className={styles.meteor} data-offset="50"></canvas>
         </div>

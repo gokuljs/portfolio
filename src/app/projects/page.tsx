@@ -337,14 +337,44 @@ const Page = () => {
   return (
     <div className={styles.projects}>
       <div className={styles.wrapper}>
-        <div className={styles.line}>
-          <canvas className={styles.meteor}></canvas>
-        </div>
-        <div className={styles.line}>
-          <canvas className={styles.meteor}></canvas>
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            background: 'transparent',
+            overflow: 'hidden',
+            height: '100vh',
+            width: '100rem',
+          }}
+        >
+          <div className={styles.line}>
+            <canvas className={styles.meteor}></canvas>
+          </div>
+          <div className={styles.line}>
+            <canvas className={styles.meteor}></canvas>
+          </div>
+          <div
+            style={{
+              bottom: '0',
+              rotate: '-50deg',
+            }}
+            className={styles.line}
+          >
+            <canvas className={styles.meteor}></canvas>
+          </div>
+          <div
+            style={{
+              bottom: '0',
+              rotate: '-50deg',
+            }}
+            className={styles.line}
+          >
+            <canvas className={styles.meteor}></canvas>
+          </div>
         </div>
 
-        <div className={styles.card}>
+        {/* <div className={styles.card}>
           <div className={styles.container}>
             <div className={styles.image}>
               <Image
@@ -358,24 +388,7 @@ const Page = () => {
           </div>
           <div className={styles.container}></div>
           <div className={styles.container}></div>
-        </div>
-
-        <svg
-          className={styles['sr-only']}
-          viewBox="0 0 30 10"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <filter id="drop">
-              <feDropShadow
-                dx="0"
-                dy="0"
-                stdDeviation="16"
-                flood-color="orange"
-              />
-            </filter>
-          </defs>
-        </svg>
+        </div> */}
       </div>
     </div>
   );

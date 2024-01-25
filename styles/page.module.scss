@@ -5,4 +5,9 @@
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
+  --dot-bg: black;
+  --dot-color: white;
+  --dot-size: 1px;
+  --dot-space: 22px;
+  background-color: black;
 }

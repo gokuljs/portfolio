@@ -113,7 +113,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px 0px;
+  padding-top: 20px;
   background-image: url(../public//hero.png);
   background-position: fixed;
   background-repeat: no-repeat;
@@ -170,7 +170,7 @@
   }
   .download {
     padding: 0 30px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     .Resume {
       background: linear-gradient(black, black) padding-box,
         linear-gradient(170deg, #ea9daa, #7575eb) border-box;

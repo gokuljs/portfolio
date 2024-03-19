@@ -32,7 +32,14 @@ const Skill: React.FC = () => {
               <h2>{item.category}</h2>
               <div className={styles.items}>
                 {item.contents.map((item, index) => (
-                  <span key={index}>{item.name}</span>
+                  <span
+                    key={index}
+                    style={{
+                      userSelect: 'none',
+                    }}
+                  >
+                    {item.name}
+                  </span>
                 ))}
               </div>
             </section>

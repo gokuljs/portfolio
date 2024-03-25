@@ -25,6 +25,7 @@ export const skillsWithRatings = [
   { name: 'Prisma', rating: 6, category: 'Backend' },
   { name: 'SQL', rating: 6, category: 'Backend' },
   { name: 'AWS EFS', rating: 6, category: 'Backend' },
+  { name: 'AWS EC2', rating: 6, category: 'Backend' },
   { name: 'Mysql', rating: 6, category: 'Database' },
   { name: 'PostgreSQL', rating: 6, category: 'Database' },
   { name: 'MongoDB', rating: 6, category: 'Database' },

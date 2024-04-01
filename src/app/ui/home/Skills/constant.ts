@@ -41,7 +41,7 @@ export const skillsWithRatings = [
   { name: 'Sanity', rating: 6, category: 'CMS' },
   { name: 'Micro Services', rating: 2, category: 'Currently Exploring' },
   { name: 'Kubernetes', rating: 3, category: 'Currently Exploring' },
-  { name: 'Docker', rating: 3, category: 'Currently Exploring' },
+  { name: 'Docker', rating: 3, category: 'Backend' },
   { name: 'Video Based LLM', rating: 2, category: 'Currently Exploring' },
   { name: 'Mistral 7B', rating: 1, category: 'Currently Exploring' },
   { name: 'Mistral', rating: 2, category: 'Currently Exploring' },

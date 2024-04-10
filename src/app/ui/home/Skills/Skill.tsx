@@ -31,16 +31,18 @@ const Skill: React.FC = () => {
             <section key={index} className={styles.category}>
               <h2>{item.category}</h2>
               <div className={styles.items}>
-                {item.contents.map((item, index) => (
-                  <span
-                    key={index}
-                    style={{
-                      userSelect: 'none',
-                    }}
-                  >
-                    {item.name}
-                  </span>
-                ))}
+                {item.contents
+                  .sort((a, b) => a.name.length - b.name.length)
+                  .map((item, index) => (
+                    <span
+                      key={index}
+                      style={{
+                        userSelect: 'none',
+                      }}
+                    >
+                      {item.name}
+                    </span>
+                  ))}
               </div>
             </section>
           ))}

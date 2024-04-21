@@ -18,18 +18,18 @@
     @keyframes bling-shadow {
       0%,
       100% {
-        filter: drop-shadow(0px 0px 8px #f098a7); /* Start with pink */
+        filter: drop-shadow(0px 0px 8px #86868b); /* Start with pink */
       }
       25% {
-        filter: drop-shadow(0px 0px 8px #7e7ef1); /* Change to violet */
+        filter: drop-shadow(0px 0px 8px #86868b); /* Change to violet */
       }
       50% {
         filter: drop-shadow(
-          0px 0px 8px #f098a7
+          0px 0px 8px #86868b
         ); /* Back to pink with larger blur */
       }
       75% {
-        filter: drop-shadow(0px 0px 8px #7e7ef1); /* Change to violet again */
+        filter: drop-shadow(0px 0px 8px #86868b); /* Change to violet again */
       }
     }
     @media screen and (max-width: 800px) {

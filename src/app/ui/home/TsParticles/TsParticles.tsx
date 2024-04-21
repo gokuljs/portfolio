@@ -53,10 +53,10 @@ const TsParticles = () => {
           },
           particles: {
             color: {
-              value: '#e9d5ff',
+              value: '#86868b',
             },
             links: {
-              color: '#e9d5ff',
+              color: '#86868b',
               distance: 150,
               enable: true,
               opacity: 0.5,

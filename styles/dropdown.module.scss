@@ -50,11 +50,11 @@
       border-radius: 0.5rem;
       transition: all 0.15s ease-in-out;
       &:hover {
-        background-color: #86868b;
+        background-color: rgb(174, 133, 244);
       }
     }
     .itemActive {
-      background-color: #86868b;
+      background-color: rgb(174, 133, 244);
     }
   }
 }

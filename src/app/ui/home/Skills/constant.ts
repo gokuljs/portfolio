@@ -23,7 +23,6 @@ export const skillsWithRatings = [
   { name: 'GitHub CI/CD', rating: 6, category: 'Backend' },
   { name: 'TypeORM', rating: 6, category: 'Backend' },
   { name: 'Prisma', rating: 6, category: 'Backend' },
-
   { name: 'Django', rating: 6, category: 'Backend' },
   { name: 'Mysql', rating: 6, category: 'Database' },
   { name: 'PostgreSQL', rating: 6, category: 'Database' },
@@ -33,6 +32,12 @@ export const skillsWithRatings = [
   { name: 'Llama', rating: 5, category: 'LLM' },
   { name: 'Stable Diffusion', rating: 5, category: 'LLM' },
   { name: 'Prompt Engineering', rating: 7, category: 'LLM' },
+  { name: 'RAG', rating: 7, category: 'LLM' },
+  { name: 'LlamaIndex', rating: 7, category: 'LLM' },
+  { name: 'Langchain', rating: 7, category: 'LLM' },
+  { name: 'AUTOMATIC1111', rating: 7, category: 'LLM' },
+  { name: 'IP-Adapter', rating: 7, category: 'LLM' },
+  { name: 'ComfyUI', rating: 7, category: 'LLM' },
   { name: 'Git', rating: 9, category: 'Version Control System' },
   { name: 'GitHub', rating: 9, category: 'Version Control System' },
   { name: 'GitLab', rating: 9, category: 'Version Control System' },
@@ -44,5 +49,4 @@ export const skillsWithRatings = [
   { name: 'Video Based LLM', rating: 2, category: 'Currently Exploring' },
   { name: 'Mistral 7B', rating: 1, category: 'Currently Exploring' },
   { name: 'Mistral', rating: 2, category: 'Currently Exploring' },
-  { name: 'Whisper', rating: 2, category: 'Currently Exploring' },
 ];

@@ -1,12 +1,13 @@
 import React from 'react';
 import styles from '@styles/hero.module.scss';
 import Navbar from '../../components/Navbar';
+import { HoverBorderGradient } from '@/components/ui/hover-border-gradient';
 
 const Hero: React.FC = () => {
   return (
     <div className={styles.hero}>
       <Navbar />
-
+      <div></div>
       <div className={styles.content}>
         <div className={styles.mainTextContainer}>
           <h1 className={styles.mainText}>

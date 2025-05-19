@@ -11,6 +11,7 @@
   min-width: 200px;
   padding: 100px 60px;
   gap: 1rem;
+
   @media screen and (max-width: 600px) {
     padding: 100px 10px;
     height: 60vh;
@@ -18,23 +19,34 @@
   .heading {
     margin-bottom: 40px;
     font-size: 2.5rem;
-    background: linear-gradient(180deg, #f8f8f8, #a3a3a3);
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    background-image: radial-gradient(circle, #ffffff 60%, #525252);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    color: transparent; // Fallback for browsers that don't support -webkit-text-fill-color
+    color: transparent; // Fallback
 
     @media screen and (max-width: 750px) {
       font-size: 2rem;
+      margin-bottom: 30px;
     }
     @media screen and (max-width: 600px) {
       font-size: 1.75rem;
+      margin-bottom: 25px;
     }
     @media screen and (max-width: 500px) {
-      font-size: 1.45rem;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+    @media screen and (max-width: 375px) {
+      font-size: 1.25rem;
     }
   }
   .container {
+    position: relative;
     padding: 30px 30px;
     border-radius: 0.5rem;
     width: fit-content;
@@ -62,5 +74,17 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+  }
+}
+
+@keyframes shine {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }

@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from '@styles/githubGraph.module.scss';
 import dynamic from 'next/dynamic';
 import Dropdown from '../Components/Dropdown/dropdown';
+import { GlowingEffect } from '@/components/ui/glowing-effect';
 
 const GitHubCalendar = dynamic(
   () => import('react-github-calendar').then((mod) => mod),
@@ -68,8 +69,17 @@ const GithubGraph = () => {
 
   return (
     <div className={styles.github} suppressHydrationWarning>
-      <h1 className={styles.heading}>Year in Review: GitHub Activity</h1>
+      <h1 className={styles.heading}>GitHub Contribution Journey</h1>
       <div className={styles.container} ref={scrollContainerRef}>
+        <GlowingEffect
+          spread={80}
+          borderWidth={1}
+          glow={true}
+          disabled={false}
+          proximity={64}
+          inactiveZone={0.01}
+          variant="white"
+        />
         <div className={styles.dropdown}>
           <Dropdown
             dropdownState={dropdownState}

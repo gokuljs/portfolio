@@ -63,6 +63,11 @@
         line-height: 0.9;
         text-transform: uppercase;
         margin: 0;
+        background: linear-gradient(to bottom left, #f8f8f8 60%, #a3a3a3);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent; // Fallback for browsers that don't support -webkit-text-fill-color
 
         div {
           white-space: nowrap;
@@ -73,7 +78,7 @@
 
     .descriptionContainer {
       position: absolute;
-      bottom: 8rem;
+      bottom: 4rem;
       right: 2.5rem;
       max-width: 40%;
 

@@ -13,7 +13,7 @@ const Navbar: React.FC = () => {
 
   return (
     <header className={styles.header}>
-      <div className={styles.logo}>thebenezer</div>
+      <div className={styles.logo}>Gokul JS</div>
 
       <div className={styles.mobileMenuToggle} onClick={toggleMenu}>
         <div

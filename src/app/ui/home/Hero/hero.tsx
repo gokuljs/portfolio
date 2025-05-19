@@ -10,20 +10,22 @@ const Hero: React.FC = () => {
       <div className={styles.content}>
         <div className={styles.mainTextContainer}>
           <h1 className={styles.mainText}>
-            <div>EBENEZER</div>
-            <div>CREATIVE</div>
-            <div>DESIGNER</div>
+            <div>GOKUL JS</div>
+            <div>EX - YC</div>
+            <div>GENERALIST</div>
             <div>DEVELOPER</div>
           </h1>
         </div>
 
         <div className={styles.descriptionContainer}>
           <p className={styles.description}>
-            Ebenezer is a creative designer and developer, with over half a
-            decade of experience in building innovative websites. He specializes
-            in design and 3D on the web. Ebenezer approaches each project with
-            multidisciplinary expertise and an uncompromising commitment to
-            perfection.
+            Gokul is an ex-founding engineer and creative generalist with a
+            track record of turning early-stage ideas into real products. He’s
+            built scalable web platforms, intelligent agent systems, and handled
+            everything from system architecture to user feedback. At YC-backed
+            startups, he’s contributed across engineering, product, and design
+            to launch tools that actually get used. He thrives in fast-moving
+            environments where speed matters and “not my job” doesn’t exist.
           </p>
         </div>
       </div>
@@ -32,7 +34,7 @@ const Hero: React.FC = () => {
         <p className={styles.tagline}>
           Let's create something incredible together.
         </p>
-        <p className={styles.email}>ebenezer@creative.com</p>
+        <p className={styles.email}>jsgokul123@gmail.com</p>
       </footer>
     </div>
   );

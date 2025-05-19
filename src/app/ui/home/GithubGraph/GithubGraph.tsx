@@ -87,8 +87,8 @@ const GithubGraph = () => {
           fontSize={12}
           loading={loading}
           theme={{
-            light: ['#030712', '#b8b9f8', '#7e7ef1', '#6768c9', '#5051a1'],
-            dark: ['#030712', '#E5D8F7', '#BD9EEB', '#8E55E0', '#6000A6'],
+            dark: ['#0a0a0a', '#2e2e2e', '#555555', '#7b7b7b', '#bcbcbc'],
+            light: ['#f1f1f1', '#c8d1db', '#98a8b8', '#65778b', '#374151'],
           }}
           style={{
             color: '#F0F1F4',

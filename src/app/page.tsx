@@ -14,7 +14,6 @@ export default function Home() {
       <Skill />
       <Experience />
       <Footer />
-      <TsParticles />
     </div>
   );
 }

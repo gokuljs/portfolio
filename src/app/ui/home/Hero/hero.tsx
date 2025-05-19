@@ -1,75 +1,39 @@
 import React from 'react';
 import styles from '@styles/hero.module.scss';
-import Image from 'next/image';
-import { TwitterLogoIcon } from '@radix-ui/react-icons';
-import { GitHubLogoIcon, LinkedInLogoIcon } from '@radix-ui/react-icons';
-import Link from 'next/link';
-import Gmail from '../../../../../public/gmail.svg';
-import Substack from '../../../../../public/Substack.svg';
+import Navbar from '../../components/Navbar';
 
 const Hero: React.FC = () => {
   return (
     <div className={styles.hero}>
-      <Image
-        className={styles.profile}
-        src="/portfolio.jpeg"
-        width={140}
-        height={140}
-        alt="Gokul JS"
-      />
-      <h1 className={styles.heading}>Gokul JS</h1>
-      <p className={styles.subtext}>
-        <span className={styles.bgBlack}>
-          Ex-Founding Engineer at AeroTime, YC W21
-        </span>
-        <br />
-        <span className={styles.bgBlack}>
-          Passionate about shaping the web's future and currently looking for
-          new opportunities.
-        </span>
-      </p>
-      <div className={styles.logos}>
-        <Link
-          target="_blank"
-          href={'https://twitter.com/gokul_js029'}
-          className={styles.container}
-        >
-          <TwitterLogoIcon className={styles.icon} />
-        </Link>
-        <Link
-          target="_blank"
-          href={'https://www.linkedin.com/in/gokul-js/'}
-          className={styles.container}
-        >
-          <LinkedInLogoIcon className={styles.icon} />
-        </Link>
-        <Link
-          target="_blank"
-          href={'https://github.com/gokuljs'}
-          className={styles.container}
-        >
-          <GitHubLogoIcon className={styles.icon} />
-        </Link>
-        <Link
-          target="_blank"
-          href="mailto:jsgokul123@gmail.com"
-          className={styles.container}
-        >
-          <Gmail className={styles.svgIcon} />
-        </Link>
-        <Link
-          target="_blank"
-          href="https://substack.com/@gokuljs?utm_source=profile-page"
-          className={styles.container}
-        >
-          <Substack
-            className={styles.svgIcon}
-            style={{
-              height: '20px',
-            }}
-          />
-        </Link>
+      <Navbar />
+
+      <div className={styles.content}>
+        <div className={styles.mainTextContainer}>
+          <h1 className={styles.mainText}>
+            <div>EBENEZER</div>
+            <div>CREATIVE</div>
+            <div>DESIGNER</div>
+            <div>DEVELOPER</div>
+          </h1>
+        </div>
+
+        <div className={styles.descriptionContainer}>
+          <p className={styles.description}>
+            Ebenezer is a creative designer and developer, with over half a
+            decade of experience in building innovative websites. He specializes
+            in design and 3D on the web. Ebenezer approaches each project with
+            multidisciplinary expertise and an uncompromising commitment to
+            perfection.
+          </p>
+        </div>
       </div>
+
+      <footer className={styles.footer}>
+        <p className={styles.tagline}>
+          Let's create something incredible together.
+        </p>
+        <p className={styles.email}>ebenezer@creative.com</p>
+      </footer>
     </div>
   );
 };

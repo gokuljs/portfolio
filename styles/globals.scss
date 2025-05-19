@@ -76,3 +76,12 @@ a {
 }
 @import '@radix-ui/colors/black-alpha.css';
 @import '@radix-ui/colors/violet.css';
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

@@ -30,6 +30,15 @@ const Skill: React.FC = () => {
         <div className={styles.container}>
           {skills?.map((item, index) => (
             <div className={styles.categoryContainer}>
+              <GlowingEffect
+                spread={80}
+                borderWidth={1}
+                glow={true}
+                disabled={false}
+                proximity={64}
+                inactiveZone={0.01}
+                variant="white"
+              />
               <section key={index} className={styles.category}>
                 <h2>{item.category}</h2>
                 <div className={styles.items}>

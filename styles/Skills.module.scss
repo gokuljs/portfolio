@@ -83,7 +83,8 @@
       .category h2 {
         font-size: 1.5em;
         margin-bottom: 10px;
-        color: #d6d3d1;
+        color: #e5e5e5;
+        font-weight: 600;
       }
 
       .items span {
@@ -95,6 +96,7 @@
         transition: background-color 0.3s;
         color: #fafaf9;
         background: #1c1917;
+        background: linear-gradient(to bottom right, #1c1917, #262626);
         font-feature-settings: 'cv04' on, 'ss08' on;
       }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '@styles/hero.module.scss';
 import Navbar from '../../components/Navbar';
 import { HoverBorderGradient } from '@/components/ui/hover-border-gradient';
+import SocialDock from '../../components/SocialDock/SocialDock';
 
 const Hero: React.FC = () => {
   return (
@@ -21,12 +22,12 @@ const Hero: React.FC = () => {
         <div className={styles.descriptionContainer}>
           <p className={styles.description}>
             Gokul is an ex-founding engineer and creative generalist with a
-            track record of turning early-stage ideas into real products. He’s
+            track record of turning early-stage ideas into real products. He's
             built scalable web platforms, intelligent agent systems, and handled
             everything from system architecture to user feedback. At YC-backed
-            startups, he’s contributed across engineering, product, and design
+            startups, he's contributed across engineering, product, and design
             to launch tools that actually get used. He thrives in fast-moving
-            environments where speed matters and “not my job” doesn’t exist.
+            environments where speed matters and "not my job" doesn't exist.
           </p>
         </div>
       </div>
@@ -37,6 +38,7 @@ const Hero: React.FC = () => {
         </p>
         <p className={styles.email}>jsgokul123@gmail.com</p>
       </footer>
+      <SocialDock />
     </div>
   );
 };

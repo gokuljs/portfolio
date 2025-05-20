@@ -1,5 +1,6 @@
 import React from 'react';
 import { Timeline } from '@/components/ui/timeline';
+import Image from 'next/image';
 
 export default function Experience() {
   const data = [
@@ -48,25 +49,36 @@ export default function Experience() {
       content: (
         <div>
           <div className="mb-8">
-            <div className="flex items-center gap-4 mb-3">
-              <div className="h-12 w-12 rounded-full bg-neutral-800 flex items-center justify-center overflow-hidden border border-neutral-700">
-                <img
-                  src="/tifin-logo.svg"
-                  alt="Company Logo"
-                  className="w-full h-full"
+            <div className="flex items-center justify-between gap-4 mb-3">
+              <div className="flex gap-2">
+                <div className="h-12 w-12 rounded-full bg-neutral-800 flex items-center justify-center overflow-hidden border border-neutral-700">
+                  <img
+                    src="/ae-logo.svg"
+                    alt="Company Logo"
+                    className="w-full h-full"
+                  />
+                </div>
+                <div>
+                  <h3 className="text-base font-medium text-white">
+                    Aerotime Time
+                  </h3>
+                  <p className="text-xs text-neutral-400">Founding Engineer</p>
+                </div>
+              </div>
+              <div className="flex items-center ml-auto !mt-2 ">
+                <Image
+                  src="/yx.svg"
+                  height={125}
+                  width={125}
+                  alt="YC Logo"
+                  className="object-contain "
                 />
               </div>
-              <div>
-                <h3 className="text-base font-medium text-white">
-                  Aerotime Time
-                </h3>
-                <p className="text-xs text-neutral-400">Founding Engineer</p>
-              </div>
             </div>
-            <p className="text-xs font-normal text-neutral-400 !mt-2">
-              Bangalore, India • Full-time
+            <p className="text-sm font-normal text-neutral-300 !mt-2">
+              San Francisco, California • Full-time • Remote
             </p>
-            <p className="mt-3 text-xs !mt-1 font-normal text-neutral-300 leading-relaxed">
+            <p className="mt-4 text-sm font-normal text-neutral-200 leading-relaxed">
               Full-stack developer at TIFIN Wealth specializing in modern web
               architecture. Spearheaded frontend development using Next.js and
               React.js while driving backend integrations to enhance platform
@@ -111,10 +123,10 @@ export default function Experience() {
                 <p className="text-xs text-neutral-400">Software Engineer</p>
               </div>
             </div>
-            <p className="text-xs font-normal text-neutral-400 !mt-2">
+            <p className="text-sm font-normal text-neutral-300 !mt-2">
               Bangalore, India • Full-time
             </p>
-            <p className="mt-3 text-xs !mt-1 font-normal text-neutral-300 leading-relaxed">
+            <p className="!mt-2 text-sm font-normal text-neutral-200 leading-relaxed">
               Full-stack developer at TIFIN Wealth specializing in modern web
               architecture. Spearheaded frontend development using Next.js and
               React.js while driving backend integrations to enhance platform
@@ -127,7 +139,7 @@ export default function Experience() {
             </p>
           </div>
 
-          <div className="w-full !mt-2 h-fit">
+          <div className="w-full !mt-4 h-fit">
             <img
               src="/tifin.png"
               alt="hero template"

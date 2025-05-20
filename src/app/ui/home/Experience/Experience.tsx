@@ -89,7 +89,7 @@ export default function Experience() {
       ),
     },
     {
-      title: 'Changelog',
+      title: 'Nov 21 - Nov 22',
       content: (
         <div>
           <p className="mb-4 text-xs font-normal text-neutral-800 md:text-sm dark:text-neutral-200">

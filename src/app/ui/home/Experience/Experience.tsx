@@ -9,37 +9,42 @@ export default function Experience() {
       title: 'Jun 24 - Mar 25',
       content: (
         <div>
-          <p className="mb-8 text-xs font-normal text-neutral-800 md:text-sm dark:text-neutral-200">
-            Built and launched Aceternity UI and Aceternity UI Pro from scratch
-          </p>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="mb-8">
+            <div className="flex items-center gap-4 mb-3">
+              <div className="h-12 w-12 rounded-full bg-neutral-800 flex items-center justify-center overflow-hidden border border-neutral-700">
+                <img
+                  src="/teamble.svg"
+                  alt="Company Logo"
+                  className="w-full h-full"
+                />
+              </div>
+              <div>
+                <h3 className="text-base font-medium text-white">Teamble</h3>
+                <p className="text-xs text-neutral-400">Lead Engineer</p>
+              </div>
+            </div>
+            <p className="text-sm font-normal text-neutral-500 !mt-2">
+              New York City, NY, USA • Full-time • Remote
+            </p>
+            <p className="!mt-2 text-sm font-normal text-neutral-200 leading-relaxed">
+              Architected high-performance web apps with Node.js and React.
+              Built a full design system from scratch, dramatically speeding up
+              development. Refactored backend logic and SQL to optimize API
+              response times. Developed LLM-powered AI agents using LangGraph
+              built a role-aware conversational interface and a multi-agent
+              system using RAG and fine-tuned models. Created a OneOnOne Agent
+              that aggregates data for performance reviews and real-time
+              collaboration.
+            </p>
+          </div>
+
+          <div className="w-full !mt-4 h-fit">
             <img
-              src="https://assets.aceternity.com/templates/startup-1.webp"
-              alt="startup template"
-              width={500}
-              height={500}
-              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
-            />
-            <img
-              src="https://assets.aceternity.com/templates/startup-2.webp"
-              alt="startup template"
-              width={500}
-              height={500}
-              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
-            />
-            <img
-              src="https://assets.aceternity.com/templates/startup-3.webp"
-              alt="startup template"
-              width={500}
-              height={500}
-              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
-            />
-            <img
-              src="https://assets.aceternity.com/templates/startup-4.webp"
-              alt="startup template"
-              width={500}
-              height={500}
-              className="h-20 w-full rounded-lg object-cover shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] md:h-44 lg:h-60"
+              src="/teambleBg.png"
+              alt="hero template"
+              width={800}
+              height={800}
+              className="w-full rounded-lg border border-neutral-800 object-contain h-auto max-h-[400px]"
             />
           </div>
         </div>

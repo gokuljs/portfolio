@@ -1,72 +1,71 @@
 .Footer {
   width: 100%;
-  height: 100px;
+  background-color: black;
+  padding: 2rem;
   display: flex;
-  align-items: flex-end;
-  position: relative;
-  @media screen and (max-width: 750px) {
-    .waves {
-      display: none;
+  flex-direction: column;
+
+  @media screen and (max-width: 768px) {
+    padding: 1rem;
+  }
+
+  .footerContent {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 4rem;
+    margin: 0 auto;
+    width: 100%;
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      gap: 2.5rem;
     }
   }
-  .footerSection {
-    position: absolute;
-    bottom: 0;
 
-    width: 100%;
+  .logoSection {
+    flex: 0 0 25%;
+  }
+
+  .linksSection {
+    display: flex;
+    gap: 4rem;
+    flex-wrap: wrap;
+  }
+
+  .linkColumn {
     display: flex;
     flex-direction: column;
-    @media screen and (max-width: 750px) {
-      height: 100px;
-    }
-    .logo {
-      width: 100%;
-      height: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
+    gap: 0.75rem;
+  }
 
-      .icon {
-        width: 40px;
-        height: 35px;
-        color: #7e7ef1;
-        background-color: black;
-        // padding: 5px;
-        cursor: pointer;
-        transition: all 0.15s ease-in-out;
-        &:hover {
-          color: #f098a7;
-          transform: scale(1.1);
-        }
-      }
-      .svgIcon {
-        background-color: black;
-        height: 50px;
-        path {
-          fill: #4949af;
-          stroke-width: 10px;
-        }
-        transition: all 0.15s ease-in-out;
-        &:hover {
-          transform: scale(1.1);
-          path {
-            fill: #f098a7;
-            stroke-width: 10px;
-          }
-        }
-      }
+  .columnHeading {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+  }
+
+  .footerLink {
+    font-size: 0.9375rem;
+    color: rgba(255, 255, 255, 0.6);
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.9);
     }
-    .copyright {
-      width: 100%;
-      height: 50%;
-      color: white;
-      font-feature-settings: 'cv04' on, 'ss08' on;
-      font-size: 0.8125rem;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 1.125rem;
-      text-align: center;
+  }
+
+  .copyright {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.875rem;
+    margin-top: 5rem;
+    padding: 0 4rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+
+    @media screen and (max-width: 768px) {
+      margin-top: 3rem;
     }
   }
 }

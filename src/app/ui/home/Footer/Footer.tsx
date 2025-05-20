@@ -1,53 +1,68 @@
 import React from 'react';
 import styles from '@styles/Footer.module.scss';
-import {
-  GitHubLogoIcon,
-  LinkedInLogoIcon,
-  TwitterLogoIcon,
-} from '@radix-ui/react-icons';
 import Link from 'next/link';
-import Gmail from '../../../../../public/gmail.svg';
-import Substack from '../../../../../public/Substack.svg';
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <div className={styles.Footer}>
-      <div className={styles.footerSection}>
-        <div className={styles.logo}>
-          <Link target="_blank" href={'https://twitter.com/gokul_js029'}>
-            <TwitterLogoIcon className={styles.icon} />
-          </Link>
-          <Link target="_blank" href={'https://www.linkedin.com/in/gokul-js/'}>
-            <LinkedInLogoIcon className={styles.icon} />
-          </Link>
-          <Link target="_blank" href={'https://github.com/gokuljs'}>
-            <GitHubLogoIcon className={styles.icon} />
-          </Link>
-          <Link target="_blank" href="mailto:jsgokul123@gmail.com">
-            <Gmail
-              className={styles.svgIcon}
-              style={{
-                width: '45px',
-              }}
-            />
-          </Link>
-          <Link
-            target="_blank"
-            href="https://substack.com/@gokuljs?utm_source=profile-page"
-          >
-            <Substack
-              className={styles.svgIcon}
-              style={{
-                height: '30px',
-              }}
-            />
+    <footer className={styles.Footer}>
+      <div className={styles.footerContent}>
+        <div className={styles.logoSection}>
+          <Link href="/" className={styles.footerLogo}>
+            Gokul JS
           </Link>
         </div>
-        <div className={styles.copyright}>
-          © 2023 Gokuljs. All rights reserved
+
+        <div className={styles.linksSection}>
+          <div className={styles.linkColumn}>
+            <h4 className={styles.columnHeading}>Connect</h4>
+            <Link
+              href="https://github.com/gokuljs"
+              target="_blank"
+              className={styles.footerLink}
+            >
+              GitHub
+            </Link>
+            <Link
+              href="https://www.linkedin.com/in/gokul-js/"
+              target="_blank"
+              className={styles.footerLink}
+            >
+              LinkedIn
+            </Link>
+            <Link
+              href="https://twitter.com/gokul_js029"
+              target="_blank"
+              className={styles.footerLink}
+            >
+              Twitter
+            </Link>
+            <Link
+              href="https://substack.com/@gokuljs"
+              target="_blank"
+              className={styles.footerLink}
+            >
+              Substack
+            </Link>
+          </div>
+
+          <div className={styles.linkColumn}>
+            <h4 className={styles.columnHeading}>Contact</h4>
+            <Link
+              href="mailto:jsgokul123@gmail.com"
+              className={styles.footerLink}
+            >
+              Email
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+
+      <div className={styles.copyright}>
+        © {currentYear} Gokul JS. All rights reserved.
+      </div>
+    </footer>
   );
 };
 

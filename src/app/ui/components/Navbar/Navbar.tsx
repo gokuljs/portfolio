@@ -7,7 +7,7 @@ import { HoverBorderGradient } from '@/components/ui/hover-border-gradient';
 
 const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const RESUME = '/GokulJS.pdf';
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -37,7 +37,8 @@ const Navbar: React.FC = () => {
           work
         </Link>
         <a
-          href="#"
+          download="GokulJS.pdf"
+          href={RESUME}
           className={styles.downloadBtn}
           onClick={() => setMenuOpen(false)}
         >

@@ -22,6 +22,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-github-calendar": "^4.0.1",
+    "react-lite-youtube-embed": "^2.5.1",
     "react-particles": "^2.12.2",
     "tailwind-merge": "^3.3.0",
     "tailwindcss": "^4.1.7",

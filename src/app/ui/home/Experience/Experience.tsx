@@ -80,20 +80,19 @@ export default function Experience() {
               San Francisco, California • Full-time • Remote
             </p>
             <p className="!mt-2 text-sm font-normal text-neutral-200 leading-relaxed">
-              Full-stack developer at TIFIN Wealth specializing in modern web
-              architecture. Spearheaded frontend development using Next.js and
-              React.js while driving backend integrations to enhance platform
-              performance. Implemented Redux Toolkit for streamlined state
-              management and created an ecosystem of reusable components to
-              improve development efficiency. Integrated GraphQL and React Query
-              for optimized data fetching while modernizing the platform through
-              strategic codebase migrations. Enhanced user experience through
-              responsive design implementation and systematic bug resolution.
+              Found my people here. This team showed me you truly become who you
+              surround yourself with. Wore all the hats as a founding engineer
+              coded frontend to backend, built our JS SDK from scratch, and
+              geeked out deploying LLaMA and Stable Diffusion models. The best
+              part? Talking directly with users, turning their "what if" moments
+              into actual features. Felt like building my own startup, except
+              with brilliant teammates who pushed me daily. Still miss our 3AM
+              debugging sessions and spontaneous whiteboard jams.
             </p>
           </div>
 
           <div className="w-full !mt-3 h-fit">
-            <YouTubePlayer videoId="YX9pgiaIiSI" />
+            <YouTubePlayer />
           </div>
         </div>
       ),

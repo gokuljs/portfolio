@@ -1,13 +1,13 @@
 'use client';
+import { PlayIcon } from '@radix-ui/react-icons';
+import Image from 'next/image';
 import { useState } from 'react';
 
-const YouTubePlayer = ({ videoId }: { videoId: string }) => {
+const YouTubePlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [imgError, setImgError] = useState(false);
 
-  const handlePlay = () => {
-    setIsPlaying(true);
-  };
+  const videoId = 'YX9pgiaIiSI';
+  const posterImage = '/video-poster.jpg'; // your custom image path
 
   return (
     <div
@@ -16,38 +16,30 @@ const YouTubePlayer = ({ videoId }: { videoId: string }) => {
     >
       {!isPlaying ? (
         <div
-          className="relative w-full h-full cursor-pointer"
-          onClick={handlePlay}
+          className="w-full h-full relative cursor-pointer group"
+          onClick={() => setIsPlaying(true)}
         >
-          <img
-            src={'/video-poster.jpg'}
-            alt="YouTube Video Thumbnail"
+          <Image
+            width={1000}
+            height={1000}
+            src={posterImage}
+            alt="Custom Video Thumbnail"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-red-600 flex items-center justify-center shadow-lg hover:bg-red-700 transition-colors">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="white"
-                className="w-8 h-8 md:w-10 md:h-10 ml-1"
-              >
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </div>
+          <div className="w-[100px] h-[100px] rounded-full z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-stone-100/50 via-stone-900/10 to-white/50 flex items-center justify-center">
+            <PlayIcon className="w-10 h-10 text-neutral-900" />
           </div>
-          <div className="absolute inset-0 bg-black bg-opacity-10"></div>
         </div>
       ) : (
         <iframe
           width="100%"
           height="100%"
-          src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&modestbranding=1&rel=0`}
           title="YouTube video player"
           frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allow="autoplay; encrypted-media"
           allowFullScreen
-        ></iframe>
+        />
       )}
     </div>
   );

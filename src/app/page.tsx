@@ -13,7 +13,8 @@ export default function Home() {
       <GithubGraph />
       <Skill />
       <Experience />
-      <Footer />
+      <div className="w-full flex items-center justify-center h-[900px]"></div>
+      {/* <Footer /> */}
     </div>
   );
 }

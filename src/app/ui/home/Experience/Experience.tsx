@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Timeline } from '@/components/ui/timeline';
 import Image from 'next/image';
+import YouTubePlayer from '../../components/yotubeplayer';
 
 export default function Experience() {
   const data = [
@@ -75,10 +76,10 @@ export default function Experience() {
                 />
               </div>
             </div>
-            <p className="text-sm font-normal text-neutral-300 !mt-2">
+            <p className="text-sm font-normal text-neutral-500 !mt-2">
               San Francisco, California • Full-time • Remote
             </p>
-            <p className="mt-4 text-sm font-normal text-neutral-200 leading-relaxed">
+            <p className="!mt-2 text-sm font-normal text-neutral-200 leading-relaxed">
               Full-stack developer at TIFIN Wealth specializing in modern web
               architecture. Spearheaded frontend development using Next.js and
               React.js while driving backend integrations to enhance platform
@@ -91,14 +92,8 @@ export default function Experience() {
             </p>
           </div>
 
-          <div className="w-full !mt-2 h-fit">
-            <img
-              src="/tifin.png"
-              alt="hero template"
-              width={800}
-              height={800}
-              className="w-full rounded-lg border border-neutral-800 object-contain h-auto max-h-[400px]"
-            />
+          <div className="w-full !mt-3 h-fit">
+            <YouTubePlayer videoId="YX9pgiaIiSI" />
           </div>
         </div>
       ),
@@ -123,7 +118,7 @@ export default function Experience() {
                 <p className="text-xs text-neutral-400">Software Engineer</p>
               </div>
             </div>
-            <p className="text-sm font-normal text-neutral-300 !mt-2">
+            <p className="text-sm font-normal text-neutral-500 !mt-2">
               Bangalore, India • Full-time
             </p>
             <p className="!mt-2 text-sm font-normal text-neutral-200 leading-relaxed">

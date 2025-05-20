@@ -7,6 +7,7 @@ import {
 } from '@tabler/icons-react';
 import { Newspaper } from 'lucide-react'; // Using Newspaper icon from lucide-react for Substack
 import styles from './SocialDock.module.scss';
+import { GlowingEffect } from '@/components/ui/glowing-effect';
 
 const socialLinks = [
   {
@@ -39,6 +40,15 @@ const socialLinks = [
 const SocialDock: React.FC = () => {
   return (
     <div className={styles.socialDock}>
+      <GlowingEffect
+        spread={90}
+        borderWidth={2}
+        glow={true}
+        disabled={false}
+        proximity={44}
+        inactiveZone={0.01}
+        variant="white"
+      />
       {socialLinks.map((link) => (
         <a
           key={link.name}

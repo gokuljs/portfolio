@@ -6,7 +6,7 @@ import YouTubePlayer from '../../components/yotubeplayer';
 export default function Experience() {
   const data = [
     {
-      title: '2024',
+      title: 'Jun 24 - Mar 25',
       content: (
         <div>
           <p className="mb-8 text-xs font-normal text-neutral-800 md:text-sm dark:text-neutral-200">

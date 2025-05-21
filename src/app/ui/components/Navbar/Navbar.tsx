@@ -12,6 +12,18 @@ const Navbar: React.FC = () => {
     setMenuOpen(!menuOpen);
   };
 
+  const handleNavLinkClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    targetId: string,
+  ) => {
+    event.preventDefault();
+    const targetElement = document.getElementById(targetId.substring(1)); // Remove '#' from id
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth' });
+    }
+    setMenuOpen(false);
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.logo}>Gokul JS</div>
@@ -27,14 +39,17 @@ const Navbar: React.FC = () => {
       </div>
 
       <nav className={`${styles.nav} ${menuOpen ? styles.open : ''}`}>
-        <Link href="#skills" onClick={() => setMenuOpen(false)}>
+        <Link href="#skills" onClick={(e) => handleNavLinkClick(e, '#skills')}>
           Skills
         </Link>
-        <Link href="#experience" onClick={() => setMenuOpen(false)}>
+        <Link
+          href="#experience"
+          onClick={(e) => handleNavLinkClick(e, '#experience')}
+        >
           Experience
         </Link>
-        <Link href="#work" onClick={() => setMenuOpen(false)}>
-          work
+        <Link href="#work" onClick={(e) => handleNavLinkClick(e, '#work')}>
+          Work
         </Link>
         <a
           download="GokulJS.pdf"

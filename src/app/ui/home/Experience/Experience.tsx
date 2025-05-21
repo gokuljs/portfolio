@@ -153,7 +153,9 @@ export default function Experience() {
   ];
   return (
     <>
-      <div className={styles.timelineHeading}>Experience & Impact</div>
+      <div id="experience" className={styles.timelineHeading}>
+        Experience & Impact
+      </div>
       <div className="relative w-full overflow-clip">
         <Timeline data={data} />
       </div>

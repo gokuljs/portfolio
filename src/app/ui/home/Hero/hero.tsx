@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from '@styles/hero.module.scss';
 import Navbar from '../../components/Navbar';
-import { HoverBorderGradient } from '@/components/ui/hover-border-gradient';
 import SocialDock from '../../components/SocialDock/SocialDock';
 
 const Hero: React.FC = () => {

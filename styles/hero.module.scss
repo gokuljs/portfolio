@@ -104,6 +104,9 @@
       font-size: 1.8rem;
       font-weight: 400;
       margin: 0;
+      @media (max-width: 768px) {
+        font-size: 1rem !important;
+      }
     }
 
     .email {

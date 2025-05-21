@@ -75,9 +75,7 @@ export const skillsWithRatings = [
   { name: 'Prismic', rating: 6, category: 'CMS' },
 
   // CURRENTLY EXPLORING
-  { name: 'Microservices', rating: 3, category: 'Exploring' },
-  { name: 'Kubernetes', rating: 3, category: 'Exploring' },
-  { name: 'Video-based LLM', rating: 2, category: 'Exploring' },
-  { name: 'Mistral', rating: 2, category: 'Exploring' },
-  { name: 'Mistral 7B', rating: 2, category: 'Exploring' },
+  { name: 'Animation Design Philosophy', rating: 3, category: 'Exploring' },
+  { name: 'Video-based LLM', rating: 3, category: 'Exploring' },
+  { name: 'Design Engineering', rating: 3, category: 'Exploring' },
 ];

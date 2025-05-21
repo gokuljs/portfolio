@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import styles from '@styles/navbar.module.scss';
-import { HoverBorderGradient } from '@/components/ui/hover-border-gradient';
 
 const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -48,9 +47,9 @@ const Navbar: React.FC = () => {
         >
           Experience
         </Link>
-        <Link href="#work" onClick={(e) => handleNavLinkClick(e, '#work')}>
+        {/* <Link href="#work" onClick={(e) => handleNavLinkClick(e, '#work')}>
           Work
-        </Link>
+        </Link> */}
         <a
           download="GokulJS.pdf"
           href={RESUME}

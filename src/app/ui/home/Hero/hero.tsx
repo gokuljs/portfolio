@@ -20,13 +20,16 @@ const Hero: React.FC = () => {
 
         <div className={styles.descriptionContainer}>
           <p className={styles.description}>
-            Gokul is an ex-founding engineer and creative generalist with a
+            Gokul is a former founding engineer and creative generalist with a
             track record of turning early-stage ideas into real products. He's
             built scalable web platforms, intelligent agent systems, and handled
             everything from system architecture to user feedback. At YC-backed
             startups, he's contributed across engineering, product, and design
             to launch tools that actually get used. He thrives in fast-moving
-            environments where speed matters and "not my job" doesn't exist.
+            environments where speed matters and "not my job" doesn't exist. He
+            cares deeply about the things he builds and constantly evolves his
+            taste, believing that good instincts make great products and growth
+            makes better ones.
           </p>
         </div>
       </div>

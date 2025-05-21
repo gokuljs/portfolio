@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Timeline } from '@/components/ui/timeline';
 import Image from 'next/image';
 import YouTubePlayer from '../../components/yotubeplayer';
-
+import styles from '@styles/Experience.module.scss';
 export default function Experience() {
   const data = [
     {
@@ -152,8 +152,11 @@ export default function Experience() {
     },
   ];
   return (
-    <div className="relative w-full overflow-clip">
-      <Timeline data={data} />
-    </div>
+    <>
+      <div className={styles.timelineHeading}>Experience & Impact</div>
+      <div className="relative w-full overflow-clip">
+        <Timeline data={data} />
+      </div>
+    </>
   );
 }

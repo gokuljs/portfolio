@@ -65,9 +65,7 @@ export default function Experience() {
                   />
                 </div>
                 <div>
-                  <h3 className="text-base font-medium text-white">
-                    Aerotime Time
-                  </h3>
+                  <h3 className="text-base font-medium text-white">Aerotime</h3>
                   <p className="text-xs text-neutral-400">Founding Engineer</p>
                 </div>
               </div>

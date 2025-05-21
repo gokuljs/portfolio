@@ -1,0 +1,29 @@
+.socialDock {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1rem; /* Adjust spacing between icons as needed */
+  padding: 0.75rem 1.5rem; /* Adjust padding as needed */
+  background: radial-gradient(circle, #0a0a0a, #000000);
+  border-radius: 30px; /* Rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  backdrop-filter: blur(10px); /* Glassmorphism effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support for glassmorphism */
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+.socialLink {
+  color: #e0e0e0; /* Light grey icon color for contrast */
+  transition: color 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    color: #ffffff; /* White icon color on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+  }
+
+  svg {
+    display: block; /* Ensures icons are properly aligned */
+  }
+}

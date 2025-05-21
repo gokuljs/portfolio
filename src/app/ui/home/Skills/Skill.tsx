@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@styles/Skills.module.scss';
 import { skillsWithRatings } from './constant';
+import { GlowingEffect } from '@/components/ui/glowing-effect';
 export type SkillProps = {
   category: string;
   contents: {
@@ -25,26 +26,37 @@ const Skill: React.FC = () => {
   return (
     <div className={styles.skills} id="skills">
       <div className={styles.contain}>
-        <h1 className={styles.heading}>What I know</h1>
+        <h1 className={styles.radialGradientHeading}>What I know</h1>
         <div className={styles.container}>
           {skills?.map((item, index) => (
-            <section key={index} className={styles.category}>
-              <h2>{item.category}</h2>
-              <div className={styles.items}>
-                {item.contents
-                  .sort((a, b) => a.name.length - b.name.length)
-                  .map((item, index) => (
-                    <span
-                      key={index}
-                      style={{
-                        userSelect: 'none',
-                      }}
-                    >
-                      {item.name}
-                    </span>
-                  ))}
-              </div>
-            </section>
+            <div className={styles.categoryContainer}>
+              <GlowingEffect
+                spread={80}
+                borderWidth={1}
+                glow={true}
+                disabled={false}
+                proximity={64}
+                inactiveZone={0.01}
+                variant="white"
+              />
+              <section key={index} className={styles.category}>
+                <h2>{item.category}</h2>
+                <div className={styles.items}>
+                  {item.contents
+                    .sort((a, b) => a.name.length - b.name.length)
+                    .map((item, index) => (
+                      <span
+                        key={index}
+                        style={{
+                          userSelect: 'none',
+                        }}
+                      >
+                        {item.name}
+                      </span>
+                    ))}
+                </div>
+              </section>
+            </div>
           ))}
         </div>
       </div>

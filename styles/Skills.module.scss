@@ -1,5 +1,4 @@
 .skills {
-  padding: 30px 30px;
   min-height: 100vh;
   width: 100%;
   display: flex;
@@ -11,10 +10,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   padding-bottom: 100px;
-  // background-image: url(../public//lines.svg);
-  // background-position: fixed;
-  // background-repeat: no-repeat;
-  // background-size: cover;
+  padding: 100px 10px;
   .contain {
     width: 100%;
     display: flex;
@@ -23,31 +19,69 @@
     align-items: center;
     .heading {
       margin-bottom: 40px;
+
       font-size: 2.5rem;
       color: #f5f5f5;
       background-color: black;
+      font-weight: 600;
+    }
+    .radialGradientHeading {
+      margin-bottom: 40px !important;
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      background-image: radial-gradient(circle, #ffffff 60%, #525252);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent; // Fallback
+
+      @media screen and (max-width: 750px) {
+        font-size: 2rem;
+        margin-bottom: 40px;
+      }
+      @media screen and (max-width: 600px) {
+        font-size: 1.75rem;
+        margin-bottom: 40px;
+      }
+      @media screen and (max-width: 500px) {
+        font-size: 1.5rem;
+        margin-bottom: 40px;
+      }
+      @media screen and (max-width: 375px) {
+        font-size: 1.25rem;
+      }
     }
     .container {
       width: 90%;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
       gap: 20px;
+      .categoryContainer {
+        position: relative;
+        // padding: 10px;//
+        border-radius: 0.75rem;
+        // background: #2d2d2d82;
+        // border: 1px solid #7373734f;
+      }
       .category {
         z-index: 99;
         border-radius: 8px;
+        width: 100%;
+        height: 100%;
         padding: 20px;
         border-radius: 0.75rem;
         background: black;
-        box-shadow: 0px 4px 8px 0px rgba(26, 32, 44, 0.1),
-          0px 8px 24px 0px rgba(45, 55, 72, 0.03),
-          0px 8px 16px 0px rgba(45, 55, 72, 0.03),
-          0px 4px 8px 0px rgba(45, 55, 72, 0.05), 0px -1px 0px 0px #444476;
+        background: radial-gradient(circle, #171717, #09090b 90%) !important;
       }
 
       .category h2 {
         font-size: 1.5em;
         margin-bottom: 10px;
-        color: #d6d3d1;
+        color: #e5e5e5;
+        font-weight: 600;
       }
 
       .items span {
@@ -59,6 +93,7 @@
         transition: background-color 0.3s;
         color: #fafaf9;
         background: #1c1917;
+        background: linear-gradient(to bottom right, #1c1917, #262626);
         font-feature-settings: 'cv04' on, 'ss08' on;
       }
 

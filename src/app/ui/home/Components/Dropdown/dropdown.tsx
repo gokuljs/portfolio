@@ -16,6 +16,16 @@ const Dropdown: React.FC<DropdownProps> = ({
   const [currentIndex, setCurrentIndex] = useState<number>(-1);
   const [dropdownMouseActive, setDropdownMouseActive] = useState(false);
 
+  // Find the index of the current value
+  useEffect(() => {
+    if (value) {
+      const index = options.findIndex((option) => option === value);
+      if (index !== -1) {
+        setCurrentIndex(index);
+      }
+    }
+  }, [value, options]);
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent): void => {
       if (event.key === 'Escape' && dropdownState) {
@@ -31,8 +41,10 @@ const Dropdown: React.FC<DropdownProps> = ({
         );
       }
       if (event.key === 'Enter' && dropdownState && !dropdownMouseActive) {
-        setValue(options[currentIndex]);
-        setDropdownState(false);
+        if (currentIndex >= 0 && currentIndex < options.length) {
+          setValue(options[currentIndex]);
+          setDropdownState(false);
+        }
       }
       event.preventDefault();
       event.stopPropagation();
@@ -44,7 +56,7 @@ const Dropdown: React.FC<DropdownProps> = ({
       dropdownRef.current &&
         dropdownRef.current.removeEventListener('keydown', handleKeyDown);
     };
-  }, [dropdownState, currentIndex]);
+  }, [dropdownState, currentIndex, options]);
 
   useOutsideClick(dropdownRef, () => {
     setDropdownState(false);
@@ -59,14 +71,22 @@ const Dropdown: React.FC<DropdownProps> = ({
         setDropdownState(!dropdownState);
       }}
     >
-      {!value ? 'select a year...' : value}{' '}
-      <ChevronDownIcon className={styles.icon} />
+      <span className={styles.dropdownText}>
+        {!value ? 'select a year...' : value}
+      </span>
+      <ChevronDownIcon
+        className={clsx(styles.icon, {
+          [styles.iconRotated]: dropdownState,
+        })}
+      />
       {dropdownState && options.length > 0 && (
         <div className={styles.dropdownSelect}>
           {options.map((item, index) => (
             <div
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 setValue(item);
+                setCurrentIndex(index);
                 setDropdownState(false);
               }}
               onMouseEnter={() => {
@@ -78,8 +98,7 @@ const Dropdown: React.FC<DropdownProps> = ({
               }}
               key={item}
               className={clsx(styles.dropdownItem, {
-                [styles.itemActive]:
-                  index === currentIndex && !dropdownMouseActive,
+                [styles.itemActive]: index === currentIndex,
               })}
             >
               {item}

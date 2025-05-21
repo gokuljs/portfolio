@@ -1,152 +1,197 @@
 .hero {
   width: 100%;
-  height: 100vh;
-  background-image: url(../public//hero.png);
-  background-position: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
+  min-height: 100vh;
+  background-color: #000000;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  .profile {
-    border-radius: 100%;
-    object-fit: cover;
-    margin-top: 30vh;
-    margin-left: 200px;
-    z-index: 9;
-    animation: bling-shadow 6s infinite;
-    @keyframes bling-shadow {
-      0%,
-      100% {
-        filter: drop-shadow(0px 0px 8px #86868b); /* Start with pink */
-      }
-      25% {
-        filter: drop-shadow(0px 0px 8px #86868b); /* Change to violet */
-      }
-      50% {
-        filter: drop-shadow(
-          0px 0px 8px #86868b
-        ); /* Back to pink with larger blur */
-      }
-      75% {
-        filter: drop-shadow(0px 0px 8px #86868b); /* Change to violet again */
-      }
-    }
-    @media screen and (max-width: 800px) {
-      margin-top: 40%;
-    }
-    @media screen and (max-width: 600px) {
-      margin-top: 40%;
-    }
-  }
-  .heading {
-    color: var(--dark-base-fg-fg-2, #ddddde);
-    text-align: left;
-    margin-left: 200px;
-    font-feature-settings: 'ss07' on, 'cv04' on, 'ss08' on;
-    font-size: 2.5rem;
-    font-style: normal;
-    font-weight: 600;
-    letter-spacing: -0.05rem;
-    background: var(
-      --dark-brand-fg-fg-1,
-      linear-gradient(135deg, #f098a7 20%, #7e7ef1 70%)
-    );
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    @media screen and (max-width: 800px) {
-      font-size: 1.8rem;
-    }
-    @media screen and (max-width: 600px) {
-      font-size: 1.5rem;
-    }
-  }
-  .subtext {
-    text-align: center;
-    color: #d4d4d4;
-    z-index: 99;
+  justify-content: space-between;
+  font-family: sans-serif;
 
-    width: fit-content;
-    text-align: left;
-    margin-left: 200px;
-    font-feature-settings: 'cv04' on, 'ss08' on;
-    font-size: 1.125rem;
-    font-style: normal;
-    font-weight: 400;
+  &::before {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    right: -100%;
+    bottom: -100%;
+    width: 300%;
+    height: 300%;
+    background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.1) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 60px 60px;
+    transform: rotate(45deg);
+    transform-origin: center;
+    z-index: 0;
+  }
 
-    @media screen and (max-width: 800px) {
-      font-size: 0.85rem;
-    }
-    @media screen and (max-width: 600px) {
-      font-size: 0.625rem;
-    }
-  }
-  .bgBlack {
-    background: black;
-  }
-  .logos {
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .content {
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin-left: 200px;
-    height: 60px;
-    gap: 10px;
-    .container {
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      .icon {
-        width: 30px;
-        height: 30px;
-        color: #4949af;
-        cursor: pointer;
-        transition: all 0.15s ease-in-out;
-        &:hover {
-          color: #e17284;
-          transform: scale(1.1);
+    flex-direction: column;
+    padding: 0 2.5rem;
+    position: relative;
+    z-index: 10;
+    flex: 1;
+
+    .mainTextContainer {
+      position: absolute;
+      top: 45%;
+      left: 2.5rem;
+      transform: translateY(-50%);
+      z-index: 20;
+
+      .mainText {
+        font-size: 5.5rem;
+        font-weight: 800;
+        line-height: 0.9;
+        text-transform: uppercase;
+        margin: 0;
+        background: linear-gradient(to bottom left, #f8f8f8 60%, #a3a3a3);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent; // Fallback for browsers that don't support -webkit-text-fill-color
+
+        div {
+          white-space: nowrap;
+          display: block;
         }
       }
-      svg {
-        height: 25px;
-      }
-      .svgIcon {
-        height: 30px;
-        path {
-          fill: #4949af;
-          stroke-width: 10px;
-        }
-        transition: all 0.15s ease-in-out;
-        &:hover {
-          transform: scale(1.1);
-          path {
-            fill: #e17284;
-          }
-        }
+    }
+
+    .descriptionContainer {
+      position: absolute;
+      bottom: 4rem;
+      right: 2.5rem;
+      max-width: 40%;
+
+      .description {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        opacity: 0.8;
+        margin: 0;
+        text-align: right;
       }
     }
   }
-  @media screen and (max-width: 980px) {
-    align-items: center;
-    .profile {
-      margin-left: 0;
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 2rem 2.5rem;
+    position: relative;
+    z-index: 10;
+
+    .tagline {
+      font-size: 1.8rem;
+      font-weight: 400;
+      margin: 0;
+      @media (max-width: 768px) {
+        font-size: 1rem !important;
+      }
     }
-    .heading {
-      margin-left: 0;
-      text-align: center;
-    }
-    .subtext {
-      margin-left: 0;
-      text-align: center;
-    }
-    .logos {
-      margin-left: 0;
-      justify-content: center;
+
+    .email {
+      font-size: 0.9rem;
+      opacity: 0.7;
+      margin: 0;
     }
   }
-  @media screen and (max-width: 700px) {
-    max-height: 70vh;
+
+  @media (max-width: 1200px) {
+    .content {
+      .mainTextContainer {
+        .mainText {
+          font-size: 4rem;
+        }
+      }
+
+      .descriptionContainer {
+        max-width: 45%;
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    .content {
+      .mainTextContainer {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin-top: 4rem;
+
+        .mainText {
+          font-size: 3.5rem;
+          transform: none;
+        }
+      }
+
+      .descriptionContainer {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        max-width: 100%;
+        margin-top: 2rem;
+
+        .description {
+          text-align: left;
+        }
+      }
+    }
+
+    .footer {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+
+      .tagline {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .content {
+      padding: 0 1.5rem;
+
+      .mainTextContainer {
+        margin-top: 2rem;
+
+        .mainText {
+          font-size: 2.5rem;
+        }
+      }
+
+      .descriptionContainer {
+        bottom: auto;
+        right: auto;
+        max-width: 100%;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+      }
+    }
+
+    .footer {
+      padding: 1.5rem;
+    }
   }
 }

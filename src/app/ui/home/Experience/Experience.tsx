@@ -77,7 +77,7 @@ export default function Experience() {
                   height={125}
                   width={125}
                   alt="YC Logo"
-                  className="object-contain "
+                  className="object-contain hidden md:block"
                 />
               </div>
             </div>

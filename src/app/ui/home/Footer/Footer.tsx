@@ -48,6 +48,19 @@ const Footer = () => {
           </div>
 
           <div className={styles.linkColumn}>
+            <h4 className={styles.columnHeading}>Pages</h4>
+            <Link href="/" className={styles.footerLink}>
+              Home
+            </Link>
+            <Link href="/experience" className={styles.footerLink}>
+              Experience
+            </Link>
+            <Link href="/projects" className={styles.footerLink}>
+              Projects
+            </Link>
+          </div>
+
+          <div className={styles.linkColumn}>
             <h4 className={styles.columnHeading}>Contact</h4>
             <Link
               href="mailto:jsgokul123@gmail.com"

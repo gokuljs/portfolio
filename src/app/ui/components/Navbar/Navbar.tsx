@@ -47,6 +47,9 @@ const Navbar: React.FC = () => {
         >
           Experience
         </Link>
+        <Link href="/projects" onClick={() => setMenuOpen(false)}>
+          Projects
+        </Link>
         {/* <Link href="#work" onClick={(e) => handleNavLinkClick(e, '#work')}>
           Work
         </Link> */}

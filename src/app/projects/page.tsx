@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Navbar from '@/app/ui/components/Navbar';
 import Footer from '@/app/ui/home/Footer/Footer';
 import { PinContainer } from '@/app/ui/components/3d-pin';

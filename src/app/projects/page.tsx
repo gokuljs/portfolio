@@ -9,8 +9,8 @@ export default function ProjectsPage() {
     <div className="min-h-screen w-full bg-black">
       <Navbar />
       <div className="flex justify-center items-center">
-        <div className="container max-w-7xl min-h-screen px-4 py-18">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-24 mt-24 p-4">
+        <div className="container max-w-7xl min-h-screen px-4 !py-24">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-24 mt-24 p-4 justify-items-center">
             {/* Project 1 with 3D Pin */}
             <div className="w-full max-w-sm mx-auto">
               <PinContainer

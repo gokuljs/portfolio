@@ -2,11 +2,15 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import styles from '@styles/navbar.module.scss';
 
 const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
   const RESUME = '/GokulJS.pdf';
+
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -16,16 +20,25 @@ const Navbar: React.FC = () => {
     targetId: string,
   ) => {
     event.preventDefault();
-    const targetElement = document.getElementById(targetId.substring(1)); // Remove '#' from id
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: 'smooth' });
-    }
     setMenuOpen(false);
+
+    // If we're already on the home page, just scroll to the section
+    if (pathname === '/') {
+      const targetElement = document.getElementById(targetId.substring(1)); // Remove '#' from id
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // If on another page, navigate to home and then scroll
+      router.push(`/${targetId}`);
+    }
   };
 
   return (
     <header className={styles.header}>
-      <div className={styles.logo}>Gokul JS</div>
+      <Link href="/" className={styles.logo}>
+        Gokul JS
+      </Link>
 
       <div className={styles.mobileMenuToggle} onClick={toggleMenu}>
         <div
@@ -46,6 +59,9 @@ const Navbar: React.FC = () => {
           onClick={(e) => handleNavLinkClick(e, '#experience')}
         >
           Experience
+        </Link>
+        <Link href="/projects" onClick={() => setMenuOpen(false)}>
+          Projects
         </Link>
         {/* <Link href="#work" onClick={(e) => handleNavLinkClick(e, '#work')}>
           Work

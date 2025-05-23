@@ -127,7 +127,7 @@ export default function ProjectsPage() {
             <div className="w-full max-w-sm mx-auto">
               <PinContainer
                 title="NotionFlow"
-                href="https://notionflow-599f7m6wj-gokuljs-projects.vercel.app/"
+                href="https://notionflow-omega.vercel.app/"
                 containerClassName="w-full h-auto"
               >
                 <div className="relative overflow-hidden bg-gradient-to-r from-gray-900 to-black group w-80 h-fit rounded-2xl">
@@ -201,7 +201,7 @@ export default function ProjectsPage() {
             <div className="w-full max-w-sm mx-auto">
               <PinContainer
                 title="Custom Gpt"
-                href="https://three-js-and-gasp.vercel.app/"
+                href="https://custom-gpt-nine.vercel.app/"
                 containerClassName="w-full h-auto"
               >
                 <div className="relative overflow-hidden bg-gradient-to-r from-gray-900 to-black group w-80 h-fit rounded-2xl">

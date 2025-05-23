@@ -3,10 +3,12 @@ import React from 'react';
 import Navbar from '@/app/ui/components/Navbar';
 import Footer from '@/app/ui/home/Footer/Footer';
 import { PinContainer } from '@/app/ui/components/3d-pin';
+import { Spotlight } from '@/components/ui/spotlight-new';
 
 export default function ProjectsPage() {
   return (
     <div className="min-h-screen w-full bg-black">
+      <Spotlight />
       <Navbar />
       <div className="flex justify-center items-center">
         <div className="container max-w-7xl min-h-screen px-4 !py-24">

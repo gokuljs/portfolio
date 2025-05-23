@@ -9,14 +9,15 @@ export default function ProjectsPage() {
     <div className="min-h-screen w-full">
       <Navbar />
       <div className="container mx-auto min-h-screen px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-24 mt-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-24 mt-24 place-items-center">
           {/* Project 1 with 3D Pin */}
-          <div className="h-60 w-full flex items-center justify-center">
+          <div className="h-80 w-full flex items-center justify-center">
             <PinContainer
               title="Project 1"
               href="https://github.com/yourusername/project1"
+              containerClassName="w-full flex items-center justify-center"
             >
-              <div className="flex flex-col items-start p-4 w-64">
+              <div className="flex flex-col items-start p-4 w-96">
                 <h3 className="text-xl font-bold text-white mb-2">
                   Project Title
                 </h3>
@@ -37,12 +38,13 @@ export default function ProjectsPage() {
           </div>
 
           {/* Project 2 with 3D Pin */}
-          <div className="h-60 w-full flex items-center justify-center">
+          <div className="h-80 w-full flex items-center justify-center">
             <PinContainer
               title="Project 2"
               href="https://github.com/yourusername/project2"
+              containerClassName="w-full flex items-center justify-center"
             >
-              <div className="flex flex-col items-start p-4 w-64">
+              <div className="flex flex-col items-start p-4 w-96">
                 <h3 className="text-xl font-bold text-white mb-2">
                   Portfolio Website
                 </h3>
@@ -63,12 +65,13 @@ export default function ProjectsPage() {
           </div>
 
           {/* Project 3 with 3D Pin */}
-          <div className="h-60 w-full flex items-center justify-center">
+          <div className="h-80 w-full flex items-center justify-center">
             <PinContainer
               title="Project 3"
               href="https://github.com/yourusername/project3"
+              containerClassName="w-full flex items-center justify-center"
             >
-              <div className="flex flex-col items-start p-4 w-64">
+              <div className="flex flex-col items-start p-4 w-96">
                 <h3 className="text-xl font-bold text-white mb-2">
                   E-Commerce App
                 </h3>

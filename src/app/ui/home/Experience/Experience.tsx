@@ -6,7 +6,7 @@ import styles from '@styles/Experience.module.scss';
 export default function Experience() {
   const data = [
     {
-      title: 'Jun 24 - Mar 25',
+      title: 'Jun 24 - Present',
       content: (
         <div>
           <div className="mb-8">

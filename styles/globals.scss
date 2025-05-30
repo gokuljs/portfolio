@@ -167,12 +167,9 @@ body {
   min-height: 100vh;
   background-color: #ffffff;
   color: #ddddde;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  max-width: 2500px;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   background-color: black;
 }
 

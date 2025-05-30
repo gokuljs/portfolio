@@ -68,6 +68,11 @@ export const metadata: Metadata = {
     'writer',
     'builder',
   ],
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+  },
 };
 
 export default function RootLayout({

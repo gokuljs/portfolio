@@ -7,7 +7,10 @@ import { Spotlight } from '@/components/ui/spotlight-new';
 export default function ProjectsPage() {
   return (
     <div className="min-h-screen w-full bg-black">
-      <Spotlight />
+      <div className="hidden md:block">
+        <Spotlight />
+      </div>
+
       <Navbar />
       <div className="flex justify-center items-center">
         <div className="container max-w-7xl min-h-screen px-4 !py-24">

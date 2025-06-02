@@ -6,6 +6,7 @@ import VisitTracker from '@/components/VisitTracker';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://gokuljs.com'),
   title: 'Gokul JS - Ex-YC Alumnus W21',
   description:
     "I'm a former founding engineer and creative generalist with a track record of turning early-stage ideas into real products. I've built scalable web platforms, intelligent agent systems, and handled everything from system architecture to user feedback. At YC-backed startups, I've contributed across engineering, product, and design to launch tools that actually get used. I thrive in fast-moving environments where speed matters and \"not my job\" doesn't exist.",
@@ -26,6 +27,7 @@ export const metadata: Metadata = {
       },
     ],
     type: 'website',
+    siteName: 'Gokul JS Portfolio',
   },
   twitter: {
     card: 'summary_large_image',

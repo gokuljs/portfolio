@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '@styles/globals.scss';
+import VisitTracker from '@/components/VisitTracker';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -83,6 +84,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className} suppressHydrationWarning>
+        <VisitTracker />
         {/* <Navbar /> */}
         {children}
       </body>

@@ -13,6 +13,27 @@ export const metadata: Metadata = {
     icon: '/newLogo.svg',
     apple: '/newLogo.svg',
   },
+  openGraph: {
+    title: 'Gokul JS - Ex-YC Alumnus W21',
+    description:
+      "I'm a former founding engineer and creative generalist with a track record of turning early-stage ideas into real products. I've built scalable web platforms, intelligent agent systems, and handled everything from system architecture to user feedback. At YC-backed startups, I've contributed across engineering, product, and design to launch tools that actually get used. I thrive in fast-moving environments where speed matters and \"not my job\" doesn't exist.",
+    images: [
+      {
+        url: '/gokuljs.png',
+        width: 1200,
+        height: 630,
+        alt: 'Gokul JS - Ex-YC Alumnus W21',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Gokul JS - Ex-YC Alumnus W21',
+    description:
+      "I'm a former founding engineer and creative generalist with a track record of turning early-stage ideas into real products. I've built scalable web platforms, intelligent agent systems, and handled everything from system architecture to user feedback. At YC-backed startups, I've contributed across engineering, product, and design to launch tools that actually get used. I thrive in fast-moving environments where speed matters and \"not my job\" doesn't exist.",
+    images: ['/gokuljs.png'],
+  },
   keywords: [
     'Gokul JS',
     'Aerotime',

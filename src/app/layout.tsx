@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '@styles/globals.scss';
 import VisitTracker from '@/components/VisitTracker';
+import { Analytics } from '@vercel/analytics/next';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -110,6 +111,7 @@ export default function RootLayout({
         <VisitTracker />
         {/* <Navbar /> */}
         {children}
+        <Analytics />
       </body>
     </html>
   );

@@ -6,7 +6,7 @@ import { Spotlight } from '@/components/ui/spotlight-new';
 
 export default function ProjectsPage() {
   return (
-    <div className="min-h-screen w-full bg-black !pt-[50px]">
+    <div className="min-h-screen w-full bg-black !pt-[30px]">
       <div className="hidden md:block">
         <Spotlight />
       </div>

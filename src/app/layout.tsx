@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import '@styles/globals.scss';
 import VisitTracker from '@/components/VisitTracker';
 import { Analytics } from '@vercel/analytics/next';
+import Navbar from './ui/components/Navbar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -109,7 +110,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className} suppressHydrationWarning>
         <VisitTracker />
-        {/* <Navbar /> */}
+        <Navbar />
         {children}
         <Analytics />
       </body>

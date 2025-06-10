@@ -1,18 +1,17 @@
 import React from 'react';
-import Navbar from '@/app/ui/components/Navbar';
+
 import Footer from '@/app/ui/home/Footer/Footer';
 import { PinContainer } from '@/app/ui/components/3d-pin';
 import { Spotlight } from '@/components/ui/spotlight-new';
 
 export default function ProjectsPage() {
   return (
-    <div className="min-h-screen w-full bg-black">
+    <div className="min-h-screen w-full bg-black !pt-[50px]">
       <div className="hidden md:block">
         <Spotlight />
       </div>
 
-      <Navbar />
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center ">
         <div className="container max-w-7xl min-h-screen px-4 !py-24">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-24 mt-24 p-4 justify-items-center">
             {/* Project 1 with 3D Pin */}

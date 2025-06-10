@@ -7,7 +7,6 @@ import { Spotlight } from '@/components/ui/spotlight-new';
 const Hero: React.FC = () => {
   return (
     <div className={styles.hero}>
-      <Navbar />
       <div className="hidden md:block">
         <Spotlight
           gradientFirst="radial-gradient(68.54% 68.72% at 55.02% 31.46%, hsla(210, 100%, 85%, .12) 0, hsla(210, 100%, 55%, .04) 50%, hsla(210, 100%, 45%, 0) 80%)"

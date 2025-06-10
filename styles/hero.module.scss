@@ -49,6 +49,10 @@
     position: relative;
     z-index: 10;
     flex: 1;
+    // margin-top: 100px;
+    @media screen and (max-width: 900px) {
+      margin-top: 100px;
+    }
 
     .mainTextContainer {
       position: absolute;

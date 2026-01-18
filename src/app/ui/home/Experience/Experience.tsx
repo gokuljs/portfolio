@@ -8,7 +8,7 @@ export default function Experience() {
     {
       title: 'Jun 24 - Present',
       content: (
-        <div>
+        <div >
           <div className="mb-8">
             <div className="flex items-center gap-4 mb-3">
               <div className="h-12 w-12 rounded-full bg-neutral-800 flex items-center justify-center overflow-hidden border border-neutral-700">
@@ -103,7 +103,7 @@ export default function Experience() {
     {
       title: 'Nov 21 - Nov 22',
       content: (
-        <div>
+        <div key={"tifin"}>
           <div className="mb-8">
             <div className="flex items-center gap-4 mb-3">
               <div className="h-12 w-12 rounded-full bg-neutral-800 flex items-center justify-center overflow-hidden border border-neutral-700">

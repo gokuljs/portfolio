@@ -1,4 +1,6 @@
-@import 'tailwindcss';
+@use 'tailwindcss';
+@use '@radix-ui/colors/black-alpha.css';
+@use '@radix-ui/colors/violet.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -181,8 +183,6 @@ a {
   font-style: normal;
   font-display: swap; /* Use font-display for better performance */
 }
-@import '@radix-ui/colors/black-alpha.css';
-@import '@radix-ui/colors/violet.css';
 
 *::-webkit-scrollbar {
   display: none;

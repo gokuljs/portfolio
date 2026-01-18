@@ -6,7 +6,7 @@ import Dropdown from '../Components/Dropdown/dropdown';
 import { GlowingEffect } from '@/components/ui/glowing-effect';
 
 const GitHubCalendar = dynamic(
-  () => import('react-github-calendar').then((mod) => mod),
+  () => import('react-github-calendar').then((mod) => mod.GitHubCalendar),
   { ssr: false },
 );
 

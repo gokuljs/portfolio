@@ -29,7 +29,7 @@ const Skill: React.FC = () => {
         <h1 className={styles.radialGradientHeading}>What I know</h1>
         <div className={styles.container}>
           {skills?.map((item, index) => (
-            <div className={styles.categoryContainer}>
+            <div className={styles.categoryContainer} key={index}>
               <GlowingEffect
                 spread={80}
                 borderWidth={1}

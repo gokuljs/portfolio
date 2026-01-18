@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Footer from '@/app/ui/home/Footer/Footer';
 import { PinContainer } from '@/app/ui/components/3d-pin';
 import { Spotlight } from '@/components/ui/spotlight-new';

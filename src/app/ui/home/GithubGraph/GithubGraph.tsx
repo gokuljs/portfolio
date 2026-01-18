@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import  { useEffect, useRef, useState } from 'react';
 import styles from '@styles/githubGraph.module.scss';
 import dynamic from 'next/dynamic';
 import Dropdown from '../Components/Dropdown/dropdown';

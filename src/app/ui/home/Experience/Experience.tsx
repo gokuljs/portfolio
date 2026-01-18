@@ -1,4 +1,3 @@
-import React from 'react';
 import { Timeline } from '@/components/ui/timeline';
 import Image from 'next/image';
 import YouTubePlayer from '../../components/yotubeplayer';

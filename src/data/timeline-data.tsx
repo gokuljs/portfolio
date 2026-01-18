@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const timelineData = [
   {
     period: 'June 2024 – March 2025',

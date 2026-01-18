@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from '@styles/hero.module.scss';
 import SocialDock from '../../components/SocialDock/SocialDock';
 import { Spotlight } from '@/components/ui/spotlight-new';

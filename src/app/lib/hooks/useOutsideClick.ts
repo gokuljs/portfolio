@@ -2,7 +2,7 @@ import { useEffect, RefObject, useCallback } from 'react';
 
 // Hook
 function useOutsideClick<T extends HTMLElement>(
-  ref: RefObject<T>,
+  ref: RefObject<T | null>,
   callback: () => void,
 ): void {
   const handleClickOutside = useCallback(

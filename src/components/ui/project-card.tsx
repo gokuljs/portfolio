@@ -15,14 +15,14 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
       rel="noopener noreferrer"
       role="button"
       tabIndex={0}
-      className="group flex flex-col h-full rounded-[0.5px] border-none  overflow-hidden border border-white/10 transition-all duration-300 hover:border-white/20 !px-[2px] !py-[2px]"
+      className="group flex flex-col border-stone-900/50 h-full rounded-[10px] border-none  overflow-hidden border border-white/10 transition-all duration-300 hover:border-white/20 !px-[4px] !py-[4px]"
     >
       <div className="relative w-full aspect-[16/10] overflow-hidden">
         <Image
           src={project.image}
           alt={project.title}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          className="object-cover transition-transform rounded-[10px] duration-500"
         />
       </div>
 

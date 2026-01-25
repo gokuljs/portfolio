@@ -51,13 +51,13 @@ export const CyberpunkBackground = () => {
         float colHash = hash(id.x);
         float depthVariation = colHash * 0.3;
         
-        // Lowering the threshold so the effect "comes way down" as requested
-        // Base threshold at 0.4 means it can reach almost to the middle of the screen
-        float threshold = 0.55 + mountain - depthVariation * 1.5;
+        // Allowing the depth to reach 80-90% of the viewport in some areas
+        // Base threshold lowered to 0.2, mountain and variation can push it even lower
+        float threshold = 0.3 + mountain * 2.0 - depthVariation * 2.5;
         
-        // Background grid - very faint grey
+        // Background grid - fades out based on distance from top
         float bgGrid = step(0.15, gv.x) * step(0.15, 1.0 - gv.x) * step(0.15, gv.y) * step(0.15, 1.0 - gv.y);
-        vec3 bgColor = vec3(0.1, 0.1, 0.12) * bgGrid * 0.04 * smoothstep(0.3, 1.0, uv.y);
+        vec3 bgColor = vec3(0.05, 0.05, 0.06) * bgGrid * 0.02 * pow(uv.y, 4.0);
         
         vec3 finalColor = bgColor;
         
@@ -65,8 +65,9 @@ export const CyberpunkBackground = () => {
         if (uv.y > threshold) {
             float normalizedY = (uv.y - threshold) / (1.0 - threshold);
             
-            // Brightness gradient - grey to white
-            float brightness = pow(normalizedY, 1.5) * 0.4;
+            // Aggressive brightness falloff: pow(normalizedY, 5.0)
+            // This ensures the blocks are only bright at the very top and dim rapidly as they hang down
+            float brightness = pow(normalizedY, 5.0) * 0.3;
             
             // Subtle flicker
             float flicker = step(0.3, hash2d(id + floor(u_time * (1.5 + colHash * 3.0))));
@@ -75,18 +76,17 @@ export const CyberpunkBackground = () => {
             float block = step(0.2, gv.x) * step(0.2, 1.0 - gv.x) * step(0.2, gv.y) * step(0.2, 1.0 - gv.y);
             
             // Monochromatic palette: Grey to White
-            // Base is a cool grey, brightening to white at the top
-            vec3 greyToWhite = mix(vec3(0.4, 0.4, 0.45), vec3(1.0, 1.0, 1.0), normalizedY);
+            vec3 greyToWhite = mix(vec3(0.2, 0.2, 0.25), vec3(1.0, 1.0, 1.0), normalizedY);
             finalColor += greyToWhite * brightness * flicker * block;
             
-            // Extremely subtle top edge white glow
+            // Subtle top edge white glow
             float topEdge = smoothstep(0.98, 1.0, uv.y);
-            finalColor += vec3(1.0) * topEdge * 0.15;
+            finalColor += vec3(1.0) * topEdge * 0.1;
         }
         
-        // Soft white/grey bloom
-        float bloom = smoothstep(0.4, 1.0, uv.y) * 0.04;
-        finalColor += vec3(0.5, 0.5, 0.55) * bloom;
+        // Nearly invisible bloom, also aggressively faded
+        float bloom = pow(uv.y, 8.0) * 0.02;
+        finalColor += vec3(0.5, 0.5, 0.6) * bloom;
 
         gl_FragColor = vec4(finalColor, 1.0);
       }

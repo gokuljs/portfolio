@@ -66,6 +66,20 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                   {tag}
                 </span>
               ))}
+              {project.status && (
+                <span className={cn(
+                  "px-2.5 py-0.5 text-[9px] uppercase tracking-[0.15em] rounded-full border flex items-center gap-1.5",
+                  project.status === 'Live' 
+                    ? "bg-green-900/20 text-green-400 border-green-700/30" 
+                    : "bg-yellow-900/20 text-yellow-400 border-yellow-700/30"
+                )}>
+                  <span className={cn(
+                    "w-1 h-1 rounded-full animate-pulse",
+                    project.status === 'Live' ? "bg-green-400" : "bg-yellow-400"
+                  )} />
+                  {project.status}
+                </span>
+              )}
             </div>
           </div>
 

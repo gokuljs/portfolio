@@ -6,61 +6,62 @@ export interface Project {
   tags: string[];
   link?: string;
   github?: string;
+  status?: 'Live' | 'Progress';
 }
 
 export const projectsData: Project[] = [
   {
     id: '1',
-    title: 'NotionFlow',
-    description: 'A powerful workflow automation tool built for Notion power users. Streamline your database management with advanced filtering and batch operations.',
-    image: '/NotionFlow.png',
-    tags: ['Next.js', 'Tailwind', 'Notion API'],
-    link: '#',
-    github: '#'
+    title: 'Mailyx',
+    description: 'Minimalist AI email client with smart inbox, search, and navigation.',
+    image: '/Mailyx.png',
+    tags: ['Next.js', 'AI', 'Tailwind'],
+    link: 'https://getmailyx.com/',
+    status: 'Progress'
   },
   {
     id: '2',
-    title: 'Mailyx',
-    description: 'Next-generation email marketing platform with integrated AI for content generation and predictive analytics for campaign performance.',
-    image: '/Mailyx.png',
-    tags: ['React', 'Node.js', 'OpenAI'],
-    link: '#',
-    github: '#'
+    title: 'Aerotime',
+    description: 'Smart calendar and scheduling tool to boost productivity and focus.',
+    image: '/video-poster.jpg',
+    tags: ['Productivity', 'Calendar', 'React'],
+    link: 'https://www.aerotime.com/',
+    status: 'Live'
   },
   {
     id: '3',
     title: 'Teamble',
-    description: 'A collaborative workspace for remote teams focusing on real-time communication and project tracking with a focus on developer experience.',
+    description: 'Engagement platform to boost team culture, feedback, and recognition.',
     image: '/teambleBg.png',
-    tags: ['TypeScript', 'Socket.io', 'GSAP'],
-    link: '#',
-    github: '#'
+    tags: ['Team Culture', 'Feedback', 'SaaS'],
+    link: 'https://teamble.com/',
+    status: 'Live'
   },
   {
     id: '4',
-    title: 'NotionFlow Pro',
-    description: 'The advanced version of NotionFlow featuring multi-workspace support, team collaboration tools, and custom automation scripts.',
+    title: 'NotionFlow',
+    description: 'Collaborative workspace for notes, tasks, databases, and seamless organization.',
     image: '/NotionFlow.png',
-    tags: ['Next.js', 'PostgreSQL', 'Redis'],
-    link: '#',
-    github: '#'
+    tags: ['Next.js', 'Notion', 'Workflow'],
+    link: 'https://notionflow-omega.vercel.app/',
+    status: 'Live'
   },
   {
     id: '5',
-    title: 'Mailyx Analytics',
-    description: 'Real-time dashboard for Mailyx campaigns providing deep insights into user behavior, conversion rates, and A/B test results.',
-    image: '/Mailyx.png',
-    tags: ['React', 'D3.js', 'AWS'],
-    link: '#',
-    github: '#'
+    title: 'Gsap Experiment',
+    description: 'Its a Gsap Experiment with a lot of animations and transitions.',
+    image: '/gsap.png',
+    tags: ['GSAP', 'Animations', 'Three.js'],
+    link: 'https://three-js-and-gasp.vercel.app/',
+    status: 'Live'
   },
   {
     id: '6',
-    title: 'Teamble Mobile',
-    description: 'The mobile companion app for Teamble, enabling teams to stay connected and manage projects on the go with push notifications.',
-    image: '/teambleBg.png',
-    tags: ['React Native', 'Firebase', 'Expo'],
-    link: '#',
-    github: '#'
+    title: 'Custom Gpt',
+    description: 'A chatgpt clone with a custom ui and a custom backend.',
+    image: '/customGpt.png',
+    tags: ['OpenAI', 'Next.js', 'UI/UX'],
+    link: 'https://custom-gpt-nine.vercel.app/',
+    status: 'Live'
   }
 ];

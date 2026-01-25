@@ -4,10 +4,19 @@
 import Footer from '@/app/ui/home/Footer/Footer';
 import { CyberpunkBackground } from '@/components/ui/cyberpunk-background';
 import { Playfair_Display } from 'next/font/google';
+import { ChevronDown } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const playfair = Playfair_Display({ subsets: ['latin'], style: 'italic' });
 
 export default function ProjectsPage() {
+  const scrollToContent = () => {
+    window.scrollTo({
+      top: window.innerHeight,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <div className="min-h-screen w-full bg-black overflow-x-hidden relative">
       <CyberpunkBackground />
@@ -28,6 +37,27 @@ export default function ProjectsPage() {
             </p>
           </div>
         </div>
+
+        {/* Scroll Indicator Button */}
+        <motion.button
+          onClick={scrollToContent}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.8 }}
+          className="absolute bottom-12 flex flex-col items-center gap-2 group cursor-pointer"
+        >
+          <span className="text-xs uppercase tracking-[0.2em] text-neutral-500 group-hover:text-white transition-colors duration-300">
+            Scroll to explore
+          </span>
+          <div className="w-10 h-10 rounded-full border border-white/10 bg-white/5 backdrop-blur-md flex items-center justify-center group-hover:border-white/30 group-hover:bg-white/10 transition-all duration-300">
+            <motion.div
+              animate={{ y: [0, 4, 0] }}
+              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+            >
+              <ChevronDown className="w-5 h-5 text-white/50 group-hover:text-white transition-colors duration-300" />
+            </motion.div>
+          </div>
+        </motion.button>
       </div>
 
       <Footer />

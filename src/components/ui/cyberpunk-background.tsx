@@ -55,9 +55,9 @@ export const CyberpunkBackground = () => {
         // Base threshold at 0.4 means it can reach almost to the middle of the screen
         float threshold = 0.55 + mountain - depthVariation * 1.5;
         
-        // Background grid - almost invisible but slightly more visible as it's larger now
+        // Background grid - very faint grey
         float bgGrid = step(0.15, gv.x) * step(0.15, 1.0 - gv.x) * step(0.15, gv.y) * step(0.15, 1.0 - gv.y);
-        vec3 bgColor = vec3(0.0, 0.05, 0.02) * bgGrid * 0.04 * smoothstep(0.3, 1.0, uv.y);
+        vec3 bgColor = vec3(0.1, 0.1, 0.12) * bgGrid * 0.04 * smoothstep(0.3, 1.0, uv.y);
         
         vec3 finalColor = bgColor;
         
@@ -65,8 +65,8 @@ export const CyberpunkBackground = () => {
         if (uv.y > threshold) {
             float normalizedY = (uv.y - threshold) / (1.0 - threshold);
             
-            // Brightness gradient - keep it dimmed but stretched across the larger depth
-            float brightness = pow(normalizedY, 1.5) * 0.35;
+            // Brightness gradient - grey to white
+            float brightness = pow(normalizedY, 1.5) * 0.4;
             
             // Subtle flicker
             float flicker = step(0.3, hash2d(id + floor(u_time * (1.5 + colHash * 3.0))));
@@ -74,18 +74,19 @@ export const CyberpunkBackground = () => {
             // Block shape
             float block = step(0.2, gv.x) * step(0.2, 1.0 - gv.x) * step(0.2, gv.y) * step(0.2, 1.0 - gv.y);
             
-            // Deep forest green
-            vec3 activeGreen = vec3(0.0, 0.6, 0.25);
-            finalColor += activeGreen * brightness * flicker * block;
+            // Monochromatic palette: Grey to White
+            // Base is a cool grey, brightening to white at the top
+            vec3 greyToWhite = mix(vec3(0.4, 0.4, 0.45), vec3(1.0, 1.0, 1.0), normalizedY);
+            finalColor += greyToWhite * brightness * flicker * block;
             
-            // Extremely subtle top edge glow
+            // Extremely subtle top edge white glow
             float topEdge = smoothstep(0.98, 1.0, uv.y);
-            finalColor += activeGreen * topEdge * 0.15;
+            finalColor += vec3(1.0) * topEdge * 0.15;
         }
         
-        // Soft bloom stretched vertically
-        float bloom = smoothstep(0.4, 1.0, uv.y) * 0.05;
-        finalColor += vec3(0.0, 0.4, 0.15) * bloom;
+        // Soft white/grey bloom
+        float bloom = smoothstep(0.4, 1.0, uv.y) * 0.04;
+        finalColor += vec3(0.5, 0.5, 0.55) * bloom;
 
         gl_FragColor = vec4(finalColor, 1.0);
       }

@@ -6,15 +6,17 @@ import { CyberpunkBackground } from '@/components/ui/cyberpunk-background';
 import { Playfair_Display } from 'next/font/google';
 import { ChevronDown } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { ProjectCard } from '@/components/ui/project-card';
+import { projectsData } from '@/data/projects-data';
 
 const playfair = Playfair_Display({ subsets: ['latin'], style: 'italic' });
 
 export default function ProjectsPage() {
   const scrollToContent = () => {
-    window.scrollTo({
-      top: window.innerHeight,
-      behavior: 'smooth'
-    });
+    const nextSection = document.getElementById('projects-grid');
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -25,6 +27,7 @@ export default function ProjectsPage() {
         {/* <Spotlight /> */}
       </div>
 
+      {/* Hero Section */}
       <div className="relative z-10 flex flex-col items-center justify-center h-screen px-4">
         <div className="w-full max-w-7xl">
           {/* Header */}
@@ -59,6 +62,17 @@ export default function ProjectsPage() {
           </div>
         </motion.button>
       </div>
+
+      {/* Projects Grid Section */}
+      <section id="projects-grid" className="relative z-10 w-full min-h-screen py-32 px-4 bg-black flex flex-col items-center">
+        <div className="max-w-7xl w-full flex-grow flex items-center justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16 justify-center justify-items-center w-full">
+            {projectsData.map((project, index) => (
+              <ProjectCard key={project.id} project={project} index={index} />
+            ))}
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </div>

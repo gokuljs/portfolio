@@ -52,8 +52,8 @@ export const CyberpunkBackground = () => {
         float depthVariation = colHash * 0.3;
         
         // Allowing the depth to reach 80-90% of the viewport in some areas
-        // Base threshold lowered to 0.2, mountain and variation can push it even lower
-        float threshold = 0.3 + mountain * 2.0 - depthVariation * 2.5;
+        // Base threshold lowered to 0.1, mountain and variation can push it even lower
+        float threshold = 0.1 + mountain * 2.0 - depthVariation * 2.5;
         
         // Background grid - fades out based on distance from top
         float bgGrid = step(0.15, gv.x) * step(0.15, 1.0 - gv.x) * step(0.15, gv.y) * step(0.15, 1.0 - gv.y);
@@ -65,9 +65,9 @@ export const CyberpunkBackground = () => {
         if (uv.y > threshold) {
             float normalizedY = (uv.y - threshold) / (1.0 - threshold);
             
-            // Aggressive brightness falloff: pow(normalizedY, 5.0)
+            // Aggressive brightness falloff: pow(normalizedY, 3.0)
             // This ensures the blocks are only bright at the very top and dim rapidly as they hang down
-            float brightness = pow(normalizedY, 5.0) * 0.3;
+            float brightness = pow(normalizedY, 3.0) * 0.2;
             
             // Subtle flicker
             float flicker = step(0.3, hash2d(id + floor(u_time * (1.5 + colHash * 3.0))));
@@ -76,16 +76,16 @@ export const CyberpunkBackground = () => {
             float block = step(0.2, gv.x) * step(0.2, 1.0 - gv.x) * step(0.2, gv.y) * step(0.2, 1.0 - gv.y);
             
             // Monochromatic palette: Grey to White
-            vec3 greyToWhite = mix(vec3(0.2, 0.2, 0.25), vec3(1.0, 1.0, 1.0), normalizedY);
+            vec3 greyToWhite = mix(vec3(0.2, 0.2, 0.25), vec3(0.8, 0.8, 0.85), normalizedY);
             finalColor += greyToWhite * brightness * flicker * block;
             
             // Subtle top edge white glow
             float topEdge = smoothstep(0.98, 1.0, uv.y);
-            finalColor += vec3(1.0) * topEdge * 0.1;
+            finalColor += vec3(1.0) * topEdge * 0.04;
         }
         
         // Nearly invisible bloom, also aggressively faded
-        float bloom = pow(uv.y, 8.0) * 0.02;
+        float bloom = pow(uv.y, 8.0) * 0.01;
         finalColor += vec3(0.5, 0.5, 0.6) * bloom;
 
         gl_FragColor = vec4(finalColor, 1.0);

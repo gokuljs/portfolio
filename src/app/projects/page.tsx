@@ -64,9 +64,9 @@ export default function ProjectsPage() {
       </div>
 
       {/* Projects Grid Section */}
-      <section id="projects-grid" className="relative z-10 w-full min-h-screen py-32 px-4 bg-black flex flex-col items-center">
-        <div className="max-w-7xl w-full flex-grow flex items-center justify-center">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16 justify-center justify-items-center w-full">
+      <section id="projects-grid" className="relative z-10 w-full min-h-screen py-32 px-8 md:px-16 lg:px-24 bg-black flex flex-col items-center">
+        <div className="max-w-7xl w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr">
             {projectsData.map((project, index) => (
               <ProjectCard key={project.id} project={project} index={index} />
             ))}

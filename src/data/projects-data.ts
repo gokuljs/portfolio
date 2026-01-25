@@ -7,6 +7,7 @@ export interface Project {
   link?: string;
   github?: string;
   status?: 'Live' | 'Progress';
+ 
 }
 
 export const projectsData: Project[] = [
@@ -18,6 +19,7 @@ export const projectsData: Project[] = [
     tags: ['Next.js', 'AI', 'Tailwind'],
     link: 'https://getmailyx.com/',
     status: 'Progress'
+
   },
   {
     id: '2',
@@ -27,6 +29,7 @@ export const projectsData: Project[] = [
     tags: ['Productivity', 'Calendar', 'React'],
     link: 'https://www.aerotime.com/',
     status: 'Live'
+  
   },
   {
     id: '3',

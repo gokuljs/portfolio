@@ -22,18 +22,15 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
           src={project.image}
           alt={project.title}
           fill
-          className="object-cover transition-transform rounded-[10px] duration-500"
+          className="object-cover transition-transform rounded-[4px] duration-500"
         />
       </div>
 
       <div className="flex flex-col flex-grow !px-[6px] !py-[6px]">
-      
-        <div className='flex justify-between items-center'>
-        <h3 className="text-xl font-bold text-white mt-2">
+        <h3 className="text-[19px] font-bold text-white mt-3">
           {project.title}
         </h3>
-        </div>
-        <p className="text-sm text-white/50 mt-4 line-clamp-2 leading-relaxed">
+        <p className="text-[15px] text-white/50 mt-2 line-clamp-2 leading-snug">
           {project.description}
         </p>
       </div>

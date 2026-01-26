@@ -1,244 +1,79 @@
+
+'use client';
+
 import Footer from '@/app/ui/home/Footer/Footer';
-import { PinContainer } from '@/app/ui/components/3d-pin';
-import { Spotlight } from '@/components/ui/spotlight-new';
+import { CyberpunkBackground } from '@/components/ui/cyberpunk-background';
+import { Playfair_Display } from 'next/font/google';
+import { ChevronDown } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ProjectCard } from '@/components/ui/project-card';
+import { projectsData } from '@/data/projects-data';
+
+const playfair = Playfair_Display({ subsets: ['latin'], style: 'italic' });
 
 export default function ProjectsPage() {
+  const scrollToContent = () => {
+    const nextSection = document.getElementById('projects-grid');
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="min-h-screen w-full bg-black !pt-[30px]">
+    <div className="min-h-screen w-full bg-black overflow-x-hidden relative">
+      <CyberpunkBackground />
+      
       <div className="hidden md:block">
-        <Spotlight />
+        {/* <Spotlight /> */}
       </div>
 
-      <div className="flex justify-center items-center ">
-        <div className="container max-w-7xl min-h-screen px-4 !py-24">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-24 mt-24 p-4 justify-items-center">
-            {/* Project 1 with 3D Pin */}
-            <div className="w-full max-w-sm mx-auto">
-              <PinContainer
-                title="Mailyx"
-                href="https://getmailyx.com/"
-                containerClassName="w-full h-auto"
-              >
-                <div className="relative overflow-hidden bg-gradient-to-r from-gray-900 to-black group w-80 h-fit rounded-2xl">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div
-                    className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"
-                    style={{ boxShadow: '0 0 15px rgba(245, 245, 245, 0.4)' }}
-                  ></div>
-                  <div className="relative h-full flex flex-col bg-gradient-to-b from-gray-900 to-black overflow-hidden p-6">
-                    <div className="h-50 w-full bg-center bg-no-repeat bg-cover bg-[url('/Mailyx.png')] mb-4"></div>
-                    <div className="flex-1 flex flex-col justify-between !px-4 !py-2 !pb-4 gap-4">
-                      <div>
-                        <h3 className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-white to-stone-200/10 mb-2">
-                          Mailyx
-                        </h3>
-                        <p className="text-stone-400 text-sm mb-4 line-clamp-3">
-                          Minimalist AI email client with smart inbox, search,
-                          and navigation.
-                        </p>
-                      </div>
-                      <div className="flex space-x-2">
-                        <span className="!px-3 !py-1 flex gap-2 items-center bg-yellow-900/40 text-yellow-300 text-xs rounded-full border border-yellow-700/50">
-                          <span className="w-1.5 h-1.5 bg-yellow-400 rounded-full animate-pulse"></span>
-                          Progress
-                        </span>
-                      </div>
-                      <div className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-stone-200 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    </div>
-                  </div>
-                </div>
-              </PinContainer>
-            </div>
-            <div className="w-full max-w-sm mx-auto">
-              <PinContainer
-                title="Aerotime"
-                href="https://www.aerotime.com/"
-                containerClassName="w-full h-auto"
-              >
-                <div className="relative overflow-hidden bg-gradient-to-r from-gray-900 to-black group w-80 h-fit rounded-2xl">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div
-                    className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"
-                    style={{ boxShadow: '0 0 15px rgba(245, 245, 245, 0.4)' }}
-                  ></div>
-                  <div className="relative h-full flex flex-col bg-gradient-to-b from-gray-900 to-black overflow-hidden p-6">
-                    <div className="h-50 w-full bg-center bg-no-repeat bg-cover bg-[url('/video-poster.jpg')] mb-4"></div>
-                    <div className="flex-1 flex flex-col justify-between !px-4 !py-2 !pb-4 gap-4">
-                      <div>
-                        <h3 className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-white to-stone-200/10  mb-2">
-                          Aerotime
-                        </h3>
-                        <p className="text-stone-400 text-sm mb-4 line-clamp-3">
-                          Smart calendar and scheduling tool to boost
-                          productivity and focus.
-                        </p>
-                      </div>
-                      <div className="flex space-x-2">
-                        <div className="flex space-x-2">
-                          <span className="!px-3 !py-1 flex gap-2 items-center bg-green-900/40 text-green-300 text-xs rounded-full border border-green-700/50">
-                            <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
-                            Live
-                          </span>
-                        </div>
-                      </div>
-                      <div className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-stone-200 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    </div>
-                  </div>
-                </div>
-              </PinContainer>
-            </div>
-            <div className="w-full max-w-sm mx-auto">
-              <PinContainer
-                title="Teamble"
-                href="https://teamble.com/"
-                containerClassName="w-full h-auto"
-              >
-                <div className="relative overflow-hidden bg-gradient-to-r from-gray-900 to-black group w-80 h-fit rounded-2xl">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div
-                    className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"
-                    style={{ boxShadow: '0 0 15px rgba(245, 245, 245, 0.4)' }}
-                  ></div>
-                  <div className="relative h-full flex flex-col bg-gradient-to-b from-gray-900 to-black overflow-hidden p-6">
-                    <div className="h-50 w-full bg-center bg-no-repeat bg-cover bg-[url('/teambleBg.png')] mb-4"></div>
-                    <div className="flex-1 flex flex-col justify-between !px-4 !py-2 !pb-4 gap-4">
-                      <div>
-                        <h3 className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-white to-stone-200/10  mb-2">
-                          Teamble
-                        </h3>
-                        <p className="text-stone-400 text-sm mb-4 line-clamp-3">
-                          Engagement platform to boost team culture, feedback,
-                          and recognition.
-                        </p>
-                      </div>
-                      <div className="flex space-x-2">
-                        <div className="flex space-x-2">
-                          <span className="!px-3 !py-1 flex gap-2 items-center bg-green-900/40 text-green-300 text-xs rounded-full border border-green-700/50">
-                            <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
-                            Live
-                          </span>
-                        </div>
-                      </div>
-                      <div className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-stone-200 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    </div>
-                  </div>
-                </div>
-              </PinContainer>
-            </div>
-            <div className="w-full max-w-sm mx-auto">
-              <PinContainer
-                title="NotionFlow"
-                href="https://notionflow-omega.vercel.app/"
-                containerClassName="w-full h-auto"
-              >
-                <div className="relative overflow-hidden bg-gradient-to-r from-gray-900 to-black group w-80 h-fit rounded-2xl">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div
-                    className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"
-                    style={{ boxShadow: '0 0 15px rgba(245, 245, 245, 0.4)' }}
-                  ></div>
-                  <div className="relative h-full flex flex-col bg-gradient-to-b from-gray-900 to-black overflow-hidden p-6">
-                    <div className="h-50 w-full bg-center bg-no-repeat bg-cover bg-[url('/NotionFlow.png')] mb-4"></div>
-                    <div className="flex-1 flex flex-col justify-between !px-4 !py-2 !pb-4 gap-4">
-                      <div>
-                        <h3 className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-white to-stone-200/10  mb-2">
-                          NotionFlow
-                        </h3>
-                        <p className="text-stone-400 text-sm mb-4 line-clamp-3">
-                          Collaborative workspace for notes, tasks, databases,
-                          and seamless organization.
-                        </p>
-                      </div>
-                      <div className="flex space-x-2">
-                        <span className="!px-3 !py-1 flex gap-2 items-center bg-green-900/40 text-green-300 text-xs rounded-full border border-green-700/50">
-                          <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
-                          Live
-                        </span>
-                      </div>
-                      <div className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-stone-200 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    </div>
-                  </div>
-                </div>
-              </PinContainer>
-            </div>
-            <div className="w-full max-w-sm mx-auto">
-              <PinContainer
-                title="Gsap Experiment"
-                href="https://three-js-and-gasp.vercel.app/"
-                containerClassName="w-full h-auto"
-              >
-                <div className="relative overflow-hidden bg-gradient-to-r from-gray-900 to-black group w-80 h-fit rounded-2xl">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div
-                    className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"
-                    style={{ boxShadow: '0 0 15px rgba(245, 245, 245, 0.4)' }}
-                  ></div>
-                  <div className="relative h-full flex flex-col bg-gradient-to-b from-gray-900 to-black overflow-hidden p-6">
-                    <div className="h-50 w-full bg-center bg-no-repeat bg-cover bg-[url('/gsap.png')] rounded-lg mb-4"></div>
-                    <div className="flex-1 flex flex-col justify-between !px-4 !py-2 !pb-4 gap-4">
-                      <div>
-                        <h3 className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-white to-stone-200/10  mb-2">
-                          Gsap Experiment
-                        </h3>
-                        <p className="text-stone-400 text-sm mb-4 line-clamp-3">
-                          Its a Gsap Experiment with a lot of animations and
-                          transitions.
-                        </p>
-                      </div>
-                      <div className="flex space-x-2">
-                        <div className="flex space-x-2">
-                          <span className="!px-3 !py-1 flex gap-2 items-center bg-green-900/40 text-green-300 text-xs rounded-full border border-green-700/50">
-                            <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
-                            Live
-                          </span>
-                        </div>
-                      </div>
-                      <div className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-stone-200 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    </div>
-                  </div>
-                </div>
-              </PinContainer>
-            </div>
-            <div className="w-full max-w-sm mx-auto">
-              <PinContainer
-                title="Custom Gpt"
-                href="https://custom-gpt-nine.vercel.app/"
-                containerClassName="w-full h-auto"
-              >
-                <div className="relative overflow-hidden bg-gradient-to-r from-gray-900 to-black group w-80 h-fit rounded-2xl">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div
-                    className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"
-                    style={{ boxShadow: '0 0 15px rgba(245, 245, 245, 0.4)' }}
-                  ></div>
-                  <div className="relative h-full flex flex-col bg-gradient-to-b from-gray-900 to-black overflow-hidden p-6">
-                    <div className="h-50 w-full bg-center bg-no-repeat bg-cover bg-[url('/customGpt.png')]  mb-4"></div>
-                    <div className="flex-1 flex flex-col justify-between !px-4 !py-2 !pb-4 gap-4">
-                      <div>
-                        <h3 className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-white to-stone-200/10  mb-2">
-                          Custom Gpt
-                        </h3>
-                        <p className="text-stone-400 text-sm mb-4 line-clamp-3">
-                          A chatgpt clone with a custom ui and a custom backend.
-                        </p>
-                      </div>
-                      <div className="flex space-x-2">
-                        <div className="flex space-x-2">
-                          <span className="!px-3 !py-1 flex gap-2 items-center bg-green-900/40 text-green-300 text-xs rounded-full border border-green-700/50">
-                            <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
-                            Live
-                          </span>
-                        </div>
-                      </div>
-                      <div className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-stone-200 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    </div>
-                  </div>
-                </div>
-              </PinContainer>
-            </div>
+      {/* Hero Section */}
+      <div className="relative z-10 flex flex-col items-center justify-center h-screen px-4">
+        <div className="w-full max-w-7xl">
+          {/* Header */}
+          <div className="text-center space-y-4 md:space-y-6 flex flex-col justify-center items-center px-4">
+            <h1 className={`${playfair.className} text-[clamp(1.5rem,8vw,4.5rem)] font-medium mb-6 md:mb-8 leading-none tracking-tight text-white drop-shadow-sm px-4`}>
+              Code that made it to the real world.
+            </h1>
+            <p className="text-[clamp(0.875rem,2.5vw,1.1rem)] text-neutral-400 font-light opacity-90 max-w-[90vw] md:max-w-3xl leading-relaxed px-6">
+              A collection of products, tools, and experiments I&apos;ve built and shipped in the past.
+            </p>
           </div>
         </div>
+
+        {/* Scroll Indicator Button */}
+        <motion.button
+          onClick={scrollToContent}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.8 }}
+          className="absolute bottom-12 flex flex-col items-center gap-2 group cursor-pointer"
+        >
+          <span className="text-xs uppercase tracking-[0.2em] text-neutral-500 group-hover:text-white transition-colors duration-300">
+            Scroll to explore
+          </span>
+          <div className="w-10 h-10 rounded-full border border-white/10 bg-white/5 backdrop-blur-md flex items-center justify-center group-hover:border-white/30 group-hover:bg-white/10 transition-all duration-300">
+            <motion.div
+              animate={{ y: [0, 4, 0] }}
+              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+            >
+              <ChevronDown className="w-5 h-5 text-white/50 group-hover:text-white transition-colors duration-300" />
+            </motion.div>
+          </div>
+        </motion.button>
       </div>
+
+      {/* Projects Grid Section */}
+      <section id="projects-grid" className="relative z-10 w-full min-h-screen py-32 px-8 md:px-16 lg:px-24 bg-black flex flex-col items-center">
+        <div className="max-w-7xl w-full !mt-[70px]">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr">
+            {projectsData.map((project, index) => (
+              <ProjectCard key={project.id} project={project} index={index} />
+            ))}
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );

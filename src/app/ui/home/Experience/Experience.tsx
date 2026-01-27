@@ -26,18 +26,13 @@ export default function Experience() {
               USA • Full-time • Remote
             </p>
             <p className="!mt-2 text-sm font-normal text-neutral-200 leading-relaxed">
-              Real-time voice is hard. Loved every bit of it. Owned the full voice 
-              pipeline at Rime, from frontend UX to LiveKit WebRTC transport to 
-              Pipecat orchestration in production. Led the Rime TTS integration 
-              into LiveKit for low-latency voice across multiple customer use cases. 
-              Built and maintained Pipecat integrations under real-time constraints. 
-              Hunted down latency bottlenecks, optimized execution paths, and validated 
-              failure scenarios. When production incidents hit, I was the one diagnosing 
-              customer-reported failures across the WebRTC stack and shipping fixes. 
-              Acted as the escalation point for breaking changes, coordinating fixes 
-              across frontend, backend, and media layers. Also reviewed and merged 
-              frontend PRs to keep user-facing features stable. Great team, learned 
-              a ton about building systems that need to work under real pressure.
+              Rime was a great place to build real-time systems with a strong team and
+              a lot of ownership. I owned the full voice pipeline, from frontend UX to
+              WebRTC transport with LiveKit and Pipecat. Shipped integrations so customers
+              could get low-latency voice that actually worked. When audio broke in
+              production, I was the one tracing it through the stack and pushing fixes.
+              Got comfortable making tradeoffs between speed, reliability, and cost. The
+              kind of work where you hear the difference when it's done right.
             </p>
           </div>
 

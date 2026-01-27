@@ -5,7 +5,51 @@ import styles from '@styles/Experience.module.scss';
 export default function Experience() {
   const data = [
     {
-      title: 'Jun 24 - Present',
+      title: 'Jun 25 - Present',
+      content: (
+        <div>
+          <div className="mb-8">
+            <div className="flex items-center gap-4 mb-3">
+              <div className="h-12 w-12 rounded-full bg-neutral-800 flex items-center justify-center overflow-hidden border border-neutral-700">
+                <img
+                  src="/rime-logo.png"
+                  alt="Rime Logo"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div>
+                <h3 className="text-base font-medium text-white">Rime TTS</h3>
+                <p className="text-xs text-neutral-400">Senior Software Engineer</p>
+              </div>
+            </div>
+            <p className="text-sm font-normal text-neutral-500 !mt-2">
+              San Francisco • Full-time • Remote
+            </p>
+            <p className="!mt-2 text-sm font-normal text-neutral-200 leading-relaxed">
+              Rime was a great place to build real-time systems with a strong team and
+              a lot of ownership. I owned the full voice pipeline, from frontend UX to
+              WebRTC transport with LiveKit and Pipecat. Shipped integrations so customers
+              could get low-latency voice that actually worked. When audio broke in
+              production, I was the one tracing it through the stack and pushing fixes.
+              Got comfortable making tradeoffs between speed, reliability, and cost. The
+              kind of work where you hear the difference when it's done right.
+            </p>
+          </div>
+
+          <div className="w-full !mt-4 h-fit">
+            <img
+              src="/rime-bg.png"
+              alt="Rime TTS"
+              width={800}
+              height={800}
+              className="w-full rounded-lg border border-neutral-800 object-contain h-auto max-h-[400px]"
+            />
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: 'Jun 24 - Mar 25',
       content: (
         <div >
           <div className="mb-8">

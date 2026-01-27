@@ -19,11 +19,11 @@ export default function Experience() {
               </div>
               <div>
                 <h3 className="text-base font-medium text-white">Rime TTS</h3>
-                <p className="text-xs text-neutral-400">Software Engineer</p>
+                <p className="text-xs text-neutral-400">Senior Software Engineer</p>
               </div>
             </div>
             <p className="text-sm font-normal text-neutral-500 !mt-2">
-              USA • Full-time • Remote
+              San Francisco • Full-time • Remote
             </p>
             <p className="!mt-2 text-sm font-normal text-neutral-200 leading-relaxed">
               Rime was a great place to build real-time systems with a strong team and

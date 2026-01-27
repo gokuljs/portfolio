@@ -5,7 +5,56 @@ import styles from '@styles/Experience.module.scss';
 export default function Experience() {
   const data = [
     {
-      title: 'Jun 24 - Present',
+      title: 'Jun 25 - Present',
+      content: (
+        <div>
+          <div className="mb-8">
+            <div className="flex items-center gap-4 mb-3">
+              <div className="h-12 w-12 rounded-full bg-neutral-800 flex items-center justify-center overflow-hidden border border-neutral-700">
+                <img
+                  src="/rime-logo.png"
+                  alt="Rime Logo"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div>
+                <h3 className="text-base font-medium text-white">Rime TTS</h3>
+                <p className="text-xs text-neutral-400">Software Engineer</p>
+              </div>
+            </div>
+            <p className="text-sm font-normal text-neutral-500 !mt-2">
+              USA • Full-time • Remote
+            </p>
+            <p className="!mt-2 text-sm font-normal text-neutral-200 leading-relaxed">
+              Real-time voice is hard. Loved every bit of it. Owned the full voice 
+              pipeline at Rime, from frontend UX to LiveKit WebRTC transport to 
+              Pipecat orchestration in production. Led the Rime TTS integration 
+              into LiveKit for low-latency voice across multiple customer use cases. 
+              Built and maintained Pipecat integrations under real-time constraints. 
+              Hunted down latency bottlenecks, optimized execution paths, and validated 
+              failure scenarios. When production incidents hit, I was the one diagnosing 
+              customer-reported failures across the WebRTC stack and shipping fixes. 
+              Acted as the escalation point for breaking changes, coordinating fixes 
+              across frontend, backend, and media layers. Also reviewed and merged 
+              frontend PRs to keep user-facing features stable. Great team, learned 
+              a ton about building systems that need to work under real pressure.
+            </p>
+          </div>
+
+          <div className="w-full !mt-4 h-fit">
+            <img
+              src="/rime-bg.png"
+              alt="Rime TTS"
+              width={800}
+              height={800}
+              className="w-full rounded-lg border border-neutral-800 object-contain h-auto max-h-[400px]"
+            />
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: 'Jun 24 - Mar 25',
       content: (
         <div >
           <div className="mb-8">

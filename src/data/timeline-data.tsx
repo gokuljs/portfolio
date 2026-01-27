@@ -1,15 +1,63 @@
 export const timelineData = [
   {
+    period: 'June 2025 – Present',
+    title: 'Software Engineer',
+    company: 'Rime TTS',
+    location: 'USA',
+    companyLogo: {
+      src: '/rime.jpeg',
+      alt: 'Rime TTS logo',
+    },
+    locationImage: {
+      src: '',
+      alt: '',
+    },
+    content: (
+      <div className="space-y-4">
+        <p>
+          Owned the end-to-end real-time voice pipeline for Rime Text-to-Speech,
+          spanning frontend UX, LiveKit-based WebRTC transport, and Pipecat
+          orchestration in production environments.
+        </p>
+        <p>
+          Led the integration of Rime TTS into LiveKit, enabling low-latency,
+          real-time voice capabilities and supporting multiple customer-facing use cases.
+        </p>
+        <div className="space-y-2">
+          <p className="font-medium">Key Achievements:</p>
+          <ul className="list-none space-y-2 pl-4">
+            <li>
+              • Built and maintained Rime TTS integrations with Pipecat, ensuring
+              stable audio pipelines under real-time constraints and production traffic.
+            </li>
+            <li>
+              • Improved performance and reliability by identifying latency bottlenecks,
+              optimizing execution paths, and validating behavior under failure scenarios.
+            </li>
+            <li>
+              • Served as primary owner for production incidents related to real-time audio,
+              diagnosing customer-reported failures and tracing root causes across the WebRTC stack.
+            </li>
+            <li>
+              • Acted as escalation point for breaking changes in real-time integrations,
+              ensuring system stability while coordinating fixes across frontend, backend, and media layers.
+            </li>
+          </ul>
+        </div>
+      </div>
+    ),
+  },
+  {
     period: 'June 2024 – March 2025',
-    title: 'Full Stack Developer',
+    title: 'Lead Engineer',
     company: 'Teamble',
     location: 'New York City (NYC), USA',
     companyLogo: {
-      src: '/images/companies/teamble.png',
+      src: '/teamble.svg',
       alt: 'Teamble logo',
     },
     locationImage: {
-      src: '/images/locations/nyc.jpg',
+      src: '',
       alt: 'New York City skyline',
     },
     content: (

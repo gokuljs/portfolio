@@ -51,6 +51,11 @@ export const skillsWithRatings = [
   { name: 'MongoDB', rating: 6, category: 'Database' },
   { name: 'DynamoDB', rating: 6, category: 'Database' },
 
+  // REAL-TIME / COMMUNICATION
+  { name: 'WebRTC', rating: 7, category: 'Real-time' },
+  { name: 'LiveKit', rating: 7, category: 'Real-time' },
+  { name: 'Pipecat', rating: 7, category: 'Real-time' },
+
   // LLM / AI
   { name: 'Prompt Engineering', rating: 7, category: 'LLM' },
   { name: 'Langchain', rating: 7, category: 'LLM' },

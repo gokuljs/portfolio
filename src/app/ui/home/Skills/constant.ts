@@ -3,11 +3,11 @@ export const skillsWithRatings = [
   { name: 'JavaScript', rating: 9, category: 'Languages' },
   { name: 'TypeScript', rating: 9, category: 'Languages' },
   { name: 'Python', rating: 6, category: 'Languages' },
-  { name: 'HTML', rating: 9, category: 'Languages' },
-  { name: 'CSS', rating: 9, category: 'Languages' },
-  { name: 'Sass', rating: 8, category: 'Languages' },
 
   // FRONTEND
+  { name: 'HTML', rating: 9, category: 'Frontend' },
+  { name: 'CSS', rating: 9, category: 'Frontend' },
+  { name: 'Sass', rating: 8, category: 'Frontend' },
   { name: 'React JS', rating: 9, category: 'Frontend' },
   { name: 'Next JS 14', rating: 9, category: 'Frontend' },
   { name: 'Redux', rating: 9, category: 'Frontend' },

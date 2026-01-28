@@ -15,35 +15,20 @@ export const timelineData = [
     content: (
       <div className="space-y-4">
         <p>
-          Owned the end-to-end real-time voice pipeline for Rime Text-to-Speech,
-          spanning frontend UX, LiveKit-based WebRTC transport, and Pipecat
-          orchestration in production environments.
+          Rime was a great environment for building real-time systems with high ownership.
+          I owned the end-to-end voice pipeline, from frontend UX through WebRTC transport
+          using LiveKit and Pipecat.
         </p>
         <p>
-          Led the integration of Rime TTS into LiveKit, enabling low-latency,
-          real-time voice capabilities and supporting multiple customer-facing use cases.
+          Shipped customer-facing integrations that delivered reliable, low-latency voice
+          in production and helped drive a 260% increase in revenue.
         </p>
-        <div className="space-y-2">
-          <p className="font-medium">Key Achievements:</p>
-          <ul className="list-none space-y-2 pl-4">
-            <li>
-              • Built and maintained Rime TTS integrations with Pipecat, ensuring
-              stable audio pipelines under real-time constraints and production traffic.
-            </li>
-            <li>
-              • Improved performance and reliability by identifying latency bottlenecks,
-              optimizing execution paths, and validating behavior under failure scenarios.
-            </li>
-            <li>
-              • Served as primary owner for production incidents related to real-time audio,
-              diagnosing customer-reported failures and tracing root causes across the WebRTC stack.
-            </li>
-            <li>
-              • Acted as escalation point for breaking changes in real-time integrations,
-              ensuring system stability while coordinating fixes across frontend, backend, and media layers.
-            </li>
-          </ul>
-        </div>
+        <p>
+          When audio issues surfaced, I traced failures across the stack and pushed fixes
+          under real production constraints, making deliberate tradeoffs between speed,
+          reliability, and cost. This was work where quality was measurable in milliseconds
+          and audible to users.
+        </p>
       </div>
     ),
   },

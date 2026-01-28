@@ -79,9 +79,4 @@ export const skillsWithRatings = [
   { name: 'Strapi', rating: 6, category: 'CMS' },
   { name: 'Sanity', rating: 6, category: 'CMS' },
   { name: 'Prismic', rating: 6, category: 'CMS' },
-
-  // CURRENTLY EXPLORING
-  { name: 'Animation Design Philosophy', rating: 3, category: 'Exploring' },
-  { name: 'Video-based LLM', rating: 3, category: 'Exploring' },
-  { name: 'Design Engineering', rating: 3, category: 'Exploring' },
 ];

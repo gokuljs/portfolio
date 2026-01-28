@@ -55,6 +55,7 @@ export const skillsWithRatings = [
   { name: 'WebRTC', rating: 7, category: 'Real-time' },
   { name: 'LiveKit', rating: 7, category: 'Real-time' },
   { name: 'Pipecat', rating: 7, category: 'Real-time' },
+  { name: 'Twilio (SDK + SIP)', rating: 7, category: 'Real-time' },
 
   // LLM / AI
   { name: 'Prompt Engineering', rating: 7, category: 'LLM' },

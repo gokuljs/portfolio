@@ -57,16 +57,14 @@ export const skillsWithRatings = [
   { name: 'Pipecat', rating: 7, category: 'Real-time' },
   { name: 'Twilio (SDK + SIP)', rating: 7, category: 'Real-time' },
 
-  // LLM / AI
-  { name: 'Prompt Engineering', rating: 7, category: 'LLM' },
-  { name: 'Langchain', rating: 7, category: 'LLM' },
-  { name: 'LangGraph', rating: 7, category: 'LLM' },
-  { name: 'LlamaIndex', rating: 7, category: 'LLM' },
-  { name: 'RAG', rating: 7, category: 'LLM' },
-  { name: 'Stable Diffusion', rating: 5, category: 'LLM' },
-  { name: 'AUTOMATIC1111', rating: 7, category: 'LLM' },
-  { name: 'IP-Adapter', rating: 7, category: 'LLM' },
-  { name: 'ComfyUI', rating: 7, category: 'LLM' },
+  // AGENTIC AI
+  { name: 'Langchain', rating: 7, category: 'Agentic AI' },
+  { name: 'LangGraph', rating: 7, category: 'Agentic AI' },
+  { name: 'LlamaIndex', rating: 7, category: 'Agentic AI' },
+  { name: 'RAG', rating: 7, category: 'Agentic AI' },
+  { name: 'Agent Orchestration', rating: 7, category: 'Agentic AI' },
+  { name: 'Prompt Engineering', rating: 7, category: 'Agentic AI' },
+  { name: 'Stable Diffusion', rating: 5, category: 'Agentic AI' },
 
   // VERSION CONTROL
   {

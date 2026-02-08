@@ -62,44 +62,66 @@
       gap: 20px;
       .categoryContainer {
         position: relative;
-        // padding: 10px;//
-        border-radius: 0.75rem;
-        // background: #2d2d2d82;
-        // border: 1px solid #7373734f;
+        border-radius: 1rem;
+        overflow: hidden;
       }
       .category {
         z-index: 99;
-        border-radius: 8px;
         width: 100%;
         height: 100%;
-        padding: 20px;
-        border-radius: 0.75rem;
-        background: black;
-        background: radial-gradient(circle, #171717, #09090b 90%) !important;
+        padding: 24px;
+        border-radius: 1rem;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.05) 0%,
+          rgba(255, 255, 255, 0.02) 100%
+        );
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 
+          0 8px 32px rgba(0, 0, 0, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.05);
       }
 
       .category h2 {
-        font-size: 1.5em;
-        margin-bottom: 10px;
-        color: #e5e5e5;
+        font-size: 1.4em;
+        margin-bottom: 16px;
+        color: #ffffff;
         font-weight: 600;
+        letter-spacing: -0.01em;
       }
 
       .items span {
         display: inline-block;
-
-        margin: 5px;
-        padding: 10px;
-        border-radius: 4px;
-        transition: background-color 0.3s;
-        color: #fafaf9;
-        background: #1c1917;
-        background: linear-gradient(to bottom right, #1c1917, #262626);
+        margin: 4px;
+        padding: 8px 14px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.9);
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.08) 0%,
+          rgba(255, 255, 255, 0.03) 100%
+        );
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         font-feature-settings: 'cv04' on, 'ss08' on;
       }
 
       .items span:hover {
-        background: #3f3f46;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.15) 0%,
+          rgba(255, 255, 255, 0.08) 100%
+        );
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
       }
       /* Responsive styles */
     }

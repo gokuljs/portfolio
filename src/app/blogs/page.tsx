@@ -16,13 +16,8 @@ export default function BlogsPage() {
             ideas / experiments / reflections
           </p>
           <h1 
-            className="text-6xl md:text-8xl lg:text-9xl font-light tracking-tight"
-            style={{
-              background: 'linear-gradient(to right, #ffffff, #000000)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
+            className="!text-6xl md:!text-8xl lg:!text-9xl !font-light !tracking-tight !bg-gradient-to-r !from-[#ffffff] !to-[#0c0a09] !bg-clip-text !text-transparent"
+            style={{ textShadow: '0 0 40px rgba(255, 255, 255, 0.3), 0 0 80px rgba(255, 255, 255, 0.1)' }}
           >
             archive
           </h1>

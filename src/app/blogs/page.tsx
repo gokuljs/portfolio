@@ -4,6 +4,7 @@ import { BlogListItem } from '@/components/ui/blog-card';
 import { getSortedBlogs } from '@/data/blogs-data';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { Search, SlidersHorizontal } from 'lucide-react';
 
 export default function BlogsPage() {
   const blogs = getSortedBlogs();
@@ -52,8 +53,28 @@ export default function BlogsPage() {
         </motion.div>
       </div>
 
+      {/* Search and Filter */}
+      <motion.div 
+        className="px-8 md:!px-16 lg:px-20 py-12 flex justify-end"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.6, ease: 'easeOut' }}
+      >
+        <div className="flex items-center gap-8">
+          {/* Search Bar - Underline style with icon inside */}
+          <div className="flex items-center gap-3 border-b border-white/20 focus-within:border-white/50 transition-all">
+            <input
+              type="text"
+              placeholder="Search"
+              className="bg-transparent px-2 py-3 text-base text-white placeholder-neutral-500 focus:outline-none w-[200px] md:w-[300px]"
+            />
+            <Search className="w-5 h-5 text-neutral-500 mb-1" />
+          </div>
+        </div>
+      </motion.div>
+
       {/* Blog List */}
-      <div className="px-8 py-16 flex justify-center">
+      <div className="px-8 md:!px-16 lg:px-20 py-8 flex justify-center">
         <div className="max-w-2xl w-full">
           <div className="flex flex-col">
             {blogs.map((blog, index) => (

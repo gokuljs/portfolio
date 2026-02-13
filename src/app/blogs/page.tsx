@@ -11,13 +11,21 @@ export default function BlogsPage() {
     <>
       {/* Hero Section */}
       <div className="relative w-full h-[600px] !mt-[90px] flex justify-between bg-black overflow-hidden">
-        <div className="flex-1 flex flex-col justify-center !px-16 md:px-20 ">
-          <h1 className="text-5xl md:text-7xl font-light text-white tracking-tight mb-6">
+        <div className="flex-1 flex flex-col justify-center !px-16 md:px-20">
+          <p className="text-neutral-600 text-xs uppercase tracking-[0.3em] mb-4 !px-[10px]">
+            ideas / experiments / reflections
+          </p>
+          <h1 
+            className="text-6xl md:text-8xl lg:text-9xl font-light tracking-tight"
+            style={{
+              background: 'linear-gradient(to right, #ffffff, #000000)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
             archive
           </h1>
-          <p className="text-neutral-400 text-base md:text-lg max-w-md leading-relaxed">
-            A record of ideas, experiments, and what I learn while exploring new things and reflecting on my past experience.
-          </p>
         </div>
         <div className="relative flex-1 h-full">
           <Image

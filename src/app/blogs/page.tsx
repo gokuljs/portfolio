@@ -10,19 +10,25 @@ export default function BlogsPage() {
   return (
     <>
       {/* Hero Section */}
-      <div className="relative w-full h-[600px] !mt-[90px] flex justify-between bg-black overflow-hidden">
-        <div className="flex-1 flex flex-col justify-center !px-16 md:px-20">
-          <p className="text-neutral-600 text-xs uppercase tracking-[0.3em] mb-4 !px-[10px]">
+      <div className="relative w-full h-[400px] md:h-[600px] !mt-[90px] flex justify-center md:justify-between bg-black overflow-hidden">
+        <div className="flex-1 flex flex-col justify-center items-center md:items-start text-center md:text-left px-8 md:!px-16 lg:px-20">
+          <p className="text-neutral-600 text-xs uppercase tracking-[0.3em] mb-4">
             ideas / experiments / reflections
           </p>
           <h1 
-            className="!text-6xl md:!text-8xl lg:!text-9xl !font-light !tracking-tight !bg-gradient-to-r !from-[#ffffff] !to-[#0c0a09] !bg-clip-text !text-transparent"
-            style={{ textShadow: '0 0 40px rgba(255, 255, 255, 0.3), 0 0 80px rgba(255, 255, 255, 0.1)' }}
+            className="!text-5xl md:!text-8xl lg:!text-9xl !font-light !tracking-tight"
+            style={{ 
+              background: 'linear-gradient(to right, #ffffff 0%, #666666 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              textShadow: '0 0 40px rgba(255, 255, 255, 0.3), 0 0 80px rgba(255, 255, 255, 0.1)' 
+            }}
           >
             archive
           </h1>
         </div>
-        <div className="relative flex-1 h-full">
+        <div className="relative flex-1 h-full hidden md:block">
           <Image
             src="/blog-bg-organic.png"
             alt="Blog hero"

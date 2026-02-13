@@ -3,6 +3,7 @@
 import { BlogListItem } from '@/components/ui/blog-card';
 import { getSortedBlogs } from '@/data/blogs-data';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 export default function BlogsPage() {
   const blogs = getSortedBlogs();
@@ -12,11 +13,19 @@ export default function BlogsPage() {
       {/* Hero Section */}
       <div className="relative w-full h-[400px] md:h-[600px] !mt-[90px] flex justify-center md:justify-between bg-black overflow-hidden">
         <div className="flex-1 flex flex-col justify-center items-center md:items-start text-center md:text-left px-8 md:!px-16 lg:px-20">
-          <p className="text-neutral-600 text-xs uppercase tracking-[0.3em] mb-4">
+          <motion.p 
+            className="text-neutral-600 text-xs uppercase tracking-[0.3em] mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+          >
             ideas / experiments / reflections
-          </p>
-          <h1 
+          </motion.p>
+          <motion.h1 
             className="!text-5xl md:!text-8xl lg:!text-9xl !font-light !tracking-tight"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
             style={{ 
               background: 'linear-gradient(to right, #ffffff 0%, #666666 100%)',
               WebkitBackgroundClip: 'text',
@@ -26,16 +35,21 @@ export default function BlogsPage() {
             }}
           >
             archive
-          </h1>
+          </motion.h1>
         </div>
-        <div className="relative flex-1 h-full hidden md:block">
+        <motion.div 
+          className="relative flex-1 h-full hidden md:block"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, delay: 0.4, ease: 'easeOut' }}
+        >
           <Image
             src="/blog-bg-organic.png"
             alt="Blog hero"
             fill
             className="object-contain object-right"
           />
-        </div>
+        </motion.div>
       </div>
 
       {/* Blog List */}

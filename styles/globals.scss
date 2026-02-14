@@ -124,9 +124,6 @@
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -137,10 +134,10 @@
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  padding: 0;
-  margin: 0;
 }
 
 html {

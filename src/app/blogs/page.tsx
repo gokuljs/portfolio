@@ -66,7 +66,7 @@ export default function BlogsPage() {
             <input
               type="text"
               placeholder="Search"
-              className="bg-transparent px-2 py-3 text-base text-white placeholder-neutral-500 focus:outline-none w-[200px] md:w-[300px]"
+              className="bg-transparent py-1 text-base text-white placeholder-neutral-500 focus:outline-none w-[200px] md:w-[300px]"
             />
             <Search className="w-5 h-5 text-neutral-500 mb-1" />
           </div>

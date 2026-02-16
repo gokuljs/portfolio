@@ -32,7 +32,8 @@ export const skillsWithRatings = [
 
   // INFRA & DEVOPS
   { name: 'Docker', rating: 6, category: 'Infrastructure' },
-  { name: 'AWS (EC2, EKS, S3)', rating: 6, category: 'Infrastructure' },
+  { name: 'AWS (EC2, S3, ECS, ALB, ASG...)', rating: 6, category: 'Infrastructure' },
+  { name: 'Nginx', rating: 6, category: 'Infrastructure' },
   { name: 'Vercel', rating: 7, category: 'Infrastructure' },
   { name: 'GitHub Actions', rating: 7, category: 'Infrastructure' },
   { name: 'ELK Stack', rating: 6, category: 'Infrastructure' },

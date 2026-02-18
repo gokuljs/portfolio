@@ -12,7 +12,6 @@ export default function Home() {
       <GithubGraph />
       <Skill />
       <Experience />
-
       <Footer />
     </div>
   );

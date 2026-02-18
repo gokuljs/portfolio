@@ -1,6 +1,7 @@
 import styles from '@styles/hero.module.scss';
 import SocialDock from '../../components/SocialDock/SocialDock';
 import { Spotlight } from '@/components/ui/spotlight-new';
+import { SkillGraph } from '@/components/ui/skill-graph';
 
 const Hero: React.FC = () => {
   return (
@@ -19,30 +20,32 @@ const Hero: React.FC = () => {
         />
       </div>
 
-      <div></div>
       <div className={styles.content}>
-        <div className={styles.mainTextContainer}>
-          <h1 className={styles.mainText}>
-            <div>GOKUL JS</div>
-            <div>EX - YC</div>
-            <div>GENERALIST</div>
-            <div>DEVELOPER</div>
-          </h1>
+        <div className={styles.leftColumn}>
+          <div className={styles.mainTextContainer}>
+            <h1 className={styles.mainText}>
+              <div>GOKUL JS</div>
+              <div>EX - YC</div>
+              <div>GENERALIST</div>
+              <div>DEVELOPER</div>
+            </h1>
+          </div>
+
+          <div className={styles.descriptionContainer}>
+            <p className={styles.description}>
+              Former founding engineer and creative generalist with a track
+              record of turning early-stage ideas into real products. Built
+              scalable web platforms, intelligent agent systems, and real-time
+              voice pipelines. Thrives in fast-moving environments where speed
+              matters and ownership is everything.
+            </p>
+          </div>
         </div>
 
-        <div className={styles.descriptionContainer}>
-          <p className={styles.description}>
-            Gokul is a former founding engineer and creative generalist with a
-            track record of turning early-stage ideas into real products. He's
-            built scalable web platforms, intelligent agent systems, and handled
-            everything from system architecture to user feedback. At YC-backed
-            startups, he's contributed across engineering, product, and design
-            to launch tools that actually get used. He thrives in fast-moving
-            environments where speed matters and "not my job" doesn't exist. He
-            cares deeply about the things he builds and constantly evolves his
-            taste, believing that good instincts make great products and growth
-            makes better ones.
-          </p>
+        <div className={styles.rightColumn}>
+          <div className={styles.graphContainer}>
+            <SkillGraph />
+          </div>
         </div>
       </div>
 

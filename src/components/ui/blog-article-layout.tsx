@@ -320,9 +320,10 @@ export function BlogArticleLayout({
         /* Images */
         .blog-content img {
           max-width: 100%;
+          width: 100%;
           height: auto;
-          border-radius: 6px;
-          margin: 1.25em 0;
+          border-radius: 4px;
+          margin: 1.5em 0;
         }
 
         /* Horizontal rule */

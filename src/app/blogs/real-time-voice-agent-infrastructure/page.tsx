@@ -6,7 +6,7 @@ export default function RealTimeVoiceAgentPage() {
   return (
     <BlogArticleLayout
       title="Inside a Real-Time Voice Agent: Media Infrastructure and Inference Orchestration"
-      description="A deep dive into building low-latency voice agents, covering WebRTC transport, VAD, STT, streaming LLM inference, and TTS. I walk through the full pipeline from speech input to synthesized response, exploring architectural tradeoffs between modular systems and multimodal models for production deployments."
+      description="What it takes to build a low-latency voice agent. I walk through the full LiveKit pipeline: WebRTC, voice activity detection, STT, streaming LLM inference, and TTS working in real time."
       date="February 19, 2026"
       tags={['LiveKit', 'WebRTC', 'Real-Time Systems']}
     >

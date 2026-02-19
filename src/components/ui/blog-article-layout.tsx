@@ -49,7 +49,11 @@ export function BlogArticleLayout({
                 {tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-xs font-medium px-3 py-1.5 rounded-full bg-white/5 text-neutral-400 border border-white/10"
+                    className="text-xs font-medium px-4 py-1.5 rounded-full text-neutral-400 border border-white/[0.06]"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)',
+                      boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.05)',
+                    }}
                   >
                     {tag}
                   </span>
@@ -58,17 +62,17 @@ export function BlogArticleLayout({
             )}
 
             {/* Title */}
-            <h1 className="text-[28px] sm:text-[36px] md:text-[42px] lg:text-[46px] font-semibold text-white leading-[1.2] tracking-tight mb-6">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-medium text-white leading-tight tracking-tight mb-4">
               {title}
             </h1>
             
             {/* Description */}
-            <p className="text-[17px] md:text-[19px] text-neutral-400 leading-[1.7] mb-8">
+            <p className="text-sm md:text-base text-neutral-500 leading-relaxed mb-6">
               {description}
             </p>
 
             {/* Meta info */}
-            <div className="flex items-center gap-3 text-sm text-neutral-500">
+            <div className="flex items-center gap-2 text-sm text-neutral-500">
               <time>{date}</time>
               <span className="text-neutral-600">·</span>
               <span>{estimatedReadTime}</span>

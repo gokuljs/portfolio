@@ -24,7 +24,6 @@ export default function LessonsFromYCBlog() {
       title="Lessons from Y Combinator W21"
       description="Key takeaways and insights from my experience as a founding engineer at a YC-backed startup."
       date="January 25, 2026"
-      readingTime="6 min read"
       tags={['Startup', 'YC', 'Lessons']}
     >
       <p>

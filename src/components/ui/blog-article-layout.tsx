@@ -6,6 +6,7 @@ import { ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { ReadingProgressBar } from './reading-progress';
 import { TableOfContents } from './table-of-contents';
+import { calculateReadingTime } from '@/utils/reading-time';
 
 interface BlogArticleLayoutProps {
   children: React.ReactNode;
@@ -26,6 +27,7 @@ export function BlogArticleLayout({
   tags,
   featuredImage,
 }: BlogArticleLayoutProps) {
+  const estimatedReadTime = readingTime || calculateReadingTime(children);
   return (
     <>
       <ReadingProgressBar />
@@ -84,12 +86,8 @@ export function BlogArticleLayout({
             {/* Meta info */}
             <div className="flex items-center gap-3 text-sm text-neutral-500">
               <time>{date}</time>
-              {readingTime && (
-                <>
-                  <span className="text-neutral-600">·</span>
-                  <span>{readingTime}</span>
-                </>
-              )}
+              <span className="text-neutral-600">·</span>
+              <span>{estimatedReadTime}</span>
             </div>
           </motion.header>
 

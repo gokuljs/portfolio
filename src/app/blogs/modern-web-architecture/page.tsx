@@ -24,7 +24,6 @@ export default function ModernWebArchitectureBlog() {
       title="Modern Web Architecture in 2026"
       description="How I approach building scalable web applications with Next.js, serverless, and edge computing."
       date="January 15, 2026"
-      readingTime="8 min read"
       tags={['Web', 'Architecture', 'Next.js']}
     >
       <p>

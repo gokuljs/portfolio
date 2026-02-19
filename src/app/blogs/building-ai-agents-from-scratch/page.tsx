@@ -24,7 +24,6 @@ export default function BuildingAIAgentsBlog() {
       title="Building AI Agents from Scratch"
       description="A deep dive into creating intelligent agent systems that can reason and take actions autonomously."
       date="February 10, 2026"
-      readingTime="12 min read"
       tags={['AI', 'Agents', 'LLM']}
     >
       <p>

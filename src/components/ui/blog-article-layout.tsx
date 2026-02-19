@@ -138,44 +138,54 @@ export function BlogArticleLayout({
       {/* Blog content styles */}
       <style jsx global>{`
         .blog-content {
-          color: #e5e5e5;
-          font-size: 18px;
-          line-height: 1.8;
-          letter-spacing: -0.003em;
+          color: #a3a3a3;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 1.7;
+          letter-spacing: 0;
         }
 
-        .blog-content > * + * {
-          margin-top: 1.5em;
+        /* Base spacing between elements */
+        .blog-content > * {
+          margin-top: 0;
+          margin-bottom: 1em;
         }
 
-        .blog-content h2 {
-          font-size: 28px;
-          font-weight: 600;
-          color: #ffffff;
-          margin-top: 2.5em;
-          margin-bottom: 0.8em;
-          line-height: 1.3;
-          letter-spacing: -0.02em;
-        }
-
-        .blog-content h3 {
-          font-size: 22px;
-          font-weight: 600;
-          color: #ffffff;
-          margin-top: 2em;
-          margin-bottom: 0.6em;
-          line-height: 1.4;
-          letter-spacing: -0.01em;
-        }
-
-        .blog-content p {
-          margin-bottom: 1.5em;
-        }
-
-        .blog-content p:last-child {
+        .blog-content > *:last-child {
           margin-bottom: 0;
         }
 
+        /* Headings */
+        .blog-content h2 {
+          font-size: 16px;
+          font-weight: 500;
+          color: #e5e5e5;
+          margin-top: 2em;
+          margin-bottom: 0.75em;
+          line-height: 1.4;
+        }
+
+        .blog-content h3 {
+          font-size: 15px;
+          font-weight: 500;
+          color: #d4d4d4;
+          margin-top: 1.5em;
+          margin-bottom: 0.5em;
+          line-height: 1.4;
+        }
+
+        /* First element after heading - reduce top margin */
+        .blog-content h2 + *,
+        .blog-content h3 + * {
+          margin-top: 0;
+        }
+
+        /* Paragraphs */
+        .blog-content p {
+          margin-bottom: 1em;
+        }
+
+        /* Links */
         .blog-content a {
           color: #60a5fa;
           text-decoration: none;
@@ -187,94 +197,130 @@ export function BlogArticleLayout({
           border-bottom-color: #60a5fa;
         }
 
+        /* Strong/Bold */
         .blog-content strong {
-          color: #ffffff;
-          font-weight: 600;
+          color: #d4d4d4;
+          font-weight: 500;
         }
 
-        .blog-content ul,
+        /* Lists */
+        .blog-content ul {
+          list-style: disc outside !important;
+          padding-left: 1.25em;
+          margin-top: 0.5em;
+          margin-bottom: 1em;
+        }
+
         .blog-content ol {
-          padding-left: 1.5em;
-          margin: 1.5em 0;
+          list-style: decimal outside !important;
+          padding-left: 1.25em;
+          margin-top: 0.5em;
+          margin-bottom: 1em;
         }
 
-        .blog-content li {
-          margin-bottom: 0.75em;
-          padding-left: 0.5em;
+        .blog-content ul li,
+        .blog-content ol li {
+          margin-bottom: 0.35em;
+          padding-left: 0.25em;
+          display: list-item !important;
+        }
+
+        .blog-content ul li:last-child,
+        .blog-content ol li:last-child {
+          margin-bottom: 0;
         }
 
         .blog-content li::marker {
           color: #525252;
         }
 
+        /* Nested lists */
+        .blog-content li > ul,
+        .blog-content li > ol {
+          margin-top: 0.35em;
+          margin-bottom: 0;
+        }
+
+        /* Blockquotes */
         .blog-content blockquote {
-          border-left: 3px solid #404040;
-          padding-left: 1.5em;
-          margin: 2em 0;
+          border-left: 2px solid #333;
+          padding-left: 1em;
+          margin: 1.25em 0;
           font-style: italic;
-          color: #a3a3a3;
+          color: #737373;
         }
 
         .blog-content blockquote p {
           margin: 0;
         }
 
-        .blog-content code {
-          font-family: 'SF Mono', 'Fira Code', 'Fira Mono', Menlo, Monaco, monospace;
-          font-size: 0.9em;
-          background: rgba(255, 255, 255, 0.06);
-          padding: 0.2em 0.4em;
-          border-radius: 4px;
-          color: #f472b6;
+        /* Spacing after lists before new paragraph */
+        .blog-content ul + p,
+        .blog-content ol + p {
+          margin-top: 1em;
         }
 
+        /* Inline code */
+        .blog-content code {
+          font-family: 'SF Mono', 'Fira Code', 'Fira Mono', Menlo, Monaco, monospace;
+          font-size: 0.85em;
+          background: rgba(255, 255, 255, 0.06);
+          padding: 0.15em 0.4em;
+          border-radius: 3px;
+          color: #d4d4d4;
+        }
+
+        /* Code blocks */
         .blog-content pre {
           background: #0a0a0a;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 8px;
-          padding: 1.25em 1.5em;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 6px;
+          padding: 0.875em 1em;
           overflow-x: auto;
-          margin: 2em 0;
-          font-size: 14px;
-          line-height: 1.7;
+          margin: 1.25em 0;
+          font-size: 13px;
+          line-height: 1.5;
         }
 
         .blog-content pre code {
           background: none;
           padding: 0;
-          color: #e5e5e5;
+          color: #a3a3a3;
           font-size: inherit;
         }
 
+        /* Images */
         .blog-content img {
           max-width: 100%;
           height: auto;
-          border-radius: 8px;
-          margin: 2em 0;
+          border-radius: 6px;
+          margin: 1.25em 0;
         }
 
+        /* Horizontal rule */
         .blog-content hr {
           border: none;
           height: 1px;
-          background: rgba(255, 255, 255, 0.1);
-          margin: 3em 0;
+          background: rgba(255, 255, 255, 0.08);
+          margin: 1.75em 0;
         }
 
+        /* Videos and iframes */
         .blog-content video,
         .blog-content iframe {
           width: 100%;
           aspect-ratio: 16 / 9;
-          border-radius: 8px;
-          margin: 2em 0;
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 6px;
+          margin: 1.25em 0;
+          border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .blog-content .video-container {
           position: relative;
           width: 100%;
           padding-bottom: 56.25%;
-          margin: 2em 0;
-          border-radius: 8px;
+          margin: 1.25em 0;
+          border-radius: 6px;
           overflow: hidden;
         }
 
@@ -287,25 +333,44 @@ export function BlogArticleLayout({
           margin: 0;
         }
 
+        /* Mobile adjustments */
         @media (max-width: 640px) {
           .blog-content {
-            font-size: 16px;
-            line-height: 1.75;
+            font-size: 13px;
+            line-height: 1.65;
+          }
+
+          .blog-content > * {
+            margin-bottom: 0.875em;
           }
 
           .blog-content h2 {
-            font-size: 24px;
-            margin-top: 2em;
+            font-size: 15px;
+            margin-top: 1.75em;
+            margin-bottom: 0.6em;
           }
 
           .blog-content h3 {
-            font-size: 20px;
+            font-size: 14px;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+          }
+
+          .blog-content p {
+            margin-bottom: 0.875em;
+          }
+
+          .blog-content ul,
+          .blog-content ol {
+            padding-left: 1.1em;
+            margin-top: 0.4em;
+            margin-bottom: 0.875em;
           }
 
           .blog-content pre {
-            font-size: 13px;
-            padding: 1em;
-            margin: 1.5em -1.5em;
+            font-size: 12px;
+            padding: 0.75em;
+            margin: 1em -1em;
             border-radius: 0;
             border-left: none;
             border-right: none;

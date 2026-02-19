@@ -259,6 +259,18 @@ export default function RealTimeVoiceAgentPage() {
         Voice systems are judged on responsiveness. Above 1 second, users feel the delay. Above 1.5 seconds, they wonder if the connection dropped.
       </p>
 
+      <hr />
+
+      <p>
+        Pipeline and realtime architectures represent a tradeoff between control and latency. Pipeline systems give you visibility, modularity, and the ability to tune every stage. Realtime models reduce coordination overhead and often deliver lower turn gap, but at the cost of flexibility and provider independence.
+      </p>
+      <p>
+        Neither is universally better. The right choice depends on your latency targets, how much customization you need, and how much operational complexity you're willing to take on.
+      </p>
+      <p>
+        In a follow-up, I'll go through building and deploying a simple voice agent from scratch using livekit.
+      </p>
+
     </BlogArticleLayout>
   );
 }

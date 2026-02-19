@@ -29,3 +29,28 @@ export const getSortedBlogs = (): Blog[] => {
 export const getBlogBySlug = (slug: string): Blog | undefined => {
   return blogsData.find((blog) => blog.slug === slug);
 };
+
+// Generate metadata for a blog post
+export const generateBlogMetadata = (slug: string) => {
+  const blog = getBlogBySlug(slug);
+  if (!blog) return {};
+
+  return {
+    title: `${blog.title} | Gokul JS`,
+    description: blog.description,
+    openGraph: {
+      title: blog.title,
+      description: blog.description,
+      type: 'article' as const,
+      publishedTime: blog.date,
+      authors: ['Gokul JS'],
+      tags: blog.tags,
+    },
+    twitter: {
+      card: 'summary_large_image' as const,
+      title: blog.title,
+      description: blog.description,
+    },
+    keywords: blog.tags,
+  };
+};

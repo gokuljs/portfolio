@@ -1,14 +1,19 @@
-'use client';
-
+import { Metadata } from 'next';
 import { BlogArticleLayout } from '@/components/ui/blog-article-layout';
+import { getBlogBySlug, generateBlogMetadata } from '@/data/blogs-data';
+
+const slug = 'real-time-voice-agent-infrastructure';
+const blog = getBlogBySlug(slug)!;
+
+export const metadata: Metadata = generateBlogMetadata(slug);
 
 export default function RealTimeVoiceAgentPage() {
   return (
     <BlogArticleLayout
-      title="Inside a Real-Time Voice Agent: Media Infrastructure and Inference Orchestration"
-      description="What it takes to build a low-latency voice agent. I walk through the full LiveKit pipeline: WebRTC, voice activity detection, STT, streaming LLM inference, and TTS working in real time."
-      date="February 19, 2026"
-      tags={['LiveKit', 'WebRTC', 'Real-Time Systems']}
+      title={blog.title}
+      description={blog.description}
+      date={new Date(blog.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+      tags={blog.tags}
     >
       {/* Article content goes here */}
       <p>

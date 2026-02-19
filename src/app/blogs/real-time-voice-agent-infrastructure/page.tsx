@@ -115,6 +115,70 @@ export default function RealTimeVoiceAgentPage() {
           className="w-full h-auto"
         />
       </div>
+
+      <h2>Voice Activity Detection (VAD)</h2>
+      <p>
+        VAD is the gatekeeper of the entire pipeline. It serves two critical purposes: detecting when someone is actually speaking, and determining when they've finished their turn.
+      </p>
+      <p>
+        Under the hood, VAD processes incoming audio frames in real-time. It analyzes the audio stream and emits events signaling the start and end of speech segments. These events drive the conversation flow. They tell the system when to start transcribing and when to trigger response generation.
+      </p>
+      <p>
+        Without VAD, you'd either be transcribing silence (wasting compute) or missing the beginning of utterances. It's a simple concept, but getting it right is essential for natural conversation dynamics.
+      </p>
+
+      <h2>Speech-to-Text (STT)</h2>
+      <p>
+        STT sits at the first stage of the inference pipeline. Audio frames are streamed incrementally to the STT provider. There's no waiting for the user to finish speaking before processing begins.
+      </p>
+      <p>
+        This streaming approach is essential for latency. Most STT providers emit two types of transcription events:
+      </p>
+      <ul>
+        <li><strong>Interim transcripts</strong> - partial results that update as more audio arrives</li>
+        <li><strong>Final transcripts</strong> - stable, committed text when the model is confident in a segment</li>
+      </ul>
+      <p>
+        Interim transcripts allow downstream components to begin processing before the user finishes speaking. The LLM can start building context, and in some implementations, begin generating speculative responses.
+      </p>
+      <div className="callout">
+        <p>
+          <strong>Non-streaming STT</strong> - Some STT models only work with complete audio, not live streams. To use them in real-time, you buffer audio until VAD detects the user stopped speaking, then send the whole chunk at once. More latency, but works with any STT.
+        </p>
+      </div>
+
+      <h2>LLM Orchestration</h2>
+      <p>
+        The language model operates in streaming mode. Token-by-token generation reduces perceived latency. TTS can begin synthesis before the full response is generated.
+      </p>
+      <p>
+        The LLM receives the current chat context and yields output incrementally. The streaming interface keeps the pipeline responsive even when generating long responses.
+      </p>
+      <p>
+        One optimization worth noting is <strong>preemptive generation</strong>. The system can begin generating responses based on partial transcription, before the user's turn has officially ended. When STT returns final transcripts faster than VAD emits end-of-speech signals, there's enough context to start inference early.
+      </p>
+
+      <h2>Text-to-Speech (TTS)</h2>
+      <p>
+        TTS often contributes the most noticeable latency in the pipeline. The model has to synthesize audio from text, and the first audio frame needs to reach the user quickly for the response to feel natural.
+      </p>
+      <p>
+        Key parameters that affect TTS latency:
+      </p>
+      <ul>
+        <li><strong>Streaming support</strong> - can the provider accept text incrementally and return audio before the full response is ready?</li>
+        <li><strong>Chunking strategy</strong> - how is text segmented before synthesis? Sentence boundaries work well for natural prosody.</li>
+        <li><strong>Time-to-first-byte</strong> - how long until the first audio frame is returned?</li>
+        <li><strong>Audio encoding format</strong> - what format does the provider output?</li>
+      </ul>
+      <p>
+        Audio format matters for efficiency. Voice pipelines typically process audio as raw PCM internally. If a TTS provider outputs compressed formats (MP3, Opus, etc.), decoding adds CPU overhead. At scale, avoiding unnecessary transcoding reduces system load.
+      </p>
+      <div className="callout">
+        <p>
+          <strong>Non-streaming TTS</strong> - Some providers don't support streaming input. In these cases, a sentence tokenizer splits the text stream and sends complete sentences for synthesis. This trades latency for compatibility.
+        </p>
+      </div>
     </BlogArticleLayout>
   );
 }

@@ -70,6 +70,39 @@ export default function RealTimeVoiceAgentPage() {
       <p>
         When a user joins a room, all WebRTC negotiation, encryption, and track establishment occur within the LiveKit server. Once the connection is established, audio frames are streamed between participants with minimal server-side processing.
       </p>
+
+      <h2>Inference Orchestration Layer: LiveKit Agents</h2>
+      <p>
+        The inference orchestration layer is where the actual intelligence lives. LiveKit Agents handle this. An agent subscribes to user audio tracks, processes them through an inference pipeline, and publishes synthesized audio back to the room.
+      </p>
+      <p>
+        All the business logic resides inside the agent:
+      </p>
+      <ul>
+        <li>Speech-to-text processing</li>
+        <li>Language model invocation</li>
+        <li>Tool execution</li>
+        <li>Text-to-speech synthesis</li>
+        <li>Decision logic</li>
+      </ul>
+      <p>
+        Think of the agent as a real-time media consumer and producer. It listens, thinks, and speaks.
+      </p>
+      <p>
+        LiveKit agents follow a plugin-based architecture. You can swap out different providers for:
+      </p>
+      <ul>
+        <li>VAD (voice activity detection)</li>
+        <li>STT (speech-to-text)</li>
+        <li>LLM (language model)</li>
+        <li>TTS (text-to-speech)</li>
+      </ul>
+      <p>
+        This lets you compose your inference pipeline however you want. Need to switch from Deepgram to Whisper? Swap the plugin. Want to try a different TTS provider? Same deal. The underlying media infrastructure stays untouched.
+      </p>
+      <p>
+        At this point, the architecture can go two different ways: a <strong>pipeline model</strong> or a <strong>realtime model</strong>.
+      </p>
     </BlogArticleLayout>
   );
 }

@@ -108,13 +108,13 @@ export default function RealTimeVoiceAgentPage() {
       <p>
         In the pipeline architecture, STT, LLM, and TTS are treated as discrete components. Each stage is explicitly defined and operates independently.
       </p>
-      <figure className="my-12 -mx-8 sm:-mx-16 md:-mx-24 lg:-mx-32 xl:-mx-48">
+      <div className="my-12 px-4 sm:px-0 sm:-mx-16 md:-mx-24 lg:-mx-32 xl:-mx-48">
         <img 
           src="/blogs/voice-agent-pipeline.svg" 
           alt="Voice agent pipeline architecture showing User Audio flowing through VAD, STT, LLM, TTS to Audio output"
           className="w-full h-auto"
         />
-      </figure>
+      </div>
     </BlogArticleLayout>
   );
 }

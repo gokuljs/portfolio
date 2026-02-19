@@ -184,6 +184,13 @@ export default function RealTimeVoiceAgentPage() {
       <p>
         An alternative to the pipeline approach is using a single multimodal model that handles everything: audio input, VAD, language reasoning, and audio output in one place.
       </p>
+      <div className="my-12 px-4 sm:px-0 sm:-mx-16 md:-mx-24 lg:-mx-32 xl:-mx-48">
+        <img
+          src="/blogs/realtimemodel.svg"
+          alt="Realtime model architecture showing audio input and output handled within a single multimodal model"
+          className="w-full h-auto"
+        />
+      </div>
       <p>
         Compared to the pipeline, this offers:
       </p>
@@ -202,6 +209,54 @@ export default function RealTimeVoiceAgentPage() {
       </ul>
       <p>
         The choice depends on your latency targets, how much control you need, and how much complexity you're willing to manage.
+      </p>
+
+      <h2>Latency Considerations</h2>
+      <p>
+        Voice latency is cumulative. The total delay is the sum of audio capture, network transport, STT processing, LLM inference, TTS synthesis, and playback buffering.
+      </p>
+      <p>
+        The metric that matters most is <strong>turn gap</strong>: the time between the user finishing speech and the first audible agent response.
+      </p>
+
+      <h3>What Feels Natural</h3>
+      <p>
+        Human conversation operates on 200-500ms turn-taking rhythms. This is consistent across cultures. When voice AI exceeds this window, users notice.
+      </p>
+      <ul>
+        <li><strong>&lt;300ms</strong> - feels instant, matches natural conversation</li>
+        <li><strong>300-500ms</strong> - acceptable, still conversational</li>
+        <li><strong>500-800ms</strong> - noticeable delay, users start to feel it</li>
+        <li><strong>&gt;1 second</strong> - feels broken, users assume something went wrong</li>
+      </ul>
+      <p>
+        Most basic pipelines land around 800ms to 2 seconds. Well-optimized streaming systems can reach 500-700ms. Getting below 500ms consistently is hard.
+      </p>
+
+      <h3>Where Latency Comes From</h3>
+      <p>
+        <strong>STT</strong> - Two factors matter: streaming speed and endpointing (silence detection). Slow endpointing is a common culprit. If the system waits too long to decide the user is done speaking, you lose 200-500ms before the LLM even starts.
+      </p>
+      <p>
+        <strong>LLM</strong> - Time-to-first-token matters more than total generation time. Streaming is mandatory. A fast first token lets TTS start early.
+      </p>
+      <p>
+        <strong>TTS</strong> - Time-to-first-audio is critical. Sentence buffering increases delay. Avoid unnecessary audio format conversions inside the agent.
+      </p>
+      <p>
+        <strong>Network</strong> - Cross-region calls easily add 100-200ms. Co-locate your agent, STT, and TTS when possible.
+      </p>
+
+      <h3>Optimization Rules</h3>
+      <ul>
+        <li>Stream at every stage</li>
+        <li>Reduce endpointing delay (but carefully, or you'll cut off users mid-sentence)</li>
+        <li>Avoid internal audio format conversions</li>
+        <li>Keep infrastructure geographically close</li>
+        <li>Favor faster models over larger ones</li>
+      </ul>
+      <p>
+        Voice systems are judged on responsiveness. Above 1 second, users feel the delay. Above 1.5 seconds, they wonder if the connection dropped.
       </p>
 
     </BlogArticleLayout>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 interface TOCItem {
@@ -12,99 +12,110 @@ interface TOCItem {
 export function TableOfContents() {
   const [headings, setHeadings] = useState<TOCItem[]>([]);
   const [activeId, setActiveId] = useState<string>('');
-  const [readProgress, setReadProgress] = useState<Record<string, number>>({});
+  const isClickScrolling = useRef(false);
 
+  // Extract headings on mount
   useEffect(() => {
-    const articleContent = document.querySelector('.blog-content');
-    if (!articleContent) return;
+    const timer = setTimeout(() => {
+      const articleContent = document.querySelector('.blog-content');
+      if (!articleContent) return;
 
-    const headingElements = articleContent.querySelectorAll('h2, h3');
-    const items: TOCItem[] = [];
+      const headingElements = articleContent.querySelectorAll('h2, h3');
+      const items: TOCItem[] = [];
 
-    headingElements.forEach((heading, index) => {
-      const id = heading.id || `heading-${index}`;
-      if (!heading.id) {
-        heading.id = id;
-      }
-      items.push({
-        id,
-        text: heading.textContent || '',
-        level: heading.tagName === 'H2' ? 2 : 3,
+      headingElements.forEach((heading, index) => {
+        const id = heading.id || `heading-${index}`;
+        if (!heading.id) {
+          heading.id = id;
+        }
+        items.push({
+          id,
+          text: heading.textContent || '',
+          level: heading.tagName === 'H2' ? 2 : 3,
+        });
       });
-    });
 
-    setHeadings(items);
+      setHeadings(items);
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, []);
 
-  const calculateProgress = useCallback(() => {
+  // Track active section
+  useEffect(() => {
     if (headings.length === 0) return;
 
-    const scrollY = window.scrollY;
-    const windowHeight = window.innerHeight;
-    const progress: Record<string, number> = {};
-    let currentActive = '';
+    const handleScroll = () => {
+      if (isClickScrolling.current) return;
 
-    headings.forEach((heading, index) => {
-      const element = document.getElementById(heading.id);
-      if (!element) return;
+      const scrollY = window.scrollY;
 
-      const rect = element.getBoundingClientRect();
-      const elementTop = rect.top + scrollY;
-      
-      const nextHeading = headings[index + 1];
-      const nextElement = nextHeading ? document.getElementById(nextHeading.id) : null;
-      const sectionEnd = nextElement 
-        ? nextElement.getBoundingClientRect().top + scrollY 
-        : document.body.scrollHeight;
+      // Find active heading - the last one that's above the trigger point
+      let currentActiveId = headings[0]?.id || '';
 
-      const sectionHeight = sectionEnd - elementTop;
-      const scrolledIntoSection = scrollY + windowHeight * 0.3 - elementTop;
-      const sectionProgress = Math.min(Math.max(scrolledIntoSection / sectionHeight, 0), 1);
-
-      progress[heading.id] = sectionProgress;
-
-      if (rect.top <= windowHeight * 0.3 && rect.top > -rect.height) {
-        currentActive = heading.id;
-      }
-    });
-
-    for (let i = headings.length - 1; i >= 0; i--) {
-      const element = document.getElementById(headings[i].id);
-      if (element) {
-        const rect = element.getBoundingClientRect();
-        if (rect.top <= windowHeight * 0.3) {
-          currentActive = headings[i].id;
-          break;
+      for (let i = headings.length - 1; i >= 0; i--) {
+        const element = document.getElementById(headings[i].id);
+        if (element) {
+          const elementTop = element.offsetTop;
+          if (scrollY + 150 >= elementTop) {
+            currentActiveId = headings[i].id;
+            break;
+          }
         }
       }
-    }
 
-    setReadProgress(progress);
-    setActiveId(currentActive);
+      setActiveId(currentActiveId);
+    };
+
+    // Initial calculation
+    setTimeout(handleScroll, 150);
+
+    let ticking = false;
+    const scrollListener = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', scrollListener, { passive: true });
+    return () => window.removeEventListener('scroll', scrollListener);
   }, [headings]);
-
-  useEffect(() => {
-    calculateProgress();
-    window.addEventListener('scroll', calculateProgress, { passive: true });
-    return () => window.removeEventListener('scroll', calculateProgress);
-  }, [calculateProgress]);
 
   const scrollToHeading = (id: string) => {
     const element = document.getElementById(id);
-    if (element) {
-      const offset = 100;
-      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({
-        top: elementPosition - offset,
-        behavior: 'smooth',
-      });
+    if (!element) return;
+
+    isClickScrolling.current = true;
+    setActiveId(id);
+
+    const elementTop = element.offsetTop;
+    const viewportHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const maxScroll = documentHeight - viewportHeight;
+    
+    let scrollTarget = elementTop - 120;
+    if (scrollTarget > maxScroll) {
+      scrollTarget = maxScroll;
     }
+
+    window.scrollTo({
+      top: Math.max(0, scrollTarget),
+      behavior: 'smooth',
+    });
+
+    setTimeout(() => {
+      isClickScrolling.current = false;
+    }, 600);
   };
 
   if (headings.length === 0) return null;
 
   return (
-    <nav className="hidden xl:block fixed left-[max(2rem,calc(50%-600px))] top-1/2 -translate-y-1/2 w-[200px] z-40">
+    <nav className="hidden xl:block fixed left-6 2xl:left-10 top-1/2 -translate-y-1/2 w-[180px] 2xl:w-[200px] z-40">
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -117,47 +128,33 @@ export function TableOfContents() {
         <ul className="space-y-1">
           {headings.map((heading) => {
             const isActive = activeId === heading.id;
-            const progress = readProgress[heading.id] || 0;
-            const isRead = progress >= 0.9;
             
             return (
               <li key={heading.id} className="relative">
-                <div className="flex items-start gap-3">
-                  {/* Progress indicator line */}
-                  <div className="relative w-[2px] h-5 mt-1 bg-neutral-800 rounded-full overflow-hidden flex-shrink-0">
-                    <motion.div
-                      className="absolute bottom-0 left-0 w-full rounded-full"
-                      style={{
-                        background: isActive 
-                          ? 'linear-gradient(to top, #3b82f6, #8b5cf6)' 
-                          : isRead 
-                            ? '#525252' 
-                            : '#525252',
-                      }}
-                      initial={{ height: 0 }}
-                      animate={{ height: `${progress * 100}%` }}
-                      transition={{ duration: 0.1 }}
-                    />
-                  </div>
+                <button
+                  onClick={() => scrollToHeading(heading.id)}
+                  className="flex items-center gap-3 w-full text-left py-1 group"
+                >
+                  {/* Simple indicator bar */}
+                  <div 
+                    className={`w-[3px] h-4 rounded-full flex-shrink-0 transition-colors duration-200 ${
+                      isActive ? 'bg-white' : 'bg-neutral-800'
+                    }`}
+                  />
                   
-                  {/* Heading link */}
-                  <button
-                    onClick={() => scrollToHeading(heading.id)}
-                    className={`text-left text-[12px] leading-tight transition-colors duration-200 ${
-                      heading.level === 3 ? 'pl-2' : ''
-                    } ${
+                  {/* Heading text */}
+                  <span
+                    className={`text-[11px] 2xl:text-[12px] leading-snug transition-colors duration-200 ${
                       isActive
                         ? 'text-white'
-                        : isRead
-                          ? 'text-neutral-500'
-                          : 'text-neutral-600 hover:text-neutral-400'
+                        : 'text-neutral-500 group-hover:text-neutral-300'
                     }`}
                   >
-                    {heading.text.length > 28 
-                      ? heading.text.substring(0, 28) + '...' 
+                    {heading.text.length > 24 
+                      ? heading.text.substring(0, 24) + '...' 
                       : heading.text}
-                  </button>
-                </div>
+                  </span>
+                </button>
               </li>
             );
           })}

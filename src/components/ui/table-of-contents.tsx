@@ -50,16 +50,14 @@ export function TableOfContents() {
     const handleScroll = () => {
       if (isClickScrolling.current) return;
 
-      const scrollY = window.scrollY;
-
-      // Find active heading - the last one that's above the trigger point
+      // Find active heading - the last one that's above the trigger point (150px from top)
       let currentActiveId = headings[0]?.id || '';
 
       for (let i = headings.length - 1; i >= 0; i--) {
         const element = document.getElementById(headings[i].id);
         if (element) {
-          const elementTop = element.offsetTop;
-          if (scrollY + 150 >= elementTop) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 150) {
             currentActiveId = headings[i].id;
             break;
           }
@@ -94,15 +92,11 @@ export function TableOfContents() {
     isClickScrolling.current = true;
     setActiveId(id);
 
-    const elementTop = element.offsetTop;
-    const viewportHeight = window.innerHeight;
-    const documentHeight = document.documentElement.scrollHeight;
-    const maxScroll = documentHeight - viewportHeight;
+    const rect = element.getBoundingClientRect();
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const elementTop = rect.top + scrollTop;
     
-    let scrollTarget = elementTop - 120;
-    if (scrollTarget > maxScroll) {
-      scrollTarget = maxScroll;
-    }
+    const scrollTarget = elementTop - 120;
 
     window.scrollTo({
       top: Math.max(0, scrollTarget),

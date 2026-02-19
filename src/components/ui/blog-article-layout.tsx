@@ -260,6 +260,34 @@ export function BlogArticleLayout({
           margin-top: 1em;
         }
 
+        /* Callout - minimal style */
+        .blog-content .callout {
+          background: rgba(255, 255, 255, 0.03);
+          border-left: 2px solid #525252;
+          padding: 0.6em 0.9em;
+          margin: 0.75em 0;
+          font-size: 13px;
+        }
+
+        .blog-content .callout p {
+          margin: 0;
+          color: #a3a3a3;
+        }
+
+        .blog-content .callout strong {
+          color: #e5e5e5;
+          font-weight: 500;
+        }
+
+        /* Highlight text inline */
+        .blog-content mark,
+        .blog-content .hl {
+          background: rgba(255, 255, 255, 0.1);
+          padding: 0.1em 0.25em;
+          border-radius: 2px;
+          color: #e5e5e5;
+        }
+
         /* Inline code */
         .blog-content code {
           font-family: 'SF Mono', 'Fira Code', 'Fira Mono', Menlo, Monaco, monospace;

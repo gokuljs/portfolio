@@ -36,22 +36,6 @@ export function BlogArticleLayout({
       <article className="min-h-screen bg-black pt-24 md:pt-32">
         {/* Centered container with proper horizontal spacing */}
         <div className="w-full max-w-[720px] mx-auto px-8 md:px-12 lg:px-6">
-          {/* Back Button */}
-          <motion.div
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.4 }}
-            className="mb-12 md:mb-14"
-          >
-            <Link
-              href="/blogs"
-              className="inline-flex items-center gap-2 text-neutral-500 hover:text-white transition-colors group text-sm"
-            >
-              <ArrowLeft className="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" />
-              <span>Back to archive</span>
-            </Link>
-          </motion.div>
-
           {/* Header */}
           <motion.header
             className="mb-12 md:mb-14"
@@ -129,11 +113,13 @@ export function BlogArticleLayout({
 
           {/* Footer */}
           <motion.footer
-            className="mt-20 md:mt-24 pt-8 border-t border-white/10 pb-20"
+            className="mt-20 md:mt-24 pb-20"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.5 }}
           >
+            {/* Faded divider line */}
+            <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mb-8" />
             <Link
               href="/blogs"
               className="inline-flex items-center gap-2 text-neutral-500 hover:text-white transition-colors group text-sm"
@@ -268,6 +254,33 @@ export function BlogArticleLayout({
           height: 1px;
           background: rgba(255, 255, 255, 0.1);
           margin: 3em 0;
+        }
+
+        .blog-content video,
+        .blog-content iframe {
+          width: 100%;
+          aspect-ratio: 16 / 9;
+          border-radius: 8px;
+          margin: 2em 0;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .blog-content .video-container {
+          position: relative;
+          width: 100%;
+          padding-bottom: 56.25%;
+          margin: 2em 0;
+          border-radius: 8px;
+          overflow: hidden;
+        }
+
+        .blog-content .video-container iframe {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          margin: 0;
         }
 
         @media (max-width: 640px) {

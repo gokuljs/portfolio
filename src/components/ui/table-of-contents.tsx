@@ -2,6 +2,8 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
 
 interface TOCItem {
   id: string;
@@ -115,12 +117,21 @@ export function TableOfContents() {
   if (headings.length === 0) return null;
 
   return (
-    <nav className="hidden xl:block fixed left-6 2xl:left-10 top-1/2 -translate-y-1/2 w-[180px] 2xl:w-[200px] z-40">
+    <nav className="hidden xl:block fixed left-6 2xl:left-10 top-32 w-[180px] 2xl:w-[200px] z-40">
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5, delay: 0.6 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
       >
+        {/* Back Button - Fixed at top left */}
+        <Link
+          href="/blogs"
+          className="inline-flex items-center gap-2 text-neutral-500 hover:text-white transition-colors group text-sm mb-8"
+        >
+          <ArrowLeft className="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" />
+          <span>Back</span>
+        </Link>
+
         <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-neutral-500 mb-4">
           Contents
         </p>

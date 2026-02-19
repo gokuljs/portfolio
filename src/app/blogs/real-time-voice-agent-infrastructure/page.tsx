@@ -179,6 +179,31 @@ export default function RealTimeVoiceAgentPage() {
           <strong>Non-streaming TTS</strong> - Some providers don't support streaming input. In these cases, a sentence tokenizer splits the text stream and sends complete sentences for synthesis. This trades latency for compatibility.
         </p>
       </div>
+
+      <h2>Realtime Model Architecture</h2>
+      <p>
+        An alternative to the pipeline approach is using a single multimodal model that handles everything: audio input, VAD, language reasoning, and audio output in one place.
+      </p>
+      <p>
+        Compared to the pipeline, this offers:
+      </p>
+      <ul>
+        <li>Lower latency (no coordination between separate components)</li>
+        <li>Native interruption handling</li>
+        <li>Simpler orchestration</li>
+      </ul>
+      <p>
+        But there are tradeoffs:
+      </p>
+      <ul>
+        <li>Less visibility into what's happening at each stage</li>
+        <li>Locked into one provider</li>
+        <li>Harder to customize individual steps</li>
+      </ul>
+      <p>
+        The choice depends on your latency targets, how much control you need, and how much complexity you're willing to manage.
+      </p>
+
     </BlogArticleLayout>
   );
 }

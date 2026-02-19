@@ -28,7 +28,7 @@ export function ReadingProgressBar() {
       className="fixed top-0 left-0 right-0 z-[100] h-[3px] origin-left"
       style={{
         scaleX,
-        background: 'linear-gradient(90deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%)',
+        background: 'linear-gradient(90deg, #44403c 0%, #57534e 25%, #78716c 50%, #a8a29e 75%, #faf9f6 100%)',
       }}
       initial={{ opacity: 0 }}
       animate={{ opacity: isVisible ? 1 : 0 }}

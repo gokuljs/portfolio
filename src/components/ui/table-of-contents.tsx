@@ -138,7 +138,7 @@ export function TableOfContents() {
                   {/* Simple indicator bar */}
                   <div 
                     className={`w-[3px] h-4 rounded-full flex-shrink-0 transition-colors duration-200 ${
-                      isActive ? 'bg-white' : 'bg-neutral-800'
+                      isActive ? 'bg-stone-400' : 'bg-neutral-800'
                     }`}
                   />
                   

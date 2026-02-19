@@ -6,6 +6,7 @@ export interface Blog {
   date: string; // ISO date string for sorting
   readTime?: string;
   tags?: string[];
+  image?: string; // OG image for social sharing (e.g. '/blogs/my-post.png')
 }
 
 export const blogsData: Blog[] = [
@@ -35,6 +36,8 @@ export const generateBlogMetadata = (slug: string) => {
   const blog = getBlogBySlug(slug);
   if (!blog) return {};
 
+  const image = blog.image || '/gokuljs.png'; // fallback to default OG image
+
   return {
     title: `${blog.title} | Gokul JS`,
     description: blog.description,
@@ -45,11 +48,20 @@ export const generateBlogMetadata = (slug: string) => {
       publishedTime: blog.date,
       authors: ['Gokul JS'],
       tags: blog.tags,
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: blog.title,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image' as const,
       title: blog.title,
       description: blog.description,
+      images: [image],
     },
     keywords: blog.tags,
   };

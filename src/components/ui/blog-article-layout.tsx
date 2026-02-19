@@ -62,17 +62,17 @@ export function BlogArticleLayout({
             )}
 
             {/* Title */}
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-medium text-white leading-tight tracking-tight mb-4">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-medium text-white leading-tight tracking-tight mb-3">
               {title}
             </h1>
             
             {/* Description */}
-            <p className="text-sm md:text-base text-neutral-500 leading-relaxed mb-6">
+            <p className="text-xs md:text-sm text-neutral-500 leading-relaxed mb-5">
               {description}
             </p>
 
             {/* Meta info */}
-            <div className="flex items-center gap-2 text-sm text-neutral-500">
+            <div className="flex items-center gap-2 text-xs text-neutral-500">
               <time>{date}</time>
               <span className="text-neutral-600">·</span>
               <span>{estimatedReadTime}</span>

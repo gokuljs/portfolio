@@ -3,7 +3,6 @@
 import { useState, useMemo } from 'react';
 import { BlogListItem } from '@/components/ui/blog-card';
 import { getSortedBlogs } from '@/data/blogs-data';
-import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, FileText, X, ArrowUpDown } from 'lucide-react';
 
@@ -26,46 +25,30 @@ export default function BlogsPage() {
 
   return (
     <>
-      {/* Hero Section */}
-      <div className="relative w-full h-[320px] md:h-[420px] !mt-[90px] flex justify-center md:justify-between bg-black overflow-hidden">
-        <div className="flex-1 flex flex-col justify-center items-center md:items-start text-center md:text-left px-6 md:!px-12 lg:px-16">
-          <motion.p 
-            className="text-neutral-600 text-[10px] md:text-xs uppercase tracking-[0.3em] mb-3"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-          >
-            ideas / experiments / reflections
-          </motion.p>
-          <motion.h1 
-            className="!text-5xl md:!text-7xl lg:!text-8xl !font-light !tracking-tight"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-            style={{ 
-              background: 'linear-gradient(to right, #ffffff 0%, #666666 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              textShadow: '0 0 40px rgba(255, 255, 255, 0.3), 0 0 80px rgba(255, 255, 255, 0.1)' 
-            }}
-          >
-            archive
-          </motion.h1>
-        </div>
-        <motion.div 
-          className="relative w-[240px] md:w-[320px] h-full hidden md:block"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, delay: 0.4, ease: 'easeOut' }}
+      {/* Header */}
+      <div className="px-6 md:!px-12 lg:px-16 pt-[120px] pb-4 max-w-4xl mx-auto w-full">
+        <motion.p
+          className="text-neutral-600 text-[10px] uppercase tracking-[0.3em] mb-2"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
         >
-          <Image
-            src="/blog-bg-organic.png"
-            alt="Blog hero"
-            fill
-            className="object-contain object-right"
-          />
-        </motion.div>
+          ideas / experiments / reflections
+        </motion.p>
+        <motion.h1
+          className="!text-4xl md:!text-5xl !font-light !tracking-tight"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          style={{
+            background: 'linear-gradient(to right, #ffffff 0%, #666666 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}
+        >
+          archive
+        </motion.h1>
       </div>
 
       {/* Search and Filter */}

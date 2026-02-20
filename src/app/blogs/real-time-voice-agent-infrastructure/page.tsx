@@ -268,7 +268,7 @@ export default function RealTimeVoiceAgentPage() {
         Neither is universally better. The right choice depends on your latency targets, how much customization you need, and how much operational complexity you're willing to take on.
       </p>
       <p>
-        In a follow-up, I'll go through building and deploying a simple voice agent from scratch using livekit.
+        In the <a href="/blogs/building-simple-real-time-voice-agent-livekit">follow-up post</a>, I go through building and deploying a simple voice agent from scratch using LiveKit.
       </p>
 
     </BlogArticleLayout>

@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Blog } from '@/data/blogs-data';
-import { ArrowUpRight } from 'lucide-react';
 
 interface BlogListItemProps {
   blog: Blog;

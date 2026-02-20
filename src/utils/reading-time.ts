@@ -10,7 +10,7 @@ function extractTextFromChildren(children: ReactNode): string {
       text += child + ' ';
     } else if (typeof child === 'number') {
       text += child.toString() + ' ';
-    } else if (isValidElement(child) && child.props.children) {
+    } else if (isValidElement<{ children?: ReactNode }>(child) && child.props.children) {
       text += extractTextFromChildren(child.props.children);
     }
   });

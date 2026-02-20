@@ -25,55 +25,42 @@ export async function POST(req: NextRequest) {
       },
     });
 
+    const { blogTitle } = body;
+
     // Different email content based on event type
     const isResumeDownload = eventType === 'resume_download';
+    const isBlogRead = eventType === 'blog_read';
 
     const subject = isResumeDownload
       ? '📄 Someone Downloaded Your Resume!'
+      : isBlogRead
+      ? `📖 Someone Read: ${blogTitle}`
       : '🔔 New Portfolio Visitor!';
 
-    const emoji = isResumeDownload ? '📄' : '🎉';
-    const actionText = isResumeDownload
-      ? 'downloaded your resume'
-      : 'visited your portfolio';
+    const accentColor = isResumeDownload ? '#007acc' : isBlogRead ? '#16a34a' : '#666';
+    const bgColor = isResumeDownload ? '#e6f3ff' : isBlogRead ? '#f0fdf4' : '#f5f5f5';
 
-    // Email content
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: 'jsgokul123@gmail.com',
       subject,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #333;">Someone ${actionText}! ${emoji}</h2>
-          
-          <div style="background: ${
-            isResumeDownload ? '#e6f3ff' : '#f5f5f5'
-          }; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid ${
-        isResumeDownload ? '#007acc' : '#666'
-      };">
-            <h3 style="margin-top: 0; color: #555;">${
-              isResumeDownload ? 'Resume Download Details:' : 'Visit Details:'
-            }</h3>
-            ${
-              isResumeDownload
-                ? '<p><strong>📄 Action:</strong> Resume Downloaded (GokulJS.pdf)</p>'
-                : `<p><strong>📍 Page:</strong> ${pathname}</p>`
-            }
-            <p><strong>⏰ Time:</strong> ${new Date(
-              timestamp,
-            ).toLocaleString()}</p>
+          <h2 style="color: #333;">
+            ${isResumeDownload ? '📄 Resume Downloaded' : isBlogRead ? `📖 Blog Read` : '🎉 New Visit'}
+          </h2>
+
+          <div style="background: ${bgColor}; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid ${accentColor};">
+            <h3 style="margin-top: 0; color: #555;">Details</h3>
+            ${isBlogRead ? `<p><strong>📝 Post:</strong> ${blogTitle}</p>` : ''}
+            ${isResumeDownload ? '<p><strong>📄 Action:</strong> Resume Downloaded (GokulJS.pdf)</p>' : `<p><strong>📍 Page:</strong> ${pathname}</p>`}
+            <p><strong>⏰ Time:</strong> ${new Date(timestamp).toLocaleString()}</p>
             <p><strong>🌍 Location:</strong> ${country}</p>
             <p><strong>🖥️ Device:</strong> ${userAgent}</p>
             <p><strong>🔗 Came from:</strong> ${referrer || 'Direct visit'}</p>
             <p><strong>🌐 IP:</strong> ${ip}</p>
           </div>
-          
-          ${
-            isResumeDownload
-              ? '<p style="color: #007acc; font-weight: bold;">🎯 This visitor is interested enough to download your resume! Consider this a hot lead.</p>'
-              : ''
-          }
-          
+
           <p style="color: #666; font-style: italic;">
             This notification was sent from your portfolio tracking system.
           </p>

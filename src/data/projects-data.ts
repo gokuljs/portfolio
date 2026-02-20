@@ -6,8 +6,8 @@ export interface Project {
   tags: string[];
   link?: string;
   github?: string;
+  video?: string;
   status?: 'Live' | 'Progress';
- 
 }
 
 export const projectsData: Project[] = [
@@ -20,6 +20,16 @@ export const projectsData: Project[] = [
     link: 'https://getmailyx.com/',
     status: 'Progress'
 
+  },
+  {
+    id: '7',
+    title: 'LiveKit Voice Agent',
+    description: 'A real-time voice conversation pipeline built on LiveKit. Wires together VAD, Whisper STT, GPT-4o, and Rime TTS to enable natural bidirectional voice conversations with low-latency turn-taking.',
+    image: '/livekit-voice-agent.png',
+    tags: ['LiveKit', 'OpenAI', 'STT', 'TTS', 'Python'],
+    video: 'https://youtu.be/t2J8ce1vdtc',
+    github: 'https://github.com/gokuljs/Livekit-Voice-agent',
+    status: 'Live'
   },
   {
     id: '2',

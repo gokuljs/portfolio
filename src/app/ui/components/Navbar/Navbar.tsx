@@ -90,9 +90,9 @@ const Navbar: React.FC = () => {
         <Link href="/projects" onClick={() => setMenuOpen(false)}>
           Projects
         </Link>
-        {/* <Link href="#work" onClick={(e) => handleNavLinkClick(e, '#work')}>
-          Work
-        </Link> */}
+        <Link href="/blogs" onClick={() => setMenuOpen(false)}>
+          Blogs
+        </Link>
         <a
           download="GokulJS.pdf"
           href={RESUME}

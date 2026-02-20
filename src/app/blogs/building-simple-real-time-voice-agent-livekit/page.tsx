@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { BlogArticleLayout } from '@/components/ui/blog-article-layout';
+import { VideoThumbnail } from '@/components/ui/video-thumbnail';
 import { getBlogBySlug, generateBlogMetadata } from '@/data/blogs-data';
 
 const slug = 'building-simple-real-time-voice-agent-livekit';
@@ -22,202 +23,61 @@ export default function BuildingSimpleVoiceAgentPage() {
         The goal is simple: a voice agent you can talk to. It listens to your speech, transcribes it, sends it to an LLM, and speaks the response back. The full STT → LLM → TTS loop, end to end. By the end, you'll have something running locally that you can experiment with.
       </p>
 
-      <h2>What You'll Need</h2>
+      <VideoThumbnail
+        url="https://www.youtube.com/watch?v=t2J8ce1vdtc"
+        image="/blogs/placeholderimage.png"
+        alt="Real-Time Voice Agent Demo"
+      />
+
       <p>
-        Before writing any code, you need a few things in place:
+        You can find the full source on GitHub at <a href="https://github.com/gokuljs/Livekit-Voice-agent" target="_blank" rel="noopener noreferrer">gokuljs/Livekit-Voice-agent</a>. Clone it and follow along.
+      </p>
+
+      <h2>Before You Start</h2>
+      <p>
+        If you haven't spent time in the LiveKit docs yet, it's worth doing before diving into the code. The platform has a lot more surface area than what this post covers, and reading through it will give you a much better mental model of what's possible: rooms, participants, tracks, agent workers, SIP integration. You'll come back to these pages often.
       </p>
       <ul>
-        <li>A <strong>LiveKit Cloud account</strong> (or a self-hosted LiveKit server) to get a URL, API key, and API secret</li>
-        <li>An <strong>OpenAI API key</strong>, used for both the LLM and TTS</li>
-        <li>A <strong>Deepgram API key</strong>, used for STT</li>
-        <li><strong>Python 3.10+</strong> with pip</li>
+        <li><a href="https://docs.livekit.io/home/" target="_blank" rel="noopener noreferrer">LiveKit Overview</a>: rooms, participants, and tracks</li>
+        <li><a href="https://docs.livekit.io/agents/" target="_blank" rel="noopener noreferrer">LiveKit Agents</a>: how to build and run AI agents</li>
+        <li><a href="https://docs.livekit.io/sip/" target="_blank" rel="noopener noreferrer">LiveKit SIP</a>: connecting to phone numbers and telephony systems</li>
       </ul>
-      <p>
-        LiveKit Cloud has a generous free tier, so you can get going without a credit card for the server side. For the AI providers, you'll need accounts but the costs for experimentation are minimal.
-      </p>
 
-      <h2>Project Setup</h2>
-      <p>
-        Create a new directory and install the dependencies:
-      </p>
-      <pre><code>{`mkdir voice-agent && cd voice-agent
-pip install livekit-agents livekit-plugins-openai livekit-plugins-deepgram livekit-plugins-silero python-dotenv`}</code></pre>
-      <p>
-        Then create a <code>.env</code> file with your credentials:
-      </p>
-      <pre><code>{`LIVEKIT_URL=wss://your-project.livekit.cloud
-LIVEKIT_API_KEY=your_api_key
-LIVEKIT_API_SECRET=your_api_secret
-OPENAI_API_KEY=your_openai_key
-DEEPGRAM_API_KEY=your_deepgram_key`}</code></pre>
+      <h2>Architecture</h2>
+      <img src="/blogs/sst-llm-tts.svg" alt="Architecture diagram: STT to LLM to TTS pipeline" style={{ width: '65%', margin: '0 auto', display: 'block' }} />
 
-      <h2>The Agent</h2>
+      <h2>Diving Into the Code</h2>
       <p>
-        Here's the full agent in one file:
+        I'll let the code speak for itself here. You'll be surprised how little it takes to get something running.
       </p>
-      <pre><code>{`import asyncio
-from dotenv import load_dotenv
-from livekit.agents import AutoSubscribe, JobContext, WorkerOptions, cli, llm
-from livekit.agents.voice_assistant import VoiceAssistant
-from livekit.plugins import deepgram, openai, silero
+      <pre><code>{`async def entrypoint(ctx: JobContext):
+    await ctx.connect(auto_subscribe=AutoSubscribe.AUDIO_ONLY)
+    await ctx.wait_for_participant()
 
-load_dotenv()
+    rime_tts = rime.TTS(model=RIME_MODEL, speaker=RIME_SPEAKER)
+    session = AgentSession(
+        stt=openai.STT(model=OPENAI_TRANSCRIPT_MODEL),
+        llm=openai.LLM(model=OPENAI_MODEL),
+        tts=rime_tts,
+        vad=ctx.proc.userdata["vad"],
+        turn_detection=MultilingualModel(),
+    )
 
-async def entrypoint(ctx: JobContext):
-    initial_ctx = llm.ChatContext().append(
-        role="system",
-        text=(
-            "You are a helpful voice assistant. Keep your responses concise "
-            "and conversational. This is a voice interface, not a chat window."
+    await session.start(
+        room=ctx.room,
+        agent=VoiceAssistant(),
+        room_input_options=RoomInputOptions(
+            noise_cancellation=noise_cancellation.BVC()
         ),
     )
-
-    await ctx.connect(auto_subscribe=AutoSubscribe.AUDIO_ONLY)
-
-    assistant = VoiceAssistant(
-        vad=silero.VAD.load(),
-        stt=deepgram.STT(),
-        llm=openai.LLM(),
-        tts=openai.TTS(),
-        chat_ctx=initial_ctx,
-    )
-
-    assistant.start(ctx.room)
-    await asyncio.sleep(1)
-    await assistant.say("Hey, I'm ready. What's on your mind?", allow_interruptions=True)
-
-    await asyncio.Event().wait()
-
-if __name__ == "__main__":
-    cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint))`}</code></pre>
+    await session.say(INTRO_PHRASE)`}</code></pre>
       <p>
-        That's the whole agent. Let's walk through what's actually happening.
-      </p>
-
-      <h2>How It Works</h2>
-
-      <h3>The Worker and Job Context</h3>
-      <p>
-        When you run this script, it starts a <strong>worker process</strong> that connects to your LiveKit server and waits for jobs. A job is dispatched whenever a participant joins a room. The <code>entrypoint</code> function is called with a <code>JobContext</code> that gives you access to the room and its participants.
+        That's the entire entrypoint. You initialize your STT, LLM, and TTS, pass them into <code>AgentSession</code>, and start it. LiveKit wires the pipeline together for you. The agent connects to the room, waits for a participant, and greets them. That's all it takes to get a working voice agent off the ground.
       </p>
       <p>
-        <code>ctx.connect(auto_subscribe=AutoSubscribe.AUDIO_ONLY)</code> tells the agent to join the room and automatically subscribe to audio tracks from other participants. It ignores video entirely, which is what you want for a voice agent.
+        Once it's running, the real challenges show up: chipping away at latency, building observability on top of what LiveKit provides, and thinking carefully about how you design your agent for the use case you're targeting. Getting started is the easy part.
       </p>
 
-      <h3>VoiceAssistant</h3>
-      <p>
-        <code>VoiceAssistant</code> is the core abstraction from the LiveKit Agents framework. You hand it the four components of the pipeline:
-      </p>
-      <ul>
-        <li><strong>VAD</strong>: Silero VAD, a lightweight neural model that detects speech vs. silence in real time</li>
-        <li><strong>STT</strong>: Deepgram for streaming transcription</li>
-        <li><strong>LLM</strong>: OpenAI GPT (defaults to gpt-4o-mini)</li>
-        <li><strong>TTS</strong>: OpenAI TTS for synthesizing the response audio</li>
-      </ul>
-      <p>
-        The assistant wires these together and manages the conversation loop for you. When the VAD detects end-of-speech, it takes the STT transcript, appends it to the chat context, sends it to the LLM, streams the output to the TTS, and publishes the audio back to the room.
-      </p>
-
-      <h3>The Chat Context</h3>
-      <p>
-        The <code>ChatContext</code> is the conversation history passed to the LLM. You initialize it with a system prompt, and the assistant automatically appends user messages and assistant responses as the conversation progresses. Keeping the system prompt short and voice-specific matters. Instructions that work well in a chat interface can produce overly verbose responses when spoken aloud.
-      </p>
-
-      <h3>The Initial Greeting</h3>
-      <p>
-        <code>assistant.say(...)</code> synthesizes and speaks a message directly, without going through the STT or LLM. This is useful for greetings or prompts. The <code>allow_interruptions=True</code> flag means the user can start talking and the agent will stop speaking immediately, enabling natural turn-taking behavior.
-      </p>
-
-      <h2>Running It</h2>
-      <p>
-        Start the agent in development mode:
-      </p>
-      <pre><code>{`python agent.py dev`}</code></pre>
-      <p>
-        In dev mode, the worker connects to your LiveKit server and logs to the terminal. You'll see it waiting for a room participant.
-      </p>
-      <p>
-        To actually talk to it, you need a frontend connected to the same LiveKit room. The easiest way to test this is the <a href="https://agents-playground.livekit.io" target="_blank" rel="noopener noreferrer">LiveKit Agents Playground</a>. Paste in your LiveKit URL, API key, and API secret, and it will generate a token and connect you to a room. The agent will join automatically and you can start talking.
-      </p>
-      <div className="callout">
-        <p>
-          <strong>Dev mode vs. production:</strong> <code>python agent.py dev</code> runs a single worker process locally. For production, you'd run <code>python agent.py start</code> and deploy behind something like a process manager or container. Dev mode adds some extra logging and auto-reloads on file changes.
-        </p>
-      </div>
-
-      <h2>What's Actually Happening Under the Hood</h2>
-      <p>
-        It's worth understanding the data flow once you connect:
-      </p>
-      <ul>
-        <li>Your browser captures microphone audio and sends it over WebRTC to the LiveKit server</li>
-        <li>The LiveKit server forwards the audio track to the agent worker</li>
-        <li>The agent's VAD processes incoming audio frames to detect speech boundaries</li>
-        <li>When end-of-speech is detected, the buffered audio is sent to Deepgram STT</li>
-        <li>The transcript is appended to the chat context and sent to the LLM</li>
-        <li>LLM tokens stream back and are passed to OpenAI TTS</li>
-        <li>Synthesized audio is published as a new track back to the LiveKit room</li>
-        <li>The browser receives and plays the audio</li>
-      </ul>
-      <p>
-        The entire round trip, from you finishing a sentence to hearing the agent's response, typically lands between 800ms and 1.5 seconds with this stack. Not quite human conversational speed, but definitely usable.
-      </p>
-
-      <h2>Swapping Components</h2>
-      <p>
-        One of the better things about the plugin architecture is how easy it is to swap providers. Want to try a different LLM?
-      </p>
-      <pre><code>{`from livekit.plugins import anthropic
-
-assistant = VoiceAssistant(
-    vad=silero.VAD.load(),
-    stt=deepgram.STT(),
-    llm=anthropic.LLM(model="claude-3-5-haiku-20241022"),
-    tts=openai.TTS(),
-    chat_ctx=initial_ctx,
-)`}</code></pre>
-      <p>
-        Or switch to ElevenLabs for TTS:
-      </p>
-      <pre><code>{`from livekit.plugins import elevenlabs
-
-tts=elevenlabs.TTS(voice_id="your_voice_id")`}</code></pre>
-      <p>
-        The underlying pipeline wiring stays the same. You're just plugging in different components.
-      </p>
-
-      <h2>Adding Tools</h2>
-      <p>
-        You can give the agent tools to call during a conversation. Here's a minimal example, a tool that returns the current time:
-      </p>
-      <pre><code>{`from livekit.agents import llm as agents_llm
-
-class AssistantFnc(agents_llm.FunctionContext):
-    @agents_llm.ai_callable(description="Get the current time")
-    def get_current_time(self) -> str:
-        from datetime import datetime
-        return datetime.now().strftime("%I:%M %p")
-
-assistant = VoiceAssistant(
-    vad=silero.VAD.load(),
-    stt=deepgram.STT(),
-    llm=openai.LLM(),
-    tts=openai.TTS(),
-    fnc_ctx=AssistantFnc(),
-    chat_ctx=initial_ctx,
-)`}</code></pre>
-      <p>
-        The agent will call <code>get_current_time</code> when it decides it's relevant to the conversation. This is where voice agents start to get genuinely useful; you can wire in calendar APIs, databases, or anything else the agent needs to do its job.
-      </p>
-
-      <hr />
-
-      <p>
-        This setup gives you a working voice agent in under 50 lines of Python. The LiveKit Agents framework handles the hard parts (WebRTC transport, audio track management, and pipeline orchestration) so you can focus on the behavior you actually want.
-      </p>
-      <p>
-        From here, the natural next steps are tuning the system prompt for your use case, experimenting with different STT and TTS providers to find the latency/quality tradeoff that works for you, and adding tools so the agent can do things beyond just talking.
-      </p>
     </BlogArticleLayout>
   );
 }

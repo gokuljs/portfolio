@@ -4,7 +4,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useEffect } from 'react';
 import { ReadingProgressBar } from './reading-progress';
 import { TableOfContents } from './table-of-contents';
 import { calculateReadingTime } from '@/utils/reading-time';
@@ -29,22 +28,6 @@ export function BlogArticleLayout({
   featuredImage,
 }: BlogArticleLayoutProps) {
   const estimatedReadTime = readingTime || calculateReadingTime(children);
-
-  useEffect(() => {
-    if (typeof window === 'undefined' || navigator.userAgent.toLowerCase().includes('bot')) return;
-    fetch('/api/track-visit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        eventType: 'blog_read',
-        blogTitle: title,
-        pathname: window.location.pathname,
-        userAgent: navigator.userAgent,
-        referrer: document.referrer,
-        timestamp: new Date().toISOString(),
-      }),
-    }).catch(() => {});
-  }, [title]);
 
   return (
     <>

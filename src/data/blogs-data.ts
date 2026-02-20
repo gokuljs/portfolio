@@ -45,7 +45,12 @@ export const generateBlogMetadata = (slug: string) => {
   const blog = getBlogBySlug(slug);
   if (!blog) return {};
 
-  const image = blog.image || '/gokuljs.png'; // fallback to default OG image
+  const ogParams = new URLSearchParams({
+    title: blog.title,
+    description: blog.description,
+    tags: (blog.tags ?? []).join(','),
+  });
+  const ogImage = `/api/og?${ogParams.toString()}`;
 
   return {
     title: `${blog.title} | Gokul JS`,
@@ -59,7 +64,7 @@ export const generateBlogMetadata = (slug: string) => {
       tags: blog.tags,
       images: [
         {
-          url: image,
+          url: ogImage,
           width: 1200,
           height: 630,
           alt: blog.title,
@@ -70,7 +75,7 @@ export const generateBlogMetadata = (slug: string) => {
       card: 'summary_large_image' as const,
       title: blog.title,
       description: blog.description,
-      images: [image],
+      images: [ogImage],
     },
     keywords: blog.tags,
   };

@@ -5,11 +5,13 @@ import { BlogListItem } from '@/components/ui/blog-card';
 import { getSortedBlogs } from '@/data/blogs-data';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, FileText, X } from 'lucide-react';
+import { Search, FileText, X, ArrowUpDown } from 'lucide-react';
 
 export default function BlogsPage() {
-  const allBlogs = getSortedBlogs();
   const [searchQuery, setSearchQuery] = useState('');
+  const [sortOrder, setSortOrder] = useState<'desc' | 'asc'>('desc');
+
+  const allBlogs = useMemo(() => getSortedBlogs(sortOrder), [sortOrder]);
 
   const filteredBlogs = useMemo(() => {
     if (!searchQuery.trim()) return allBlogs;
@@ -81,6 +83,15 @@ export default function BlogsPage() {
               <span>{allBlogs.length} {allBlogs.length === 1 ? 'post' : 'posts'}</span>
             )}
           </p>
+          <div className="flex items-center gap-3">
+          {/* Sort toggle */}
+          <button
+            onClick={() => setSortOrder(o => o === 'desc' ? 'asc' : 'desc')}
+            className="flex items-center gap-1.5 text-xs text-neutral-500 hover:text-white transition-colors"
+          >
+            <ArrowUpDown className="w-3.5 h-3.5" />
+            {sortOrder === 'desc' ? 'Newest' : 'Oldest'}
+          </button>
           {/* Search Bar - Underline style with icon inside */}
           <div className="flex items-center gap-2 border-b border-white/20 focus-within:border-white/50 transition-all">
             <Search className="w-4 h-4 text-neutral-500" />
@@ -99,6 +110,7 @@ export default function BlogsPage() {
                 <X className="w-3.5 h-3.5" />
               </button>
             )}
+          </div>
           </div>
         </div>
       </motion.div>

@@ -25,8 +25,9 @@ export const projectsData: Project[] = [
     id: '7',
     title: 'LiveKit Voice Agent',
     description: 'A real-time voice conversation pipeline built on LiveKit. Wires together VAD, Whisper STT, GPT-4o, and Rime TTS to enable natural bidirectional voice conversations with low-latency turn-taking.',
-    image: '/livekit-voice-agent.png',
+    image: '/blogs/placeholderimage.png',
     tags: ['LiveKit', 'OpenAI', 'STT', 'TTS', 'Python'],
+    link: '/blogs/building-simple-real-time-voice-agent-livekit',
     video: 'https://youtu.be/t2J8ce1vdtc',
     github: 'https://github.com/gokuljs/Livekit-Voice-agent',
     status: 'Live'

@@ -17,7 +17,7 @@ export const blogsData: Blog[] = [
     title: 'Building a Simple Real-Time Voice Agent with LiveKit',
     description: 'A hands-on walkthrough of building a real-time voice agent with LiveKit, wiring up the full STT to LLM to TTS loop so you can have back-and-forth voice conversations.',
     date: '2026-02-20',
-    readTime: '8 min read',
+    readTime: '4 min read',
     tags: ['LiveKit', 'Voice Agent', 'Speech-to-Text', 'LLM', 'Text-to-Speech', 'Python'],
   },
   {
@@ -26,7 +26,7 @@ export const blogsData: Blog[] = [
     title: 'Inside a Real-Time Voice Agent: Media Infrastructure and Inference Orchestration',
     description: 'What it takes to build a low-latency voice agent. I walk through the full LiveKit pipeline: WebRTC, voice activity detection, STT, streaming LLM inference, and TTS working in real time.',
     date: '2026-02-19',
-    readTime: '12 min read',
+    readTime: '14 min read',
     tags: ['LiveKit', 'WebRTC', 'Real-Time Systems'],
   },
 ];

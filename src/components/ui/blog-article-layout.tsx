@@ -14,6 +14,7 @@ interface BlogArticleLayoutProps {
   title: string;
   description: string;
   date: string;
+  dateISO?: string;
   readingTime?: string;
   tags?: string[];
   featuredImage?: string;
@@ -24,6 +25,7 @@ export function BlogArticleLayout({
   title,
   description,
   date,
+  dateISO,
   readingTime,
   tags,
   featuredImage,
@@ -32,13 +34,15 @@ export function BlogArticleLayout({
   const pathname = usePathname();
   const canonicalUrl = `https://gokuljs.com${pathname}`;
 
-  const jsonLd = {
+  const isoDate = dateISO ?? date;
+
+  const articleJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: title,
     description,
-    datePublished: date,
-    dateModified: date,
+    datePublished: isoDate,
+    dateModified: isoDate,
     author: {
       '@type': 'Person',
       name: 'Gokul JS',
@@ -56,11 +60,40 @@ export function BlogArticleLayout({
     keywords: tags?.join(', '),
   };
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://gokuljs.com',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Blog',
+        item: 'https://gokuljs.com/blogs',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: title,
+        item: canonicalUrl,
+      },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <ReadingProgressBar />
       <TableOfContents />

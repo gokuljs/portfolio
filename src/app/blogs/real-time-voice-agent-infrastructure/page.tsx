@@ -13,6 +13,7 @@ export default function RealTimeVoiceAgentPage() {
       title={blog.title}
       description={blog.description}
       date={new Date(blog.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+      dateISO={blog.date}
       tags={blog.tags}
     >
       <p>

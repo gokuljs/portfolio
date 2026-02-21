@@ -59,7 +59,7 @@ export const generateBlogMetadata = (slug: string) => {
   const ogImage = `/api/og?${ogParams.toString()}`;
 
   return {
-    title: `${blog.title} | Gokul JS`,
+    title: blog.title,
     description: blog.description,
     alternates: {
       canonical: `https://gokuljs.com/blogs/${blog.slug}`,
@@ -67,6 +67,7 @@ export const generateBlogMetadata = (slug: string) => {
     openGraph: {
       title: blog.title,
       description: blog.description,
+      url: `https://gokuljs.com/blogs/${blog.slug}`,
       type: 'article' as const,
       publishedTime: blog.date,
       authors: ['Gokul JS'],
@@ -85,6 +86,8 @@ export const generateBlogMetadata = (slug: string) => {
       title: blog.title,
       description: blog.description,
       images: [ogImage],
+      site: '@gokul_js029',
+      creator: '@gokul_js029',
     },
     keywords: blog.tags,
   };

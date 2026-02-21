@@ -1,5 +1,30 @@
+import { Metadata } from 'next';
 import { Timeline } from '@/components/ui/timeline';
 import { timelineData } from '@/data/timeline-data';
+
+export const metadata: Metadata = {
+  title: 'Experience',
+  description:
+    'Professional timeline of Gokul JS — founding engineer at YC-backed startups, building real-time AI systems, voice agents, and scalable web products.',
+  alternates: {
+    canonical: 'https://gokuljs.com/experience',
+  },
+  openGraph: {
+    title: 'Experience | Gokul JS',
+    description:
+      'Professional timeline of Gokul JS — founding engineer at YC-backed startups, building real-time AI systems, voice agents, and scalable web products.',
+    url: 'https://gokuljs.com/experience',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Experience | Gokul JS',
+    description:
+      'Professional timeline of Gokul JS — founding engineer at YC-backed startups, building real-time AI systems, voice agents, and scalable web products.',
+    site: '@gokul_js029',
+    creator: '@gokul_js029',
+  },
+};
 
 export default function ExperiencePage() {
   return (

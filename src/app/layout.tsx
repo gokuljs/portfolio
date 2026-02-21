@@ -12,7 +12,10 @@ const DESCRIPTION =
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://gokuljs.com'),
-  title: 'Gokul JS - Ex-YC Alumnus W21',
+  title: {
+    default: 'Gokul JS - Ex-YC Alumnus W21',
+    template: '%s | Gokul JS',
+  },
   description: DESCRIPTION,
   alternates: {
     canonical: 'https://gokuljs.com',
@@ -33,14 +36,19 @@ export const metadata: Metadata = {
         alt: 'Gokul JS - Ex-YC Alumnus W21',
       },
     ],
-    type: 'website',
-    siteName: 'Gokul JS Portfolio',
+    type: 'profile',
+    siteName: 'Gokul JS',
+    firstName: 'Gokul',
+    lastName: 'JS',
+    username: 'gokul_js029',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Gokul JS - Ex-YC Alumnus W21',
     description: DESCRIPTION,
     images: ['/gokuljs.png'],
+    site: '@gokul_js029',
+    creator: '@gokul_js029',
   },
   keywords: [
     'Gokul JS',

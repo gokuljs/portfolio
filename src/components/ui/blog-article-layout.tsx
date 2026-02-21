@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 import { ReadingProgressBar } from './reading-progress';
 import { TableOfContents } from './table-of-contents';
 import { calculateReadingTime } from '@/utils/reading-time';
@@ -28,9 +29,39 @@ export function BlogArticleLayout({
   featuredImage,
 }: BlogArticleLayoutProps) {
   const estimatedReadTime = readingTime || calculateReadingTime(children);
+  const pathname = usePathname();
+  const canonicalUrl = `https://gokuljs.com${pathname}`;
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: title,
+    description,
+    datePublished: date,
+    dateModified: date,
+    author: {
+      '@type': 'Person',
+      name: 'Gokul JS',
+      url: 'https://gokuljs.com',
+    },
+    publisher: {
+      '@type': 'Person',
+      name: 'Gokul JS',
+      url: 'https://gokuljs.com',
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': canonicalUrl,
+    },
+    keywords: tags?.join(', '),
+  };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <ReadingProgressBar />
       <TableOfContents />
       

@@ -61,6 +61,9 @@ export const generateBlogMetadata = (slug: string) => {
   return {
     title: `${blog.title} | Gokul JS`,
     description: blog.description,
+    alternates: {
+      canonical: `https://gokuljs.com/blogs/${blog.slug}`,
+    },
     openGraph: {
       title: blog.title,
       description: blog.description,

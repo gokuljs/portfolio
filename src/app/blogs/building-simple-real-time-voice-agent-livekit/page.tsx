@@ -17,7 +17,7 @@ export default function BuildingSimpleVoiceAgentPage() {
       tags={blog.tags}
     >
       <p>
-        In a <a href="/blogs/real-time-voice-agent-infrastructure">previous post</a>, I covered the architecture behind real-time voice agents: WebRTC, VAD, and the tradeoffs between pipeline and realtime models. This post is the practical follow-up: actually building and running one.
+        In a <a href="/blogs/real-time-voice-agent-infrastructure">previous post</a>, I covered how real-time voice agents work: the architecture, the pipeline, and where latency comes from at each stage. This post is the practical follow-up: actually building and running one.
       </p>
       <p>
         The goal is simple: a voice agent you can talk to. It listens to your speech, transcribes it, sends it to an LLM, and speaks the response back. The full STT → LLM → TTS loop, end to end. By the end, you'll have something running locally that you can experiment with.

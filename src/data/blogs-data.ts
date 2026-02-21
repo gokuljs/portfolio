@@ -23,8 +23,8 @@ export const blogsData: Blog[] = [
   {
     id: '1',
     slug: 'real-time-voice-agent-infrastructure',
-    title: 'Inside a Real-Time Voice Agent: Media Infrastructure and Inference Orchestration',
-    description: 'What it takes to build a low-latency voice agent. I walk through the full LiveKit pipeline: WebRTC, voice activity detection, STT, streaming LLM inference, and TTS working in real time.',
+    title: 'How Real-Time Voice Agents Work: Architecture and Latency',
+    description: 'A breakdown of how real-time voice agents work under the hood: the two-layer architecture, VAD, STT, LLM, TTS pipeline, and where latency comes from at each stage.',
     date: '2026-02-19',
     readTime: '14 min read',
     tags: ['LiveKit', 'WebRTC', 'Real-Time Systems'],

@@ -28,7 +28,7 @@ function timeAgo(d: string) {
 }
 
 function LineChart({ bars, maxVal }: { bars: WeeklyBar[]; maxVal: number }) {
-  const W = 800, H = 90, PAD = 6;
+  const W = 800, H = 200, PAD = 8;
   const cW = W - PAD * 2, cH = H - PAD * 2;
   const pts = bars.map((b, i) => ({
     x: PAD + (i / (bars.length - 1)) * cW,
@@ -39,11 +39,11 @@ function LineChart({ bars, maxVal }: { bars: WeeklyBar[]; maxVal: number }) {
   const area = `M${pts[0].x},${PAD + cH} ` + pts.map(p => `L${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ') + ` L${pts[pts.length - 1].x},${PAD + cH} Z`;
   const labels = [0, Math.floor(bars.length / 2), bars.length - 1];
   return (
-    <div className="w-full">
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ height: 80 }} preserveAspectRatio="none">
+    <div className="w-full" style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0 }}>
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ flex: 1, minHeight: 0 }} preserveAspectRatio="none">
         <defs>
           <linearGradient id="lg" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="white" stopOpacity="0.08" />
+            <stop offset="0%" stopColor="white" stopOpacity="0.12" />
             <stop offset="100%" stopColor="white" stopOpacity="0" />
           </linearGradient>
         </defs>
@@ -134,7 +134,9 @@ const GithubGraph = () => {
             return { id: pr.id, title: pr.title, html_url: pr.html_url, repo: `${owner}/${repo}`, repoOwner: owner.toLowerCase(), created_at: pr.created_at, state } as PR;
           }).filter((p): p is PR => p !== null);
 
+        const twoYearsAgo = Date.now() - 2 * 365 * 24 * 60 * 60 * 1000;
         const all = [...parse(od.items, 'open'), ...parse(md.items, 'merged')]
+          .filter(pr => new Date(pr.created_at).getTime() >= twoYearsAgo)
           .sort((a, b) => {
             const ga = a.repoOwner.includes('rime') ? 1 : 0;
             const gb = b.repoOwner.includes('rime') ? 1 : 0;
@@ -179,8 +181,8 @@ const GithubGraph = () => {
           </div>
           <p className="text-[9px] text-neutral-700" style={{ marginBottom: 8 }}>last 365 days · by week</p>
 
-          <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-            {chartLoading && <div style={{ height: '100%', borderRadius: 6, background: 'rgba(255,255,255,0.03)' }} className="animate-pulse" />}
+          <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
+            {chartLoading && <div style={{ flex: 1, borderRadius: 6, background: 'rgba(255,255,255,0.03)' }} className="animate-pulse" />}
             {!chartLoading && bars.length > 0 && <LineChart bars={bars} maxVal={maxBar} />}
           </div>
         </div>

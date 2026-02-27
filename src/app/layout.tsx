@@ -4,6 +4,7 @@ import '@styles/globals.scss';
 import VisitTracker from '@/components/VisitTracker';
 import { Analytics } from '@vercel/analytics/next';
 import Navbar from './ui/components/Navbar';
+import WhatsNewPanel from '@/components/ui/WhatsNewPanel';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -93,6 +94,7 @@ export default function RootLayout({
         <VisitTracker />
         <Navbar />
         {children}
+        <WhatsNewPanel />
         <Analytics />
       </body>
     </html>

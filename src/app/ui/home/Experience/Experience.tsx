@@ -38,7 +38,7 @@ export default function Experience() {
 
           <div className="w-full !mt-4 h-fit">
             <img
-              src="/rime-bg.png"
+              src="/rimeNew.jpeg"
               alt="Rime TTS"
               width={800}
               height={800}

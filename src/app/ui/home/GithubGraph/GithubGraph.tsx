@@ -158,13 +158,13 @@ const GithubGraph = () => {
     <div className={styles.github} suppressHydrationWarning>
       <h1 className={styles.heading}>GitHub Contribution Journey</h1>
 
-      <div style={{ display: 'inline-flex', flexDirection: 'column', gap: 16, maxWidth: '100%' }}>
+      <div className={`w-full flex flex-col gap-4 ${styles.inner}`}>
 
-      {/* Top row: Calendar (left) + Currently Learning (right) */}
-      <div style={{ display: 'flex', gap: 16, alignItems: 'stretch', flexWrap: 'wrap' }}>
+      {/* Top row: Calendar (left) + Currently Researching (right) */}
+      <div className="flex flex-col lg:flex-row gap-4 items-stretch w-full">
 
-        {/* Calendar */}
-        <div className={styles.container} ref={scrollContainerRef} style={{ flex: '0 0 auto' }}>
+        {/* Calendar — shrinks on desktop so the side card fits */}
+        <div className={`${styles.container} min-w-0 flex-1`} ref={scrollContainerRef}>
           <GlowingEffect spread={80} borderWidth={1} glow={true} disabled={false} proximity={64} inactiveZone={0.01} variant="white" />
           <div className={styles.dropdown}>
             <Dropdown dropdownState={dropdownState} setDropdownState={setDropdownState} options={gitHubYearList} value={selectedYear} setValue={setSelectedYear} />
@@ -173,13 +173,13 @@ const GithubGraph = () => {
             theme={{ dark: ['#0a0a0a', '#2e2e2e', '#555555', '#7b7b7b', '#bcbcbc'] }} style={{ color: '#F0F1F4' }} />
         </div>
 
-        {/* Currently Learning */}
+        {/* Currently Researching — fixed width on desktop, full width on mobile */}
         <a
           href="https://github.com/gokuljs/Advanced-rag"
           target="_blank"
           rel="noopener noreferrer"
-          className="group"
-          style={{ display: 'flex', textDecoration: 'none', flex: '0 0 420px' }}
+          className="group flex lg:w-[380px] w-full flex-shrink-0"
+          style={{ textDecoration: 'none' }}
         >
           <div style={{
             display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
@@ -228,10 +228,10 @@ const GithubGraph = () => {
       </div>
 
       {/* 50/50 split — matches top row width */}
-      <div style={{ width: '100%', display: 'grid', gridTemplateColumns: '1fr 1fr', height: 300, borderRadius: 12, background: 'transparent', overflow: 'hidden' }}>
+      <div className="w-full grid grid-cols-1 md:grid-cols-2" style={{ borderRadius: 12, background: 'transparent', overflow: 'hidden' }}>
 
         {/* Left — Commit history */}
-        <div style={{ display: 'flex', flexDirection: 'column', padding: 16, borderRight: 'none', height: '100%', overflow: 'hidden' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', padding: 16, borderRight: 'none', height: 300, overflow: 'hidden' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2 }}>
             <p className="text-[10px] uppercase tracking-widest text-neutral-500">Commit history</p>
             {!chartLoading && <span className="text-[10px] text-neutral-600">{totalContribs} total</span>}
@@ -245,7 +245,7 @@ const GithubGraph = () => {
         </div>
 
         {/* Right — Open source PRs */}
-        <div style={{ display: 'flex', flexDirection: 'column', padding: 16, height: '100%', overflow: 'hidden' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', padding: 16, height: 300, overflow: 'hidden' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2 }}>
             <p className="text-[10px] uppercase tracking-widest text-neutral-500">Open source PRs</p>
             {!prLoading && <span className="text-[10px] text-neutral-600">{prs.length} PRs</span>}
@@ -294,7 +294,7 @@ const GithubGraph = () => {
 
       </div>
 
-      </div>{/* end width wrapper */}
+      </div>
     </div>
   );
 };

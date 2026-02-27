@@ -119,8 +119,8 @@ const GithubGraph = () => {
     async function fetchPRs() {
       try {
         const [mRes, oRes] = await Promise.all([
-          fetch('https://api.github.com/search/issues?q=author:gokuljs+type:pr+is:merged&sort=created&order=desc&per_page=20', { headers: { Accept: 'application/vnd.github+json' } }),
-          fetch('https://api.github.com/search/issues?q=author:gokuljs+type:pr+is:open&sort=created&order=desc&per_page=10', { headers: { Accept: 'application/vnd.github+json' } }),
+          fetch('https://api.github.com/search/issues?q=author:gokuljs+type:pr+is:merged&sort=created&order=desc&per_page=100', { headers: { Accept: 'application/vnd.github+json' } }),
+          fetch('https://api.github.com/search/issues?q=author:gokuljs+type:pr+is:open&sort=created&order=desc&per_page=100', { headers: { Accept: 'application/vnd.github+json' } }),
         ]);
         const md = mRes.ok ? await mRes.json() : { items: [] };
         const od = oRes.ok ? await oRes.json() : { items: [] };

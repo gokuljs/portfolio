@@ -250,7 +250,7 @@ const GithubGraph = () => {
             <p className="text-[10px] uppercase tracking-widest text-neutral-500">Open source PRs</p>
             {!prLoading && <span className="text-[10px] text-neutral-600">{prs.length} PRs</span>}
           </div>
-          <p className="text-[9px] text-neutral-700" style={{ marginBottom: 8 }}>latest · non-gokuljs repos</p>
+          <p className="text-[9px] text-neutral-700" style={{ marginBottom: 8 }}>open source contributions · last 2 years</p>
 
           {prLoading && (
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 6 }} className="animate-pulse">

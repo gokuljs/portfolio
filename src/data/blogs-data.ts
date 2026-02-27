@@ -19,6 +19,7 @@ export const blogsData: Blog[] = [
     date: '2026-02-20',
     readTime: '4 min read',
     tags: ['LiveKit', 'Voice Agent', 'Speech-to-Text', 'LLM', 'Text-to-Speech', 'Python'],
+    image: '/blog2banner.png',
   },
   {
     id: '1',
@@ -28,6 +29,7 @@ export const blogsData: Blog[] = [
     date: '2026-02-19',
     readTime: '14 min read',
     tags: ['LiveKit', 'WebRTC', 'Real-Time Systems'],
+    image: '/blogbanner1.png',
   },
 ];
 
@@ -51,12 +53,17 @@ export const generateBlogMetadata = (slug: string) => {
   const blog = getBlogBySlug(slug);
   if (!blog) return {};
 
-  const ogParams = new URLSearchParams({
-    title: blog.title,
-    description: blog.description,
-    tags: (blog.tags ?? []).join(','),
-  });
-  const ogImage = `/api/og?${ogParams.toString()}`;
+  let ogImage: string;
+  if (blog.image) {
+    ogImage = `https://gokuljs.com${blog.image}`;
+  } else {
+    const ogParams = new URLSearchParams({
+      title: blog.title,
+      description: blog.description,
+      tags: (blog.tags ?? []).join(','),
+    });
+    ogImage = `/api/og?${ogParams.toString()}`;
+  }
 
   return {
     title: blog.title,

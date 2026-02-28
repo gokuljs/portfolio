@@ -116,7 +116,7 @@ export default function WhatsNewPanel() {
   /* ── Mini pill (after dismiss) ── */
   if (minimized) {
     return (
-      <div style={{ position: 'fixed', ...pos, zIndex: 99999 }}>
+      <div className="hidden md:block" style={{ position: 'fixed', ...pos, zIndex: 99999 }}>
         <button
           onClick={reopen}
           style={{
@@ -193,7 +193,7 @@ export default function WhatsNewPanel() {
 
   /* ── Full card ── */
   return (
-    <div ref={cardRef} style={{ position: 'fixed', ...pos, zIndex: 99999 }}>
+    <div ref={cardRef} className="hidden md:block" style={{ position: 'fixed', ...pos, zIndex: 99999 }}>
       <div
         style={{
           width: 320,

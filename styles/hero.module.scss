@@ -8,48 +8,55 @@
   flex-direction: column;
   position: relative;
   overflow: hidden;
+  font-family: sans-serif;
 }
 
-/* ─── Body — bottom-weighted so the name lands just below optical center ─── */
+/* ─── Body — bottom-weighted ─── */
 .heroBody {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   padding: 0 3.5rem 3.5rem;
-  position: relative;
-  z-index: 2;
 }
 
 /* ─── Overline ─── */
 .overline {
-  font-size: 0.65rem;
+  font-size: 0.64rem;
   letter-spacing: 0.22em;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.32);
   text-transform: uppercase;
-  margin: 0 0 1.4rem;
-  opacity: 0;
-  transform: translateY(10px);
-  transition:
-    opacity 0.7s ease 0.1s,
-    transform 0.7s ease 0.1s;
+  margin: 0 0 1.6rem;
 }
 
-/* ─── The name — the entire hero ─── */
+/* ─── Name ─── */
 .name {
-  font-size: clamp(4.5rem, 17vw, 21rem);
+  display: block;
+  font-size: clamp(4.5rem, 17vw, 22rem);
   font-weight: 800;
   line-height: 0.92;
   letter-spacing: -0.03em;
   margin: 0 0 2.8rem;
-  background: linear-gradient(175deg, #ffffff 50%, rgba(255, 255, 255, 0.55));
+}
+
+/* Each character lives inside an overflow:hidden wrapper so the
+   GSAP y:'115%' slide-up is clipped — gives a clean "emerge from below" reveal */
+.charWrap {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  /* preserve letter-spacing on the wrapper */
+  letter-spacing: -0.03em;
+}
+
+.char {
+  display: inline-block;
+  /* Gradient per-char — visually identical to a full-word gradient at this scale */
+  background: linear-gradient(to bottom, #ffffff 45%, rgba(255, 255, 255, 0.5));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  /* Reveal: wipe from left */
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path 1.15s cubic-bezier(0.77, 0, 0.18, 1) 0.18s;
 }
 
 /* ─── Divider ─── */
@@ -57,9 +64,6 @@
   height: 1px;
   background: rgba(255, 255, 255, 0.1);
   margin: 0 0 2rem;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.9s cubic-bezier(0.77, 0, 0.18, 1) 1s;
 }
 
 /* ─── Bottom row ─── */
@@ -67,17 +71,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  opacity: 0;
-  transform: translateY(8px);
-  transition:
-    opacity 0.65s ease 1.2s,
-    transform 0.65s ease 1.2s;
 }
 
 .roles {
-  font-size: 0.68rem;
+  font-size: 0.67rem;
   letter-spacing: 0.16em;
-  color: rgba(255, 255, 255, 0.38);
+  color: rgba(255, 255, 255, 0.36);
   text-transform: uppercase;
   margin: 0;
 }
@@ -86,82 +85,23 @@
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  font-size: 0.68rem;
+  font-size: 0.67rem;
   letter-spacing: 0.13em;
   text-transform: uppercase;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255, 255, 255, 0.62);
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 2rem;
   padding: 0.65rem 1.8rem;
   cursor: pointer;
-  transition:
-    color 0.25s ease,
-    border-color 0.25s ease,
-    background 0.25s ease;
+  transition: color 0.25s, border-color 0.25s, background 0.25s;
 
   &:hover {
     color: #fff;
     border-color: rgba(255, 255, 255, 0.5);
     background: rgba(255, 255, 255, 0.05);
   }
-}
-
-/* ─── Mounted: fire all transitions ─── */
-.mounted {
-  .overline {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .name {
-    clip-path: inset(0 0% 0 0);
-  }
-
-  .rule {
-    transform: scaleX(1);
-  }
-
-  .bottomRow {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .heroFooter {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ─── Footer bar ─── */
-.heroFooter {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem 3.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
-  position: relative;
-  z-index: 2;
-  opacity: 0;
-  transform: translateY(6px);
-  transition:
-    opacity 0.65s ease 1.38s,
-    transform 0.65s ease 1.38s;
-}
-
-.tagline {
-  font-size: clamp(0.9rem, 1.6vw, 1.5rem);
-  font-weight: 400;
-  margin: 0;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.email {
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.3);
-  margin: 0;
-  letter-spacing: 0.04em;
 }
 
 /* ─── Responsive ─── */
@@ -175,21 +115,10 @@
     align-items: flex-start;
     gap: 1.5rem;
   }
-
-  .heroFooter {
-    padding: 1.2rem 1.75rem;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
 }
 
 @media (max-width: 480px) {
   .heroBody {
     padding: 0 1.25rem 2rem;
-  }
-
-  .heroFooter {
-    padding: 1rem 1.25rem;
   }
 }

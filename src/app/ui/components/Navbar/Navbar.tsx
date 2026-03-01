@@ -1,107 +1,107 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import styles from '@styles/navbar.module.scss';
 
+const navLinks = [
+  { label: 'Skills', href: '#skills' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Blogs', href: '/blogs' },
+];
+
+const RESUME = '/GokulJS.pdf';
+
 const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  const RESUME = '/GokulJS.pdf';
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-  const handleNavLinkClick = (
-    event: React.MouseEvent<HTMLAnchorElement>,
-    targetId: string,
-  ) => {
-    event.preventDefault();
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (!href.startsWith('#')) return;
+    e.preventDefault();
     setMenuOpen(false);
-
-    // If we're already on the home page, just scroll to the section
     if (pathname === '/') {
-      const targetElement = document.getElementById(targetId.substring(1)); // Remove '#' from id
-      if (targetElement) {
-        targetElement.scrollIntoView({ behavior: 'smooth' });
-      }
+      document.getElementById(href.substring(1))?.scrollIntoView({ behavior: 'smooth' });
     } else {
-      // If on another page, navigate to home and then scroll
-      router.push(`/${targetId}`);
+      router.push(`/${href}`);
     }
   };
 
-  const trackResumeDownload = async () => {
+  const trackAndDownload = async () => {
+    setMenuOpen(false);
     try {
-      const downloadData = {
-        pathname: '/resume-download',
-        userAgent: navigator.userAgent,
-        referrer: document.referrer,
-        timestamp: new Date().toISOString(),
-        eventType: 'resume_download',
-      };
-
       await fetch('/api/track-visit', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(downloadData),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          pathname: '/resume-download',
+          userAgent: navigator.userAgent,
+          referrer: document.referrer,
+          timestamp: new Date().toISOString(),
+          eventType: 'resume_download',
+        }),
       });
-    } catch (error) {
-      console.error('Failed to track resume download:', error);
+    } catch {
+      // silent
     }
-  };
-
-  const handleResumeDownload = () => {
-    setMenuOpen(false);
-    trackResumeDownload();
   };
 
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
+      {/* Logo */}
       <Link href="/" className={styles.logo}>
         Gokul JS
       </Link>
 
-      <div className={styles.mobileMenuToggle} onClick={toggleMenu}>
-        <div
-          className={`${styles.hamburgerIcon} ${menuOpen ? styles.open : ''}`}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-
+      {/* Centre nav */}
       <nav className={`${styles.nav} ${menuOpen ? styles.open : ''}`}>
-        <Link href="#skills" onClick={(e) => handleNavLinkClick(e, '#skills')}>
-          Skills
-        </Link>
-        <Link
-          href="#experience"
-          onClick={(e) => handleNavLinkClick(e, '#experience')}
-        >
-          Experience
-        </Link>
-        <Link href="/projects" onClick={() => setMenuOpen(false)}>
-          Projects
-        </Link>
-        <Link href="/blogs" onClick={() => setMenuOpen(false)}>
-          Blogs
-        </Link>
+        {navLinks.map(({ label, href }) => (
+          <Link key={label} href={href} onClick={(e) => handleNavClick(e, href)}>
+            {label}
+          </Link>
+        ))}
+        {/* visible only in mobile drawer */}
         <a
-          download="GokulJS.pdf"
           href={RESUME}
-          className={styles.downloadBtn}
-          onClick={handleResumeDownload}
+          download="GokulJS.pdf"
+          className={styles.mobileDownload}
+          onClick={trackAndDownload}
         >
-          Download CV <span className={styles.downloadIcon}>↓</span>
+          Download CV ↓
         </a>
       </nav>
+
+      {/* Right: download CV (desktop) + hamburger (mobile) */}
+      <div className={styles.navRight}>
+        <a
+          href={RESUME}
+          download="GokulJS.pdf"
+          className={styles.downloadBtn}
+          onClick={trackAndDownload}
+        >
+          Download CV <span>↓</span>
+        </a>
+
+        <button
+          className={`${styles.hamburger} ${menuOpen ? styles.open : ''}`}
+          onClick={() => setMenuOpen((v) => !v)}
+          aria-label="Toggle menu"
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+      </div>
     </header>
   );
 };

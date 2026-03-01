@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import Script from 'next/script';
 import styles from '@styles/hero.module.scss';
 import SocialDock from '../../components/SocialDock/SocialDock';
 
@@ -112,6 +113,26 @@ const Hero: React.FC = () => {
 
   return (
     <div className={styles.hero}>
+      {/* Unicorn Studio animated background */}
+      <div
+        data-us-project="XobrGsLoM2ce1hM4cWjP"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          zIndex: 0,
+          pointerEvents: 'none',
+        }}
+      />
+      <Script
+        id="unicorn-studio"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `!function(){var u=window.UnicornStudio;if(u&&u.init){if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",function(){u.init()})}else{u.init()}}else{window.UnicornStudio={isInitialized:!1};var i=document.createElement("script");i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.5/dist/unicornStudio.umd.js",i.onload=function(){if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",function(){UnicornStudio.init()})}else{UnicornStudio.init()}},(document.head||document.body).appendChild(i)}}();`,
+        }}
+      />
+
       <div className={styles.heroBody}>
 
         <p ref={overlineRef} className={styles.overline}>

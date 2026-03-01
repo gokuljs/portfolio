@@ -83,6 +83,9 @@
 }
 
 .ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
   font-size: 0.68rem;
   letter-spacing: 0.13em;
   text-transform: uppercase;

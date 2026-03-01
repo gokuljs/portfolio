@@ -12,14 +12,11 @@ const Hero: React.FC = () => {
     return () => clearTimeout(t);
   }, []);
 
-  const scrollTo = (id: string) =>
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-
   return (
     <div className={`${styles.hero} ${mounted ? styles.mounted : ''}`}>
       <div className={styles.heroBody}>
         <p className={styles.overline}>
-          EX&#8202;-&#8202;YC &nbsp;·&nbsp; FOUNDING ENGINEER &nbsp;·&nbsp; GENERALIST
+          EX&#8202;-&#8202;YC &nbsp;·&nbsp; GENERALIST &nbsp;·&nbsp; DEVELOPER
         </p>
 
         <h1 className={styles.name}>GOKUL JS</h1>
@@ -28,20 +25,13 @@ const Hero: React.FC = () => {
 
         <div className={styles.bottomRow}>
           <p className={styles.roles}>
-            FULL&#8209;STACK &nbsp;·&nbsp; AI SYSTEMS &nbsp;·&nbsp; PRODUCT DESIGN
+            FULL&#8209;STACK &nbsp;·&nbsp; AI SYSTEMS &nbsp;·&nbsp; VOICE
           </p>
-          <button className={styles.ctaBtn} onClick={() => scrollTo('experience')}>
-            SEE MY WORK &nbsp;↗
-          </button>
+          <a href="mailto:jsgokul123@gmail.com" className={styles.ctaBtn}>
+            GET IN TOUCH &nbsp;↗
+          </a>
         </div>
       </div>
-
-      <footer className={styles.heroFooter}>
-        <p className={styles.tagline}>
-          Let&apos;s create something incredible together.
-        </p>
-        <p className={styles.email}>jsgokul123@gmail.com</p>
-      </footer>
 
       <SocialDock />
     </div>

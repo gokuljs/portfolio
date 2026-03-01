@@ -4,7 +4,6 @@ import { useEffect, useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import styles from '@styles/hero.module.scss';
 import SocialDock from '../../components/SocialDock/SocialDock';
-
 const NAME = 'GOKUL JS';
 
 
@@ -28,42 +27,10 @@ const Hero: React.FC = () => {
   useEffect(() => {
     const chars = charsRef.current.filter(Boolean) as HTMLSpanElement[];
 
-    // ── Unicorn Studio: parallel fetch, deferred init ──────────────────────
-    // Inject the script tag immediately so the browser downloads it in
-    // parallel with the entrance animation. .init() is only called once BOTH
-    // conditions are true: script loaded AND animation complete.
-    // Whichever finishes last calls init().
-    type UnicornWindow = Window & { UnicornStudio?: { isInitialized: boolean; init: () => void } };
-    let scriptLoaded = false;
-    let animDone = false;
-
-    const tryInit = () => {
-      (window as UnicornWindow).UnicornStudio?.init();
-    };
-
-    if (!(window as UnicornWindow).UnicornStudio) {
-      (window as UnicornWindow).UnicornStudio = { isInitialized: false, init: () => {} };
-      const s = document.createElement('script');
-      s.src = 'https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.5/dist/unicornStudio.umd.js';
-      s.onload = () => {
-        scriptLoaded = true;
-        if (animDone) tryInit();
-      };
-      (document.head || document.body).appendChild(s);
-    } else {
-      scriptLoaded = true;
-    }
-
     /* ── 1. Entrance timeline ── */
     // gsap.set() already placed everything at its start state, so we use
     // gsap.to() to animate toward the final CSS values.
-    const tl = gsap.timeline({
-      defaults: { ease: 'power3.out' },
-      onComplete: () => {
-        animDone = true;
-        if (scriptLoaded) tryInit();
-      },
-    });
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
     tl.to(overlineRef.current, {
       opacity: 1,
@@ -155,20 +122,6 @@ const Hero: React.FC = () => {
 
   return (
     <div className={styles.hero}>
-      {/* Unicorn Studio animated background — injected via initUnicornShader()
-          after entrance animations complete to avoid blocking the main thread */}
-      <div
-        data-us-project="X7Ao7Cu1zSQPCMiFHjvt"
-        className={styles.shader}
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          zIndex: 0,
-          pointerEvents: 'none',
-        }}
-      />
 
       <div className={styles.heroBody}>
 

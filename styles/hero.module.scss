@@ -29,6 +29,7 @@
   color: rgba(255, 255, 255, 0.32);
   text-transform: uppercase;
   margin: 0 0 1.2rem;
+  will-change: opacity, letter-spacing;
 }
 
 /* ─── Name ─── */
@@ -57,6 +58,7 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
+  will-change: transform;
 }
 
 /* ─── Quote ─── */
@@ -87,6 +89,7 @@
   height: 1px;
   background: rgba(255, 255, 255, 0.08);
   margin: 0 0 1.6rem;
+  will-change: transform;
 }
 
 /* ─── Bottom row ─── */

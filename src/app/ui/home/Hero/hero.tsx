@@ -1,12 +1,12 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
-import Script from 'next/script';
 import styles from '@styles/hero.module.scss';
 import SocialDock from '../../components/SocialDock/SocialDock';
 
 const NAME = 'GOKUL JS';
+
 
 const Hero: React.FC = () => {
   const overlineRef = useRef<HTMLParagraphElement>(null);
@@ -15,33 +15,76 @@ const Hero: React.FC = () => {
   const bottomRef = useRef<HTMLDivElement>(null);
   const ctaBtnRef = useRef<HTMLAnchorElement>(null);
 
+  // Runs synchronously before the first browser paint — elements are hidden
+  // before any pixel is drawn, eliminating the flash of visible content.
+  useLayoutEffect(() => {
+    const chars = charsRef.current.filter(Boolean) as HTMLSpanElement[];
+    gsap.set(overlineRef.current, { opacity: 0, letterSpacing: '0.55em' });
+    gsap.set(chars, { y: '115%' });
+    gsap.set(ruleRef.current, { scaleX: 0, transformOrigin: 'left center' });
+    gsap.set(bottomRef.current, { opacity: 0, y: 12 });
+  }, []);
+
   useEffect(() => {
     const chars = charsRef.current.filter(Boolean) as HTMLSpanElement[];
 
-    /* ── 1. Entrance timeline ── */
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    // ── Unicorn Studio: parallel fetch, deferred init ──────────────────────
+    // Inject the script tag immediately so the browser downloads it in
+    // parallel with the entrance animation. .init() is only called once BOTH
+    // conditions are true: script loaded AND animation complete.
+    // Whichever finishes last calls init().
+    type UnicornWindow = Window & { UnicornStudio?: { isInitialized: boolean; init: () => void } };
+    let scriptLoaded = false;
+    let animDone = false;
 
-    tl.from(overlineRef.current, {
-      opacity: 0,
-      letterSpacing: '0.55em',   // collapses into the normal value
+    const tryInit = () => {
+      (window as UnicornWindow).UnicornStudio?.init();
+    };
+
+    if (!(window as UnicornWindow).UnicornStudio) {
+      (window as UnicornWindow).UnicornStudio = { isInitialized: false, init: () => {} };
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.5/dist/unicornStudio.umd.js';
+      s.onload = () => {
+        scriptLoaded = true;
+        if (animDone) tryInit();
+      };
+      (document.head || document.body).appendChild(s);
+    } else {
+      scriptLoaded = true;
+    }
+
+    /* ── 1. Entrance timeline ── */
+    // gsap.set() already placed everything at its start state, so we use
+    // gsap.to() to animate toward the final CSS values.
+    const tl = gsap.timeline({
+      defaults: { ease: 'power3.out' },
+      onComplete: () => {
+        animDone = true;
+        if (scriptLoaded) tryInit();
+      },
+    });
+
+    tl.to(overlineRef.current, {
+      opacity: 1,
+      letterSpacing: '0.22em',
       duration: 0.9,
       ease: 'power2.out',
     })
-    .from(chars, {
-      y: '115%',
+    .to(chars, {
+      y: '0%',
       duration: 0.85,
       stagger: 0.05,
       ease: 'power4.out',
     }, '-=0.55')
-    .from(ruleRef.current, {
-      scaleX: 0,
-      transformOrigin: 'left center',
+    .to(ruleRef.current, {
+      scaleX: 1,
       duration: 0.9,
       ease: 'expo.inOut',
     }, '-=0.5')
-    .from(bottomRef.current, {
-      opacity: 0,
-      y: 12,
+    .to(bottomRef.current, {
+      opacity: 1,
+      y: 0,
       duration: 0.6,
     }, '-=0.5');
 
@@ -56,7 +99,6 @@ const Hero: React.FC = () => {
 
       char.addEventListener('mouseenter', onEnter);
       char.addEventListener('mouseleave', onLeave);
-      // cleanup stored on element
       (char as HTMLSpanElement & { _cleanup?: () => void })._cleanup = () => {
         char.removeEventListener('mouseenter', onEnter);
         char.removeEventListener('mouseleave', onLeave);
@@ -113,7 +155,8 @@ const Hero: React.FC = () => {
 
   return (
     <div className={styles.hero}>
-      {/* Unicorn Studio animated background — desktop only */}
+      {/* Unicorn Studio animated background — injected via initUnicornShader()
+          after entrance animations complete to avoid blocking the main thread */}
       <div
         data-us-project="X7Ao7Cu1zSQPCMiFHjvt"
         className={styles.shader}
@@ -124,13 +167,6 @@ const Hero: React.FC = () => {
           height: '100%',
           zIndex: 0,
           pointerEvents: 'none',
-        }}
-      />
-      <Script
-        id="unicorn-studio"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `!function(){var u=window.UnicornStudio;if(u&&u.init){if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",function(){u.init()})}else{u.init()}}else{window.UnicornStudio={isInitialized:!1};var i=document.createElement("script");i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.5/dist/unicornStudio.umd.js",i.onload=function(){if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",function(){UnicornStudio.init()})}else{UnicornStudio.init()}},(document.head||document.body).appendChild(i)}}();`,
         }}
       />
 

@@ -62,8 +62,8 @@ export const projectsData: Project[] = [
   },
   {
     id: '5',
-    title: 'Gsap Experiment',
-    description: 'Its a Gsap Experiment with a lot of animations and transitions.',
+    title: 'GSAP Experiment',
+    description: "It's a GSAP experiment with a lot of animations and transitions.",
     image: '/gsap.png',
     tags: ['GSAP', 'Animations', 'Three.js'],
     link: 'https://three-js-and-gasp.vercel.app/',
@@ -71,8 +71,8 @@ export const projectsData: Project[] = [
   },
   {
     id: '6',
-    title: 'Custom Gpt',
-    description: 'A chatgpt clone with a custom ui and a custom backend.',
+    title: 'Custom GPT',
+    description: 'A ChatGPT clone with a custom UI and a custom backend.',
     image: '/customGpt.png',
     tags: ['OpenAI', 'Next.js', 'UI/UX'],
     link: 'https://custom-gpt-nine.vercel.app/',

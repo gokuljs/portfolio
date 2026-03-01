@@ -158,7 +158,7 @@ export default function Experience() {
               </div>
               <div>
                 <h3 className="text-base font-medium text-white">
-                  TIfin Fintech
+                  TIFIN Fintech
                 </h3>
                 <p className="text-xs text-neutral-400">Software Engineer</p>
               </div>

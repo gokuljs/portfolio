@@ -48,7 +48,7 @@ export const skillsWithRatings = [
   { name: 'WebSockets', rating: 7, category: 'Real-time' },
 
   // AI & AGENTS
-  { name: 'Langchain', rating: 7, category: 'AI Agents' },
+  { name: 'LangChain', rating: 7, category: 'AI Agents' },
   { name: 'LangGraph', rating: 8, category: 'AI Agents' },
   { name: 'LlamaIndex', rating: 7, category: 'AI Agents' },
   { name: 'Hugging Face', rating: 7, category: 'AI Agents' },

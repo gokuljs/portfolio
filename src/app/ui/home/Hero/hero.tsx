@@ -115,7 +115,7 @@ const Hero: React.FC = () => {
     <div className={styles.hero}>
       {/* Unicorn Studio animated background */}
       <div
-        data-us-project="XobrGsLoM2ce1hM4cWjP"
+        data-us-project="PNMKU0OgqVFJnXlzTx4C"
         style={{
           position: 'absolute',
           inset: 0,

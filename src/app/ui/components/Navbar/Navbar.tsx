@@ -3,6 +3,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { AnimatePresence, motion } from 'motion/react';
+import { MapPinOff, AlertCircle } from 'lucide-react';
 import styles from '@styles/navbar.module.scss';
 
 const navLinks = [
@@ -79,34 +81,29 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      {toast && (
-        <div
-          style={{
-            position: 'fixed',
-            bottom: '24px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            background: toast.type === 'error' ? '#1a1a1a' : '#1a1a1a',
-            color: '#fff',
-            padding: '12px 20px',
-            borderRadius: '8px',
-            fontSize: '14px',
-            fontWeight: 500,
-            boxShadow: '0 4px 20px rgba(0,0,0,0.35)',
-            zIndex: 9999,
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            maxWidth: '90vw',
-            textAlign: 'center',
-            borderLeft: `4px solid ${toast.type === 'error' ? '#ef4444' : '#3b82f6'}`,
-            animation: 'slideUp 0.25s ease',
-          }}
-        >
-          <span>{toast.type === 'error' ? '🚫' : 'ℹ️'}</span>
-          {toast.message}
-        </div>
-      )}
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            key="toast"
+            className={styles.toast}
+            initial={{ opacity: 0, y: 16, x: '-50%' }}
+            animate={{ opacity: 1, y: 0, x: '-50%' }}
+            exit={{ opacity: 0, y: 8, x: '-50%' }}
+            transition={{ duration: 0.22, ease: 'easeOut' }}
+          >
+            <div className={`${styles.toastIcon} ${toast.type === 'error' ? styles.toastIconError : styles.toastIconInfo}`}>
+              {toast.type === 'error' ? <MapPinOff size={15} /> : <AlertCircle size={15} />}
+            </div>
+            <div className={styles.toastBody}>
+              <span className={styles.toastTitle}>
+                {toast.type === 'error' ? 'Not available in your region' : 'Info'}
+              </span>
+              <span className={styles.toastSub}>{toast.message}</span>
+            </div>
+            <div className={styles.toastProgress} />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
         {/* Logo */}

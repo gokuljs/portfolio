@@ -26,7 +26,7 @@ const Skill: React.FC = () => {
   return (
     <div className={styles.skills} id="skills">
       <div className={styles.contain}>
-        <h1 className={styles.radialGradientHeading}>What I know</h1>
+        <h1 className={styles.radialGradientHeading}>SKILLS</h1>
         <div className={styles.container}>
           {skills?.map((item, index) => (
             <div className={styles.categoryContainer} key={index}>

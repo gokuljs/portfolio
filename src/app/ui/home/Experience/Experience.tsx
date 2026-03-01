@@ -195,7 +195,7 @@ export default function Experience() {
   return (
     <>
       <div id="experience" className={styles.timelineHeading}>
-        Experience & Impact
+        WORK
       </div>
       <div className="relative w-full overflow-clip">
         <Timeline data={data} />

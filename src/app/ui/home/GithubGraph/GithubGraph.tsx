@@ -156,7 +156,7 @@ const GithubGraph = () => {
 
   return (
     <div className={styles.github} suppressHydrationWarning>
-      <h1 className={styles.heading}>GitHub Contribution Journey</h1>
+      <h1 className={styles.heading}>GITHUB</h1>
 
       <div className={`w-full flex flex-col gap-4 ${styles.inner}`}>
 

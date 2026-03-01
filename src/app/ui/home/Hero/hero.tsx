@@ -113,9 +113,10 @@ const Hero: React.FC = () => {
 
   return (
     <div className={styles.hero}>
-      {/* Unicorn Studio animated background */}
+      {/* Unicorn Studio animated background — desktop only */}
       <div
         data-us-project="X7Ao7Cu1zSQPCMiFHjvt"
+        className={styles.shader}
         style={{
           position: 'absolute',
           inset: 0,

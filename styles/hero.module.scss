@@ -127,6 +127,13 @@
   }
 }
 
+/* ─── Shader — desktop only ─── */
+.shader {
+  @media (max-width: 1024px) {
+    display: none;
+  }
+}
+
 /* ─── Responsive ─── */
 @media (max-width: 768px) {
   .heroBody {

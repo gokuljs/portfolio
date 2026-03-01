@@ -115,7 +115,7 @@ const Hero: React.FC = () => {
     <div className={styles.hero}>
       {/* Unicorn Studio animated background */}
       <div
-        data-us-project="PNMKU0OgqVFJnXlzTx4C"
+        data-us-project="X7Ao7Cu1zSQPCMiFHjvt"
         style={{
           position: 'absolute',
           inset: 0,
@@ -153,7 +153,7 @@ const Hero: React.FC = () => {
         </h1>
 
         <div className={styles.quote}>
-          <p>Next I care about</p>
+          <p>I care about everything</p>
           <p>
             Compression is knowledge. Prediction is understanding.
             If you can&apos;t predict it, you don&apos;t understand it.

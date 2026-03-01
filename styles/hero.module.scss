@@ -11,13 +11,13 @@
   font-family: sans-serif;
 }
 
-/* ─── Body — bottom-weighted ─── */
+/* ─── Body ─── */
 .heroBody {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 0 3.5rem 3.5rem;
+  padding: 0 3.5rem 3rem;
   position: relative;
   z-index: 1;
 }
@@ -28,59 +28,30 @@
   letter-spacing: 0.22em;
   color: rgba(255, 255, 255, 0.32);
   text-transform: uppercase;
-  margin: 0 0 1.6rem;
+  margin: 0 0 1.2rem;
 }
 
 /* ─── Name ─── */
 .name {
   display: block;
-  font-size: clamp(2.8rem, 6.5vw, 9rem);
+  font-size: clamp(2.8rem, 7vw, 10rem);
   font-weight: 800;
   line-height: 0.92;
   letter-spacing: -0.03em;
-  margin: 0 0 2rem;
-}
-
-/* ─── Quote ─── */
-.quote {
-  max-width: 52ch;
-  margin: 0 0 2.4rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-
-  p {
-    margin: 0;
-    font-size: 0.72rem;
-    letter-spacing: 0.04em;
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.38);
-    font-style: italic;
-
-    &:first-child {
-      color: rgba(255, 255, 255, 0.55);
-      font-style: normal;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      font-size: 0.64rem;
-    }
-  }
+  margin: 0 0 1.6rem;
 }
 
 /* Each character lives inside an overflow:hidden wrapper so the
-   GSAP y:'115%' slide-up is clipped — gives a clean "emerge from below" reveal */
+   GSAP y:'115%' slide-up is clipped */
 .charWrap {
   display: inline-block;
   overflow: hidden;
   vertical-align: top;
-  /* preserve letter-spacing on the wrapper */
   letter-spacing: -0.03em;
 }
 
 .char {
   display: inline-block;
-  /* Gradient per-char — visually identical to a full-word gradient at this scale */
   background: linear-gradient(to bottom, #ffffff 45%, rgba(255, 255, 255, 0.5));
   -webkit-background-clip: text;
   background-clip: text;
@@ -88,11 +59,34 @@
   color: transparent;
 }
 
+/* ─── Quote ─── */
+.quote {
+  max-width: 480px;
+  margin: 0 0 2rem;
+
+  p {
+    margin: 0;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.35);
+
+    &:first-child {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 0.4rem;
+    }
+  }
+}
+
 /* ─── Divider ─── */
 .rule {
   height: 1px;
-  background: rgba(255, 255, 255, 0.1);
-  margin: 0 0 2rem;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0 0 1.6rem;
 }
 
 /* ─── Bottom row ─── */
@@ -103,9 +97,9 @@
 }
 
 .roles {
-  font-size: 0.67rem;
+  font-size: 0.64rem;
   letter-spacing: 0.16em;
-  color: rgba(255, 255, 255, 0.36);
+  color: rgba(255, 255, 255, 0.3);
   text-transform: uppercase;
   margin: 0;
 }
@@ -142,7 +136,7 @@
   .bottomRow {
     flex-direction: column;
     align-items: flex-start;
-    gap: 1.5rem;
+    gap: 1.2rem;
   }
 }
 

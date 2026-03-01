@@ -152,6 +152,15 @@ const Hero: React.FC = () => {
           ))}
         </h1>
 
+        <div className={styles.quote}>
+          <p>Next I care about</p>
+          <p>
+            Compression is knowledge. Prediction is understanding.
+            If you can&apos;t predict it, you don&apos;t understand it.
+            Complexity emerges from simple rules applied recursively.
+          </p>
+        </div>
+
         <div ref={ruleRef} className={styles.rule} />
 
         <div ref={bottomRef} className={styles.bottomRow}>

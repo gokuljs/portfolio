@@ -4,6 +4,7 @@ import { useEffect, useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import styles from '@styles/hero.module.scss';
 import SocialDock from '../../components/SocialDock/SocialDock';
+import HeroSidePanel, { HeroSidePanelMobile } from './HeroSidePanel';
 const NAME = 'GOKUL JS';
 
 
@@ -123,7 +124,15 @@ const Hero: React.FC = () => {
   return (
     <div className={styles.hero}>
 
+      <div className={styles.heroSide}>
+        <HeroSidePanel />
+      </div>
+
       <div className={styles.heroBody}>
+
+        <div className={styles.mobileBannerSlot}>
+          <HeroSidePanelMobile />
+        </div>
 
         <p ref={overlineRef} className={styles.overline}>
           <span className={styles.ycText}>

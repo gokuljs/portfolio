@@ -32,6 +32,20 @@
   will-change: opacity, letter-spacing;
 }
 
+.ycText {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  color: #ff6600;
+}
+
+.ycLogo {
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
 /* ─── Name ─── */
 .name {
   display: block;

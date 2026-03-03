@@ -126,7 +126,14 @@ const Hero: React.FC = () => {
       <div className={styles.heroBody}>
 
         <p ref={overlineRef} className={styles.overline}>
-          EX&#8202;-&#8202;YC &nbsp;·&nbsp; GENERALIST &nbsp;·&nbsp; DEVELOPER
+          <span className={styles.ycText}>
+            <svg className={styles.ycLogo} viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="Y Combinator">
+              <rect width="100" height="100" rx="12" fill="#FF6600"/>
+              <text x="50" y="72" textAnchor="middle" fontSize="66" fontWeight="bold" fontFamily="Arial, sans-serif" fill="#fff">Y</text>
+            </svg>
+            EX&#8202;-&#8202;YC
+          </span>
+          &nbsp;·&nbsp; GENERALIST &nbsp;·&nbsp; DEVELOPER
         </p>
 
         <h1 className={styles.name}>

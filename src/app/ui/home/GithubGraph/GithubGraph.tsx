@@ -23,10 +23,10 @@ function OrgChart({ prs }: { prs: PR[] }) {
   const W = 700, H = 200, PAD = { t: 16, r: 10, b: 28, l: 8 };
   const cW = W - PAD.l - PAD.r, cH = H - PAD.t - PAD.b;
 
-  // Build monthly buckets for last 18 months
+  // Build monthly buckets for last 24 months
   const now = new Date();
   const months: string[] = [];
-  for (let i = 17; i >= 0; i--) {
+  for (let i = 23; i >= 0; i--) {
     const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
     months.push(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`);
   }
@@ -181,14 +181,38 @@ const GithubGraph = () => {
   useEffect(() => {
     setIsMounted(true);
 
+    async function fetchAllPages(query: string) {
+      const twoYearsAgo = Date.now() - 2 * 365 * 24 * 60 * 60 * 1000;
+      const allItems: { id: number; title: string; html_url: string; created_at: string }[] = [];
+      let page = 1;
+      while (true) {
+        const res = await fetch(
+          `https://api.github.com/search/issues?q=${query}&sort=created&order=desc&per_page=100&page=${page}`,
+          { headers: { Accept: 'application/vnd.github+json' } },
+        );
+        if (!res.ok) break;
+        const data = await res.json();
+        const items: { id: number; title: string; html_url: string; created_at: string }[] = data.items ?? [];
+        if (items.length === 0) break;
+        allItems.push(...items);
+        // Stop if the oldest item on this page is already beyond 2 years
+        const oldest = new Date(items[items.length - 1].created_at).getTime();
+        if (oldest < twoYearsAgo) break;
+        // GitHub Search API caps at 1000 results total
+        if (allItems.length >= Math.min(data.total_count, 1000)) break;
+        page++;
+      }
+      return allItems;
+    }
+
     async function fetchPRs() {
       try {
-        const [mRes, oRes] = await Promise.all([
-          fetch('https://api.github.com/search/issues?q=author:gokuljs+type:pr+is:merged&sort=created&order=desc&per_page=100', { headers: { Accept: 'application/vnd.github+json' } }),
-          fetch('https://api.github.com/search/issues?q=author:gokuljs+type:pr+is:open&sort=created&order=desc&per_page=100', { headers: { Accept: 'application/vnd.github+json' } }),
+        const [mdItems, odItems] = await Promise.all([
+          fetchAllPages('author:gokuljs+type:pr+is:merged'),
+          fetchAllPages('author:gokuljs+type:pr+is:open'),
         ]);
-        const md = mRes.ok ? await mRes.json() : { items: [] };
-        const od = oRes.ok ? await oRes.json() : { items: [] };
+        const md = { items: mdItems };
+        const od = { items: odItems };
 
         const parse = (items: { id: number; title: string; html_url: string; created_at: string }[], state: PR['state']) =>
           items.map(pr => {
@@ -199,9 +223,8 @@ const GithubGraph = () => {
             return { id: pr.id, title: pr.title, html_url: pr.html_url, repo: `${owner}/${repo}`, repoOwner: owner.toLowerCase(), created_at: pr.created_at, state } as PR;
           }).filter((p): p is PR => p !== null);
 
-        const twoYearsAgo = Date.now() - 2 * 365 * 24 * 60 * 60 * 1000;
         const all = [...parse(od.items, 'open'), ...parse(md.items, 'merged')]
-          .filter(pr => new Date(pr.created_at).getTime() >= twoYearsAgo)
+          .filter(pr => new Date(pr.created_at).getTime() >= Date.now() - 2 * 365 * 24 * 60 * 60 * 1000)
           .sort((a, b) => {
             const ga = a.repoOwner.includes('rime') ? 1 : 0;
             const gb = b.repoOwner.includes('rime') ? 1 : 0;
@@ -246,7 +269,7 @@ const GithubGraph = () => {
             <div style={{ minWidth: 0 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
               <p className="text-[10px] uppercase tracking-widest text-neutral-500">Open source contributions</p>
-              <p className="text-[9px] text-neutral-700">last 18 months</p>
+              <p className="text-[9px] text-neutral-700">last 24 months</p>
               </div>
               {prLoading && <div style={{ height: 200, borderRadius: 6, background: 'rgba(255,255,255,0.03)' }} className="animate-pulse" />}
               {!prLoading && prs.length > 0 && <OrgChart prs={prs} />}

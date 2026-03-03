@@ -104,7 +104,19 @@
     display: inline-flex;
     flex-direction: column;
     max-width: 100%;
-    overflow-x: auto;
+  }
+
+  .bottomRow {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 32px;
+    align-items: flex-start;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
   }
 }
 

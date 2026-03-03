@@ -99,6 +99,13 @@
     justify-content: flex-end;
     align-items: center;
   }
+
+  .calendarWrap {
+    display: inline-flex;
+    flex-direction: column;
+    max-width: 100%;
+    overflow-x: auto;
+  }
 }
 
 @keyframes shine {

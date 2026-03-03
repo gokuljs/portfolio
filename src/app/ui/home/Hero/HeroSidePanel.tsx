@@ -69,16 +69,13 @@ function useCommits() {
   return { bars, total, loaded };
 }
 
-/* ── Desktop panel ── */
-export default function HeroSidePanel() {
-  const { bars, total, loaded } = useCommits();
+/* ── Shared panel content ── */
+function PanelContent({ bars, total, loaded }: { bars: WeeklyBar[]; total: number; loaded: boolean }) {
   const maxBar = Math.max(...bars.map(b => b.count), 1);
   const { paper } = currentResearch;
 
   return (
-    <div className={styles.panel}>
-
-      {/* Reading */}
+    <>
       {paper && (
         <>
           <div className={styles.block}>
@@ -98,7 +95,6 @@ export default function HeroSidePanel() {
         </>
       )}
 
-      {/* Building */}
       <div className={styles.block}>
         <div className={styles.blockLabelRow}>
           <p className={styles.blockLabel}>building</p>
@@ -123,7 +119,6 @@ export default function HeroSidePanel() {
 
       <div className={styles.divider} />
 
-      {/* Commits */}
       <div className={styles.block}>
         <div className={styles.blockLabelRow}>
           <p className={styles.blockLabel}>commits · last year</p>
@@ -134,26 +129,58 @@ export default function HeroSidePanel() {
           {loaded && bars.length > 0 && <MiniSparkline bars={bars} maxVal={maxBar} />}
         </div>
       </div>
+    </>
+  );
+}
 
+/* ── Desktop panel ── */
+export default function HeroSidePanel() {
+  const { bars, total, loaded } = useCommits();
+  return (
+    <div className={styles.panel}>
+      <PanelContent bars={bars} total={total} loaded={loaded} />
     </div>
   );
 }
 
-/* ── Mobile strip ── */
+/* ── Mobile badge + bottom sheet ── */
 export function HeroSidePanelMobile() {
+  const [open, setOpen] = useState(false);
+  const { bars, total, loaded } = useCommits();
   const { paper } = currentResearch;
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [open]);
+
   return (
-    <div className={styles.mobileBanner}>
-      <span className={styles.mobilePulse} />
-      <span className={styles.mobileBuilding}>Building RAG Pipelines</span>
-      {paper && (
-        <>
-          <span className={styles.mobileSep}>·</span>
-          <a href={paper.url} target="_blank" rel="noopener noreferrer" className={styles.mobileReading}>
-            reading · {paper.venue}
-          </a>
-        </>
+    <>
+      {/* Badge */}
+      <button className={styles.mobileBadge} onClick={() => setOpen(true)}>
+        <span className={styles.mobilePulse} />
+        <span className={styles.mobileBuilding}>{currentResearch.tagline}</span>
+        {paper && (
+          <span className={styles.mobileReading}>{paper.venue}</span>
+        )}
+      </button>
+
+      {/* Backdrop */}
+      {open && (
+        <div className={styles.backdrop} onClick={() => setOpen(false)} />
       )}
-    </div>
+
+      {/* Modal */}
+      <div className={`${styles.sheet} ${open ? styles.sheetOpen : ''}`}>
+        <div className={styles.sheetHandle} onClick={() => setOpen(false)} />
+        <div className={styles.sheetScroll}>
+          <PanelContent bars={bars} total={total} loaded={loaded} />
+        </div>
+      </div>
+    </>
   );
 }

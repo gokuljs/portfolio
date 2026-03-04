@@ -4,7 +4,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { usePathname } from 'next/navigation';
 import { ReadingProgressBar } from './reading-progress';
 import { TableOfContents } from './table-of-contents';
 import { calculateReadingTime } from '@/utils/reading-time';
@@ -31,70 +30,11 @@ export function BlogArticleLayout({
   featuredImage,
 }: BlogArticleLayoutProps) {
   const estimatedReadTime = readingTime || calculateReadingTime(children);
-  const pathname = usePathname();
-  const canonicalUrl = `https://gokuljs.com${pathname}`;
 
   const isoDate = dateISO ?? date;
 
-  const articleJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: title,
-    description,
-    datePublished: isoDate,
-    dateModified: isoDate,
-    author: {
-      '@type': 'Person',
-      name: 'Gokul JS',
-      url: 'https://gokuljs.com',
-    },
-    publisher: {
-      '@type': 'Person',
-      name: 'Gokul JS',
-      url: 'https://gokuljs.com',
-    },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': canonicalUrl,
-    },
-    keywords: tags?.join(', '),
-  };
-
-  const breadcrumbJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: 'https://gokuljs.com',
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Blog',
-        item: 'https://gokuljs.com/blogs',
-      },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: title,
-        item: canonicalUrl,
-      },
-    ],
-  };
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
       <ReadingProgressBar />
       <TableOfContents />
       
@@ -138,7 +78,7 @@ export function BlogArticleLayout({
 
             {/* Meta info */}
             <div className="flex items-center gap-2 text-xs text-neutral-500">
-              <time>{date}</time>
+              <time dateTime={isoDate}>{date}</time>
               <span className="text-neutral-600">·</span>
               <span>{estimatedReadTime}</span>
             </div>

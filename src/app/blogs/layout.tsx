@@ -19,6 +19,8 @@ export const metadata: Metadata = {
     title: 'Blog | Gokul JS',
     description:
       'Articles on real-time systems, voice AI, LLMs, and software engineering by Gokul JS — ex-YC founding engineer.',
+    site: '@gokul_js029',
+    creator: '@gokul_js029',
   },
 };
 

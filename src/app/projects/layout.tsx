@@ -13,6 +13,14 @@ export const metadata: Metadata = {
       'Products, tools, and experiments built and shipped by Gokul JS — real-time AI systems, voice agents, web platforms, and more.',
     url: 'https://gokuljs.com/projects',
     type: 'website',
+    images: [
+      {
+        url: '/gokuljs.png',
+        width: 1200,
+        height: 630,
+        alt: 'Projects | Gokul JS',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',

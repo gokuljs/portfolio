@@ -48,6 +48,54 @@ export const getBlogBySlug = (slug: string): Blog | undefined => {
   return blogsData.find((blog) => blog.slug === slug);
 };
 
+// Generate Article + BreadcrumbList JSON-LD for a blog post (use in server components)
+export const generateBlogJsonLd = (slug: string) => {
+  const blog = getBlogBySlug(slug);
+  if (!blog) return null;
+
+  const url = `https://gokuljs.com/blogs/${slug}`;
+  const ogImage = blog.image
+    ? `https://gokuljs.com${blog.image}`
+    : `https://gokuljs.com/gokuljs.png`;
+
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: blog.title,
+    description: blog.description,
+    image: ogImage,
+    datePublished: blog.date,
+    dateModified: blog.date,
+    author: {
+      '@type': 'Person',
+      name: 'Gokul JS',
+      url: 'https://gokuljs.com',
+    },
+    publisher: {
+      '@type': 'Person',
+      name: 'Gokul JS',
+      url: 'https://gokuljs.com',
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': url,
+    },
+    keywords: blog.tags?.join(', '),
+  };
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://gokuljs.com' },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://gokuljs.com/blogs' },
+      { '@type': 'ListItem', position: 3, name: blog.title, item: url },
+    ],
+  };
+
+  return { articleJsonLd, breadcrumbJsonLd };
+};
+
 // Generate metadata for a blog post
 export const generateBlogMetadata = (slug: string) => {
   const blog = getBlogBySlug(slug);

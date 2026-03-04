@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: {
     canonical: 'https://gokuljs.com',
+    types: {
+      'application/rss+xml': 'https://gokuljs.com/feed.xml',
+    },
   },
   icons: {
     icon: '/newLogo.svg',
@@ -39,6 +42,7 @@ export const metadata: Metadata = {
     ],
     type: 'profile',
     siteName: 'Gokul JS',
+    locale: 'en_US',
     firstName: 'Gokul',
     lastName: 'JS',
     username: 'gokul_js029',

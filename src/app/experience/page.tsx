@@ -15,6 +15,14 @@ export const metadata: Metadata = {
       'Professional timeline of Gokul JS — founding engineer at YC-backed startups, building real-time AI systems, voice agents, and scalable web products.',
     url: 'https://gokuljs.com/experience',
     type: 'website',
+    images: [
+      {
+        url: '/gokuljs.png',
+        width: 1200,
+        height: 630,
+        alt: 'Experience | Gokul JS',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',

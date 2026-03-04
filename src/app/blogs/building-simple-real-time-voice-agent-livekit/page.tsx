@@ -1,16 +1,26 @@
 import { Metadata } from 'next';
 import { BlogArticleLayout } from '@/components/ui/blog-article-layout';
 import { VideoThumbnail } from '@/components/ui/video-thumbnail';
-import { getBlogBySlug, generateBlogMetadata } from '@/data/blogs-data';
+import { getBlogBySlug, generateBlogMetadata, generateBlogJsonLd } from '@/data/blogs-data';
 
 const slug = 'building-simple-real-time-voice-agent-livekit';
 const blog = getBlogBySlug(slug)!;
+const jsonLd = generateBlogJsonLd(slug)!;
 
 export const metadata: Metadata = generateBlogMetadata(slug);
 
 export default function BuildingSimpleVoiceAgentPage() {
   return (
-    <BlogArticleLayout
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd.articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd.breadcrumbJsonLd) }}
+      />
+      <BlogArticleLayout
       title={blog.title}
       description={blog.description}
       date={new Date(blog.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
@@ -80,5 +90,6 @@ export default function BuildingSimpleVoiceAgentPage() {
       </p>
 
     </BlogArticleLayout>
+    </>
   );
 }

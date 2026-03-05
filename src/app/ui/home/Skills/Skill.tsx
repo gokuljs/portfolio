@@ -1,67 +1,68 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { motion } from 'motion/react';
 import styles from '@styles/Skills.module.scss';
-import { skillsWithRatings } from './constant';
-import { GlowingEffect } from '@/components/ui/glowing-effect';
-export type SkillProps = {
-  category: string;
-  contents: {
-    name: string;
-    category: string;
-    rating: number;
-  }[];
-};
-const Skill: React.FC = () => {
-  const [skills, setSkills] = useState<null | SkillProps[]>();
+import { skills } from './constant';
 
-  useEffect(() => {
-    const skills = [...new Set(skillsWithRatings.map((item) => item.category))];
-    setSkills(
-      skills.map((item) => ({
-        category: item,
-        contents: skillsWithRatings.filter((value) => value.category === item),
-      })),
-    );
-  }, []);
+const CATEGORY_COLORS: Record<string, string> = {
+  Languages:            '#60a5fa',
+  Frontend:             '#a78bfa',
+  Backend:              '#34d399',
+  Infrastructure:       '#fb923c',
+  'Real-time':          '#f472b6',
+  'AI Agents':          '#facc15',
+};
+
+const categories = (() => {
+  const cats = [...new Set(skills.map((s) => s.category))];
+  return cats.map((cat) => ({
+    name: cat,
+    color: CATEGORY_COLORS[cat] ?? '#ffffff',
+    skills: skills.filter((s) => s.category === cat),
+  }));
+})();
+
+export default function Skill() {
   return (
-    <div className={styles.skills} id="skills">
+    <section className={styles.skills} id="skills">
       <div className={styles.contain}>
-        <h1 className={styles.radialGradientHeading}>SKILLS</h1>
-        <div className={styles.container}>
-          {skills?.map((item, index) => (
-            <div className={styles.categoryContainer} key={index}>
-              <GlowingEffect
-                spread={80}
-                borderWidth={1}
-                glow={true}
-                disabled={false}
-                proximity={64}
-                inactiveZone={0.01}
-                variant="white"
-              />
-              <section key={index} className={styles.category}>
-                <h2>{item.category}</h2>
-                <div className={styles.items}>
-                  {item.contents
-                    .sort((a, b) => a.name.length - b.name.length)
-                    .map((item, index) => (
-                      <span
-                        key={index}
-                        style={{
-                          userSelect: 'none',
-                        }}
-                      >
-                        {item.name}
-                      </span>
-                    ))}
-                </div>
-              </section>
-            </div>
+        <motion.h1
+          className={styles.radialGradientHeading}
+          initial={{ opacity: 0, y: -16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          SKILLS
+        </motion.h1>
+
+        <div className={styles.table}>
+          {categories.map((cat, ci) => (
+            <motion.div
+              key={cat.name}
+              className={styles.row}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: ci * 0.07 }}
+              style={{ '--cc': cat.color } as React.CSSProperties}
+            >
+              <div className={styles.catLabel}>
+                <span className={styles.catDot} />
+                <span className={styles.catName}>{cat.name}</span>
+              </div>
+
+              <div className={styles.pills}>
+                {cat.skills.map((sk) => (
+                  <span key={sk.name} className={styles.pill}>
+                    {sk.name}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
-};
-
-export default Skill;
+}

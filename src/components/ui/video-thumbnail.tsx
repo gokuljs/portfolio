@@ -1,28 +1,81 @@
+'use client';
+
+import { useState } from 'react';
+
 interface VideoThumbnailProps {
   url: string;
   image: string;
   alt?: string;
 }
 
+function extractYouTubeId(url: string): string | null {
+  const patterns = [
+    /youtube\.com\/watch\?v=([^&]+)/,
+    /youtu\.be\/([^?]+)/,
+    /youtube\.com\/embed\/([^?]+)/,
+  ];
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match) return match[1];
+  }
+  return null;
+}
+
 export function VideoThumbnail({ url, image, alt = 'Video demo' }: VideoThumbnailProps) {
-  return (
-    <a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{
+  const [playing, setPlaying] = useState(false);
+  const videoId = extractYouTubeId(url);
+
+  if (playing && videoId) {
+    return (
+      <div style={{
         position: 'relative',
-        display: 'block',
+        width: '100%',
+        maxWidth: '100%',
+        aspectRatio: '16 / 9',
         margin: '1.5em 0',
         borderRadius: 8,
         overflow: 'hidden',
-        borderBottom: 'none',
+      }}>
+        <iframe
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+          title={alt}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            border: 'none',
+          }}
+        />
+      </div>
+    );
+  }
+
+  return (
+    <button
+      onClick={() => setPlaying(true)}
+      style={{
+        position: 'relative',
+        display: 'block',
+        width: '100%',
+        maxWidth: '100%',
+        margin: '1.5em 0',
+        borderRadius: 8,
+        overflow: 'hidden',
+        border: 'none',
+        padding: 0,
+        cursor: 'pointer',
+        background: 'transparent',
       }}
+      aria-label={`Play video: ${alt}`}
     >
       <img
         src={image}
         alt={alt}
-        style={{ display: 'block', margin: 0, width: '100%' }}
+        style={{ display: 'block', margin: 0, width: '100%', maxWidth: '100%', height: 'auto' }}
       />
       {/* dark overlay */}
       <div style={{
@@ -55,6 +108,6 @@ export function VideoThumbnail({ url, image, alt = 'Video demo' }: VideoThumbnai
           </svg>
         </div>
       </div>
-    </a>
+    </button>
   );
 }

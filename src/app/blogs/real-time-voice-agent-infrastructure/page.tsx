@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { BlogArticleLayout } from '@/components/ui/blog-article-layout';
+import { VideoThumbnail } from '@/components/ui/video-thumbnail';
 import { getBlogBySlug, generateBlogMetadata, generateBlogJsonLd } from '@/data/blogs-data';
 
 const slug = 'real-time-voice-agent-infrastructure';
@@ -26,6 +27,12 @@ export default function RealTimeVoiceAgentPage() {
       dateISO={blog.date}
       tags={blog.tags}
     >
+       <VideoThumbnail
+        url="https://www.youtube.com/watch?v=-jMVXFfukPs"
+        image="https://img.youtube.com/vi/-jMVXFfukPs/maxresdefault.jpg"
+        alt="How Real-Time Voice Agents Work"
+      />
+
       <p>
         Real-time voice agents differ fundamentally from traditional request-response AI systems. Unlike text interfaces, voice interaction requires continuous media streaming, low-latency inference, and bidirectional audio transport.
       </p>

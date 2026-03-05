@@ -35,8 +35,8 @@ export default function BuildingSimpleVoiceAgentPage() {
       </p>
 
       <VideoThumbnail
-        url="https://www.youtube.com/watch?v=t2J8ce1vdtc"
-        image="/blogs/placeholderimage.png"
+        url="https://youtu.be/RQiTjeRYPFQ"
+        image="https://img.youtube.com/vi/RQiTjeRYPFQ/hqdefault.jpg"
         alt="Real-Time Voice Agent Demo"
       />
 

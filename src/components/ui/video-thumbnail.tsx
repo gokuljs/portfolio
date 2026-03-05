@@ -31,13 +31,14 @@ export function VideoThumbnail({ url, image, alt = 'Video demo' }: VideoThumbnai
         position: 'relative',
         width: '100%',
         maxWidth: '100%',
-        aspectRatio: '16 / 9',
         margin: '1.5em 0',
         borderRadius: 8,
         overflow: 'hidden',
+        paddingBottom: '56.25%',
+        height: 0,
       }}>
         <iframe
-          src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
           title={alt}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
@@ -48,6 +49,9 @@ export function VideoThumbnail({ url, image, alt = 'Video demo' }: VideoThumbnai
             width: '100%',
             height: '100%',
             border: 'none',
+            margin: 0,
+            aspectRatio: 'unset',
+            borderRadius: 0,
           }}
         />
       </div>

@@ -28,7 +28,7 @@ export const projectsData: Project[] = [
     image: '/blogs/placeholderimage.png',
     tags: ['LiveKit', 'OpenAI', 'STT', 'TTS', 'Python'],
     link: '/blogs/building-simple-real-time-voice-agent-livekit',
-    video: 'https://youtu.be/t2J8ce1vdtc',
+    video: 'https://youtu.be/RQiTjeRYPFQ',
     github: 'https://github.com/gokuljs/Livekit-Voice-agent',
     status: 'Live'
   },

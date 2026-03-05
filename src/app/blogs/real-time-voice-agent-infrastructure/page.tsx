@@ -28,8 +28,8 @@ export default function RealTimeVoiceAgentPage() {
       tags={blog.tags}
     >
        <VideoThumbnail
-        url="https://www.youtube.com/watch?v=-jMVXFfukPs"
-        image="https://img.youtube.com/vi/-jMVXFfukPs/maxresdefault.jpg"
+        url="https://youtu.be/7LBmjA94s0w"
+        image="https://img.youtube.com/vi/7LBmjA94s0w/hqdefault.jpg"
         alt="How Real-Time Voice Agents Work"
       />
 

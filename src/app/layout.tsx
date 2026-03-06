@@ -20,9 +20,6 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: {
     canonical: 'https://gokuljs.com',
-    types: {
-      'application/rss+xml': 'https://gokuljs.com/feed.xml',
-    },
   },
   icons: {
     icon: '/newLogo.svg',

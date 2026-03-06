@@ -1,7 +1,18 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
+const BOT_USER_AGENTS =
+  /googlebot|bingbot|slurp|duckduckbot|baiduspider|yandexbot|sogou|exabot|facebot|ia_archiver|linkedinbot|twitterbot|applebot|semrushbot|ahrefsbot|mj12bot|dotbot/i;
+
+function isSearchBot(request: NextRequest): boolean {
+  const ua = request.headers.get('user-agent') ?? '';
+  return BOT_USER_AGENTS.test(ua);
+}
+
 function isResumeAccessAllowed(request: NextRequest): boolean {
+  // Always allow search engine crawlers so they can index the PDF without a redirect
+  if (isSearchBot(request)) return true;
+
   const country = request.headers.get('x-vercel-ip-country') ?? '';
   const region = request.headers.get('x-vercel-ip-country-region') ?? '';
 

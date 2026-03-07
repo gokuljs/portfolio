@@ -2,8 +2,9 @@ export interface Blog {
   id: string;
   slug: string;
   title: string;
-  description: string;
+  description: string; // subtitle shown under title on the page (and in cards)
   date: string; // ISO date string for sorting
+  metaDescription?: string; // optional; used for meta/OG/JSON-LD. If missing, description is used
   readTime?: string;
   tags?: string[];
   image?: string; // OG image for social sharing (e.g. '/blogs/my-post.png')
@@ -11,6 +12,15 @@ export interface Blog {
 }
 
 export const blogsData: Blog[] = [
+  {
+    id: '3',
+    slug: 'retrieval-from-first-principles',
+    title: 'Retrieval, From First Principles',
+    description: 'How search actually works, and why it evolved the way it did',
+    metaDescription: 'Every retrieval algorithm exists because the previous one had a flaw. This traces all of them — from keyword matching to RAG.',
+    date: '2026-03-07',
+    tags: ['RAG', 'Retrieval', 'Search', 'Embeddings', 'LLM'],
+  },
   {
     id: '2',
     slug: 'building-simple-real-time-voice-agent-livekit',
@@ -48,6 +58,11 @@ export const getBlogBySlug = (slug: string): Blog | undefined => {
   return blogsData.find((blog) => blog.slug === slug);
 };
 
+// Meta description for SEO: use metaDescription when set, else description (subtitle)
+function getMetaDescription(blog: Blog): string {
+  return blog.metaDescription ?? blog.description;
+}
+
 // Generate Article + BreadcrumbList JSON-LD for a blog post (use in server components)
 export const generateBlogJsonLd = (slug: string) => {
   const blog = getBlogBySlug(slug);
@@ -57,12 +72,13 @@ export const generateBlogJsonLd = (slug: string) => {
   const ogImage = blog.image
     ? `https://gokuljs.com${blog.image}`
     : `https://gokuljs.com/gokuljs.png`;
+  const metaDesc = getMetaDescription(blog);
 
   const articleJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: blog.title,
-    description: blog.description,
+    description: metaDesc,
     image: ogImage,
     datePublished: blog.date,
     dateModified: blog.date,
@@ -101,13 +117,14 @@ export const generateBlogMetadata = (slug: string) => {
   const blog = getBlogBySlug(slug);
   if (!blog) return {};
 
+  const metaDesc = getMetaDescription(blog);
   let ogImage: string;
   if (blog.image) {
     ogImage = `https://gokuljs.com${blog.image}`;
   } else {
     const ogParams = new URLSearchParams({
       title: blog.title,
-      description: blog.description,
+      description: metaDesc,
       tags: (blog.tags ?? []).join(','),
     });
     ogImage = `/api/og?${ogParams.toString()}`;
@@ -115,13 +132,13 @@ export const generateBlogMetadata = (slug: string) => {
 
   return {
     title: blog.title,
-    description: blog.description,
+    description: metaDesc,
     alternates: {
       canonical: `https://gokuljs.com/blogs/${blog.slug}`,
     },
     openGraph: {
       title: blog.title,
-      description: blog.description,
+      description: metaDesc,
       url: `https://gokuljs.com/blogs/${blog.slug}`,
       type: 'article' as const,
       publishedTime: blog.date,
@@ -139,7 +156,7 @@ export const generateBlogMetadata = (slug: string) => {
     twitter: {
       card: 'summary_large_image' as const,
       title: blog.title,
-      description: blog.description,
+      description: metaDesc,
       images: [ogImage],
       site: '@gokul_js029',
       creator: '@gokul_js029',

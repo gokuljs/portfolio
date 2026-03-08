@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'motion/react';
@@ -16,17 +16,50 @@ const navLinks = [
 
 const RESUME = '/GokulJS.pdf';
 
+const HIDE_DELAY = 2500;
+
 const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [visible, setVisible] = useState(true);
   const [toast, setToast] = useState<{ message: string; type: 'error' | 'info' } | null>(null);
   const pathname = usePathname();
   const router = useRouter();
+  const lastScrollY = useRef(0);
+  const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isAtTop = useRef(true);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const resetHideTimer = () => {
+      if (hideTimer.current) clearTimeout(hideTimer.current);
+      if (!isAtTop.current) {
+        hideTimer.current = setTimeout(() => setVisible(false), HIDE_DELAY);
+      }
+    };
+
+    const onScroll = () => {
+      const y = window.scrollY;
+      const delta = y - lastScrollY.current;
+      isAtTop.current = y < 10;
+
+      if (isAtTop.current) {
+        setVisible(true);
+        if (hideTimer.current) clearTimeout(hideTimer.current);
+      } else if (delta < -5) {
+        setVisible(true);
+        resetHideTimer();
+      } else if (delta > 8) {
+        setVisible(false);
+        if (hideTimer.current) clearTimeout(hideTimer.current);
+      }
+
+      lastScrollY.current = y;
+    };
+
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (hideTimer.current) clearTimeout(hideTimer.current);
+    };
   }, []);
 
   const showToast = useCallback((message: string, type: 'error' | 'info' = 'error') => {
@@ -105,7 +138,7 @@ const Navbar: React.FC = () => {
         )}
       </AnimatePresence>
 
-      <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
+      <header className={`${styles.header} ${visible ? '' : styles.hidden}`}>
         {/* Logo */}
         <Link href="/" className={styles.logo}>
           Gokul JS

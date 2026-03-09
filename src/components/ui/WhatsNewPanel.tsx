@@ -37,12 +37,6 @@ function Typewriter({ delay = 0 }: { delay?: number }) {
 const STORAGE_KEY = 'whats_new_seen_id';
 const LATEST_5 = announcements.slice(0, 5);
 
-const TAG_COLORS: Record<string, { bg: string; color: string }> = {
-  Blog:          { bg: 'rgba(59,130,246,0.18)',  color: '#60a5fa' },
-  'Open Source': { bg: 'rgba(34,197,94,0.18)',   color: '#4ade80' },
-  Update:        { bg: 'rgba(168,85,247,0.18)',  color: '#c084fc' },
-  Research:      { bg: 'rgba(251,191,36,0.18)',  color: '#fbbf24' },
-};
 
 const POSITIONS = [{ bottom: 28, right: 28, top: 'auto', left: 'auto' }];
 const ORIGINS   = ['bottom right'];
@@ -110,7 +104,6 @@ export default function WhatsNewPanel() {
   const pos    = POSITIONS[posIdx];
   const origin = ORIGINS[posIdx];
   const item   = LATEST_5[idx];
-  const tagStyle = TAG_COLORS[item.tag ?? ''] ?? { bg: 'rgba(255,255,255,0.08)', color: '#a3a3a3' };
   const isExt  = item.url.startsWith('http');
 
   /* ── Mini pill (after dismiss) ── */
@@ -123,9 +116,7 @@ export default function WhatsNewPanel() {
             display: 'flex', alignItems: 'center', gap: 7,
             padding: '7px 13px 7px 10px',
             borderRadius: 999,
-            background: 'rgba(10,10,10,0.88)',
-            backdropFilter: 'blur(16px)',
-            WebkitBackdropFilter: 'blur(16px)',
+            background: 'rgba(10,10,10,0.95)',
             border: '1px solid rgba(255,255,255,0.1)',
             boxShadow: '0 4px 24px rgba(0,0,0,0.45)',
             cursor: 'pointer',
@@ -199,11 +190,8 @@ export default function WhatsNewPanel() {
           width: 320,
           borderRadius: 20,
           overflow: 'hidden',
-          background: 'rgba(10,10,10,0.94)',
-          backdropFilter: 'blur(24px)',
-          WebkitBackdropFilter: 'blur(24px)',
+          background: 'rgba(10,10,10,0.97)',
           border: '1px solid rgba(255,255,255,0.09)',
-          boxShadow: '0 32px 80px rgba(0,0,0,0.7)',
           transformOrigin: origin,
           transform: entered ? 'scale(1)' : 'scale(0.6)',
           opacity: entered ? 1 : 0,
@@ -225,23 +213,15 @@ export default function WhatsNewPanel() {
             background: 'linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(10,10,10,0.88) 100%)',
           }} />
 
-          {/* Tag + close */}
-          <div style={{ position: 'absolute', top: 12, left: 12, right: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{
-              fontSize: 9, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase',
-              padding: '3px 9px', borderRadius: 999,
-              background: tagStyle.bg, color: tagStyle.color,
-              backdropFilter: 'blur(8px)',
-            }}>
-              {item.tag ?? "What's New"}
-            </span>
+          {/* Close */}
+          <div style={{ position: 'absolute', top: 12, right: 12 }}>
             <button
               onClick={dismiss}
               style={{
                 width: 26, height: 26, borderRadius: '50%',
                 background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.1)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                cursor: 'pointer', backdropFilter: 'blur(8px)',
+                cursor: 'pointer',
               }}
             >
               <X size={12} color="#a3a3a3" />

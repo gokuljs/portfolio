@@ -36,14 +36,14 @@ export default function Experience() {
             </p>
           </div>
 
-          <div className="w-full !mt-4 h-fit">
-            <img
-              src="/rimeNew.jpeg"
-              alt="Rime TTS"
-              width={800}
-              height={800}
-              className="w-full rounded-lg border border-neutral-800 object-contain h-auto max-h-[400px]"
-            />
+          <div
+          style={{
+            background:'black'
+          }}
+          className="w-full !mt-4 rounded-lg  overflow-hidden">
+            <img 
+          
+            src="/rimeNew.jpeg" alt="Rime TTS" width={800} height={800} className="w-full object-contain h-auto max-h-[400px]" />
           </div>
         </div>
       ),
@@ -81,14 +81,13 @@ export default function Experience() {
             </p>
           </div>
 
-          <div className="w-full !mt-4 h-fit">
-            <img
-              src="/teambleBg.png"
-              alt="hero template"
-              width={800}
-              height={800}
-              className="w-full rounded-lg border border-neutral-800 object-contain h-auto max-h-[400px]"
-            />
+          <div
+          
+          style={{
+            background:'black'
+          }}
+          className="w-full !mt-4 rounded-lg border border-neutral-800 overflow-hidden ">
+            <img src="/teambleBg.png" alt="Teamble" width={800} height={800} className="w-full object-contain h-auto max-h-[400px]" />
           </div>
         </div>
       ),
@@ -179,14 +178,8 @@ export default function Experience() {
             </p>
           </div>
 
-          <div className="w-full !mt-4 h-fit">
-            <img
-              src="/tifin.png"
-              alt="hero template"
-              width={800}
-              height={800}
-              className="w-full rounded-lg border border-neutral-800 object-contain h-auto max-h-[400px]"
-            />
+          <div className="w-full !mt-4 rounded-lg border border-neutral-800 overflow-hidden bg-black">
+            <img src="/tifin.png" alt="TIFIN" width={800} height={800} className="w-full object-contain h-auto max-h-[400px]" />
           </div>
         </div>
       ),

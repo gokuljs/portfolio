@@ -38,7 +38,7 @@ export function BlogArticleLayout({
       <ReadingProgressBar />
       <TableOfContents />
       
-      <article className="min-h-screen bg-black pt-24 md:pt-32">
+      <article className="min-h-screen pt-24 md:pt-32" style={{ backgroundColor: '#0C0C0C' }}>
         {/* Centered container with proper horizontal spacing */}
         <div className="w-full max-w-[720px] mx-auto px-8 md:px-12 lg:px-6">
           {/* Header */}
@@ -72,12 +72,12 @@ export function BlogArticleLayout({
             </h1>
             
             {/* Description */}
-            <p className="text-xs md:text-sm text-neutral-500 leading-relaxed mb-5">
+            <p className="text-xs md:text-sm text-neutral-400 leading-relaxed mb-5">
               {description}
             </p>
 
             {/* Meta info */}
-            <div className="flex items-center gap-2 text-xs text-neutral-500">
+            <div className="flex items-center gap-2 text-xs text-neutral-400">
               <time dateTime={isoDate}>{date}</time>
               <span className="text-neutral-600">·</span>
               <span>{estimatedReadTime}</span>
@@ -184,11 +184,12 @@ export function BlogArticleLayout({
       {/* Blog content styles */}
       <style jsx global>{`
         .blog-content {
-          color: #a3a3a3;
-          font-size: 14px;
+          color: #d4d4d4;
+          font-family: 'Apple SD Gothic Neo', 'Google Sans', Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+          font-size: 16px;
           font-weight: 400;
-          line-height: 1.7;
-          letter-spacing: 0;
+          line-height: 1.8;
+          letter-spacing: 0.01em;
         }
 
         /* Base spacing between elements */
@@ -203,21 +204,25 @@ export function BlogArticleLayout({
 
         /* Headings */
         .blog-content h2 {
-          font-size: 16px;
-          font-weight: 500;
-          color: #e5e5e5;
+          font-family: 'Apple SD Gothic Neo', 'Google Sans', Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+          font-size: 20px;
+          font-weight: 600;
+          color: #f5f5f5;
           margin-top: 2em;
           margin-bottom: 0.75em;
           line-height: 1.4;
+          letter-spacing: -0.01em;
         }
 
         .blog-content h3 {
-          font-size: 15px;
+          font-family: 'Apple SD Gothic Neo', 'Google Sans', Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+          font-size: 18px;
           font-weight: 500;
-          color: #d4d4d4;
+          color: #e5e5e5;
           margin-top: 1.5em;
           margin-bottom: 0.5em;
           line-height: 1.4;
+          letter-spacing: -0.01em;
         }
 
         /* First element after heading - reduce top margin */
@@ -245,7 +250,7 @@ export function BlogArticleLayout({
 
         /* Strong/Bold */
         .blog-content strong {
-          color: #d4d4d4;
+          color: #f0f0f0;
           font-weight: 500;
         }
 
@@ -277,7 +282,7 @@ export function BlogArticleLayout({
         }
 
         .blog-content li::marker {
-          color: #525252;
+          color: #737373;
         }
 
         /* Nested lists */
@@ -289,11 +294,11 @@ export function BlogArticleLayout({
 
         /* Blockquotes */
         .blog-content blockquote {
-          border-left: 2px solid #333;
+          border-left: 2px solid #525252;
           padding-left: 1em;
           margin: 1.25em 0;
           font-style: italic;
-          color: #737373;
+          color: #a3a3a3;
         }
 
         .blog-content blockquote p {
@@ -312,16 +317,16 @@ export function BlogArticleLayout({
           border-left: 2px solid #525252;
           padding: 0.6em 0.9em;
           margin: 0.75em 0;
-          font-size: 13px;
+          font-size: 15px;
         }
 
         .blog-content .callout p {
           margin: 0;
-          color: #a3a3a3;
+          color: #d4d4d4;
         }
 
         .blog-content .callout strong {
-          color: #e5e5e5;
+          color: #f5f5f5;
           font-weight: 500;
         }
 
@@ -346,20 +351,20 @@ export function BlogArticleLayout({
 
         /* Code blocks */
         .blog-content pre {
-          background: #0a0a0a;
+          background: #060606;
           border: 1px solid rgba(255, 255, 255, 0.08);
           border-radius: 6px;
           padding: 0.875em 1em;
           overflow-x: auto;
           margin: 1.25em 0;
-          font-size: 13px;
+          font-size: 14px;
           line-height: 1.5;
         }
 
         .blog-content pre code {
           background: none;
           padding: 0;
-          color: #a3a3a3;
+          color: #d4d4d4;
           font-size: inherit;
         }
 
@@ -411,8 +416,8 @@ export function BlogArticleLayout({
         /* Mobile adjustments */
         @media (max-width: 640px) {
           .blog-content {
-            font-size: 13px;
-            line-height: 1.65;
+            font-size: 15px;
+            line-height: 1.7;
           }
 
           .blog-content > * {
@@ -420,13 +425,14 @@ export function BlogArticleLayout({
           }
 
           .blog-content h2 {
-            font-size: 15px;
+            font-size: 18px;
+            font-weight: 600;
             margin-top: 1.75em;
             margin-bottom: 0.6em;
           }
 
           .blog-content h3 {
-            font-size: 14px;
+            font-size: 16px;
             margin-top: 1.5em;
             margin-bottom: 0.5em;
           }
@@ -443,7 +449,7 @@ export function BlogArticleLayout({
           }
 
           .blog-content pre {
-            font-size: 12px;
+            font-size: 13px;
             padding: 0.75em;
             margin: 1em -1em;
             border-radius: 0;

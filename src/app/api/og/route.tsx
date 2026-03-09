@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
         style={{
           width: '1200px',
           height: '630px',
-          background: '#000000',
+          background: '#0C0C0C',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',

@@ -76,11 +76,13 @@ export function VideoThumbnail({ url, image, alt = 'Video demo' }: VideoThumbnai
       }}
       aria-label={`Play video: ${alt}`}
     >
-      <img
-        src={image}
-        alt={alt}
-        style={{ display: 'block', margin: 0, width: '100%', maxWidth: '100%', height: 'auto' }}
-      />
+      <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 9', overflow: 'hidden' }}>
+        <img
+          src={image}
+          alt={alt}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block', margin: 0 }}
+        />
+      </div>
       {/* dark overlay */}
       <div style={{
         position: 'absolute',

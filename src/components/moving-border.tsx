@@ -55,7 +55,7 @@ export function Button({
 
       <div
         className={cn(
-          '!relative !flex !h-full !w-full !items-center !justify-center !border !border-stone-800 !bg-black/[0.8] !text-sm !text-white !antialiased !backdrop-blur-xl',
+          '!relative !flex !h-full !w-full !items-center !justify-center !border !border-stone-800 !bg-[#0C0C0C]/[0.8] !text-sm !text-white !antialiased !backdrop-blur-xl',
           className,
         )}
         style={{

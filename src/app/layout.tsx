@@ -91,7 +91,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className} suppressHydrationWarning>
+        <body className={inter.className} suppressHydrationWarning>
         <VisitTracker />
         <Navbar />
         {children}

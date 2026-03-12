@@ -39,25 +39,27 @@ export function BlogArticleLayout({
       <TableOfContents />
       
       <article className="min-h-screen bg-black pt-24 md:pt-32">
-        {/* Centered container with proper horizontal spacing */}
-        <div className="w-full max-w-[720px] mx-auto px-8 md:px-12 lg:px-6">
+        <div className="w-full max-w-[700px] mx-auto px-6 md:px-8 lg:px-6">
+
           {/* Header */}
           <motion.header
-            className="mb-12 md:mb-14"
+            className="mb-10 md:mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             {/* Tags */}
             {tags && tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-6">
+              <div className="flex flex-wrap gap-2 mb-5">
                 {tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-xs font-medium px-4 py-1.5 rounded-full text-neutral-400 border border-white/[0.06]"
+                    className="text-[11px] font-medium px-3 py-1 rounded-full tracking-wide uppercase"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)',
-                      boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.05)',
+                      color: '#8a8a8a',
+                      background: 'rgba(255,255,255,0.04)',
+                      border: '1px solid rgba(255,255,255,0.07)',
+                      letterSpacing: '0.08em',
                     }}
                   >
                     {tag}
@@ -67,19 +69,19 @@ export function BlogArticleLayout({
             )}
 
             {/* Title */}
-            <h1 className="text-xl sm:text-2xl md:text-3xl font-medium text-white leading-tight tracking-tight mb-3">
+            <h1 className="text-2xl sm:text-3xl md:text-[2rem] font-semibold text-white leading-[1.25] tracking-tight mb-4">
               {title}
             </h1>
             
             {/* Description */}
-            <p className="text-xs md:text-sm text-neutral-500 leading-relaxed mb-5">
+            <p className="text-[15px] md:text-base text-neutral-400 leading-relaxed mb-6" style={{ lineHeight: '1.65' }}>
               {description}
             </p>
 
-            {/* Meta info */}
-            <div className="flex items-center gap-2 text-xs text-neutral-500">
+            {/* Meta info row */}
+            <div className="flex items-center gap-3 text-[13px] text-neutral-500">
               <time dateTime={isoDate}>{date}</time>
-              <span className="text-neutral-600">·</span>
+              <span className="text-neutral-700">·</span>
               <span>{estimatedReadTime}</span>
             </div>
           </motion.header>
@@ -87,7 +89,8 @@ export function BlogArticleLayout({
           {/* Featured Image */}
           {featuredImage && (
             <motion.div
-              className="relative w-full aspect-[16/9] mb-12 md:mb-16 rounded-lg overflow-hidden"
+              className="relative w-full aspect-[16/9] mb-10 md:mb-12 rounded-xl overflow-hidden"
+              style={{ border: '1px solid rgba(255,255,255,0.07)' }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
@@ -102,15 +105,16 @@ export function BlogArticleLayout({
             </motion.div>
           )}
 
-          {/* Divider - Full width subtle line */}
+          {/* Divider */}
           <motion.div
-            className="w-full h-px bg-gradient-to-r from-white/10 via-white/20 to-white/10 mb-14 md:mb-16"
+            className="w-full h-px mb-10 md:mb-12"
+            style={{ background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.12) 30%, rgba(255,255,255,0.12) 70%, transparent)' }}
             initial={{ opacity: 0, scaleX: 0 }}
             animate={{ opacity: 1, scaleX: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           />
 
-          {/* Article Body - Optimized for reading */}
+          {/* Article Body */}
           <motion.div
             className="blog-content"
             initial={{ opacity: 0 }}
@@ -127,8 +131,7 @@ export function BlogArticleLayout({
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.5 }}
           >
-            {/* Faded divider line */}
-            <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mb-8" />
+            <div className="w-full h-px mb-8" style={{ background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.1) 40%, rgba(255,255,255,0.1) 60%, transparent)' }} />
 
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
               <Link
@@ -181,94 +184,129 @@ export function BlogArticleLayout({
         </div>
       </article>
 
-      {/* Blog content styles */}
       <style jsx global>{`
         .blog-content {
-          color: #a3a3a3;
-          font-size: 14px;
+          color: #b0b0b0;
+          font-size: 16px;
           font-weight: 400;
-          line-height: 1.7;
-          letter-spacing: 0;
+          line-height: 1.8;
+          letter-spacing: -0.003em;
         }
 
-        /* Base spacing between elements */
         .blog-content > * {
           margin-top: 0;
-          margin-bottom: 1em;
+          margin-bottom: 1.25em;
         }
 
         .blog-content > *:last-child {
           margin-bottom: 0;
         }
 
-        /* Headings */
+        /* ── Headings ── */
         .blog-content h2 {
-          font-size: 16px;
-          font-weight: 500;
-          color: #e5e5e5;
-          margin-top: 2em;
+          font-size: 19px;
+          font-weight: 600;
+          color: #f0f0f0;
+          margin-top: 2.75em;
           margin-bottom: 0.75em;
-          line-height: 1.4;
+          line-height: 1.35;
+          letter-spacing: -0.02em;
         }
 
         .blog-content h3 {
-          font-size: 15px;
-          font-weight: 500;
-          color: #d4d4d4;
-          margin-top: 1.5em;
-          margin-bottom: 0.5em;
+          font-size: 16px;
+          font-weight: 600;
+          color: #dedede;
+          margin-top: 2em;
+          margin-bottom: 0.6em;
           line-height: 1.4;
+          letter-spacing: -0.01em;
         }
 
-        /* First element after heading - reduce top margin */
+        /* Tighten gap between heading and its first child */
         .blog-content h2 + *,
         .blog-content h3 + * {
           margin-top: 0;
         }
 
-        /* Paragraphs */
+        /* ── Paragraphs ── */
         .blog-content p {
-          margin-bottom: 1em;
+          margin-bottom: 1.25em;
         }
 
-        /* Links */
+        /* ── Links ── */
         .blog-content a {
-          color: #60a5fa;
+          color: #8fb4e8;
           text-decoration: none;
-          border-bottom: 1px solid transparent;
-          transition: border-color 0.2s;
+          border-bottom: 1px solid rgba(143, 180, 232, 0.25);
+          transition: color 0.15s, border-color 0.15s;
         }
 
         .blog-content a:hover {
-          border-bottom-color: #60a5fa;
+          color: #aecdf5;
+          border-bottom-color: rgba(174, 205, 245, 0.5);
         }
 
-        /* Strong/Bold */
+        /* ── Strong / Bold ── */
         .blog-content strong {
-          color: #d4d4d4;
-          font-weight: 500;
+          color: #e0e0e0;
+          font-weight: 600;
         }
 
-        /* Lists */
+        /* ── Lists ── */
         .blog-content ul {
-          list-style: disc outside !important;
-          padding-left: 1.25em;
-          margin-top: 0.5em;
-          margin-bottom: 1em;
+          list-style: none !important;
+          padding-left: 0;
+          margin-top: 0.75em;
+          margin-bottom: 1.25em;
         }
 
         .blog-content ol {
-          list-style: decimal outside !important;
-          padding-left: 1.25em;
-          margin-top: 0.5em;
-          margin-bottom: 1em;
+          list-style: none !important;
+          counter-reset: ol-counter;
+          padding-left: 0;
+          margin-top: 0.75em;
+          margin-bottom: 1.25em;
         }
 
-        .blog-content ul li,
+        .blog-content ul li {
+          position: relative;
+          padding-left: 1.4em;
+          margin-bottom: 0.55em;
+          display: block !important;
+          color: #b0b0b0;
+        }
+
+        .blog-content ul li::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0.65em;
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: #444;
+        }
+
         .blog-content ol li {
-          margin-bottom: 0.35em;
-          padding-left: 0.25em;
-          display: list-item !important;
+          position: relative;
+          padding-left: 1.75em;
+          margin-bottom: 0.55em;
+          display: block !important;
+          counter-increment: ol-counter;
+          color: #b0b0b0;
+        }
+
+        .blog-content ol li::before {
+          content: counter(ol-counter) ".";
+          position: absolute;
+          left: 0;
+          top: 0;
+          font-size: 13px;
+          font-weight: 500;
+          color: #555;
+          font-variant-numeric: tabular-nums;
+          min-width: 1.4em;
         }
 
         .blog-content ul li:last-child,
@@ -276,117 +314,116 @@ export function BlogArticleLayout({
           margin-bottom: 0;
         }
 
-        .blog-content li::marker {
-          color: #525252;
-        }
-
         /* Nested lists */
         .blog-content li > ul,
         .blog-content li > ol {
-          margin-top: 0.35em;
+          margin-top: 0.4em;
           margin-bottom: 0;
         }
 
-        /* Blockquotes */
+        /* ── Blockquotes ── */
         .blog-content blockquote {
-          border-left: 2px solid #333;
-          padding-left: 1em;
-          margin: 1.25em 0;
+          border-left: 3px solid rgba(255,255,255,0.15);
+          padding: 0.15em 0 0.15em 1.25em;
+          margin: 1.75em 0;
           font-style: italic;
-          color: #737373;
+          color: #808080;
         }
 
         .blog-content blockquote p {
           margin: 0;
+          font-size: 15px;
+          line-height: 1.7;
         }
 
-        /* Spacing after lists before new paragraph */
-        .blog-content ul + p,
-        .blog-content ol + p {
-          margin-top: 1em;
-        }
-
-        /* Callout - minimal style */
+        /* ── Callout blocks ── */
         .blog-content .callout {
-          background: rgba(255, 255, 255, 0.03);
-          border-left: 2px solid #525252;
-          padding: 0.6em 0.9em;
-          margin: 0.75em 0;
-          font-size: 13px;
+          background: rgba(255, 255, 255, 0.025);
+          border: 1px solid rgba(255,255,255,0.07);
+          border-left: 3px solid rgba(255,255,255,0.2);
+          border-radius: 6px;
+          padding: 0.9em 1.1em;
+          margin: 1.75em 0;
+          font-size: 14px;
+          line-height: 1.7;
         }
 
         .blog-content .callout p {
           margin: 0;
-          color: #a3a3a3;
+          color: #999;
         }
 
         .blog-content .callout strong {
-          color: #e5e5e5;
-          font-weight: 500;
+          color: #d8d8d8;
+          font-weight: 600;
         }
 
-        /* Highlight text inline */
+        /* ── Highlighted text inline ── */
         .blog-content mark,
         .blog-content .hl {
-          background: rgba(255, 255, 255, 0.1);
-          padding: 0.1em 0.25em;
-          border-radius: 2px;
-          color: #e5e5e5;
+          background: rgba(255, 255, 255, 0.08);
+          padding: 0.1em 0.3em;
+          border-radius: 3px;
+          color: #e8e8e8;
         }
 
-        /* Inline code */
+        /* ── Inline code ── */
         .blog-content code {
           font-family: 'SF Mono', 'Fira Code', 'Fira Mono', Menlo, Monaco, monospace;
-          font-size: 0.85em;
-          background: rgba(255, 255, 255, 0.06);
-          padding: 0.15em 0.4em;
-          border-radius: 3px;
-          color: #d4d4d4;
+          font-size: 0.84em;
+          background: rgba(255, 255, 255, 0.07);
+          border: 1px solid rgba(255,255,255,0.07);
+          padding: 0.15em 0.45em;
+          border-radius: 4px;
+          color: #d0d0d0;
         }
 
-        /* Code blocks */
+        /* ── Code blocks ── */
         .blog-content pre {
-          background: #0a0a0a;
+          background: #0d0d0d;
           border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 6px;
-          padding: 0.875em 1em;
+          border-radius: 8px;
+          padding: 1.1em 1.25em;
           overflow-x: auto;
-          margin: 1.25em 0;
-          font-size: 13px;
-          line-height: 1.5;
+          margin: 1.75em 0;
+          font-size: 13.5px;
+          line-height: 1.6;
         }
 
         .blog-content pre code {
           background: none;
+          border: none;
           padding: 0;
-          color: #a3a3a3;
+          color: #a8a8a8;
           font-size: inherit;
+          border-radius: 0;
         }
 
-        /* Images */
+        /* ── Images ── */
         .blog-content img {
           max-width: 100%;
           width: 100%;
           height: auto;
-          border-radius: 4px;
-          margin: 1.5em 0;
+          border-radius: 8px;
+          margin: 1.75em 0;
+          border: 1px solid rgba(255,255,255,0.06);
         }
 
-        /* Horizontal rule */
+        /* ── Horizontal rule ── */
         .blog-content hr {
           border: none;
           height: 1px;
-          background: rgba(255, 255, 255, 0.08);
-          margin: 1.75em 0;
+          background: linear-gradient(to right, transparent, rgba(255,255,255,0.1) 30%, rgba(255,255,255,0.1) 70%, transparent);
+          margin: 2.5em 0;
         }
 
-        /* Videos and iframes */
+        /* ── Videos and iframes ── */
         .blog-content video,
         .blog-content iframe {
           width: 100%;
           aspect-ratio: 16 / 9;
-          border-radius: 6px;
-          margin: 1.25em 0;
+          border-radius: 8px;
+          margin: 1.75em 0;
           border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
@@ -394,9 +431,10 @@ export function BlogArticleLayout({
           position: relative;
           width: 100%;
           padding-bottom: 56.25%;
-          margin: 1.25em 0;
-          border-radius: 6px;
+          margin: 1.75em 0;
+          border-radius: 8px;
           overflow: hidden;
+          border: 1px solid rgba(255,255,255,0.08);
         }
 
         .blog-content .video-container iframe {
@@ -406,49 +444,61 @@ export function BlogArticleLayout({
           width: 100%;
           height: 100%;
           margin: 0;
+          border: none;
+          border-radius: 0;
         }
 
-        /* Mobile adjustments */
+        /* Spacing after lists before new paragraph */
+        .blog-content ul + p,
+        .blog-content ol + p {
+          margin-top: 1.25em;
+        }
+
+        /* ── Mobile ── */
         @media (max-width: 640px) {
           .blog-content {
-            font-size: 13px;
-            line-height: 1.65;
+            font-size: 15px;
+            line-height: 1.75;
           }
 
           .blog-content > * {
-            margin-bottom: 0.875em;
+            margin-bottom: 1.1em;
           }
 
           .blog-content h2 {
-            font-size: 15px;
-            margin-top: 1.75em;
+            font-size: 17px;
+            margin-top: 2.25em;
             margin-bottom: 0.6em;
           }
 
           .blog-content h3 {
-            font-size: 14px;
-            margin-top: 1.5em;
+            font-size: 15px;
+            margin-top: 1.75em;
             margin-bottom: 0.5em;
           }
 
           .blog-content p {
-            margin-bottom: 0.875em;
+            margin-bottom: 1.1em;
           }
 
           .blog-content ul,
           .blog-content ol {
-            padding-left: 1.1em;
-            margin-top: 0.4em;
-            margin-bottom: 0.875em;
+            margin-top: 0.6em;
+            margin-bottom: 1.1em;
           }
 
           .blog-content pre {
-            font-size: 12px;
-            padding: 0.75em;
-            margin: 1em -1em;
+            font-size: 12.5px;
+            padding: 0.875em 1em;
+            margin: 1.25em -1.5em;
             border-radius: 0;
             border-left: none;
             border-right: none;
+          }
+
+          .blog-content .callout {
+            font-size: 13px;
+            padding: 0.75em 0.9em;
           }
         }
       `}</style>

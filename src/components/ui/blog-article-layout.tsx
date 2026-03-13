@@ -406,7 +406,6 @@ export function BlogArticleLayout({
           height: auto;
           border-radius: 8px;
           margin: 1.75em 0;
-          border: 1px solid rgba(255,255,255,0.06);
         }
 
         /* ── Horizontal rule ── */

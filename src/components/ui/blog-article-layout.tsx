@@ -38,7 +38,7 @@ export function BlogArticleLayout({
       <TableOfContents />
 
       <article className="min-h-screen pt-24 md:pt-32" style={{ background: '#000000' }}>
-        <div className="w-full max-w-[800px] mx-auto px-6 md:px-10 lg:px-8">
+        <div className="w-full max-w-[800px] mx-auto px-6 md:px-10 lg:px-8 2xl:ml-auto 2xl:mr-auto">
 
           {/* Header */}
           <motion.header

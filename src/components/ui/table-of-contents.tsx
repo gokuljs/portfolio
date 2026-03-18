@@ -254,7 +254,7 @@ export function TableOfContents() {
   if (headings.length === 0) return null;
 
   return (
-    <nav className="hidden xl:block fixed left-6 2xl:left-10 top-32 w-[220px] 2xl:w-[240px] z-40">
+    <nav className="hidden 2xl:block fixed left-8 top-32 w-[220px] z-40">
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}

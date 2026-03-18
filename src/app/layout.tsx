@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Libre_Baskerville } from 'next/font/google';
 import '@styles/globals.scss';
 import VisitTracker from '@/components/VisitTracker';
 import { Analytics } from '@vercel/analytics/next';
@@ -7,6 +7,14 @@ import Navbar from './ui/components/Navbar';
 import WhatsNewPanel from '@/components/ui/WhatsNewPanel';
 
 const inter = Inter({ subsets: ['latin'] });
+
+const libreBaskerville = Libre_Baskerville({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-baskerville',
+  display: 'swap',
+});
 
 const DESCRIPTION =
   'Gokul JS — ex-YC founding engineer (W21). I build real-time AI systems, voice agents, and scalable web products. Writing about LLMs, WebRTC, and full-stack engineering.';
@@ -91,7 +99,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className} suppressHydrationWarning>
+      <body className={`${inter.className} ${libreBaskerville.variable}`} suppressHydrationWarning>
         <VisitTracker />
         <Navbar />
         {children}

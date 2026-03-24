@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 const BOT_USER_AGENTS =
-  /googlebot|bingbot|slurp|duckduckbot|baiduspider|yandexbot|sogou|exabot|facebot|ia_archiver|linkedinbot|twitterbot|applebot|semrushbot|ahrefsbot|mj12bot|dotbot/i;
+  /googlebot|google-inspectiontool|storebot-google|googleother|bingbot|slurp|duckduckbot|baiduspider|yandexbot|sogou|exabot|facebot|ia_archiver|linkedinbot|twitterbot|applebot|semrushbot|ahrefsbot|mj12bot|dotbot/i;
 
 function isSearchBot(request: NextRequest): boolean {
   const ua = request.headers.get('user-agent') ?? '';
@@ -28,7 +28,7 @@ function isResumeAccessAllowed(request: NextRequest): boolean {
 
 export function middleware(request: NextRequest) {
   if (!isResumeAccessAllowed(request)) {
-    return NextResponse.redirect(new URL('/?resume=blocked', request.url));
+    return NextResponse.rewrite(new URL('/?resume=blocked', request.url));
   }
   return NextResponse.next();
 }

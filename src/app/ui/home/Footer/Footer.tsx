@@ -15,6 +15,16 @@ const Footer = () => {
 
         <div className={styles.linksSection}>
           <div className={styles.linkColumn}>
+            <h4 className={styles.columnHeading}>Pages</h4>
+            <Link href="/blogs" className={styles.footerLink}>
+              Blogs
+            </Link>
+            <Link href="/projects" className={styles.footerLink}>
+              Projects
+            </Link>
+          </div>
+
+          <div className={styles.linkColumn}>
             <h4 className={styles.columnHeading}>Connect</h4>
             <Link
               href="https://github.com/gokuljs"

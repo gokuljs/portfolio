@@ -33,6 +33,16 @@ export const projectsData: Project[] = [
     status: 'Live'
   },
   {
+    id: '8',
+    title: 'DeepRAG',
+    description: 'A bare-metal RAG system built from scratch, tracing the full evolution from keyword search (BM25) through semantic search, hybrid retrieval, reranking, multimodal CLIP search, and full RAG generation with evaluation.',
+    image: '/deeprag.png',
+    tags: ['Python', 'RAG', 'BM25', 'Semantic Search', 'CLIP', 'Gemini'],
+    github: 'https://github.com/gokuljs/DeepRAG',
+    link: 'https://github.com/gokuljs/DeepRAG',
+    status: 'Live'
+  },
+  {
     id: '2',
     title: 'Aerotime',
     description: 'Smart calendar and scheduling tool to boost productivity and focus.',

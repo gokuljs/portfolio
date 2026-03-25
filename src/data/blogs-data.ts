@@ -12,6 +12,16 @@ export interface Blog {
 
 export const blogsData: Blog[] = [
   {
+    id: '3',
+    slug: 'retrieval-from-first-principles',
+    title: 'Retrieval, From First Principles',
+    description: 'How search actually works, and why it evolved the way it did.',
+    date: '2026-03-20',
+    readTime: '18 min read',
+    tags: ['Search', 'RAG', 'Vector Databases', 'Information Retrieval', 'Embeddings', 'BM25'],
+    featured: true,
+  },
+  {
     id: '2',
     slug: 'building-simple-real-time-voice-agent-livekit',
     title: 'Building a Simple Real-Time Voice Agent with LiveKit',

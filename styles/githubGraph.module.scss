@@ -56,8 +56,8 @@
     max-width: 100%;
     margin: 0 auto;
     border-radius: 0.875rem;
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    background: rgba(255, 255, 255, 0.02);
+    border: none;
+    background: #000;
     padding: 28px 28px 24px;
 
     @media (max-width: 600px) {
@@ -130,9 +130,9 @@
     }
   }
 
-  // Fixed-height wrapper so toggling between activity/PR list never resizes the card
+  // Fixed-height wrapper — height is auto (wraps content) in activity view,
+  // and 160px (scrollable) in PR list view, set via inline style in the component
   .contentArea {
-    height: 160px;
     overflow: hidden;
     flex-shrink: 0;
   }
@@ -142,7 +142,6 @@
     font-size: 12px;
     color: rgba(255, 255, 255, 0.45);
     line-height: 1.7;
-    height: 100%;
   }
 
   .repoLink {

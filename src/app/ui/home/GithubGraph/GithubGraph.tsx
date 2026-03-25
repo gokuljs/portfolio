@@ -488,9 +488,9 @@ const GithubGraph = () => {
               </div>
             )}
 
-            {/* Fixed-height content area — prevents card resize when toggling views */}
+            {/* Height is auto in activity view (hugs text) and fixed in PR list view (scrollable) */}
             {!prLoading && (
-              <div className={styles.contentArea}>
+              <div className={styles.contentArea} style={showPRs ? { height: 160 } : undefined}>
                 {/* Activity overview — collapsed default view */}
                 {!showPRs && (
                   <div className={styles.activitySection}>

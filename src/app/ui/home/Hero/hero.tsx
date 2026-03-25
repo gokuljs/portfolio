@@ -165,7 +165,7 @@ const Hero: React.FC = () => {
             and scaled. But I am going deeper, into WebRTC and
             audio/video ML, trying to understand how packets move
             and how models hear. That intersection is where I am
-            headed. This is where I log it.
+            headed. 
           </p>
         </div>
 

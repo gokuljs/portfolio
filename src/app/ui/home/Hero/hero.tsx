@@ -160,11 +160,12 @@ const Hero: React.FC = () => {
         <div className={styles.quote}>
           <p>Who I am</p>
           <p>
-            I work at the intersection of AI and real-time systems.
-            Voice agents, retrieval pipelines, the WebRTC stack
-            underneath. I&apos;ve built products that scaled, shipped
-            code that runs in tools other engineers use, and I&apos;m
-            still deep in the hard parts. This is where I log it.
+            I build real-time AI systems. So far that has meant
+            voice agents, retrieval pipelines, products that shipped
+            and scaled. But I am going deeper, into WebRTC and
+            audio/video ML, trying to understand how packets move
+            and how models hear. That intersection is where I am
+            headed. This is where I log it.
           </p>
         </div>
 

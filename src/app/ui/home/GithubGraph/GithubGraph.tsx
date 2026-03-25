@@ -17,103 +17,241 @@ interface PR {
   state: 'merged' | 'open';
 }
 
-const ORG_COLORS = ['#a855f7', '#3b82f6', '#22c55e', '#f59e0b', '#ec4899'];
+// Large warm-earth pool — hash each org name so the same org always gets the same color
+const COLOR_POOL = [
+  '#FFFDF1', // cream
+  '#FFCE99', // peach
+  '#FF9644', // orange
+  '#ffba08', // amber
+  '#f48c06', // warm orange
+  '#d2bba0', // warm beige
+  '#9f7e69', // tan
+  '#ece2d0', // sand
+  '#e85d04', // deep orange
+  '#faa307', // golden amber
+];
+
+function hashOrg(org: string): number {
+  let h = 0;
+  for (let i = 0; i < org.length; i++) h = (Math.imul(31, h) + org.charCodeAt(i)) | 0;
+  return Math.abs(h);
+}
+
+// Stable: same org → same color, always. New orgs auto-pick from pool.
+function orgColor(org: string): string {
+  if (org === '__others__') return '#9f7e69';
+  return COLOR_POOL[hashOrg(org) % COLOR_POOL.length];
+}
+
+function smooth(pts: [number, number][]) {
+  if (pts.length < 2) return `M${pts[0][0]},${pts[0][1]}`;
+  let d = `M${pts[0][0]},${pts[0][1]}`;
+  for (let i = 1; i < pts.length; i++) {
+    const [px, py] = pts[i - 1], [cx, cy] = pts[i];
+    const mx = (px + cx) / 2;
+    d += ` C${mx},${py} ${mx},${cy} ${cx},${cy}`;
+  }
+  return d;
+}
 
 function OrgChart({ prs }: { prs: PR[] }) {
-  const W = 700, H = 200, PAD = { t: 16, r: 10, b: 28, l: 8 };
-  const cW = W - PAD.l - PAD.r, cH = H - PAD.t - PAD.b;
+  const [hover, setHover] = useState<{ mi: number; x: number } | null>(null);
 
-  // Build monthly buckets for last 24 months
-  const now = new Date();
+  const W = 700, H = 200;
+  const PAD = { t: 14, r: 16, b: 36, l: 36 };
+  const cW = W - PAD.l - PAD.r;
+  const cH = H - PAD.t - PAD.b;
+
+  // ── dynamic date range: first PR ever → last PR ever ────────────────────────
+  const allDates = prs.map(pr => pr.created_at.slice(0, 7)).sort();
   const months: string[] = [];
-  for (let i = 23; i >= 0; i--) {
-    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-    months.push(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`);
+  if (allDates.length > 0) {
+    const cur = new Date(allDates[0] + '-01');
+    const end = new Date(allDates[allDates.length - 1] + '-01');
+    while (cur <= end) {
+      months.push(`${cur.getFullYear()}-${String(cur.getMonth() + 1).padStart(2, '0')}`);
+      cur.setMonth(cur.getMonth() + 1);
+    }
   }
+  if (months.length === 0) return null;
 
-  // Top 5 orgs by total
+  // ── orgs: top 3 named + "others" bucket ─────────────────────────────────────
   const orgTotals: Record<string, number> = {};
   prs.forEach(pr => { orgTotals[pr.repoOwner] = (orgTotals[pr.repoOwner] || 0) + 1; });
-  const topOrgs = Object.entries(orgTotals).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([o]) => o);
 
-  // Count per org per month
+  const sorted    = Object.entries(orgTotals).sort((a, b) => b[1] - a[1]);
+  const namedOrgs = sorted.slice(0, 3).map(([o]) => o);
+  const restOrgs  = sorted.slice(3).map(([o]) => o);
+  const hasRest   = restOrgs.length > 0;
+  const OTHERS    = '__others__';
+  const series    = hasRest ? [...namedOrgs, OTHERS] : namedOrgs;
+
   const data: Record<string, number[]> = {};
-  topOrgs.forEach(org => { data[org] = months.map(() => 0); });
+  series.forEach(s => { data[s] = months.map(() => 0); });
   prs.forEach(pr => {
-    const m = pr.created_at.slice(0, 7);
-    const idx = months.indexOf(m);
-    if (idx !== -1 && data[pr.repoOwner]) data[pr.repoOwner][idx]++;
+    const idx = months.indexOf(pr.created_at.slice(0, 7));
+    if (idx === -1) return;
+    if (namedOrgs.includes(pr.repoOwner))                           data[pr.repoOwner][idx]++;
+    else if (hasRest && restOrgs.includes(pr.repoOwner))            data[OTHERS][idx]++;
   });
 
-  const maxVal = Math.max(...topOrgs.flatMap(o => data[o]), 1);
+  // Shared Y axis (absolute values) so dominant orgs show proportionally bigger
+  const globalMax = Math.max(...series.flatMap(s => data[s]), 1);
+  const gridMax   = Math.ceil(globalMax / 4) * 4 || 4;
+  const gridTicks = [0, 1, 2, 3, 4].map(n => Math.round(gridMax / 4 * n));
 
-  // Smooth bezier path
-  function smooth(pts: [number, number][]) {
-    if (pts.length < 2) return '';
-    let d = `M${pts[0][0]},${pts[0][1]}`;
-    for (let i = 1; i < pts.length; i++) {
-      const [px, py] = pts[i - 1], [cx, cy] = pts[i];
-      const mx = (px + cx) / 2;
-      d += ` C${mx},${py} ${mx},${cy} ${cx},${cy}`;
-    }
-    return d;
+  const seriesLabel = (s: string) => s === OTHERS ? `+${restOrgs.length} more` : s;
+  const seriesTotal = (s: string) => s === OTHERS
+    ? restOrgs.reduce((a, o) => a + (orgTotals[o] ?? 0), 0)
+    : orgTotals[s] ?? 0;
+
+  // ── geometry helpers ─────────────────────────────────────────────────────────
+  const xOf = (mi: number) =>
+    PAD.l + (months.length === 1 ? cW / 2 : (mi / (months.length - 1)) * cW);
+  const yOf = (v: number) => PAD.t + cH - (v / gridMax) * cH;
+
+  function getPts(s: string): [number, number][] {
+    return data[s].map((v, mi) => [xOf(mi), yOf(v)]);
   }
 
-  function getPoints(org: string): [number, number][] {
-    return data[org].map((v, i) => [
-      PAD.l + (i / (months.length - 1)) * cW,
-      PAD.t + cH - (v / maxVal) * cH,
-    ]);
-  }
+  const xLabels = months
+    .map((m, i) => ({ m, i }))
+    .filter(({ m }) => [1, 4, 7, 10].includes(parseInt(m.split('-')[1])))
+    .map(({ i }) => i);
 
-  const labelIdxs = [0, Math.floor(months.length / 2), months.length - 1];
+  const tipRows = hover
+    ? series
+        .map(s => ({ label: seriesLabel(s), val: data[s][hover.mi], color: orgColor(s) }))
+        .filter(e => e.val > 0)
+        .sort((a, b) => b.val - a.val)
+    : [];
+
+  const handleMouseMove = (e: React.MouseEvent<SVGSVGElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    const svgX = ((e.clientX - r.left) / r.width) * W;
+    const raw  = ((svgX - PAD.l) / cW) * (months.length - 1);
+    const mi   = Math.max(0, Math.min(months.length - 1, Math.round(raw)));
+    setHover({ mi, x: xOf(mi) });
+  };
 
   return (
     <div>
-      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 'auto', overflow: 'visible' }}>
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        style={{ width: '100%', height: 'auto', overflow: 'visible', cursor: 'crosshair', display: 'block' }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={() => setHover(null)}
+      >
         <defs>
-          {topOrgs.map((org, i) => (
-            <linearGradient key={org} id={`og-${i}`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={ORG_COLORS[i]} stopOpacity="0.35" />
-              <stop offset="100%" stopColor={ORG_COLORS[i]} stopOpacity="0" />
+          {series.map((s, i) => (
+            <linearGradient key={s} id={`lg-${i}`} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stopColor={orgColor(s)} stopOpacity="0.18" />
+              <stop offset="100%" stopColor={orgColor(s)} stopOpacity="0.01" />
             </linearGradient>
           ))}
         </defs>
 
-        {/* Grid lines */}
-        {[0.25, 0.5, 0.75, 1].map(r => (
-          <line key={r}
-            x1={PAD.l} y1={PAD.t + cH * (1 - r)}
-            x2={W - PAD.r} y2={PAD.t + cH * (1 - r)}
-            stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
-        ))}
-
-        {/* Area + line per org */}
-        {topOrgs.map((org, i) => {
-          const pts = getPoints(org);
-          const linePath = smooth(pts);
-          const areaPath = `${linePath} L${pts[pts.length - 1][0]},${PAD.t + cH} L${pts[0][0]},${PAD.t + cH} Z`;
-          const color = ORG_COLORS[i];
+        {/* Y-axis grid + labels */}
+        {gridTicks.map((val, j) => {
+          const y = yOf(val);
           return (
-            <g key={org}>
-              <path d={areaPath} fill={`url(#og-${i})`} />
-              <path d={linePath} fill="none" stroke={color} strokeWidth="2.5"
-                strokeLinejoin="round" strokeLinecap="round"
-                style={{ filter: `drop-shadow(0 0 8px ${color}) drop-shadow(0 0 3px ${color})` }} />
-              {/* Peak dot */}
-              {pts.map(([x, y], j) => data[org][j] === maxVal && data[org][j] > 0 ? (
-                <circle key={j} cx={x} cy={y} r="3.5" fill={color}
-                  style={{ filter: `drop-shadow(0 0 6px ${color}) drop-shadow(0 0 2px #fff)` }} />
-              ) : null)}
+            <g key={j}>
+              <line x1={PAD.l} y1={y} x2={W - PAD.r} y2={y}
+                stroke={j === 0 ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.045)'}
+                strokeWidth={j === 0 ? 1 : 0.75} />
+              {val > 0 && (
+                <text x={PAD.l - 7} y={y + 3.5} fontSize="8"
+                  fill="rgba(255,255,255,0.22)" textAnchor="end">{val}</text>
+              )}
             </g>
           );
         })}
 
-        {/* X labels */}
-        {labelIdxs.map(i => (
-          <text key={i}
-            x={PAD.l + (i / (months.length - 1)) * cW}
-            y={H - 4}
+        {/* Area fills — drawn first so lines sit on top */}
+        {series.map((s, i) => {
+          const pts = getPts(s);
+          const line = smooth(pts);
+          const area = `${line} L${pts[pts.length - 1][0]},${yOf(0)} L${pts[0][0]},${yOf(0)} Z`;
+          return <path key={`area-${s}`} d={area} fill={`url(#lg-${i})`} />;
+        })}
+
+        {/* Lines */}
+        {series.map((s) => {
+          const pts = getPts(s);
+          const line = smooth(pts);
+          const color = orgColor(s);
+          const isHovered = hover && tipRows.some(r => r.label === seriesLabel(s));
+          const dim = hover && !isHovered;
+          return (
+            <path key={`line-${s}`} d={line} fill="none"
+              stroke={color}
+              strokeWidth={isHovered ? 2.2 : 1.8}
+              strokeOpacity={dim ? 0.25 : 1}
+              strokeLinejoin="round" strokeLinecap="round"
+              style={{ transition: 'stroke-opacity 0.15s, stroke-width 0.15s' }}
+            />
+          );
+        })}
+
+        {/* Hover: crosshair + dots + tooltip */}
+        {hover && (
+          <>
+            <line x1={hover.x} y1={PAD.t} x2={hover.x} y2={PAD.t + cH}
+              stroke="rgba(255,255,255,0.15)" strokeWidth="1" strokeDasharray="3,3" />
+
+            {series.map((s) => {
+              const val = data[s][hover.mi];
+              if (val === 0) return null;
+              const [px, py] = getPts(s)[hover.mi];
+              const color = orgColor(s);
+              return (
+                <g key={`dot-${s}`}>
+                  <circle cx={px} cy={py} r="5" fill={color} fillOpacity="0.18" />
+                  <circle cx={px} cy={py} r="3" fill={color} />
+                  <circle cx={px} cy={py} r="1.2" fill="#fff" fillOpacity="0.8" />
+                </g>
+              );
+            })}
+
+            {tipRows.length > 0 && (() => {
+              const month = new Date(months[hover.mi] + '-01')
+                .toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+              const total = tipRows.reduce((a, e) => a + e.val, 0);
+              const ROW = 15, TW = 136, TH = 26 + tipRows.length * ROW + 8;
+              let tx = hover.x + 14;
+              if (tx + TW > W - PAD.r) tx = hover.x - TW - 14;
+              const ty = PAD.t + 4;
+              return (
+                <g style={{ pointerEvents: 'none' }}>
+                  <rect x={tx} y={ty} width={TW} height={TH} rx="5"
+                    fill="rgba(10,10,12,0.97)" stroke="rgba(255,255,255,0.09)" strokeWidth="0.75" />
+                  <text x={tx + 10} y={ty + 15} fontSize="8.5"
+                    fill="rgba(255,255,255,0.38)" fontWeight="600" letterSpacing="0.07em">
+                    {month.toUpperCase()}
+                  </text>
+                  <text x={tx + TW - 10} y={ty + 15} fontSize="8.5"
+                    fill="rgba(255,255,255,0.55)" textAnchor="end" fontWeight="700">
+                    {total} PRs
+                  </text>
+                  {tipRows.map((e, j) => (
+                    <g key={e.label}>
+                      <rect x={tx + 10} y={ty + 24 + j * ROW + 3}
+                        width="7" height="7" rx="1.5" fill={e.color} fillOpacity="0.9" />
+                      <text x={tx + 21} y={ty + 24 + j * ROW + 10}
+                        fontSize="8.5" fill="rgba(255,255,255,0.65)">{e.label}</text>
+                      <text x={tx + TW - 10} y={ty + 24 + j * ROW + 10}
+                        fontSize="9" fill={e.color} textAnchor="end" fontWeight="700">{e.val}</text>
+                    </g>
+                  ))}
+                </g>
+              );
+            })()}
+          </>
+        )}
+
+        {/* X-axis date labels */}
+        {xLabels.map(i => (
+          <text key={i} x={xOf(i)} y={H - 5}
             fontSize="8" fill="rgba(255,255,255,0.2)" textAnchor="middle">
             {new Date(months[i] + '-01').toLocaleDateString('en-US', { month: 'short', year: '2-digit' })}
           </text>
@@ -121,19 +259,22 @@ function OrgChart({ prs }: { prs: PR[] }) {
       </svg>
 
       {/* Legend */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 16px', marginTop: 8 }}>
-        {topOrgs.map((org, i) => (
-          <a key={org} href={`https://github.com/${org}`} target="_blank" rel="noopener noreferrer"
-            style={{ display: 'flex', alignItems: 'center', gap: 5, textDecoration: 'none' }}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px 18px', marginTop: 8 }}>
+        {series.map((s) => (
+          <a key={s}
+            href={s !== OTHERS ? `https://github.com/${s}` : undefined}
+            target="_blank" rel="noopener noreferrer"
+            style={{ display: 'flex', alignItems: 'center', gap: 6, textDecoration: 'none' }}
             className="group">
-            <div style={{ width: 20, height: 2, borderRadius: 1, background: ORG_COLORS[i], boxShadow: `0 0 6px ${ORG_COLORS[i]}80` }} />
-            <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.06em' }}
-              className="group-hover:text-white/60 transition-colors">
-              {org}
+            <div style={{ width: 20, height: 2, borderRadius: 1, background: orgColor(s) }} />
+            <span style={{ fontSize: 9.5, color: 'rgba(255,255,255,0.32)', letterSpacing: '0.04em' }}
+              className="group-hover:text-white/55 transition-colors">
+              {seriesLabel(s)}
             </span>
-            <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.15)' }}>
-              {orgTotals[org]}
-            </span>
+            <span style={{
+              fontSize: 8.5, color: orgColor(s), opacity: 0.75,
+              background: `${orgColor(s)}18`, padding: '1px 5px', borderRadius: 4,
+            }}>{seriesTotal(s)}</span>
           </a>
         ))}
       </div>
@@ -267,9 +408,8 @@ const GithubGraph = () => {
 
             {/* Left — org line chart */}
             <div style={{ minWidth: 0 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
-              <p className="text-[10px] uppercase tracking-widest text-neutral-500">Open source contributions</p>
-              <p className="text-[9px] text-neutral-700">last 24 months</p>
+              <div style={{ marginBottom: 12 }}>
+                <p className="text-[10px] uppercase tracking-widest text-neutral-500">Open source contributions</p>
               </div>
               {prLoading && <div style={{ height: 200, borderRadius: 6, background: 'rgba(255,255,255,0.03)' }} className="animate-pulse" />}
               {!prLoading && prs.length > 0 && <OrgChart prs={prs} />}
@@ -281,7 +421,7 @@ const GithubGraph = () => {
                 <p className="text-[10px] uppercase tracking-widest text-neutral-500">Open source PRs</p>
                 {!prLoading && <span className="text-[10px] text-neutral-600">{prs.length} PRs</span>}
               </div>
-              <p className="text-[9px] text-neutral-700" style={{ marginBottom: 8 }}>last 2 years</p>
+
 
               {prLoading && (
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 6 }} className="animate-pulse">

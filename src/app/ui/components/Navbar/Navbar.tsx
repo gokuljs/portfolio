@@ -119,7 +119,7 @@ const Navbar: React.FC = () => {
       <header className={`${styles.header} ${scrolled ? styles.scrolled : ''} ${hidden && !menuOpen ? styles.hidden : ''}`}>
         {/* Logo */}
         <Link href="/" className={styles.logo}>
-          GokulJS
+          Gokul JS
         </Link>
 
         {/* Centre nav */}

@@ -42,25 +42,24 @@ export const projectsData: Project[] = [
     link: 'https://github.com/gokuljs/DeepRAG',
     status: 'Live'
   },
-  {
-    id: '2',
-    title: 'Aerotime',
-    description: 'Smart calendar and scheduling tool to boost productivity and focus.',
-    image: '/video-poster.jpg',
-    tags: ['Productivity', 'Calendar', 'React'],
-    link: 'https://www.aerotime.com/',
-    status: 'Live'
-  
-  },
-  {
-    id: '3',
-    title: 'Teamble',
-    description: 'Engagement platform to boost team culture, feedback, and recognition.',
-    image: '/teambleBg.png',
-    tags: ['Team Culture', 'Feedback', 'SaaS'],
-    link: 'https://teamble.com/',
-    status: 'Live'
-  },
+  // {
+  //   id: '2',
+  //   title: 'Aerotime',
+  //   description: 'Smart calendar and scheduling tool to boost productivity and focus.',
+  //   image: '/video-poster.jpg',
+  //   tags: ['Productivity', 'Calendar', 'React'],
+  //   link: 'https://www.aerotime.com/',
+  //   status: 'Live'
+  // },
+  // {
+  //   id: '3',
+  //   title: 'Teamble',
+  //   description: 'Engagement platform to boost team culture, feedback, and recognition.',
+  //   image: '/teambleBg.png',
+  //   tags: ['Team Culture', 'Feedback', 'SaaS'],
+  //   link: 'https://teamble.com/',
+  //   status: 'Live'
+  // },
   {
     id: '4',
     title: 'NotionFlow',

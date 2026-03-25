@@ -142,7 +142,6 @@ const Hero: React.FC = () => {
             </svg>
             EX&#8202;-&#8202;YC
           </span>
-          &nbsp;·&nbsp; GENERALIST &nbsp;·&nbsp; DEVELOPER
         </p>
 
         <h1 className={styles.name}>
@@ -159,11 +158,13 @@ const Hero: React.FC = () => {
         </h1>
 
         <div className={styles.quote}>
-          <p>I care about everything</p>
+          <p>Who I am</p>
           <p>
-            Compression is knowledge. Prediction is understanding.
-            If you can&apos;t predict it, you don&apos;t understand it.
-            Complexity emerges from simple rules applied recursively.
+            I work at the intersection of AI and real-time systems.
+            Voice agents, retrieval pipelines, the WebRTC stack
+            underneath. I&apos;ve built products that scaled, shipped
+            code that runs in tools other engineers use, and I&apos;m
+            still deep in the hard parts. This is where I log it.
           </p>
         </div>
 
@@ -171,7 +172,7 @@ const Hero: React.FC = () => {
 
         <div ref={bottomRef} className={styles.bottomRow}>
           <p className={styles.roles}>
-            FULL&#8209;STACK &nbsp;·&nbsp; AI SYSTEMS &nbsp;·&nbsp; VOICE
+            VOICE AI &nbsp;·&nbsp; RETRIEVAL &nbsp;·&nbsp; REAL&#8209;TIME
           </p>
           <a
             ref={ctaBtnRef}

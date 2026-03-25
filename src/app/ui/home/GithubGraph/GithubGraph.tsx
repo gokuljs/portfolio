@@ -303,6 +303,7 @@ const GithubGraph = () => {
   const [showPRs, setShowPRs] = useState(false);
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const arr = [];
@@ -317,6 +318,15 @@ const GithubGraph = () => {
     if (sc && !loading) {
       const t = sc.querySelector<HTMLDivElement>('.react-activity-calendar__scroll-container');
       if (t) { t.scrollLeft = t.scrollWidth - t.clientWidth; t.style.paddingBottom = '10px'; }
+    }
+  }, [loading]);
+
+  // Lock the card width to whatever the heatmap renders at, so toggling
+  // the PR list (which has long white-space:nowrap titles) can never widen it.
+  useEffect(() => {
+    if (!loading && cardRef.current) {
+      const w = cardRef.current.getBoundingClientRect().width;
+      cardRef.current.style.maxWidth = `${w}px`;
     }
   }, [loading]);
 
@@ -417,7 +427,7 @@ const GithubGraph = () => {
       <div className={`w-full flex flex-col ${styles.inner}`}>
 
         {/* ── Single unified card ───────────────────────────────────────────── */}
-        <div className={styles.card}>
+        <div ref={cardRef} className={styles.card}>
           <GlowingEffect spread={100} borderWidth={1} glow={true} disabled={false} proximity={80} inactiveZone={0.01} variant="white" />
 
           {/* Heatmap — centered inside the card */}
@@ -470,69 +480,76 @@ const GithubGraph = () => {
                     <div key={i} style={{ height: 26, width: 90, borderRadius: 6, background: 'rgba(255,255,255,0.05)' }} />
                   ))}
                 </div>
-                {Array.from({ length: 4 }).map((_, i) => (
-                  <div key={i} style={{ height: 14, borderRadius: 4, background: 'rgba(255,255,255,0.04)', width: i === 3 ? '60%' : '100%' }} />
-                ))}
+                <div style={{ height: 160, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  {Array.from({ length: 4 }).map((_, i) => (
+                    <div key={i} style={{ height: 14, borderRadius: 4, background: 'rgba(255,255,255,0.04)', width: i === 3 ? '60%' : '100%' }} />
+                  ))}
+                </div>
               </div>
             )}
 
-            {/* Activity overview — collapsed default view */}
-            {!prLoading && !showPRs && (
-              <div className={styles.activitySection}>
-                <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', fontWeight: 500, marginBottom: 10 }}>
-                  Activity overview
-                </p>
-                <p style={{ fontSize: 12 }}>
-                  Contributed to{' '}
-                  {shownRepos.map(([repo], i) => {
-                    const isRime = repo.split('/')[0].toLowerCase().includes('rime');
-                    return (
-                      <span key={repo}>
-                        <a
-                          href={`https://github.com/${repo}`}
-                          target="_blank" rel="noopener noreferrer"
-                          className={`${styles.repoLink} ${isRime ? styles.repoLinkDim : ''}`}
-                          style={{ color: orgColor(repo.split('/')[0]) }}
-                        >
-                          {repo}
-                        </a>
-                        {i < shownRepos.length - 1 ? ', ' : ''}
-                      </span>
-                    );
-                  })}
-                  {otherRepoCount > 0 && (
-                    <span style={{ color: 'rgba(255,255,255,0.35)' }}>
-                      {' '}and {otherRepoCount} other {otherRepoCount === 1 ? 'repository' : 'repositories'}
-                    </span>
-                  )}
-                </p>
-              </div>
-            )}
+            {/* Fixed-height content area — prevents card resize when toggling views */}
+            {!prLoading && (
+              <div className={styles.contentArea}>
+                {/* Activity overview — collapsed default view */}
+                {!showPRs && (
+                  <div className={styles.activitySection}>
+                    <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', fontWeight: 500, marginBottom: 10 }}>
+                      Activity overview
+                    </p>
+                    <p style={{ fontSize: 12 }}>
+                      Contributed to{' '}
+                      {shownRepos.map(([repo], i) => {
+                        const isRime = repo.split('/')[0].toLowerCase().includes('rime');
+                        return (
+                          <span key={repo}>
+                            <a
+                              href={`https://github.com/${repo}`}
+                              target="_blank" rel="noopener noreferrer"
+                              className={`${styles.repoLink} ${isRime ? styles.repoLinkDim : ''}`}
+                              style={{ color: orgColor(repo.split('/')[0]) }}
+                            >
+                              {repo}
+                            </a>
+                            {i < shownRepos.length - 1 ? ', ' : ''}
+                          </span>
+                        );
+                      })}
+                      {otherRepoCount > 0 && (
+                        <span style={{ color: 'rgba(255,255,255,0.35)' }}>
+                          {' '}and {otherRepoCount} other {otherRepoCount === 1 ? 'repository' : 'repositories'}
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                )}
 
-            {/* Expanded PR list */}
-            {!prLoading && showPRs && (
-              <div className={styles.prList}>
-                {prs.map((pr, idx) => (
-                  <a key={pr.id} href={pr.html_url} target="_blank" rel="noopener noreferrer"
-                    className="group"
-                    style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 4px', borderBottom: '1px solid rgba(255,255,255,0.04)', textDecoration: 'none', flexShrink: 0 }}>
-                    <GitPullRequest style={{ width: 11, height: 11, flexShrink: 0, color: pr.state === 'merged' ? '#a855f7' : '#22c55e' }} />
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <p style={{ fontSize: idx < 3 ? 11 : 10, color: idx < 3 ? '#d4d4d4' : '#737373', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', lineHeight: 1.3, fontWeight: idx < 3 ? 500 : 400 }}>
-                        {pr.title}
-                      </p>
-                      <p style={{ fontSize: 9, color: '#525252', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{pr.repo}</p>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 5, flexShrink: 0 }}>
-                      <span style={{ fontSize: 8.5, padding: '1px 5px', borderRadius: 999, background: pr.state === 'merged' ? 'rgba(168,85,247,0.15)' : 'rgba(34,197,94,0.15)', color: pr.state === 'merged' ? '#c084fc' : '#4ade80' }}>
-                        {pr.state}
-                      </span>
-                      <span style={{ fontSize: 8.5, color: '#525252' }}>{timeAgo(pr.created_at)}</span>
-                    </div>
-                  </a>
-                ))}
-                {prs.length === 0 && (
-                  <p className="text-xs text-neutral-600 mt-4 text-center">No public PRs found</p>
+                {/* Expanded PR list — scrolls within the fixed contentArea height */}
+                {showPRs && (
+                  <div className={styles.prList}>
+                    {prs.map((pr, idx) => (
+                      <a key={pr.id} href={pr.html_url} target="_blank" rel="noopener noreferrer"
+                        className="group"
+                        style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 4px', borderBottom: '1px solid rgba(255,255,255,0.04)', textDecoration: 'none', flexShrink: 0 }}>
+                        <GitPullRequest style={{ width: 11, height: 11, flexShrink: 0, color: pr.state === 'merged' ? '#a855f7' : '#22c55e' }} />
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <p style={{ fontSize: idx < 3 ? 11 : 10, color: idx < 3 ? '#d4d4d4' : '#737373', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', lineHeight: 1.3, fontWeight: idx < 3 ? 500 : 400 }}>
+                            {pr.title}
+                          </p>
+                          <p style={{ fontSize: 9, color: '#525252', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{pr.repo}</p>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 5, flexShrink: 0 }}>
+                          <span style={{ fontSize: 8.5, padding: '1px 5px', borderRadius: 999, background: pr.state === 'merged' ? 'rgba(168,85,247,0.15)' : 'rgba(34,197,94,0.15)', color: pr.state === 'merged' ? '#c084fc' : '#4ade80' }}>
+                            {pr.state}
+                          </span>
+                          <span style={{ fontSize: 8.5, color: '#525252' }}>{timeAgo(pr.created_at)}</span>
+                        </div>
+                      </a>
+                    ))}
+                    {prs.length === 0 && (
+                      <p className="text-xs text-neutral-600 mt-4 text-center">No public PRs found</p>
+                    )}
+                  </div>
                 )}
               </div>
             )}

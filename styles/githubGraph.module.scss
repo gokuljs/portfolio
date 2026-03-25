@@ -49,7 +49,7 @@
     }
   }
 
-  // Single unified card — sized to the heatmap's natural width, centered
+  // Card sizes itself to the heatmap's natural width
   .card {
     position: relative;
     width: fit-content;
@@ -87,16 +87,17 @@
     margin: 20px 0;
   }
 
-  // Bottom grid fills card width
+  // Bottom grid fills card width — card width is locked by JS after heatmap renders
   .bottomRow {
     width: 100%;
+    overflow: hidden;
     display: grid;
-    grid-template-columns: 40% 1fr;
+    grid-template-columns: minmax(0, 40%) minmax(0, 1fr);
     gap: 40px;
     align-items: start;
 
     @media (max-width: 768px) {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       gap: 24px;
     }
   }
@@ -129,12 +130,19 @@
     }
   }
 
+  // Fixed-height wrapper so toggling between activity/PR list never resizes the card
+  .contentArea {
+    height: 160px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
   // "Activity overview" prose block
   .activitySection {
     font-size: 12px;
     color: rgba(255, 255, 255, 0.45);
     line-height: 1.7;
-    flex: 1;
+    height: 100%;
   }
 
   .repoLink {
@@ -189,9 +197,7 @@
 
   // Scrollable PR list (shown when "See more" is expanded)
   .prList {
-    flex: 1;
-    min-height: 0;
-    max-height: 220px;
+    height: 100%;
     overflow-y: auto;
     display: flex;
     flex-direction: column;

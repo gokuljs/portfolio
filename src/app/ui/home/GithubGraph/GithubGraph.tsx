@@ -57,8 +57,8 @@ function smooth(pts: [number, number][]) {
 function OrgChart({ prs }: { prs: PR[] }) {
   const [hover, setHover] = useState<{ mi: number; x: number } | null>(null);
 
-  const W = 700, H = 200;
-  const PAD = { t: 14, r: 16, b: 36, l: 36 };
+  const W = 700, H = 160;
+  const PAD = { t: 14, r: 16, b: 32, l: 44 };
   const cW = W - PAD.l - PAD.r;
   const cH = H - PAD.t - PAD.b;
 
@@ -300,6 +300,7 @@ const GithubGraph = () => {
 
   const [prs, setPrs] = useState<PR[]>([]);
   const [prLoading, setPrLoading] = useState(true);
+  const [showPRs, setShowPRs] = useState(false);
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -381,83 +382,184 @@ const GithubGraph = () => {
 
   if (!isMounted) return null;
 
+  // ── Derived data for activity overview ──────────────────────────────────────
+  const orgTotals: Record<string, number> = {};
+  prs.forEach(pr => { orgTotals[pr.repoOwner] = (orgTotals[pr.repoOwner] || 0) + 1; });
+  const topOrgNames = Object.entries(orgTotals)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([o]) => o);
+  const otherOrgCount = Math.max(Object.keys(orgTotals).length - 3, 0);
+
+  const repoCounts: Record<string, number> = {};
+  prs.forEach(pr => { repoCounts[pr.repo] = (repoCounts[pr.repo] || 0) + 1; });
+
+  // Sort: livekit > pipecat > others by count > rime last
+  const repoSortPriority = (repo: string) => {
+    const owner = repo.split('/')[0].toLowerCase();
+    if (owner === 'livekit') return 0;
+    if (owner.includes('pipecat')) return 1;
+    if (owner.includes('rime')) return 999;
+    return 2;
+  };
+  const topRepos = Object.entries(repoCounts).sort((a, b) => {
+    const pa = repoSortPriority(a[0]), pb = repoSortPriority(b[0]);
+    if (pa !== pb) return pa - pb;
+    return b[1] - a[1];
+  });
+  const shownRepos = topRepos.slice(0, 3);
+  const otherRepoCount = Math.max(topRepos.length - 3, 0);
+
   return (
     <div className={styles.github} suppressHydrationWarning>
       <h1 className={styles.heading}>GITHUB</h1>
 
-      <div className={`w-full flex flex-col items-center gap-6 ${styles.inner}`}>
+      <div className={`w-full flex flex-col ${styles.inner}`}>
 
-        {/* Everything locked to calendar width */}
-        <div className={styles.calendarWrap}>
+        {/* ── Single unified card ───────────────────────────────────────────── */}
+        <div className={styles.card}>
+          <GlowingEffect spread={100} borderWidth={1} glow={true} disabled={false} proximity={80} inactiveZone={0.01} variant="white" />
 
-          {/* Calendar */}
-          <div ref={scrollContainerRef} className={styles.container} style={{ position: 'relative' }}>
-            <GlowingEffect spread={80} borderWidth={1} glow={true} disabled={false} proximity={64} inactiveZone={0.01} variant="white" />
-            <div className="flex justify-end mb-2">
-              <Dropdown dropdownState={dropdownState} setDropdownState={setDropdownState} options={gitHubYearList} value={selectedYear} setValue={setSelectedYear} />
-            </div>
-            <GitHubCalendar username="gokuljs" year={selectedYear ?? undefined} colorScheme="dark" blockSize={15} fontSize={12} loading={loading}
-              theme={{ dark: ['#0a0a0a', '#2e2e2e', '#555555', '#7b7b7b', '#bcbcbc'] }} style={{ color: '#F0F1F4' }} />
+          {/* Heatmap — centered inside the card */}
+          <div className="flex justify-end mb-3">
+            <Dropdown dropdownState={dropdownState} setDropdownState={setDropdownState} options={gitHubYearList} value={selectedYear} setValue={setSelectedYear} />
+          </div>
+          <div ref={scrollContainerRef} className={styles.calendarSection}>
+            <GitHubCalendar
+              username="gokuljs"
+              year={selectedYear ?? undefined}
+              colorScheme="dark"
+              blockSize={15}
+              fontSize={12}
+              loading={loading}
+              theme={{ dark: ['#0a0a0a', '#2e2e2e', '#555555', '#7b7b7b', '#bcbcbc'] }}
+              style={{ color: '#F0F1F4' }}
+            />
           </div>
 
-          {/* Divider */}
-          <div style={{ height: 1, background: 'rgba(255,255,255,0.05)', margin: '8px 0' }} />
+          <div className={styles.divider} />
 
-          {/* Org chart (left) + PR list (right) */}
+          {/* ── Activity (left) + Graph (right) ──────────────────────────────── */}
           <div className={styles.bottomRow}>
 
-            {/* Left — org line chart */}
-            <div style={{ minWidth: 0 }}>
-              <div style={{ marginBottom: 12 }}>
-                <p className="text-[10px] uppercase tracking-widest text-neutral-500">Open source contributions</p>
+          {/* LEFT — org badges + activity overview / PR list */}
+          <div style={{ display: 'flex', flexDirection: 'column', minHeight: 0, overflow: 'hidden' }}>
+
+            {/* Org badge pills */}
+            {!prLoading && (
+              <div className={styles.orgBadges}>
+                {topOrgNames.map(org => (
+                  <a key={org} href={`https://github.com/${org}`} target="_blank" rel="noopener noreferrer"
+                    className={styles.badge}>
+                    <div style={{ width: 8, height: 8, borderRadius: '50%', background: orgColor(org), flexShrink: 0 }} />
+                    @{org}
+                  </a>
+                ))}
+                {otherOrgCount > 0 && (
+                  <span className={styles.badge} style={{ opacity: 0.4, cursor: 'default' }}>
+                    +{otherOrgCount} more
+                  </span>
+                )}
               </div>
-              {prLoading && <div style={{ height: 200, borderRadius: 6, background: 'rgba(255,255,255,0.03)' }} className="animate-pulse" />}
-              {!prLoading && prs.length > 0 && <OrgChart prs={prs} />}
-            </div>
+            )}
 
-            {/* Right — PR list */}
-            <div style={{ display: 'flex', flexDirection: 'column', height: 260, overflow: 'hidden' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2 }}>
-                <p className="text-[10px] uppercase tracking-widest text-neutral-500">Open source PRs</p>
-                {!prLoading && <span className="text-[10px] text-neutral-600">{prs.length} PRs</span>}
-              </div>
-
-
-              {prLoading && (
-                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 6 }} className="animate-pulse">
-                  {Array.from({ length: 5 }).map((_, i) => <div key={i} style={{ height: 32, borderRadius: 6, background: 'rgba(255,255,255,0.04)' }} />)}
-                </div>
-              )}
-
-              {!prLoading && (
-                <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
-                  {prs.map((pr, idx) => (
-                    <a key={pr.id} href={pr.html_url} target="_blank" rel="noopener noreferrer"
-                      className="group"
-                      style={{ display: 'flex', alignItems: 'flex-start', gap: 8, padding: '7px 4px', borderBottom: '1px solid rgba(255,255,255,0.04)', textDecoration: 'none', flexShrink: 0 }}>
-                      <GitPullRequest style={{ width: 12, height: 12, flexShrink: 0, marginTop: 2, color: pr.state === 'merged' ? '#a855f7' : '#22c55e' }} />
-                      <div style={{ flex: 1, minWidth: 0 }}>
-                        <p style={{ fontSize: idx < 3 ? 11 : 10, color: idx < 3 ? '#d4d4d4' : '#737373', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', lineHeight: 1.3, fontWeight: idx < 3 ? 500 : 400 }}>
-                          {pr.title}
-                        </p>
-                        <p style={{ fontSize: 9, color: '#525252', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{pr.repo}</p>
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
-                        <span style={{ fontSize: 9, padding: '1px 5px', borderRadius: 999, background: pr.state === 'merged' ? 'rgba(168,85,247,0.15)' : 'rgba(34,197,94,0.15)', color: pr.state === 'merged' ? '#c084fc' : '#4ade80' }}>
-                          {pr.state}
-                        </span>
-                        <span style={{ fontSize: 9, color: '#525252' }}>{timeAgo(pr.created_at)}</span>
-                      </div>
-                    </a>
+            {prLoading && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }} className="animate-pulse">
+                <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <div key={i} style={{ height: 26, width: 90, borderRadius: 6, background: 'rgba(255,255,255,0.05)' }} />
                   ))}
-                  {prs.length === 0 && <p className="text-xs text-neutral-600 mt-4 text-center">No public PRs found</p>}
                 </div>
-              )}
-            </div>
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <div key={i} style={{ height: 14, borderRadius: 4, background: 'rgba(255,255,255,0.04)', width: i === 3 ? '60%' : '100%' }} />
+                ))}
+              </div>
+            )}
+
+            {/* Activity overview — collapsed default view */}
+            {!prLoading && !showPRs && (
+              <div className={styles.activitySection}>
+                <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', fontWeight: 500, marginBottom: 10 }}>
+                  Activity overview
+                </p>
+                <p style={{ fontSize: 12 }}>
+                  Contributed to{' '}
+                  {shownRepos.map(([repo], i) => {
+                    const isRime = repo.split('/')[0].toLowerCase().includes('rime');
+                    return (
+                      <span key={repo}>
+                        <a
+                          href={`https://github.com/${repo}`}
+                          target="_blank" rel="noopener noreferrer"
+                          className={`${styles.repoLink} ${isRime ? styles.repoLinkDim : ''}`}
+                          style={{ color: orgColor(repo.split('/')[0]) }}
+                        >
+                          {repo}
+                        </a>
+                        {i < shownRepos.length - 1 ? ', ' : ''}
+                      </span>
+                    );
+                  })}
+                  {otherRepoCount > 0 && (
+                    <span style={{ color: 'rgba(255,255,255,0.35)' }}>
+                      {' '}and {otherRepoCount} other {otherRepoCount === 1 ? 'repository' : 'repositories'}
+                    </span>
+                  )}
+                </p>
+              </div>
+            )}
+
+            {/* Expanded PR list */}
+            {!prLoading && showPRs && (
+              <div className={styles.prList}>
+                {prs.map((pr, idx) => (
+                  <a key={pr.id} href={pr.html_url} target="_blank" rel="noopener noreferrer"
+                    className="group"
+                    style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 4px', borderBottom: '1px solid rgba(255,255,255,0.04)', textDecoration: 'none', flexShrink: 0 }}>
+                    <GitPullRequest style={{ width: 11, height: 11, flexShrink: 0, color: pr.state === 'merged' ? '#a855f7' : '#22c55e' }} />
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <p style={{ fontSize: idx < 3 ? 11 : 10, color: idx < 3 ? '#d4d4d4' : '#737373', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', lineHeight: 1.3, fontWeight: idx < 3 ? 500 : 400 }}>
+                        {pr.title}
+                      </p>
+                      <p style={{ fontSize: 9, color: '#525252', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{pr.repo}</p>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 5, flexShrink: 0 }}>
+                      <span style={{ fontSize: 8.5, padding: '1px 5px', borderRadius: 999, background: pr.state === 'merged' ? 'rgba(168,85,247,0.15)' : 'rgba(34,197,94,0.15)', color: pr.state === 'merged' ? '#c084fc' : '#4ade80' }}>
+                        {pr.state}
+                      </span>
+                      <span style={{ fontSize: 8.5, color: '#525252' }}>{timeAgo(pr.created_at)}</span>
+                    </div>
+                  </a>
+                ))}
+                {prs.length === 0 && (
+                  <p className="text-xs text-neutral-600 mt-4 text-center">No public PRs found</p>
+                )}
+              </div>
+            )}
+
+            {/* See more / See less toggle */}
+            {!prLoading && prs.length > 0 && (
+              <button className={styles.seeMore} onClick={() => setShowPRs(v => !v)}>
+                <span>{showPRs ? '▴' : '▾'}</span>
+                <span>{showPRs ? 'See less' : `See more (${prs.length} PRs)`}</span>
+              </button>
+            )}
 
           </div>
 
-        </div>
+          {/* RIGHT — contribution line graph */}
+          <div style={{ minWidth: 0 }}>
+            <p className="text-[10px] uppercase tracking-widest text-neutral-500" style={{ marginBottom: 12 }}>
+              Open source contributions
+            </p>
+            {prLoading && (
+              <div style={{ height: 160, borderRadius: 6, background: 'rgba(255,255,255,0.03)' }} className="animate-pulse" />
+            )}
+            {!prLoading && prs.length > 0 && <OrgChart prs={prs} />}
+          </div>
+
+          </div>{/* end bottomRow */}
+        </div>{/* end card */}
 
       </div>
     </div>

@@ -19,12 +19,23 @@ const RESUME = '/GokulJS.pdf';
 const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [toast, setToast] = useState<{ message: string; type: 'error' | 'info' } | null>(null);
   const pathname = usePathname();
   const router = useRouter();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    let lastY = window.scrollY;
+    const onScroll = () => {
+      const currentY = window.scrollY;
+      setScrolled(currentY > 20);
+      if (currentY > lastY && currentY > 80) {
+        setHidden(true);
+      } else {
+        setHidden(false);
+      }
+      lastY = currentY;
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -105,10 +116,10 @@ const Navbar: React.FC = () => {
         )}
       </AnimatePresence>
 
-      <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
+      <header className={`${styles.header} ${scrolled ? styles.scrolled : ''} ${hidden && !menuOpen ? styles.hidden : ''}`}>
         {/* Logo */}
         <Link href="/" className={styles.logo}>
-          Gokul JS
+          GokulJS
         </Link>
 
         {/* Centre nav */}

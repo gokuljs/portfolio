@@ -82,6 +82,9 @@ export default function RetrievalFromFirstPrinciplesPage() {
         </p>
 
         <h2>Keyword Search</h2>
+        <p>
+          Keyword search is exactly what it sounds like. Does the term the user typed exist in the document or not. That is the entire idea. You look for the words. You find them or you do not.
+        </p>
 
       </BlogArticleLayout>
     </>

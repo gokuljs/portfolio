@@ -49,6 +49,16 @@ export function BlogArticleLayout({
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    const color = theme === 'light' ? '#fafaf8' : '#141414';
+    document.documentElement.style.backgroundColor = color;
+    document.body.style.backgroundColor = color;
+    return () => {
+      document.documentElement.style.backgroundColor = '';
+      document.body.style.backgroundColor = '';
+    };
+  }, [theme]);
+
   const toggleTheme = (t: Theme) => {
     setTheme(t);
     localStorage.setItem('blog-theme', t);

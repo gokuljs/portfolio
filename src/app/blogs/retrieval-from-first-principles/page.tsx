@@ -68,6 +68,21 @@ export default function RetrievalFromFirstPrinciplesPage() {
           That is what this blog is about. Every retrieval algorithm exists because the previous one had a flaw. Let&apos;s trace all of them.
         </p>
 
+        <p>
+          Now when it comes to RAG, it is not perfect either. The worst failures are the silent ones. The system runs, returns an answer, no crash, no error. But the document with the right information never showed up in retrieval. The model answered without it. You will never know.
+        </p>
+        <p>
+          The whole game is how close you can get to surfacing the right documents every single time. And that is much harder than it sounds.
+        </p>
+        <p>
+          Most RAG systems start with semantic search. You embed the query, embed the documents, find the nearest vectors. It works well for meaning-based queries. But say the user asks about &quot;GPT-4o&quot;, or &quot;CVE-2024-1234&quot;, or &quot;numpy==1.24.0&quot;, or an internal ticket ID like &quot;ENG-4821&quot;. These are exact identifiers. They have no semantic meaning in the embedding space. The similarity search drifts toward general content and misses the exact thing the user needed. No error. Just the wrong documents, returned confidently.
+        </p>
+        <p>
+          This is the gap keyword search was built to fill.
+        </p>
+
+        <h2>Keyword Search</h2>
+
       </BlogArticleLayout>
     </>
   );

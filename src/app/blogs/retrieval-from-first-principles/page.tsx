@@ -85,6 +85,27 @@ export default function RetrievalFromFirstPrinciplesPage() {
         <p>
           Keyword search is exactly what it sounds like. Does the term the user typed exist in the document or not. That is the entire idea. You look for the words. You find them or you do not.
         </p>
+        <p>
+          But before you can match anything, you have to clean the query. Raw user input is messy. And if you match on raw text, you will miss things that should obviously match.
+        </p>
+        <p>
+          The first step is lowercasing. A user searching for &quot;The Matrix&quot; and a document that says &quot;the matrix&quot; should match. They are the same thing. Case should never be the reason a result is missed. So everything goes lowercase before anything else.
+        </p>
+        <p>
+          Next, remove punctuation. It adds nothing to the search. &quot;Nolan&apos;s best film&quot; and &quot;Nolans best film&quot; should hit the same documents. The apostrophe is noise.
+        </p>
+        <p>
+          Then remove stopwords. Words like &quot;the&quot;, &quot;is&quot;, &quot;a&quot;, &quot;of&quot; carry no retrieval signal. If you keep them, they show up in almost every document and pollute your results. Strip them out.
+        </p>
+        <p>
+          Now you tokenize. Split the cleaned query into individual terms. &quot;best sci-fi movies about space&quot; becomes &quot;best&quot;, &quot;sci-fi&quot;, &quot;movies&quot;, &quot;space&quot;. Each token is what you search for.
+        </p>
+        <p>
+          Finally, stemming. Users do not search in base forms. They type naturally. &quot;running&quot;, &quot;runner&quot;, &quot;ran&quot; should all match documents about &quot;run&quot;. Stemming reduces each word to its root so variations do not cause misses. &quot;watching&quot; becomes &quot;watch&quot;. &quot;jumping&quot; becomes &quot;jump&quot;. The query and the document meet at the same root, even if the surface form was different.
+        </p>
+        <p>
+          By the time you are done, &quot;The Matrix is a great film&quot; has become &quot;matrix&quot;, &quot;great&quot;, &quot;film&quot;. Clean, consistent, ready to match.
+        </p>
 
       </BlogArticleLayout>
     </>

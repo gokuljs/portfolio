@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { BlogArticleLayout } from '@/components/ui/blog-article-layout';
 import { VideoThumbnail } from '@/components/ui/video-thumbnail';
+import { ThemeImage } from '@/components/ui/theme-image';
 import { getBlogBySlug, generateBlogMetadata, generateBlogJsonLd } from '@/data/blogs-data';
 
 const slug = 'real-time-voice-agent-infrastructure';
@@ -127,8 +128,9 @@ export default function RealTimeVoiceAgentPage() {
         In the pipeline architecture, STT, LLM, and TTS are treated as discrete components. Each stage is explicitly defined and operates independently.
       </p>
       <div className="my-12 px-4 sm:px-0 sm:-mx-16 md:-mx-24 lg:-mx-32 xl:-mx-48">
-        <img 
-          src="/blogs/voice-agent-pipeline.svg" 
+        <ThemeImage
+          lightSrc="/blogs/voice-agent-pipeline-white.svg"
+          darkSrc="/blogs/voice-agent-pipeline.svg"
           alt="Voice agent pipeline architecture showing User Audio flowing through VAD, STT, LLM, TTS to Audio output"
           className="w-full h-auto"
         />
@@ -203,8 +205,9 @@ export default function RealTimeVoiceAgentPage() {
         An alternative to the pipeline approach is using a single multimodal model that handles everything: audio input, VAD, language reasoning, and audio output in one place.
       </p>
       <div className="my-12 px-4 sm:px-0 sm:-mx-16 md:-mx-24 lg:-mx-32 xl:-mx-48">
-        <img
-          src="/blogs/realtimemodel.svg"
+        <ThemeImage
+          lightSrc="/blogs/realtimemodel-white.svg"
+          darkSrc="/blogs/realtimemodel.svg"
           alt="Realtime model architecture showing audio input and output handled within a single multimodal model"
           className="w-full h-auto"
         />

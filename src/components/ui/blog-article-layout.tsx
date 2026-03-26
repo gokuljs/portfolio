@@ -486,6 +486,17 @@ export function BlogArticleLayout({
         .blog-content h2 + *, .blog-content h3 + * { margin-top: 0; }
         .blog-content video, .blog-content iframe { width: 100%; aspect-ratio: 16/9; border-radius: 6px; margin: 1.5em 0; }
 
+        /* Theme-aware images */
+        article[data-theme="light"] .theme-img-dark  { display: none; }
+        article[data-theme="dark"]  .theme-img-light { display: none; }
+
+        .theme-img-light,
+        .theme-img-dark {
+          max-width: 100%;
+          height: auto;
+          display: block;
+        }
+
         @media (max-width: 640px) {
           .blog-content[data-theme="light"],
           .blog-content[data-theme="dark"] { font-size: 15.5px; line-height: 1.78; }

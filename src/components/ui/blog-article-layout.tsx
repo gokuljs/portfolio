@@ -231,7 +231,7 @@ export function BlogArticleLayout({
             >
               {title}
             </h1>
-
+            
             {/* Description */}
             <p
               style={{

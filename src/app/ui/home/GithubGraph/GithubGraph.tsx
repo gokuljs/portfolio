@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from 'react';
 import styles from '@styles/githubGraph.module.scss';
 import dynamic from 'next/dynamic';
 import Dropdown from '../Components/Dropdown/dropdown';
-import { GlowingEffect } from '@/components/ui/glowing-effect';
 import { GitPullRequest } from 'lucide-react';
 
 const GitHubCalendar = dynamic(
@@ -428,8 +427,6 @@ const GithubGraph = () => {
 
         {/* ── Single unified card ───────────────────────────────────────────── */}
         <div ref={cardRef} className={styles.card}>
-          <GlowingEffect spread={100} borderWidth={1} glow={true} disabled={false} proximity={80} inactiveZone={0.01} variant="white" />
-
           {/* Heatmap — centered inside the card */}
           <div className="flex justify-end mb-3">
             <Dropdown dropdownState={dropdownState} setDropdownState={setDropdownState} options={gitHubYearList} value={selectedYear} setValue={setSelectedYear} />

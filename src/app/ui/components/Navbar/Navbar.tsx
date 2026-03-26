@@ -24,6 +24,8 @@ const Navbar: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
 
+  const isBlogArticle = pathname.startsWith('/blogs/');
+
   useEffect(() => {
     let lastY = window.scrollY;
     const onScroll = () => {
@@ -89,6 +91,8 @@ const Navbar: React.FC = () => {
       showToast('Something went wrong. Please try again.', 'error');
     }
   };
+
+  if (isBlogArticle) return null;
 
   return (
     <>

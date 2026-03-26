@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { X, ArrowUpRight, ChevronLeft, ChevronRight, Bell } from 'lucide-react';
 import { announcements } from '@/data/announcements-data';
 
@@ -48,6 +49,7 @@ const POSITIONS = [{ bottom: 28, right: 28, top: 'auto', left: 'auto' }];
 const ORIGINS   = ['bottom right'];
 
 export default function WhatsNewPanel() {
+  const pathname = usePathname();
   const [visible, setVisible]   = useState(false);
   const [entered, setEntered]   = useState(false);
   const [minimized, setMinimized] = useState(false);
@@ -105,7 +107,7 @@ export default function WhatsNewPanel() {
     return () => document.removeEventListener('mousedown', handleOutside);
   }, [minimized, entered]);
 
-  if (!visible) return null;
+  if (!visible || pathname.startsWith('/blogs/')) return null;
 
   const pos    = POSITIONS[posIdx];
   const origin = ORIGINS[posIdx];

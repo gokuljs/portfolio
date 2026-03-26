@@ -14,8 +14,8 @@ export const blogsData: Blog[] = [
   {
     id: '3',
     slug: 'retrieval-from-first-principles',
-    title: 'Retrieval, From First Principles',
-    description: 'How search actually works, and why it evolved the way it did.',
+    title: 'The Art of Retrieval',
+    description: 'Every retrieval algorithm exists because the previous one had a flaw. This is a deep dive into how search evolved, and why it had to.',
     date: '2026-03-20',
     readTime: '18 min read',
     tags: ['Search', 'RAG', 'Vector Databases', 'Information Retrieval', 'Embeddings', 'BM25'],

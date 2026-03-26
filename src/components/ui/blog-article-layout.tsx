@@ -193,7 +193,7 @@ export function BlogArticleLayout({
         }}
         data-theme={theme}
       >
-        <div style={{ width: '100%', maxWidth: '680px', margin: '0 auto', padding: '0 1.5rem' }}>
+        <div style={{ width: '100%', maxWidth: '720px', margin: '0 auto', padding: '0 1.5rem' }}>
 
           {/* Article header */}
           <motion.header

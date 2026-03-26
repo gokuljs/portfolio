@@ -91,8 +91,8 @@ export function TableOfContents({ theme = 'light' }: TableOfContentsProps) {
           const textColor = isActive
             ? (isLight ? '#111827' : '#f0f0ee')
             : isPast
-              ? (isLight ? '#d1d5db' : '#2a2a2a')
-              : (isLight ? '#c9cdd6' : '#262626');
+              ? (isLight ? '#9ca3af' : '#555555')
+              : (isLight ? '#6b7280' : '#888888');
 
           const fontSize = isActive
             ? (isH3 ? 12.5 : 13.5)
@@ -123,7 +123,7 @@ export function TableOfContents({ theme = 'light' }: TableOfContentsProps) {
                   color: textColor,
                   fontWeight: isActive ? 500 : 400,
                   letterSpacing: isActive ? 0 : 0.2,
-                  opacity: isPast ? 0.5 : 1,
+                  opacity: 1,
                 }}
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 style={{

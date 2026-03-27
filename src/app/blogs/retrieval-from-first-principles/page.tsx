@@ -127,16 +127,16 @@ export default function RetrievalFromFirstPrinciplesPage() {
 "film"   → [doc_1, doc_2, doc_9]
 "nolan"  → [doc_2, doc_4]`}</code></pre>
         <p>
-          A query for &quot;nolan matrix&quot; looks up both terms and intersects the lists. doc_4 appears in both. That is your result.
+          A query for &quot;nolan matrix&quot; looks up both terms and intersects the lists. doc_4 appears in both. That is your result. This is called boolean search. A document either contains the term or it does not. AND intersects. OR unions. Simple, fast, predictable.
         </p>
         <p>
-          And this is what ties it all together. The same cleaning pipeline runs on both sides. Every document goes through it once at index time. Every query goes through it at search time. Both land on the same root forms. That symmetry is what makes the match work.
+          And the symmetry matters. The same cleaning pipeline runs on both sides. Every document goes through it once at index time. Every query goes through it at search time. Both land on the same root forms. A user types &quot;running shoes&quot;, the query becomes &quot;run&quot;, &quot;shoe&quot;. A document indexed with &quot;runner&quot; and &quot;shoes&quot; also became &quot;run&quot;, &quot;shoe&quot;. They meet. The match happens.
         </p>
         <p>
-          A user types &quot;running shoes&quot;. The query becomes &quot;run&quot;, &quot;shoe&quot;. A document that was indexed with &quot;runner&quot; and &quot;shoes&quot; also became &quot;run&quot;, &quot;shoe&quot;. They meet at the same tokens. The match happens.
+          The flaw: boolean search has no ranking. If 50 documents match &quot;nolan matrix&quot;, they all come back as equal results. There is no score, no signal for which one is actually more relevant. You either matched or you did not.
         </p>
         <p>
-          Without that symmetry, you get gaps. A word stemmed one way at index time but not at query time will never match, even if the meaning is identical. The pipeline has to be consistent end to end.
+          When you have 5 results, that is fine. When you have 5000, it is useless. You need a way to score and rank. That is what TF-IDF was built to solve.
         </p>
 
       </BlogArticleLayout>

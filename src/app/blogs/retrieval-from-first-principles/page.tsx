@@ -109,7 +109,6 @@ export default function RetrievalFromFirstPrinciplesPage() {
         <p>
           That is the query side. But what about the documents? You cannot scan every document on every search. That does not scale. You need a data structure that makes lookups fast. That structure is the inverted index.
         </p>
-
         <h3>Inverted Index</h3>
         <p>
           A forward index maps document to words. Given a document, you can tell what words are in it. That is useful for display, not for search.
@@ -140,6 +139,20 @@ export default function RetrievalFromFirstPrinciplesPage() {
         </p>
 
         <h2>Term Frequency (TF)</h2>
+        <p>
+          The inverted index tells you which documents contain your search terms. But it does not tell you which document is most relevant. Two documents both contain the word &quot;space&quot;. How do you pick the better one?
+        </p>
+        <p>
+          The first signal is how often the term appears. A document that mentions &quot;space&quot; fifteen times is probably more about space than one that mentions it once. Term Frequency measures exactly that. Count how many times a term appears in a document. That count is the score.
+        </p>
+        <pre><code>{`doc_1: "space is vast. space is dark. space is silent."
+doc_2: "I watched a movie last night."
+
+TF("space", doc_1) = 3
+TF("space", doc_2) = 0`}</code></pre>
+        <p>
+          doc_1 ranks higher. Simple, intuitive, and works better than boolean search. But it has a flaw.
+        </p>
 
       </BlogArticleLayout>
     </>

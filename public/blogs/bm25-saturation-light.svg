@@ -1,0 +1,55 @@
+<svg width="560" height="340" viewBox="0 0 560 340" xmlns="http://www.w3.org/2000/svg">
+  <rect width="560" height="340" fill="#f8fafc" rx="12"/>
+
+  <!-- Axes -->
+  <line x1="60" y1="280" x2="520" y2="280" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="60" y1="280" x2="60" y2="30" stroke="#9ca3af" stroke-width="1.5"/>
+
+  <!-- Labels -->
+  <text x="290" y="320" text-anchor="middle" fill="#6b7280" font-family="monospace" font-size="13">Term Frequency (tf)</text>
+  <text x="16" y="160" text-anchor="middle" fill="#6b7280" font-family="monospace" font-size="13" transform="rotate(-90, 16, 160)">Score</text>
+
+  <!-- X ticks -->
+  <text x="100" y="298" text-anchor="middle" fill="#9ca3af" font-family="monospace" font-size="11">1</text>
+  <text x="165" y="298" text-anchor="middle" fill="#9ca3af" font-family="monospace" font-size="11">2</text>
+  <text x="280" y="298" text-anchor="middle" fill="#9ca3af" font-family="monospace" font-size="11">5</text>
+  <text x="395" y="298" text-anchor="middle" fill="#9ca3af" font-family="monospace" font-size="11">10</text>
+  <text x="510" y="298" text-anchor="middle" fill="#9ca3af" font-family="monospace" font-size="11">20</text>
+
+  <!-- Y ticks -->
+  <text x="50" y="284" text-anchor="end" fill="#9ca3af" font-family="monospace" font-size="11">0</text>
+  <text x="50" y="242" text-anchor="end" fill="#9ca3af" font-family="monospace" font-size="11">2</text>
+  <text x="50" y="200" text-anchor="end" fill="#9ca3af" font-family="monospace" font-size="11">4</text>
+  <text x="50" y="158" text-anchor="end" fill="#9ca3af" font-family="monospace" font-size="11">6</text>
+  <text x="50" y="116" text-anchor="end" fill="#9ca3af" font-family="monospace" font-size="11">8</text>
+  <text x="50" y="74" text-anchor="end" fill="#9ca3af" font-family="monospace" font-size="11">10</text>
+
+  <!-- Grid lines -->
+  <line x1="60" y1="242" x2="520" y2="242" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="60" y1="200" x2="520" y2="200" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="60" y1="158" x2="520" y2="158" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="60" y1="116" x2="520" y2="116" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="60" y1="74" x2="520" y2="74" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Basic TF line (red) -->
+  <polyline
+    points="60,280 105,238 172,175 285,70 360,40"
+    fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="365" y="36" fill="#ef4444" font-family="monospace" font-size="12">...</text>
+
+  <!-- BM25 TF line (green) -->
+  <polyline
+    points="60,280 82,259 105,250 127,245 172,240 240,236 285,234 397,232 510,231"
+    fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Asymptote -->
+  <line x1="60" y1="227" x2="520" y2="227" stroke="#16a34a" stroke-width="1" stroke-dasharray="5,5" opacity="0.4"/>
+  <text x="524" y="231" fill="#16a34a" font-family="monospace" font-size="10" opacity="0.6">k1+1</text>
+
+  <!-- Legend -->
+  <rect x="320" y="80" width="180" height="64" rx="6" fill="#f1f5f9" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="333" y1="100" x2="360" y2="100" stroke="#ef4444" stroke-width="2.5"/>
+  <text x="368" y="104" fill="#1e293b" font-family="monospace" font-size="12">Basic TF (linear)</text>
+  <line x1="333" y1="124" x2="360" y2="124" stroke="#16a34a" stroke-width="2.5"/>
+  <text x="368" y="128" fill="#1e293b" font-family="monospace" font-size="12">BM25 TF (k1=1.5)</text>
+</svg>

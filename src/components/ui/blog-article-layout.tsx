@@ -62,7 +62,12 @@ export function BlogArticleLayout({
   const toggleTheme = (t: Theme, originEl?: HTMLElement) => {
     if (t === theme) return;
 
+    const color = t === 'light' ? '#fafaf8' : '#141414';
+
     const apply = () => {
+      // Set bg synchronously so it's captured in the transition snapshot
+      document.documentElement.style.backgroundColor = color;
+      document.body.style.backgroundColor = color;
       setTheme(t);
       localStorage.setItem('blog-theme', t);
     };
@@ -72,7 +77,6 @@ export function BlogArticleLayout({
       return;
     }
 
-    // Compute the click origin so the circle expands from the button
     const rect = originEl?.getBoundingClientRect();
     const x = rect ? rect.left + rect.width / 2 : window.innerWidth;
     const y = rect ? rect.top + rect.height / 2 : 0;
@@ -85,7 +89,7 @@ export function BlogArticleLayout({
     document.documentElement.style.setProperty('--vt-y', `${y}px`);
     document.documentElement.style.setProperty('--vt-r', `${maxRadius}px`);
 
-    (document as Document & { startViewTransition: (cb: () => void) => { ready: Promise<void> } })
+    (document as Document & { startViewTransition: (cb: () => void) => void })
       .startViewTransition(apply);
   };
 
@@ -421,15 +425,20 @@ export function BlogArticleLayout({
           from { clip-path: circle(0px at var(--vt-x) var(--vt-y)); }
           to   { clip-path: circle(var(--vt-r) at var(--vt-x) var(--vt-y)); }
         }
+        ::view-transition-group(root),
+        ::view-transition-image-pair(root),
+        ::view-transition-old(root),
+        ::view-transition-new(root) {
+          border: none !important;
+          outline: none !important;
+          box-shadow: none !important;
+        }
         ::view-transition-new(root) {
           animation: vt-reveal 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
         ::view-transition-old(root) {
           animation: none;
           z-index: -1;
-        }
-        ::view-transition-image-pair(root) {
-          isolation: isolate;
         }
 
         /* ── Selection colours ── */

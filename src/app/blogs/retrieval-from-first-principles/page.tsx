@@ -242,38 +242,160 @@ score         0.116+0.069+0.138 = 0.323   0.049                0.0
 
         <h3>BM25</h3>
         <p>
-          TF-IDF works. But it has real problems that show up in practice. BM25, formally called Okapi BM25, was built to fix them. Three problems specifically: an unstable IDF formula, term frequency that never saturates, and no accounting for document length.
+          TF-IDF works. But it breaks in three specific ways that matter in production. BM25, formally called Okapi BM25, was built to fix all three. It is what Elasticsearch, Solr, and Lucene use as their default ranking function today.
         </p>
         <p>
-          Start with the IDF problem. The classic formula is log(N / df). Simple enough, but it breaks at the edges.
+          The three problems: an unstable IDF, term frequency that grows without limit, and no awareness of document length. Take them one at a time.
+        </p>
+
+        <h4>Problem 1: Unstable IDF</h4>
+        <p>
+          Classic TF-IDF uses log(N / df) for IDF. It breaks at the edges in two ways.
         </p>
         <p>
-          When df is very small, the score explodes. A term that appears in just one document out of a million gets an astronomically high IDF, which can completely dominate the final score regardless of how relevant the document actually is.
+          When a term is extremely rare, df is tiny and the score explodes. A term appearing in just one document out of a million gets an absurdly high IDF that can dominate the entire score, regardless of how the term actually contributes to relevance.
         </p>
         <p>
-          When df equals N, meaning the term appears in every document, you get log(1) = 0. Fine. But with some variants of the formula, very common terms produce negative scores. A negative relevance score makes no sense.
+          When a term appears in every document, you get log(1) = 0. Fine so far. But with some implementations, very common terms produce negative IDF scores. A negative relevance score is meaningless.
         </p>
         <p>
-          BM25 fixes this with a different IDF formula entirely.
+          BM25 replaces the formula entirely.
         </p>
         <pre><code>{`BM25 IDF = log((N - df + 0.5) / (df + 0.5) + 1)
 
-Breaking it down:
-
 Core ratio: (N - df) / df
-  Numerator   (N - df) = documents that do NOT contain the term
-  Denominator (df)     = documents that DO contain the term
+  Numerator   (N - df)  documents that do NOT contain the term
+  Denominator (df)      documents that DO contain the term
 
-The ratio asks: how many docs don't have this term vs how many do?
-Rare terms have a large numerator. Common terms have a small one.
+Instead of asking "how many docs have this term",
+it asks "how many docs don't have it vs how many do".
+Rare terms: large numerator, high score.
+Common terms: small numerator, low score.
 
-+0.5 on both sides  Laplace smoothing, prevents division by zero
-+1 at the end       guarantees IDF is always positive, no edge case breaks`}</code></pre>
++0.5 on both sides   Laplace smoothing, prevents division by zero
++1 at the end        guarantees IDF is always positive, no exceptions`}</code></pre>
         <p>
-          The result stays stable across all cases. Rare terms score high but not infinitely. Common terms score low but never negative. That alone is a meaningful improvement over raw TF-IDF.
+          Rare terms score high but not infinitely. Common terms score low but never negative. Stable across all cases.
+        </p>
+
+        <h4>Problem 2: TF Never Saturates</h4>
+        <p>
+          In TF-IDF, TF is linear. A document that mentions &quot;bear&quot; 100 times scores 10x higher than one that mentions it 10 times. But is it 10x more relevant? No.
         </p>
         <p>
-          But the IDF fix is only part of what BM25 does. TF-IDF still has two more problems: TF that grows without limit, and no awareness of how long a document is. BM25 fixes both of those too.
+          Consider these two documents for the query &quot;bear hunting&quot;:
+        </p>
+        <pre><code>{`doc_A: "bear bear bear bear bear"              → tf("bear") = 5
+doc_B: "bear hunting guide for beginners"      → tf("bear") = 1
+
+Basic TF: doc_A scores 5x higher. But doc_B is clearly more useful.`}</code></pre>
+        <p>
+          After a term appears enough times to establish that a document is about that concept, more occurrences add almost no new relevance signal. TF-IDF does not model this. BM25 does, through saturation.
+        </p>
+        <pre><code>{`BM25 TF = (tf * (k1 + 1)) / (tf + k1)
+
+k1 controls how fast saturation kicks in. Typical value: 1.2 to 2.0
+
+tf    Basic TF    BM25 TF (k1=1.5)
+1     1           1.0
+2     2           1.4
+5     5           1.9
+10    10          2.2
+20    20          2.3
+
+Basic TF grows forever. BM25 TF flattens toward k1+1 = 2.5.
+The first few occurrences matter. After that, almost nothing.`}</code></pre>
+        <svg viewBox="0 0 560 320" xmlns="http://www.w3.org/2000/svg" style={{ width: '80%', margin: '0 auto', display: 'block', maxWidth: '560px' }}>
+          <rect width="560" height="320" fill="var(--bg-primary, #0f1117)" rx="12"/>
+          <line x1="60" y1="265" x2="520" y2="265" stroke="var(--border, #4b5563)" strokeWidth="1.5"/>
+          <line x1="60" y1="265" x2="60" y2="25" stroke="var(--border, #4b5563)" strokeWidth="1.5"/>
+          <text x="290" y="300" textAnchor="middle" fill="var(--text-muted, #9ca3af)" fontFamily="monospace" fontSize="12">Term Frequency (tf)</text>
+          <text x="50" y="268" textAnchor="end" fill="var(--text-muted, #6b7280)" fontFamily="monospace" fontSize="10">0</text>
+          <text x="50" y="226" textAnchor="end" fill="var(--text-muted, #6b7280)" fontFamily="monospace" fontSize="10">2</text>
+          <text x="50" y="184" textAnchor="end" fill="var(--text-muted, #6b7280)" fontFamily="monospace" fontSize="10">4</text>
+          <text x="50" y="142" textAnchor="end" fill="var(--text-muted, #6b7280)" fontFamily="monospace" fontSize="10">6</text>
+          <text x="50" y="100" textAnchor="end" fill="var(--text-muted, #6b7280)" fontFamily="monospace" fontSize="10">8</text>
+          <text x="50" y="58"  textAnchor="end" fill="var(--text-muted, #6b7280)" fontFamily="monospace" fontSize="10">10</text>
+          <text x="100" y="282" textAnchor="middle" fill="var(--text-muted, #6b7280)" fontFamily="monospace" fontSize="10">1</text>
+          <text x="165" y="282" textAnchor="middle" fill="var(--text-muted, #6b7280)" fontFamily="monospace" fontSize="10">2</text>
+          <text x="280" y="282" textAnchor="middle" fill="var(--text-muted, #6b7280)" fontFamily="monospace" fontSize="10">5</text>
+          <text x="395" y="282" textAnchor="middle" fill="var(--text-muted, #6b7280)" fontFamily="monospace" fontSize="10">10</text>
+          <text x="510" y="282" textAnchor="middle" fill="var(--text-muted, #6b7280)" fontFamily="monospace" fontSize="10">20</text>
+          <line x1="60" y1="226" x2="520" y2="226" stroke="#1f2937" strokeWidth="1" strokeDasharray="4,4" opacity="0.5"/>
+          <line x1="60" y1="184" x2="520" y2="184" stroke="#1f2937" strokeWidth="1" strokeDasharray="4,4" opacity="0.5"/>
+          <line x1="60" y1="142" x2="520" y2="142" stroke="#1f2937" strokeWidth="1" strokeDasharray="4,4" opacity="0.5"/>
+          <line x1="60" y1="100" x2="520" y2="100" stroke="#1f2937" strokeWidth="1" strokeDasharray="4,4" opacity="0.5"/>
+          <line x1="60" y1="58"  x2="520" y2="58"  stroke="#1f2937" strokeWidth="1" strokeDasharray="4,4" opacity="0.5"/>
+          {/* Basic TF — linear (red) */}
+          <polyline points="60,265 105,223 172,160 285,55 340,30" fill="none" stroke="#f87171" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+          <text x="345" y="28" fill="#f87171" fontFamily="monospace" fontSize="11">↑ keeps going</text>
+          {/* BM25 TF — saturating (green) */}
+          <polyline points="60,265 82,244 105,235 127,230 172,225 240,221 285,219 397,217 510,215" fill="none" stroke="#4ade80" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+          {/* Asymptote */}
+          <line x1="60" y1="212" x2="520" y2="212" stroke="#4ade80" strokeWidth="1" strokeDasharray="5,5" opacity="0.35"/>
+          <text x="524" y="216" fill="#4ade80" fontFamily="monospace" fontSize="9" opacity="0.6">k1+1</text>
+          {/* Legend */}
+          <rect x="310" y="60" width="185" height="60" rx="6" fill="var(--bg-secondary, #111827)" stroke="#374151" strokeWidth="1"/>
+          <line x1="323" y1="80" x2="350" y2="80" stroke="#f87171" strokeWidth="2.5"/>
+          <text x="358" y="84" fill="var(--text-primary, #e2e8f0)" fontFamily="monospace" fontSize="11">Basic TF (linear)</text>
+          <line x1="323" y1="104" x2="350" y2="104" stroke="#4ade80" strokeWidth="2.5"/>
+          <text x="358" y="108" fill="var(--text-primary, #e2e8f0)" fontFamily="monospace" fontSize="11">BM25 TF (k1=1.5)</text>
+        </svg>
+
+        <h4>Problem 3: Document Length Is Ignored</h4>
+        <p>
+          Longer documents naturally accumulate more term occurrences just by being long. A 2000-word article will almost always outscore a focused 200-word summary on raw TF, even if the summary is more relevant.
+        </p>
+        <pre><code>{`Query: "bear"
+
+doc_A: "Boots is a silly bear wizard."
+doc_B: "Ted is a wonderful human who has a stuffed bear that loves honey,
+        salmon, picnics, and hanging out with other bears in the woods.
+        Ted's bear is so nice to hang out with Ted all day long."
+
+doc_B has more occurrences of "bear" — not because it is more relevant,
+but because it is longer.`}</code></pre>
+        <p>
+          BM25 normalizes term frequency against the document&apos;s length relative to the average document length in the corpus.
+        </p>
+        <pre><code>{`length_norm = 1 - b + b * (doc_length / avg_doc_length)
+
+BM25 TF (full) = (tf * (k1 + 1)) / (tf + k1 * length_norm)
+
+b controls how aggressively length is penalized.
+  b = 0   ignore length entirely
+  b = 1   full normalization
+  b = 0.75 (default)  partial, works well for most corpora
+
+doc_length / avg_doc_length:
+  = 1.0   average length, no change
+  > 1.0   longer than average, penalized
+  < 1.0   shorter than average, boosted`}</code></pre>
+        <p>
+          A focused short document that mentions the term twice will outscore a bloated long document that mentions it five times. That is the behaviour you want.
+        </p>
+
+        <h4>The Complete BM25 Formula</h4>
+        <p>
+          Put the fixed IDF and the saturating, length-normalized TF together and you get the full BM25 score:
+        </p>
+        <pre><code>{`BM25(doc, query) = sum for each query term qt of:
+  BM25_IDF(qt) * (tf * (k1 + 1)) / (tf + k1 * (1 - b + b * (doc_length / avg_doc_length)))
+
+Steps:
+1. Tokenize the query
+2. For each token, compute BM25 score against each document
+3. Sum the scores across all query tokens
+4. Sort documents by total score, descending
+5. Return top N`}</code></pre>
+        <p>
+          BM25 is fast, explainable, and hard to beat on exact keyword queries. Every score can be traced to specific term statistics, which matters when you need to debug why a result ranked where it did.
+        </p>
+        <p>
+          But it is still a bag-of-words model. It matches tokens, not meaning. Search for &quot;how to fix a deadlock&quot; and a document about &quot;concurrency issues and thread contention&quot; scores zero, even if it is exactly what you needed. The tokens did not match.
+        </p>
+        <p>
+          That is the limit of keyword search. That is where semantic search begins.
         </p>
 
       </BlogArticleLayout>

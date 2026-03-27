@@ -143,16 +143,40 @@ export default function RetrievalFromFirstPrinciplesPage() {
           The inverted index tells you which documents contain your search terms. But it does not tell you which document is most relevant. Two documents both contain the word &quot;space&quot;. How do you pick the better one?
         </p>
         <p>
-          The first signal is how often the term appears. A document that mentions &quot;space&quot; fifteen times is probably more about space than one that mentions it once. Term Frequency measures exactly that. Count how many times a term appears in a document. That count is the score.
+          The first signal is how often the term appears. A document that mentions &quot;space&quot; fifteen times is probably more about space than one that mentions it once. But you cannot just use the raw count. A longer document will naturally contain more occurrences of any term. Raw counts are biased toward longer documents.
         </p>
-        <pre><code>{`doc_1: "space is vast. space is dark. space is silent."
-doc_2: "I watched a movie last night."
-
-TF("space", doc_1) = 3
-TF("space", doc_2) = 0`}</code></pre>
         <p>
-          doc_1 ranks higher. Simple, intuitive, and works better than boolean search. But it has a flaw.
+          So you normalize. TF is the ratio of how many times the term appears to the total number of terms in the document. That makes it length-independent.
         </p>
+        <pre><code>{`TF(term, doc) = (occurrences of term in doc) / (total terms in doc)
+
+doc_1 (3 words):  "space space space"  → TF("space") = 3/3 = 1.0
+doc_2 (6 words):  "space movie drama action thriller space" → TF("space") = 2/6 = 0.33`}</code></pre>
+        <p>
+          doc_1 ranks higher for &quot;space&quot;. But TF alone has a problem. It cannot tell the difference between a meaningful term and a common one. A document full of the word &quot;movie&quot; scores high on TF for &quot;movie&quot; — but so does every other document in a movie dataset. The term carries no real signal.
+        </p>
+
+        <h3>Inverse Document Frequency (IDF)</h3>
+        <p>
+          IDF answers a different question. Not how often does this term appear in this document, but how rare is this term across all documents. The rarer the term, the more discriminating it is. The more common the term, the less it tells you.
+        </p>
+        <pre><code>{`IDF(term) = log((total_docs + 1) / (docs_containing_term + 1))
+
+100 documents total:
+
+"movie"  → in 100 docs → ln(101/101) = 0.0   ← universal, tells you nothing
+"actor"  → in 95 docs  → ln(101/96)  = 0.05  ← very common, weak signal
+"cyborg" → in 2 docs   → ln(101/3)   = 3.52  ← rare, strong signal`}</code></pre>
+        <p>
+          A term that appears in every document scores zero. It is noise. A term that appears in very few documents scores high. It is a genuine signal.
+        </p>
+        <p>
+          The +1 in both numerator and denominator is for numerical stability — to avoid division by zero in edge cases. It is not for handling terms that were never seen. If a term is not in the index, you simply do not compute IDF for it at all.
+        </p>
+        <p>
+          TF and IDF are never used alone. They are always multiplied together to produce a single score per term per document. That combined score is TF-IDF.
+        </p>
+        <pre><code>{`TF-IDF(term, doc) = TF(term, doc) × IDF(term)`}</code></pre>
 
       </BlogArticleLayout>
     </>

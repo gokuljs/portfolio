@@ -180,15 +180,52 @@ doc_2 (6 words):  "java is verbose but runs everywhere"    → TF("python") = 0/
 
         <h3>TF-IDF</h3>
         <p>
-          TF and IDF are not meant to be used separately. Together they form TF-IDF, and that combination is what actually scores documents.
+          TF and IDF are not meant to be used separately. Multiply them and you get a score that is high only when a term is both frequent in the document and rare across the corpus. That is a genuine relevance signal.
         </p>
         <p>
-          TF rewards terms that appear frequently in a document. IDF rewards terms that are rare across the corpus. Multiply them and you get a score that is high only when a term is both frequent in the document and rare overall. That is a genuine signal of relevance.
+          Here is a full example. Three documents, query is &quot;python machine learning&quot;.
         </p>
-        <pre><code>{`TF-IDF("deadlock", doc_1) = TF × IDF = 0.4 × 3.22 = 1.29  ← strong match
-TF-IDF("code",     doc_1) = TF × IDF = 0.8 × 0.02 = 0.02  ← noise, ignored`}</code></pre>
+        <pre><code>{`query: "python machine learning"
+
+doc_1: "python python machine learning python deep learning model training python"
+doc_2: "python web development flask django api"
+doc_3: "java enterprise spring boot microservices deployment"
+
+--- Step 1: TF ---
+formula: TF = occurrences of term in doc / total terms in doc
+
+              doc_1       doc_2       doc_3
+"python"      4/10=0.40   1/6=0.17    0/6=0.0
+"machine"     1/10=0.10   0/6=0.0     0/6=0.0
+"learning"    2/10=0.20   0/6=0.0     0/6=0.0
+
+--- Step 2: IDF ---
+formula: IDF = ln((total_docs + 1) / (docs_containing_term + 1))
+
+"python"   → in 2 docs → ln(4/3) = 0.29   ← common across corpus
+"machine"  → in 1 doc  → ln(4/2) = 0.69   ← more specific
+"learning" → in 1 doc  → ln(4/2) = 0.69   ← more specific
+
+--- Step 3: TF-IDF ---
+formula: TF-IDF = TF × IDF
+
+              doc_1                        doc_2                doc_3
+"python"      0.40 × 0.29 = 0.116         0.17 × 0.29 = 0.049  0.0
+"machine"     0.10 × 0.69 = 0.069         0.0                  0.0
+"learning"    0.20 × 0.69 = 0.138         0.0                  0.0
+
+score         0.116+0.069+0.138 = 0.323   0.049                0.0
+
+--- Final ranking ---
+
+1. doc_1  0.323  ← talks about python AND machine learning
+2. doc_2  0.049  ← only has python
+3. doc_3  0.0    ← no match at all`}</code></pre>
         <p>
-          A common word like &quot;code&quot; gets nearly zeroed out no matter how often it appears. A rare word like &quot;deadlock&quot; that appears frequently in a document scores high. That is exactly the behaviour you want from a ranking function.
+          doc_1 wins because it has all three query terms, and the rarer terms like &quot;machine&quot; and &quot;learning&quot; carry more weight than the common &quot;python&quot;. doc_2 matches on python but contributes nothing for the other terms. doc_3 scores zero.
+        </p>
+        <p>
+          That is TF-IDF doing exactly what you want. Frequent, specific terms in the right document rise to the top.
         </p>
 
       </BlogArticleLayout>

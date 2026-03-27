@@ -123,7 +123,7 @@ export function BlogArticleLayout({
           onMouseLeave={e => (e.currentTarget.style.color = textLink)}
         >
           <ArrowLeft size={13} />
-          Writing
+          All posts
         </Link>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>

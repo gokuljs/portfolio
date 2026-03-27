@@ -59,9 +59,34 @@ export function BlogArticleLayout({
     };
   }, [theme]);
 
-  const toggleTheme = (t: Theme) => {
-    setTheme(t);
-    localStorage.setItem('blog-theme', t);
+  const toggleTheme = (t: Theme, originEl?: HTMLElement) => {
+    if (t === theme) return;
+
+    const apply = () => {
+      setTheme(t);
+      localStorage.setItem('blog-theme', t);
+    };
+
+    if (!('startViewTransition' in document)) {
+      apply();
+      return;
+    }
+
+    // Compute the click origin so the circle expands from the button
+    const rect = originEl?.getBoundingClientRect();
+    const x = rect ? rect.left + rect.width / 2 : window.innerWidth;
+    const y = rect ? rect.top + rect.height / 2 : 0;
+    const maxRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    );
+
+    document.documentElement.style.setProperty('--vt-x', `${x}px`);
+    document.documentElement.style.setProperty('--vt-y', `${y}px`);
+    document.documentElement.style.setProperty('--vt-r', `${maxRadius}px`);
+
+    (document as Document & { startViewTransition: (cb: () => void) => { ready: Promise<void> } })
+      .startViewTransition(apply);
   };
 
   const isLight = theme === 'light';
@@ -130,7 +155,7 @@ export function BlogArticleLayout({
           {/* Theme swatches */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <button
-              onClick={() => toggleTheme('light')}
+              onClick={(e) => toggleTheme('light', e.currentTarget)}
               title="Light mode"
               style={{
                 width: 16,
@@ -147,7 +172,7 @@ export function BlogArticleLayout({
               }}
             />
             <button
-              onClick={() => toggleTheme('dark')}
+              onClick={(e) => toggleTheme('dark', e.currentTarget)}
               title="Dark mode"
               style={{
                 width: 16,
@@ -391,6 +416,32 @@ export function BlogArticleLayout({
       </article>
 
       <style jsx global>{`
+        /* ── Circular theme-switch reveal ── */
+        @keyframes vt-reveal {
+          from { clip-path: circle(0px at var(--vt-x) var(--vt-y)); }
+          to   { clip-path: circle(var(--vt-r) at var(--vt-x) var(--vt-y)); }
+        }
+        ::view-transition-new(root) {
+          animation: vt-reveal 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        ::view-transition-old(root) {
+          animation: none;
+          z-index: -1;
+        }
+        ::view-transition-image-pair(root) {
+          isolation: isolate;
+        }
+
+        /* ── Selection colours ── */
+        article[data-theme="light"] *::selection {
+          background: #c8b89a !important;
+          color: #0f0f0f !important;
+        }
+        article[data-theme="dark"] *::selection {
+          background: #3a5070 !important;
+          color: #f0f0ee !important;
+        }
+
         /* ── Light theme ── */
         .blog-content[data-theme="light"] {
           color: #2d2d2d;

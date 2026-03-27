@@ -236,6 +236,45 @@ score         0.116+0.069+0.138 = 0.323   0.049                0.0
         <p>
           That is TF-IDF doing exactly what you want. Frequent, specific terms in the right document rise to the top.
         </p>
+        <p>
+          But TF-IDF has a flaw. And it is a quiet one.
+        </p>
+
+        <h3>BM25</h3>
+        <p>
+          TF-IDF works. But it has real problems that show up in practice. BM25, formally called Okapi BM25, was built to fix them. Three problems specifically: an unstable IDF formula, term frequency that never saturates, and no accounting for document length.
+        </p>
+        <p>
+          Start with the IDF problem. The classic formula is log(N / df). Simple enough, but it breaks at the edges.
+        </p>
+        <p>
+          When df is very small, the score explodes. A term that appears in just one document out of a million gets an astronomically high IDF, which can completely dominate the final score regardless of how relevant the document actually is.
+        </p>
+        <p>
+          When df equals N, meaning the term appears in every document, you get log(1) = 0. Fine. But with some variants of the formula, very common terms produce negative scores. A negative relevance score makes no sense.
+        </p>
+        <p>
+          BM25 fixes this with a different IDF formula entirely.
+        </p>
+        <pre><code>{`BM25 IDF = log((N - df + 0.5) / (df + 0.5) + 1)
+
+Breaking it down:
+
+Core ratio: (N - df) / df
+  Numerator   (N - df) = documents that do NOT contain the term
+  Denominator (df)     = documents that DO contain the term
+
+The ratio asks: how many docs don't have this term vs how many do?
+Rare terms have a large numerator. Common terms have a small one.
+
++0.5 on both sides  Laplace smoothing, prevents division by zero
++1 at the end       guarantees IDF is always positive, no edge case breaks`}</code></pre>
+        <p>
+          The result stays stable across all cases. Rare terms score high but not infinitely. Common terms score low but never negative. That alone is a meaningful improvement over raw TF-IDF.
+        </p>
+        <p>
+          But the IDF fix is only part of what BM25 does. TF-IDF still has two more problems: TF that grows without limit, and no awareness of how long a document is. BM25 fixes both of those too.
+        </p>
 
       </BlogArticleLayout>
     </>

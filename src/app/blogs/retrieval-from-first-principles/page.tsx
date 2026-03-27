@@ -138,7 +138,7 @@ export default function RetrievalFromFirstPrinciplesPage() {
           When you have 5 results, that is fine. When you have 5000, it is useless. You need a way to score and rank. That is what TF-IDF was built to solve.
         </p>
 
-        <h2>Term Frequency (TF)</h2>
+        <h3>Term Frequency (TF)</h3>
         <p>
           The inverted index tells you which documents contain your search terms. But it does not tell you which document is most relevant. Two documents both contain the word &quot;space&quot;. How do you pick the better one?
         </p>
@@ -150,10 +150,10 @@ export default function RetrievalFromFirstPrinciplesPage() {
         </p>
         <pre><code>{`TF(term, doc) = (occurrences of term in doc) / (total terms in doc)
 
-doc_1 (3 words):  "space space space"  → TF("space") = 3/3 = 1.0
-doc_2 (6 words):  "space movie drama action thriller space" → TF("space") = 2/6 = 0.33`}</code></pre>
+doc_1 (5 words):  "python is fast readable python"         → TF("python") = 2/5 = 0.40
+doc_2 (6 words):  "java is verbose but runs everywhere"    → TF("python") = 0/6 = 0.0`}</code></pre>
         <p>
-          doc_1 ranks higher for &quot;space&quot;. But TF alone has a problem. It cannot tell the difference between a meaningful term and a common one. A document full of the word &quot;movie&quot; scores high on TF for &quot;movie&quot; — but so does every other document in a movie dataset. The term carries no real signal.
+          doc_1 ranks higher for &quot;python&quot;. But TF alone has a problem. It cannot tell the difference between a meaningful term and a common one. A document full of the word &quot;code&quot; scores high on TF for &quot;code&quot; — but so does every other document in a programming dataset. The term carries no real signal.
         </p>
 
         <h3>Inverse Document Frequency (IDF)</h3>
@@ -164,9 +164,9 @@ doc_2 (6 words):  "space movie drama action thriller space" → TF("space") = 2/
 
 100 documents total:
 
-"movie"  → in 100 docs → ln(101/101) = 0.0   ← universal, tells you nothing
-"actor"  → in 95 docs  → ln(101/96)  = 0.05  ← very common, weak signal
-"cyborg" → in 2 docs   → ln(101/3)   = 3.52  ← rare, strong signal`}</code></pre>
+"code"     → in 98 docs → ln(101/99) = 0.02  ← universal, tells you nothing
+"function" → in 60 docs → ln(101/61) = 0.50  ← common, weak signal
+"deadlock" → in 3 docs  → ln(101/4)  = 3.22  ← rare, strong signal`}</code></pre>
         <p>
           A term that appears in every document scores zero. It is noise. A term that appears in very few documents scores high. It is a genuine signal.
         </p>
@@ -177,6 +177,19 @@ doc_2 (6 words):  "space movie drama action thriller space" → TF("space") = 2/
           TF and IDF are never used alone. They are always multiplied together to produce a single score per term per document. That combined score is TF-IDF.
         </p>
         <pre><code>{`TF-IDF(term, doc) = TF(term, doc) × IDF(term)`}</code></pre>
+
+        <h3>TF-IDF</h3>
+        <p>
+          TF and IDF are not meant to be used separately. Together they form TF-IDF, and that combination is what actually scores documents.
+        </p>
+        <p>
+          TF rewards terms that appear frequently in a document. IDF rewards terms that are rare across the corpus. Multiply them and you get a score that is high only when a term is both frequent in the document and rare overall. That is a genuine signal of relevance.
+        </p>
+        <pre><code>{`TF-IDF("deadlock", doc_1) = TF × IDF = 0.4 × 3.22 = 1.29  ← strong match
+TF-IDF("code",     doc_1) = TF × IDF = 0.8 × 0.02 = 0.02  ← noise, ignored`}</code></pre>
+        <p>
+          A common word like &quot;code&quot; gets nearly zeroed out no matter how often it appears. A rare word like &quot;deadlock&quot; that appears frequently in a document scores high. That is exactly the behaviour you want from a ranking function.
+        </p>
 
       </BlogArticleLayout>
     </>

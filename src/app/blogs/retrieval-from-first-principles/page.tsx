@@ -139,6 +139,8 @@ export default function RetrievalFromFirstPrinciplesPage() {
           When you have 5 results, that is fine. When you have 5000, it is useless. You need a way to score and rank. That is what TF-IDF was built to solve.
         </p>
 
+        <h2>Term Frequency (TF)</h2>
+
       </BlogArticleLayout>
     </>
   );

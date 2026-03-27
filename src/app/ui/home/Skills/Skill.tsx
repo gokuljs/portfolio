@@ -26,15 +26,17 @@ export default function Skill() {
   return (
     <section className={styles.skills} id="skills">
       <div className={styles.contain}>
-        <motion.h1
-          className={styles.radialGradientHeading}
+        <motion.div
+          style={{ width: '100%', marginBottom: '0' }}
           initial={{ opacity: 0, y: -16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          SKILLS
-        </motion.h1>
+          <h2 className={styles.radialGradientHeading}>
+            Skills
+          </h2>
+        </motion.div>
 
         <div className={styles.table}>
           {categories.map((cat, ci) => (

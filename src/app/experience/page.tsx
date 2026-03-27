@@ -39,10 +39,34 @@ export default function ExperiencePage() {
     <section className="min-h-screen bg-black py-12 md:py-24">
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto mb-12 md:mb-20">
-          <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white via-neutral-300 to-neutral-500 bg-clip-text text-transparent">
+          <p style={{
+            fontSize: '10px',
+            letterSpacing: '0.25em',
+            textTransform: 'uppercase',
+            color: 'rgba(255,255,255,0.3)',
+            marginBottom: '0.75rem',
+            fontFamily: 'system-ui, -apple-system, sans-serif',
+          }}>
+            career
+          </p>
+          <h1 style={{
+            fontFamily: 'var(--font-lora), Georgia, "Times New Roman", serif',
+            fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
+            fontWeight: 600,
+            lineHeight: 1.2,
+            letterSpacing: '-0.01em',
+            color: '#f0f0ee',
+            margin: '0 0 1rem',
+          }}>
             Professional Experience
           </h1>
-          <p className="mt-4 text-neutral-400">
+          <p style={{
+            fontSize: '0.875rem',
+            lineHeight: 1.7,
+            color: 'rgba(255,255,255,0.35)',
+            fontFamily: 'system-ui, -apple-system, sans-serif',
+            margin: 0,
+          }}>
             A timeline of my professional journey and key achievements in
             software development and engineering.
           </p>

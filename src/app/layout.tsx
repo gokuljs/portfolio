@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Lora } from 'next/font/google';
 import '@styles/globals.scss';
 import VisitTracker from '@/components/VisitTracker';
 import { Analytics } from '@vercel/analytics/next';
@@ -7,6 +7,13 @@ import Navbar from './ui/components/Navbar';
 import WhatsNewPanel from '@/components/ui/WhatsNewPanel';
 
 const inter = Inter({ subsets: ['latin'] });
+const lora = Lora({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  style: ['normal', 'italic'],
+  variable: '--font-lora',
+  display: 'swap',
+});
 
 const DESCRIPTION =
   'Gokul JS — ex-YC founding engineer (W21). I build real-time AI systems, voice agents, and scalable web products. Writing about LLMs, WebRTC, and full-stack engineering.';
@@ -90,7 +97,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={lora.variable}>
       <body className={inter.className} suppressHydrationWarning>
         <VisitTracker />
         <Navbar />

@@ -110,7 +110,7 @@ export default function RetrievalFromFirstPrinciplesPage() {
           That is the query side. But what about the documents? You cannot scan every document on every search. That does not scale. You need a data structure that makes lookups fast. That structure is the inverted index.
         </p>
 
-        <h2>Inverted Index</h2>
+        <h3>Inverted Index</h3>
         <p>
           A forward index maps document to words. Given a document, you can tell what words are in it. That is useful for display, not for search.
         </p>
@@ -122,6 +122,12 @@ export default function RetrievalFromFirstPrinciplesPage() {
         </p>
         <p>
           At query time, you take your cleaned tokens, look each one up in the index, and get back the list of matching documents instantly. No scanning. No brute force. Just a lookup.
+        </p>
+        <pre><code>{`"matrix" → [doc_1, doc_4, doc_7]
+"film"   → [doc_1, doc_2, doc_9]
+"nolan"  → [doc_2, doc_4]`}</code></pre>
+        <p>
+          A query for &quot;nolan matrix&quot; looks up both terms and intersects the lists. doc_4 appears in both. That is your result.
         </p>
         <p>
           And this is what ties it all together. The same cleaning pipeline runs on both sides. Every document goes through it once at index time. Every query goes through it at search time. Both land on the same root forms. That symmetry is what makes the match work.

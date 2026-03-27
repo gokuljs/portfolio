@@ -153,7 +153,7 @@ export default function RetrievalFromFirstPrinciplesPage() {
 doc_1 (5 words):  "python is fast readable python"         → TF("python") = 2/5 = 0.40
 doc_2 (6 words):  "java is verbose but runs everywhere"    → TF("python") = 0/6 = 0.0`}</code></pre>
         <p>
-          doc_1 ranks higher for &quot;python&quot;. But TF alone has a problem. It cannot tell the difference between a meaningful term and a common one. A document full of the word &quot;code&quot; scores high on TF for &quot;code&quot; — but so does every other document in a programming dataset. The term carries no real signal.
+          doc_1 ranks higher for &quot;python&quot;. But TF alone has a problem. It cannot tell the difference between a meaningful term and a common one. A document full of the word &quot;code&quot; scores high on TF for &quot;code&quot;, but so does every other document in a programming dataset. The term carries no real signal.
         </p>
 
         <h3>Inverse Document Frequency (IDF)</h3>
@@ -171,7 +171,7 @@ doc_2 (6 words):  "java is verbose but runs everywhere"    → TF("python") = 0/
           A term that appears in every document scores zero. It is noise. A term that appears in very few documents scores high. It is a genuine signal.
         </p>
         <p>
-          The +1 in both numerator and denominator is for numerical stability — to avoid division by zero in edge cases. It is not for handling terms that were never seen. If a term is not in the index, you simply do not compute IDF for it at all.
+          The +1 in both numerator and denominator is for numerical stability, to avoid division by zero in edge cases. It is not for handling terms that were never seen. If a term is not in the index, you simply do not compute IDF for it at all.
         </p>
         <p>
           TF and IDF are never used alone. They are always multiplied together to produce a single score per term per document. That combined score is TF-IDF.
@@ -180,7 +180,16 @@ doc_2 (6 words):  "java is verbose but runs everywhere"    → TF("python") = 0/
 
         <h3>TF-IDF</h3>
         <p>
-          TF and IDF are not meant to be used separately. Multiply them and you get a score that is high only when a term is both frequent in the document and rare across the corpus. That is a genuine relevance signal.
+          TF and IDF solve two opposite problems.
+        </p>
+        <p>
+          TF asks: does this document talk a lot about this word? IDF asks: is this word even worth caring about? Neither answer alone is enough. You need both to be true at the same time.
+        </p>
+        <p>
+          That is why you multiply. A word that appears often but means nothing scores zero on IDF. A word that is rare but absent from the document scores zero on TF. TF-IDF is high only when both hold. Miss either one and the score collapses.
+        </p>
+        <p>
+          That is the entire insight.
         </p>
         <p>
           Here is a full example. Three documents, query is &quot;python machine learning&quot;.

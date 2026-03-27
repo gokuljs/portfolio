@@ -106,6 +106,23 @@ export default function RetrievalFromFirstPrinciplesPage() {
         <p>
           By the time you are done, &quot;The Matrix is a great film&quot; has become &quot;matrix&quot;, &quot;great&quot;, &quot;film&quot;. Clean, consistent, ready to match.
         </p>
+        <p>
+          That is the query side. But what about the documents? You cannot scan every document on every search. That does not scale. You need a data structure that makes lookups fast. That structure is the inverted index.
+        </p>
+
+        <h2>Inverted Index</h2>
+        <p>
+          A forward index maps document to words. Given a document, you can tell what words are in it. That is useful for display, not for search.
+        </p>
+        <p>
+          An inverted index flips it. It maps word to documents. Given a word, you instantly know every document that contains it. That is what makes search fast.
+        </p>
+        <p>
+          Think of it like the index at the back of a book. You do not read the whole book to find where &quot;recursion&quot; appears. You look it up in the index and it tells you exactly which pages. An inverted index is that, but for your entire document corpus.
+        </p>
+        <p>
+          At query time, you take your cleaned tokens, look each one up in the index, and get back the list of matching documents instantly. No scanning. No brute force. Just a lookup.
+        </p>
 
       </BlogArticleLayout>
     </>

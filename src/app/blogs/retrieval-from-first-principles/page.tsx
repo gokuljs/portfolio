@@ -123,6 +123,15 @@ export default function RetrievalFromFirstPrinciplesPage() {
         <p>
           At query time, you take your cleaned tokens, look each one up in the index, and get back the list of matching documents instantly. No scanning. No brute force. Just a lookup.
         </p>
+        <p>
+          And this is what ties it all together. The same cleaning pipeline runs on both sides. Every document goes through it once at index time. Every query goes through it at search time. Both land on the same root forms. That symmetry is what makes the match work.
+        </p>
+        <p>
+          A user types &quot;running shoes&quot;. The query becomes &quot;run&quot;, &quot;shoe&quot;. A document that was indexed with &quot;runner&quot; and &quot;shoes&quot; also became &quot;run&quot;, &quot;shoe&quot;. They meet at the same tokens. The match happens.
+        </p>
+        <p>
+          Without that symmetry, you get gaps. A word stemmed one way at index time but not at query time will never match, even if the meaning is identical. The pipeline has to be consistent end to end.
+        </p>
 
       </BlogArticleLayout>
     </>

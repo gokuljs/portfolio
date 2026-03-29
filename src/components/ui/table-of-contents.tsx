@@ -130,6 +130,7 @@ export function TableOfContents({ theme = 'light' }: TableOfContentsProps) {
                   display: 'block',
                   fontFamily: "'Lora', Georgia, serif",
                   fontStyle: isActive ? 'italic' : 'normal',
+                  fontSize: `${fontSize}px`,
                   lineHeight: 1.5,
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',

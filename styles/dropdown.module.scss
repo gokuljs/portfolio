@@ -3,9 +3,9 @@
   width: fit-content;
   padding: 8px 12px;
   background: transparent;
-  color: #f4f4f5;
+  color: var(--site-text);
   box-shadow: none;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--site-pill-border);
   border-radius: 0.5rem;
   display: flex;
   justify-content: space-between;
@@ -17,8 +17,8 @@
   font-size: 0.9rem;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(255, 255, 255, 0.12);
+    background: var(--site-surface);
+    border-color: var(--site-text-subtle);
   }
 
   @media screen and (max-width: 640px) {
@@ -48,10 +48,10 @@
     position: absolute;
     padding: 4px;
     user-select: none;
-    background: #0d0d0d;
-    color: #f4f4f5;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--site-bg);
+    color: var(--site-text);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--site-border);
     border-radius: 0.5rem;
     top: calc(100% + 5px);
     left: 0;
@@ -87,20 +87,20 @@
       transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
       margin: 2px 0;
       font-size: 0.85rem;
-      color: #f4f4f5;
+      color: var(--site-text);
 
       &:hover {
-        background-color: rgba(161, 161, 170, 0.25);
-        color: white;
+        background-color: var(--site-surface-hover);
+        color: var(--site-text-heading);
       }
     }
 
     .itemActive {
-      background-color: rgba(113, 113, 122, 0.7) !important;
-      color: white !important;
+      background-color: var(--site-surface-hover) !important;
+      color: var(--site-text-heading) !important;
 
       &:hover {
-        background-color: rgba(113, 113, 122, 0.9) !important;
+        background-color: var(--site-surface-hover) !important;
       }
     }
 
@@ -109,16 +109,16 @@
     }
 
     &::-webkit-scrollbar-track {
-      background: #1a1a1a;
+      background: var(--site-surface);
       border-radius: 10px;
     }
 
     &::-webkit-scrollbar-thumb {
-      background: rgba(113, 113, 122, 0.5);
+      background: var(--site-text-subtle);
       border-radius: 10px;
 
       &:hover {
-        background: rgba(113, 113, 122, 0.7);
+        background: var(--site-text-muted);
       }
     }
   }

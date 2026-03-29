@@ -6,8 +6,9 @@
   text-align: center;
   padding: 0 1.5rem;
   margin-bottom: 40px;
-  color: #f0f0ee;
+  color: var(--site-text-heading);
   font-family: var(--font-lora), Georgia, 'Times New Roman', serif;
+  transition: color 0.25s;
 
   @media screen and (max-width: 600px) {
     margin-bottom: 24px;

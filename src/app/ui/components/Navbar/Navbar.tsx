@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'motion/react';
 import { MapPinOff, AlertCircle } from 'lucide-react';
+import { useTheme } from '@/components/ThemeProvider';
 import styles from '@styles/navbar.module.scss';
 
 const navLinks = [
@@ -23,8 +24,9 @@ const Navbar: React.FC = () => {
   const [toast, setToast] = useState<{ message: string; type: 'error' | 'info' } | null>(null);
   const pathname = usePathname();
   const router = useRouter();
+  const { theme, toggleTheme } = useTheme();
 
-  const isBlogArticle = pathname.startsWith('/blogs/');
+  const isBlogArticle = pathname.startsWith('/blogs/') && pathname !== '/blogs';
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -69,7 +71,6 @@ const Navbar: React.FC = () => {
         return;
       }
 
-      // Track the download
       fetch('/api/track-visit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -82,7 +83,6 @@ const Navbar: React.FC = () => {
         }),
       }).catch(() => {});
 
-      // Trigger download
       const link = document.createElement('a');
       link.href = RESUME;
       link.download = 'GokulJS.pdf';
@@ -121,26 +121,36 @@ const Navbar: React.FC = () => {
       </AnimatePresence>
 
       <header className={`${styles.header} ${scrolled ? styles.scrolled : ''} ${hidden && !menuOpen ? styles.hidden : ''}`}>
-        {/* Logo */}
         <Link href="/" className={styles.logo}>
           Gokul JS
         </Link>
 
-        {/* Centre nav */}
         <nav className={`${styles.nav} ${menuOpen ? styles.open : ''}`}>
           {navLinks.map(({ label, href }) => (
             <Link key={label} href={href} onClick={(e) => handleNavClick(e, href)}>
               {label}
             </Link>
           ))}
-          {/* visible only in mobile drawer */}
           <button className={styles.mobileDownload} onClick={handleDownload}>
             Download CV ↓
           </button>
         </nav>
 
-        {/* Right: download CV (desktop) + hamburger (mobile) */}
         <div className={styles.navRight}>
+          {/* Theme swatches */}
+          <div className={styles.themeSwatches}>
+            <button
+              onClick={(e) => toggleTheme('light', e.currentTarget)}
+              title="Light mode"
+              className={`${styles.swatch} ${styles.swatchLight} ${theme === 'light' ? styles.swatchActive : ''}`}
+            />
+            <button
+              onClick={(e) => toggleTheme('dark', e.currentTarget)}
+              title="Dark mode"
+              className={`${styles.swatch} ${styles.swatchDark} ${theme === 'dark' ? styles.swatchActive : ''}`}
+            />
+          </div>
+
           <button className={styles.downloadBtn} onClick={handleDownload}>
             Download CV <span>↓</span>
           </button>

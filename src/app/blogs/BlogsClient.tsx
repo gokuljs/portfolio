@@ -37,7 +37,8 @@ export default function BlogsClient({ initialBlogs }: BlogsClientProps) {
       {/* Header */}
       <div className="px-6 md:!px-12 lg:px-16 pt-[120px] pb-4 max-w-4xl mx-auto w-full">
         <motion.p
-          className="text-neutral-600 text-[10px] uppercase tracking-[0.3em] mb-2"
+          className="text-[10px] uppercase tracking-[0.3em] mb-2"
+          style={{ color: 'var(--site-text-subtle)' }}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -50,10 +51,9 @@ export default function BlogsClient({ initialBlogs }: BlogsClientProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
           style={{
-            background: 'linear-gradient(to right, #ffffff 0%, #666666 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
+            fontFamily: "var(--font-lora), Georgia, 'Times New Roman', serif",
+            fontWeight: 600,
+            color: 'var(--site-text-heading)',
           }}
         >
           archive
@@ -68,7 +68,7 @@ export default function BlogsClient({ initialBlogs }: BlogsClientProps) {
         transition={{ duration: 0.6, delay: 0.6, ease: 'easeOut' }}
       >
         <div className="flex items-center justify-between">
-          <p className="text-neutral-500 text-sm">
+          <p className="text-sm" style={{ color: 'var(--site-text-muted)' }}>
             {searchQuery ? (
               <span>
                 {filteredBlogs.length} of {allBlogs.length} posts
@@ -80,28 +80,32 @@ export default function BlogsClient({ initialBlogs }: BlogsClientProps) {
             )}
           </p>
           <div className="flex items-center gap-3">
-            {/* Sort toggle */}
             <button
               onClick={() => setSortOrder((o) => (o === 'desc' ? 'asc' : 'desc'))}
-              className="flex items-center gap-1.5 text-xs text-neutral-500 hover:text-white transition-colors"
+              className="flex items-center gap-1.5 text-xs transition-colors"
+              style={{ color: 'var(--site-text-muted)' }}
             >
               <ArrowUpDown className="w-3.5 h-3.5" />
               {sortOrder === 'desc' ? 'Newest' : 'Oldest'}
             </button>
-            {/* Search Bar */}
-            <div className="flex items-center gap-2 border-b border-white/20 focus-within:border-white/50 transition-all">
-              <Search className="w-4 h-4 text-neutral-500" />
+            <div
+              className="flex items-center gap-2 transition-all"
+              style={{ borderBottom: '1px solid var(--site-border)' }}
+            >
+              <Search className="w-4 h-4" style={{ color: 'var(--site-text-subtle)' }} />
               <input
                 type="text"
                 placeholder="Search posts..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-transparent py-1 text-sm text-white placeholder-neutral-500 focus:outline-none w-[130px] md:w-[200px]"
+                className="bg-transparent py-1 text-sm focus:outline-none w-[130px] md:w-[200px]"
+                style={{ color: 'var(--site-text)', placeholderColor: 'var(--site-text-subtle)' } as React.CSSProperties}
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="text-neutral-500 hover:text-white transition-colors"
+                  className="transition-colors"
+                  style={{ color: 'var(--site-text-subtle)' }}
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -117,7 +121,8 @@ export default function BlogsClient({ initialBlogs }: BlogsClientProps) {
           {filteredBlogs.length > 0 ? (
             <motion.div
               key="blog-list"
-              className="flex flex-col divide-y divide-white/5"
+              className="flex flex-col"
+              style={{ borderColor: 'var(--site-border-subtle)' }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -136,11 +141,11 @@ export default function BlogsClient({ initialBlogs }: BlogsClientProps) {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <Search className="w-10 h-10 text-neutral-700 mb-4" />
-              <h3 className="text-base text-neutral-300 mb-1">
+              <Search className="w-10 h-10 mb-4" style={{ color: 'var(--site-text-subtle)' }} />
+              <h3 className="text-base mb-1" style={{ color: 'var(--site-text)' }}>
                 No results for &ldquo;{searchQuery}&rdquo;
               </h3>
-              <p className="text-neutral-500 text-sm">Try searching for something else</p>
+              <p className="text-sm" style={{ color: 'var(--site-text-muted)' }}>Try searching for something else</p>
             </motion.div>
           ) : (
             <motion.div
@@ -151,11 +156,11 @@ export default function BlogsClient({ initialBlogs }: BlogsClientProps) {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
             >
-              <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-6">
-                <FileText className="w-8 h-8 text-neutral-600" />
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6" style={{ background: 'var(--site-surface)' }}>
+                <FileText className="w-8 h-8" style={{ color: 'var(--site-text-subtle)' }} />
               </div>
-              <h3 className="text-lg text-neutral-300 mb-2">No posts yet</h3>
-              <p className="text-neutral-500 text-sm max-w-xs">
+              <h3 className="text-lg mb-2" style={{ color: 'var(--site-text)' }}>No posts yet</h3>
+              <p className="text-sm max-w-xs" style={{ color: 'var(--site-text-muted)' }}>
                 I&apos;m working on some articles. Check back soon for new content.
               </p>
             </motion.div>

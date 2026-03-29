@@ -18,13 +18,17 @@ function MiniSparkline({ bars, maxVal }: { bars: WeeklyBar[]; maxVal: number }) 
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className={styles.sparkline} preserveAspectRatio="none">
       <defs>
-        <linearGradient id="sg" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id="sg-light" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="rgba(0,0,0,0.08)" />
+          <stop offset="100%" stopColor="rgba(0,0,0,0)" />
+        </linearGradient>
+        <linearGradient id="sg-dark" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="rgba(255,255,255,0.1)" />
           <stop offset="100%" stopColor="rgba(255,255,255,0)" />
         </linearGradient>
       </defs>
-      <path d={area} fill="url(#sg)" />
-      <path d={line} fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="1.2" strokeLinejoin="round" strokeLinecap="round" />
+      <path d={area} className={styles.sparkArea} />
+      <path d={line} fill="none" className={styles.sparkLine} strokeWidth="1.2" strokeLinejoin="round" strokeLinecap="round" />
     </svg>
   );
 }

@@ -17,7 +17,7 @@
   font-size: 0.5rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.18);
+  color: var(--site-text-subtle);
   margin: 0;
 }
 
@@ -44,9 +44,9 @@
   font-size: 0.48rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.22);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  color: var(--site-text-subtle);
+  background: var(--site-surface);
+  border: 1px solid var(--site-border);
   border-radius: 3px;
   padding: 2px 5px;
   display: inline-block;
@@ -56,21 +56,21 @@
 .paperTitle {
   font-size: 0.7rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--site-text-muted);
   line-height: 1.4;
   margin: 0;
 }
 
 .paperAuthors {
   font-size: 0.52rem;
-  color: rgba(255, 255, 255, 0.2);
+  color: var(--site-text-subtle);
   margin: 0;
   letter-spacing: 0.02em;
 }
 
 .paperHook {
   font-size: 0.6rem;
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--site-text-muted);
   line-height: 1.6;
   margin: 0;
   font-style: italic;
@@ -107,7 +107,7 @@
 .buildTitle {
   font-size: 0.68rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--site-text-muted);
   line-height: 1.4;
   margin: 0;
 }
@@ -124,22 +124,22 @@
   text-transform: uppercase;
   padding: 2px 5px;
   border-radius: 2px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  color: rgba(255, 255, 255, 0.25);
+  background: var(--site-surface);
+  border: 1px solid var(--site-border);
+  color: var(--site-text-subtle);
 }
 
 /* ─── Divider ─── */
 .divider {
   height: 1px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--site-border-subtle);
 }
 
 /* ─── Sparkline ─── */
 .commitCount {
   font-size: 0.5rem;
   letter-spacing: 0.06em;
-  color: rgba(255, 255, 255, 0.18);
+  color: var(--site-text-subtle);
   font-variant-numeric: tabular-nums;
 }
 
@@ -154,11 +154,27 @@
   display: block;
 }
 
+.sparkArea {
+  fill: url(#sg-dark);
+
+  [data-theme="light"] & {
+    fill: url(#sg-light);
+  }
+}
+
+.sparkLine {
+  stroke: rgba(255, 255, 255, 0.25);
+
+  [data-theme="light"] & {
+    stroke: rgba(0, 0, 0, 0.2);
+  }
+}
+
 .sparklineSkeleton {
   width: 100%;
   height: 100%;
   border-radius: 3px;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--site-surface);
   animation: shimmer 2s ease-in-out infinite;
 }
 
@@ -171,18 +187,18 @@
 .buildGoal {
   font-size: 0.65rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--site-text);
   line-height: 1.4;
   margin: 0;
   letter-spacing: 0.01em;
-  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  border-left: 2px solid var(--site-border);
   padding-left: 8px;
 }
 
 /* ─── Build description ─── */
 .buildDesc {
   font-size: 0.58rem;
-  color: rgba(255, 255, 255, 0.22);
+  color: var(--site-text-subtle);
   line-height: 1.6;
   margin: 0;
   letter-spacing: 0.01em;
@@ -194,16 +210,16 @@
   align-items: center;
   gap: 7px;
   padding: 5px 10px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: var(--site-surface);
+  border: 1px solid var(--site-border);
   border-radius: 999px;
   max-width: 100%;
   cursor: pointer;
   transition: background 0.2s, border-color 0.2s;
 
   &:active {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.14);
+    background: var(--site-surface-hover);
+    border-color: var(--site-text-subtle);
   }
 }
 
@@ -219,7 +235,7 @@
 
 .mobileBuilding {
   font-size: 0.58rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--site-text-muted);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -228,10 +244,10 @@
 
 .mobileReading {
   font-size: 0.5rem;
-  color: rgba(255, 255, 255, 0.2);
+  color: var(--site-text-subtle);
   white-space: nowrap;
   flex-shrink: 0;
-  border-left: 1px solid rgba(255,255,255,0.08);
+  border-left: 1px solid var(--site-border);
   padding-left: 7px;
   letter-spacing: 0.06em;
 }
@@ -240,7 +256,7 @@
 .backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.4);
   z-index: 40;
   animation: fadeIn 0.2s ease;
 }
@@ -258,8 +274,8 @@
   z-index: 50;
   width: calc(100vw - 32px);
   max-width: 360px;
-  background: #0d0d0d;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--site-bg);
+  border: 1px solid var(--site-border);
   border-radius: 14px;
   transform: translate(-50%, -50%) scale(0.95);
   opacity: 0;
@@ -284,13 +300,13 @@
     font-size: 0.55rem;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.2);
+    color: var(--site-text-subtle);
   }
 
   &::after {
     content: '✕';
     font-size: 0.65rem;
-    color: rgba(255, 255, 255, 0.2);
+    color: var(--site-text-subtle);
     cursor: pointer;
   }
 }

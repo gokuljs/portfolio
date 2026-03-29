@@ -32,7 +32,11 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
       onClick={handleCardClick}
       role="button"
       tabIndex={0}
-      className="group flex flex-col border-stone-900/50 h-full rounded-[10px] border-none overflow-hidden border border-white/10 transition-all duration-300 hover:border-white/20 !px-[4px] !py-[4px]"
+      className="group flex flex-col h-full rounded-[10px] overflow-hidden transition-all duration-300 !px-[4px] !py-[4px]"
+      style={{
+        border: '1px solid var(--site-border)',
+        background: 'var(--site-bg)',
+      }}
     >
       <div className="relative w-full aspect-[16/10] overflow-hidden rounded-[10px]">
         {playing && videoId ? (
@@ -83,11 +87,11 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
 
       <div className="flex flex-col flex-grow !px-[6px] !py-[6px]">
         <div className="flex justify-between items-center">
-          <h3 className="text-xl font-bold text-white mt-2">
+          <h3 className="text-xl font-bold mt-2" style={{ color: 'var(--site-text-heading)' }}>
             {project.title}
           </h3>
         </div>
-        <p className="text-sm text-white/50 mt-4 line-clamp-2 leading-relaxed">
+        <p className="text-sm mt-4 line-clamp-2 leading-relaxed" style={{ color: 'var(--site-text-muted)' }}>
           {project.description}
         </p>
       </div>

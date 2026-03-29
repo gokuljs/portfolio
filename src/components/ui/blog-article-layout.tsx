@@ -557,6 +557,7 @@ export function BlogArticleLayout({
           display: block;
         }
 
+
         .pipeline-wrapper {
           width: 100vw;
           margin-left: calc(-50vw + 50%);

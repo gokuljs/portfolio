@@ -126,6 +126,15 @@ export default function RetrievalFromFirstPrinciplesPage() {
         <pre><code>{`"matrix" → [doc_1, doc_4, doc_7]
 "film"   → [doc_1, doc_2, doc_9]
 "nolan"  → [doc_2, doc_4]`}</code></pre>
+        <div className="pipeline-wrapper">
+          <ThemeImage
+            lightSrc="/blogs/keyword-search-index-white.svg"
+            darkSrc="/blogs/Keyword-search-index-black.svg"
+            alt="Keyword search index build pipeline"
+            className="pipeline-img"
+            expandable
+          />
+        </div>
         <p>
           A query for &quot;nolan matrix&quot; looks up both terms and intersects the lists. doc_4 appears in both. That is your result. This is called boolean search. A document either contains the term or it does not. AND intersects. OR unions. Simple, fast, predictable.
         </p>
@@ -436,6 +445,7 @@ Steps:
             darkSrc="/blogs/keyword-search-query-pipeline-dark.svg"
             alt="Keyword search query processing pipeline"
             className="pipeline-img"
+            expandable
           />
         </div>
 

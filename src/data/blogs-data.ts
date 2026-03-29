@@ -12,6 +12,16 @@ export interface Blog {
 
 export const blogsData: Blog[] = [
   {
+    id: '3',
+    slug: 'retrieval-from-first-principles',
+    title: 'The Art of Retrieval',
+    description: 'Every retrieval algorithm exists because the previous one had a flaw. This is a deep dive into how search evolved, and why it had to.',
+    date: '2026-03-20',
+    readTime: '18 min read',
+    tags: ['Search', 'RAG', 'Vector Databases', 'Information Retrieval', 'Embeddings', 'BM25'],
+    featured: true,
+  },
+  {
     id: '2',
     slug: 'building-simple-real-time-voice-agent-livekit',
     title: 'Building a Simple Real-Time Voice Agent with LiveKit',

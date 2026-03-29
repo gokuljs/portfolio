@@ -194,8 +194,10 @@ export default function Experience() {
   ];
   return (
     <>
-      <div id="experience" className={styles.timelineHeading}>
-        WORK
+      <div id="experience" style={{ width: '100%', textAlign: 'center', padding: '0 24px' }}>
+        <h2 className={styles.timelineHeading} style={{ padding: 0, textAlign: 'center' }}>
+          Work
+        </h2>
       </div>
       <div className="relative w-full overflow-clip">
         <Timeline data={data} />

@@ -33,24 +33,33 @@ export const projectsData: Project[] = [
     status: 'Live'
   },
   {
-    id: '2',
-    title: 'Aerotime',
-    description: 'Smart calendar and scheduling tool to boost productivity and focus.',
-    image: '/video-poster.jpg',
-    tags: ['Productivity', 'Calendar', 'React'],
-    link: 'https://www.aerotime.com/',
-    status: 'Live'
-  
-  },
-  {
-    id: '3',
-    title: 'Teamble',
-    description: 'Engagement platform to boost team culture, feedback, and recognition.',
-    image: '/teambleBg.png',
-    tags: ['Team Culture', 'Feedback', 'SaaS'],
-    link: 'https://teamble.com/',
+    id: '8',
+    title: 'DeepRAG',
+    description: 'A bare-metal RAG system built from scratch, tracing the full evolution from keyword search (BM25) through semantic search, hybrid retrieval, reranking, multimodal CLIP search, and full RAG generation with evaluation.',
+    image: '/deeprag.png',
+    tags: ['Python', 'RAG', 'BM25', 'Semantic Search', 'CLIP', 'Gemini'],
+    github: 'https://github.com/gokuljs/DeepRAG',
+    link: 'https://github.com/gokuljs/DeepRAG',
     status: 'Live'
   },
+  // {
+  //   id: '2',
+  //   title: 'Aerotime',
+  //   description: 'Smart calendar and scheduling tool to boost productivity and focus.',
+  //   image: '/video-poster.jpg',
+  //   tags: ['Productivity', 'Calendar', 'React'],
+  //   link: 'https://www.aerotime.com/',
+  //   status: 'Live'
+  // },
+  // {
+  //   id: '3',
+  //   title: 'Teamble',
+  //   description: 'Engagement platform to boost team culture, feedback, and recognition.',
+  //   image: '/teambleBg.png',
+  //   tags: ['Team Culture', 'Feedback', 'SaaS'],
+  //   link: 'https://teamble.com/',
+  //   status: 'Live'
+  // },
   {
     id: '4',
     title: 'NotionFlow',

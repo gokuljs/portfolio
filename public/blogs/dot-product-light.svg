@@ -1,0 +1,32 @@
+<svg viewBox="0 0 440 440" width="440" height="440" xmlns="http://www.w3.org/2000/svg">
+  <rect width="440" height="440" fill="#fafaf8" rx="10"/>
+
+  <line x1="220" y1="400" x2="220" y2="30" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="30" y1="220" x2="410" y2="220" stroke="#d1d5db" stroke-width="1"/>
+
+  <circle cx="220" cy="220" r="3" fill="#9ca3af"/>
+
+  <text x="220" y="22" text-anchor="middle" fill="#6b7280" font-family="monospace" font-size="12">Dot Product</text>
+
+  <line x1="220" y1="220" x2="280" y2="180" stroke="#16a34a" stroke-width="2.5"/>
+  <polygon points="277,182 286,175 282,186" fill="#16a34a"/>
+  <text x="288" y="178" fill="#16a34a" font-family="monospace" font-size="14">A</text>
+  <text x="265" y="208" fill="#16a34a" font-family="monospace" font-size="10">short</text>
+
+  <line x1="220" y1="220" x2="380" y2="110" stroke="#2563eb" stroke-width="2.5"/>
+  <polygon points="377,112 386,105 382,116" fill="#2563eb"/>
+  <text x="388" y="108" fill="#2563eb" font-family="monospace" font-size="14">B</text>
+  <text x="370" y="135" fill="#2563eb" font-family="monospace" font-size="10">long</text>
+
+  <text x="300" y="82" fill="#d97706" font-family="monospace" font-size="11">same direction, B is longer</text>
+  <text x="300" y="96" fill="#d97706" font-family="monospace" font-size="11">= higher dot product</text>
+
+  <line x1="220" y1="220" x2="110" y2="130" stroke="#dc2626" stroke-width="2.5"/>
+  <polygon points="113,133 104,126 108,137" fill="#dc2626"/>
+  <text x="88" y="126" fill="#dc2626" font-family="monospace" font-size="14">C</text>
+
+  <text x="55" y="168" fill="#dc2626" font-family="monospace" font-size="11">different direction</text>
+  <text x="55" y="182" fill="#dc2626" font-family="monospace" font-size="11">= low dot product</text>
+
+  <text x="220" y="425" text-anchor="middle" fill="#6b7280" font-family="monospace" font-size="11">both direction AND magnitude matter</text>
+</svg>

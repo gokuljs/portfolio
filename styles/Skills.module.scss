@@ -15,20 +15,19 @@
   }
 
   .radialGradientHeading {
-    font-size: clamp(1.8rem, 2.8vw, 3.5rem);
-    font-weight: 800;
-    line-height: 0.92;
-    letter-spacing: -0.03em;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
     text-align: center;
-    margin-bottom: 52px;
-    background: linear-gradient(to bottom, #ffffff 45%, rgba(255, 255, 255, 0.5));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
+    margin-bottom: 48px;
+    color: #f0f0ee;
+    font-family: var(--font-lora), Georgia, 'Times New Roman', serif;
+    width: 100%;
 
     @media (max-width: 600px) {
       margin-bottom: 36px;
+      font-size: 1.5rem;
     }
   }
 

@@ -1,10 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-
 interface VideoThumbnailProps {
   url: string;
-  image: string;
+  image?: string;
   alt?: string;
 }
 
@@ -21,26 +19,19 @@ function extractYouTubeId(url: string): string | null {
   return null;
 }
 
-export function VideoThumbnail({ url, image, alt = 'Video demo' }: VideoThumbnailProps) {
-  const [playing, setPlaying] = useState(false);
+export function VideoThumbnail({ url, alt = 'Video' }: VideoThumbnailProps) {
   const videoId = extractYouTubeId(url);
+  const embedUrl = videoId
+    ? `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`
+    : url;
 
-  if (playing && videoId) {
-    return (
-      <div style={{
-        position: 'relative',
-        width: '100%',
-        maxWidth: '100%',
-        margin: '1.5em 0',
-        borderRadius: 8,
-        overflow: 'hidden',
-        paddingBottom: '56.25%',
-        height: 0,
-      }}>
+  return (
+    <figure style={{ margin: '2em 0' }}>
+      <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', height: 0 }}>
         <iframe
-          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`}
+          src={embedUrl}
           title={alt}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           style={{
             position: 'absolute',
@@ -49,69 +40,22 @@ export function VideoThumbnail({ url, image, alt = 'Video demo' }: VideoThumbnai
             width: '100%',
             height: '100%',
             border: 'none',
-            margin: 0,
-            aspectRatio: 'unset',
-            borderRadius: 0,
+            borderRadius: '6px',
           }}
         />
       </div>
-    );
-  }
-
-  return (
-    <button
-      onClick={() => setPlaying(true)}
-      style={{
-        position: 'relative',
-        display: 'block',
-        width: '100%',
-        maxWidth: '100%',
-        margin: '1.5em 0',
-        borderRadius: 8,
-        overflow: 'hidden',
-        border: 'none',
-        padding: 0,
-        cursor: 'pointer',
-        background: 'transparent',
-      }}
-      aria-label={`Play video: ${alt}`}
-    >
-      <img
-        src={image}
-        alt={alt}
-        style={{ display: 'block', margin: 0, width: '100%', maxWidth: '100%', height: 'auto' }}
-      />
-      {/* dark overlay */}
-      <div style={{
-        position: 'absolute',
-        inset: 0,
-        background: 'rgba(0,0,0,0.35)',
-      }} />
-      {/* play button */}
-      <div style={{
-        position: 'absolute',
-        inset: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-        <div style={{
-          width: 56,
-          height: 56,
-          borderRadius: '50%',
-          background: 'rgba(200,240,220,0.15)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
-          border: '1px solid rgba(200,240,220,0.3)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+      {alt && alt !== 'Video' && (
+        <figcaption style={{
+          marginTop: '0.6em',
+          fontSize: '12px',
+          color: '#9ca3af',
+          fontFamily: 'system-ui, sans-serif',
+          fontStyle: 'italic',
+          textAlign: 'center',
         }}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff" style={{ marginLeft: 3 }}>
-            <path d="M8 5v14l11-7z" />
-          </svg>
-        </div>
-      </div>
-    </button>
+          {alt}
+        </figcaption>
+      )}
+    </figure>
   );
 }

@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { BlogArticleLayout } from '@/components/ui/blog-article-layout';
 import { VideoThumbnail } from '@/components/ui/video-thumbnail';
+import { ThemeImage } from '@/components/ui/theme-image';
 import { getBlogBySlug, generateBlogMetadata, generateBlogJsonLd } from '@/data/blogs-data';
 
 const slug = 'building-simple-real-time-voice-agent-livekit';
@@ -55,7 +56,12 @@ export default function BuildingSimpleVoiceAgentPage() {
       </ul>
 
       <h2>Architecture</h2>
-      <img src="/blogs/sst-llm-tts.svg" alt="Architecture diagram: STT to LLM to TTS pipeline" style={{ width: '65%', margin: '0 auto', display: 'block' }} />
+      <ThemeImage
+        lightSrc="/blogs/sst-llm-tts-white.svg"
+        darkSrc="/blogs/sst-llm-tts.svg"
+        alt="Architecture diagram: STT to LLM to TTS pipeline"
+        style={{ width: '65%', margin: '0 auto', display: 'block' }}
+      />
 
       <h2>Diving Into the Code</h2>
       <p>

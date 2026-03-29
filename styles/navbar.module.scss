@@ -93,25 +93,29 @@
   z-index: 9999;
   background: rgba(0, 0, 0, 0);
   border-bottom: 1px solid rgba(255, 255, 255, 0);
-  transition: background 0.4s ease, border-color 0.4s ease;
+  transition: background 0.4s ease, border-color 0.4s ease, transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 
   &.scrolled {
-    background: rgba(6, 6, 6, 0.88);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-bottom-color: rgba(255, 255, 255, 0.07);
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom-color: transparent;
+  }
+
+  &.hidden {
+    transform: translateY(-100%);
   }
 }
 
 /* ─── Logo ─── */
 .logo {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-style: italic;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  font-style: normal;
   font-size: 1.05rem;
-  font-weight: 400;
+  font-weight: 500;
   color: #fff;
   text-decoration: none;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.01em;
   transition: opacity 0.2s ease;
 
   &:hover {

@@ -485,6 +485,29 @@ Steps:
           expandable
         />
 
+        <h3>Choosing an Embedding Model</h3>
+        <p>
+          The embedding model you pick determines how good your semantic search is. Get this wrong and nothing downstream can fix it.
+        </p>
+        <p>
+          For most use cases, a general-purpose embedding model works fine. OpenAI and Gemini both offer embedding APIs that handle broad queries well out of the box. If you are building a standard RAG system over general text, start here.
+        </p>
+        <p>
+          But general models have limits. They were trained on broad data, not your data. If your domain has specialized vocabulary, medical records, legal contracts, codebases, the general model will miss nuances that matter. &quot;Infarction&quot; and &quot;heart attack&quot; might not land as close as they should. Domain-specific terms get blurred.
+        </p>
+        <p>
+          This is where fine-tuning or training your own embedding model pays off. Cursor did exactly this for code search. They trained a custom embedding model specifically for semantic code retrieval, and it made a measurable difference. You can read about their approach at <a href="https://cursor.com/blog/semsearch" target="_blank" rel="noopener noreferrer">cursor.com/blog/semsearch</a>.
+        </p>
+        <p>
+          If you want to explore open-source embedding models, the <a href="https://huggingface.co/spaces/mteb/leaderboard" target="_blank" rel="noopener noreferrer">MTEB leaderboard</a> on HuggingFace ranks them across retrieval benchmarks. Pick one that scores well on tasks similar to yours.
+        </p>
+        <p>
+          One rule that is non-negotiable: the same embedding model must be used for both indexing and querying. If you embed your documents with model A and your queries with model B, the vector spaces will not align. The distances will be meaningless. Your results will be garbage and you will not get an error telling you why.
+        </p>
+        <p>
+          Also check what similarity metric your model was trained for. Most modern models are trained for cosine similarity. Some use dot product or euclidean distance. If the model was optimized for cosine and you run dot product at query time, the rankings shift. Match the metric to the model.
+        </p>
+
       </BlogArticleLayout>
     </>
   );

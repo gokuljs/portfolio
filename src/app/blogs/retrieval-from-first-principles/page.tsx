@@ -730,6 +730,49 @@ After:
           The catch: you need a long-context embedding model that can handle the full document in one pass. If your document is 50,000 tokens and your model caps at 8,192, you cannot do late chunking on the whole thing. You can read more about this approach at <a href="https://jina.ai/news/late-chunking-in-long-context-embedding-models/" target="_blank" rel="noopener noreferrer">Jina AI&apos;s writeup on late chunking</a>.
         </p>
 
+        <h2>Hybrid Search</h2>
+        <p>
+          By now you have seen what keyword search is good at and where it fails. And you have seen the same for semantic search. They fail in opposite ways. Keyword search misses meaning. Semantic search misses exact terms. No single approach wins on every query.
+        </p>
+        <p>
+          So you run both. That is hybrid search. You take the same query, run BM25 against your inverted index, and run a vector similarity search against your embeddings. You get two separate ranked lists of results. Then you merge them into one.
+        </p>
+        <p>
+          From here the game changes. You have results from both systems. BM25 scores and semantic scores on completely different scales. The job is to bring them to the same scale, rerank the combined list to get the best documents to the top, and pass those to the LLM. That is the rest of the pipeline.
+        </p>
+
+        <h3>Score Normalization</h3>
+        <p>
+          You cannot compare these scores directly. BM25 gives you numbers anywhere from 0 to 100 or higher. Cosine similarity gives you 0 to 1. A BM25 score of 12 and a cosine score of 0.85 mean nothing next to each other. You need them on the same scale first.
+        </p>
+        <p>
+          The simplest way to do this is min-max normalization. Take the list of scores from each system, find the lowest and highest, and rescale everything to sit between 0 and 1. The lowest score becomes 0, the highest becomes 1, and everything else falls proportionally in between.
+        </p>
+        <pre><code>{`normalized = (score - min_score) / (max_score - min_score)`}</code></pre>
+        <p>
+          Now both systems speak the same language. Every score is between 0 and 1.
+        </p>
+
+        <h3>Weighted Combination</h3>
+        <p>
+          Normalization puts both scores on the same scale. But you still have two separate scores per document. You need one final score to sort by. And you probably do not want to treat both systems equally for every query. Some queries are better served by keyword search, some by semantic. You need a way to control that balance. That is what the weighted combination does.
+        </p>
+        <pre><code>{`hybrid_score = alpha * bm25_score + (1 - alpha) * semantic_score`}</code></pre>
+        <p>
+          Alpha is a dial. Turn it all the way to 1 and you are doing pure keyword search. Turn it to 0 and you are doing pure semantic search. Anywhere in between is a blend.
+        </p>
+        <pre><code>{`alpha = 1.0   100% keyword, 0% semantic
+alpha = 0.7   70% keyword, 30% semantic
+alpha = 0.5   50/50 split
+alpha = 0.2   20% keyword, 80% semantic
+alpha = 0.0   0% keyword, 100% semantic`}</code></pre>
+        <p>
+          The right alpha depends on what your users are searching for. Someone typing &quot;The Revenant&quot; is looking for an exact title. Keyword should dominate. Alpha 0.8. Someone typing &quot;feel good family movies&quot; is searching by meaning. Semantic should dominate. Alpha 0.2. Someone typing &quot;2015 comedies&quot; needs both the year as a keyword and the concept of comedy. Alpha 0.5.
+        </p>
+        <p>
+          There is no universal right answer. Build your system so alpha is configurable, test it against real queries from your users, and tune from there.
+        </p>
+
       </BlogArticleLayout>
     </>
   );

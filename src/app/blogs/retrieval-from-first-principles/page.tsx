@@ -651,18 +651,30 @@ Semantic:
 
         <h4>The Edge Cases</h4>
         <p>
-          Chunking seems straightforward until you run it on real data. Tables get jumbled when extracted from PDFs. Headers and footers repeat in every chunk. Column layouts merge text from different columns. Code blocks break semantic boundaries. Long quoted sections separate from their attribution.
+          Chunking seems straightforward until you point it at real data. Then you spend a week fixing things you did not expect to break.
         </p>
         <p>
-          There is no algorithm that handles all of these. The way to get reliable chunks is to create them and manually inspect the results. A lot.
+          The first thing you notice with PDFs is the headers and footers. Every single page has the same company name, the same page number, the same disclaimer. And all of it ends up in your chunks. So you start looking for commonalities across pages and stripping them out. That helps, until you hit a document with two-column layouts. The text extractor reads straight across both columns and merges them into one garbled paragraph. You fix that, and then you find tables where the rows and columns got flattened into a single line of text that makes no sense at all. Then the font encoding breaks and half your text is random symbols.
+        </p>
+        <p>
+          Markdown and HTML have their own version of this. You chunk a technical doc and suddenly a code block is split in half across two chunks. Bullet points that made sense as a list now live in separate chunks with no connection to each other. A long quote lands in one chunk while the sentence that says who said it lands in the next one.
+        </p>
+        <p>
+          There is no library that handles all of this for you. You chunk your data, you look at what came out, and you fix what broke. Then you chunk again. The way you get reliable chunks is by manually inspecting the output over and over until it stops surprising you.
         </p>
 
         <h3>Contextual Retrieval</h3>
         <p>
-          Chunking creates a new problem. When you break a document into pieces, each piece loses the context of the whole. A chunk that says &quot;revenue grew by 3% over the previous quarter&quot; does not say which company or which quarter. The chunk is correct but useless for retrieval because the query needs to match on company and time period.
+          You spend all that effort getting your chunks clean. You fix the PDFs, you handle the edge cases, you get the boundaries right. And then you realize there is another problem you did not see coming.
         </p>
         <p>
-          Anthropic published a solution for this called <a href="https://www.anthropic.com/engineering/contextual-retrieval" target="_blank" rel="noopener noreferrer">Contextual Retrieval</a>. The idea: before embedding a chunk, use an LLM to prepend a short context that situates the chunk within the original document.
+          When you break a document into pieces, each piece loses the context of the whole. A chunk that says &quot;revenue grew by 3% over the previous quarter&quot; is perfectly clean. But it does not say which company. It does not say which quarter. Someone queries for &quot;ACME Corp Q2 2023 revenue&quot; and this chunk does not match, even though it is exactly the right answer. The information is there. The context is not.
+        </p>
+        <p>
+          You start noticing this everywhere. A chunk says &quot;the API returns a 429 status code&quot; but does not mention which service. A chunk says &quot;latency increased by 40ms&quot; but does not say which endpoint or when. Every chunk is a sentence ripped out of a conversation. It makes sense if you read the whole document. It makes no sense on its own.
+        </p>
+        <p>
+          Anthropic published a solution for this called <a href="https://www.anthropic.com/engineering/contextual-retrieval" target="_blank" rel="noopener noreferrer">Contextual Retrieval</a>. The idea is simple: before you embed a chunk, pass it to an LLM along with the full document and ask for a short context that situates the chunk. Then prepend that context to the chunk before embedding.
         </p>
         <pre><code>{`Before:
   "Revenue grew by 3% over the previous quarter."
@@ -672,13 +684,50 @@ After:
    Previous quarter revenue was $314 million.
    Revenue grew by 3% over the previous quarter."`}</code></pre>
         <p>
-          The chunk now carries enough context to match the right queries. The embedding captures not just the content but what the content refers to.
+          Now the chunk carries enough information to match the right queries. The embedding captures not just what the text says, but what it is about.
         </p>
         <p>
-          Anthropic tested this across codebases, scientific papers, and financial filings. Contextual embeddings alone reduced retrieval failures by 35%. Combining contextual embeddings with contextual BM25 reduced failures by 49%. Add reranking and failures dropped by 67%.
+          Anthropic tested this across codebases, scientific papers, and financial filings. Contextual embeddings alone reduced retrieval failures by 35%. Combining contextual embeddings with contextual BM25 reduced failures by 49%. Add reranking on top and failures dropped by 67%. Each layer fixes what the previous one missed.
         </p>
         <p>
-          The cost is a one-time preprocessing step per chunk. You pass the full document and the chunk to the LLM and ask for a short situating context.
+          The cost is a one-time preprocessing step. You run it once when you index your documents. After that, the chunks carry their context forever.
+        </p>
+        <p>
+          If you are building a RAG system today and want a solid starting point, this is it. Contextual retrieval with hybrid search gives you the best of both keyword and semantic, with the context problem already handled. Start here and optimize from this baseline.
+        </p>
+
+        <h3>ColBERT</h3>
+        <p>
+          There is another approach to the chunking problem that takes a completely different angle. Instead of creating one embedding per chunk, what if you created one embedding per word?
+        </p>
+        <p>
+          That is what <a href="https://arxiv.org/pdf/2004.12832" target="_blank" rel="noopener noreferrer">ColBERT</a> does. Every token in the text gets its own contextualized embedding. The word &quot;bank&quot; in &quot;river bank&quot; gets a different vector than &quot;bank&quot; in &quot;bank account&quot; because the surrounding words shape each embedding individually.
+        </p>
+        <p>
+          This is called multi-vector retrieval. Instead of compressing an entire chunk into one vector and losing detail, you keep the full granularity. When a query comes in, each query token is matched against each document token, and the best matches are aggregated into a final score.
+        </p>
+        <p>
+          The tradeoff is straightforward: storage and compute. A single chunk that used to be one vector is now hundreds of vectors. Multiply that across your entire corpus and the storage cost grows fast. Search gets more expensive too because you are comparing token-level vectors instead of chunk-level ones.
+        </p>
+        <p>
+          I have not used ColBERT in production myself. But it is worth knowing about because it solves a real problem, the loss of precision when you compress meaning into a single vector, in a fundamentally different way than chunking strategies do.
+        </p>
+
+        <h3>Late Chunking</h3>
+        <p>
+          There is yet another way to think about the chunking problem. With normal chunking, you split the text first, then embed each chunk separately. Each chunk has no idea what the other chunks say. The context is gone before the embedding model ever sees it.
+        </p>
+        <p>
+          Late chunking flips the order. You pass the entire document through the embedding model first. The model processes all the tokens at once, so every token gets a vector that is informed by the full document context. Then you chunk the token-level vectors after the fact and pool each chunk into a single embedding.
+        </p>
+        <p>
+          That is why it is called late chunking. The chunking happens late, after the model has already seen everything.
+        </p>
+        <p>
+          The difference matters. In normal chunking, a sentence that says &quot;the city has 3.85 million inhabitants&quot; gets embedded without knowing that &quot;the city&quot; refers to Berlin, because that was mentioned three chunks ago. In late chunking, the model already processed the full document, so the vector for &quot;the city&quot; carries the Berlin context with it.
+        </p>
+        <p>
+          The catch: you need a long-context embedding model that can handle the full document in one pass. If your document is 50,000 tokens and your model caps at 8,192, you cannot do late chunking on the whole thing. You can read more about this approach at <a href="https://jina.ai/news/late-chunking-in-long-context-embedding-models/" target="_blank" rel="noopener noreferrer">Jina AI&apos;s writeup on late chunking</a>.
         </p>
 
       </BlogArticleLayout>

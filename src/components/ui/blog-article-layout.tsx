@@ -222,7 +222,7 @@ export function BlogArticleLayout({
         }}
         data-theme={theme}
       >
-        <div style={{ width: '100%', maxWidth: '720px', margin: '0 auto', padding: '0 1.5rem' }}>
+        <div style={{ width: '100%', maxWidth: '720px', margin: '0 auto', padding: '0 1.5rem', overflow: 'visible' }}>
 
           {/* Article header */}
           <motion.header
@@ -558,16 +558,25 @@ export function BlogArticleLayout({
         }
 
         .pipeline-wrapper {
-          width: 100%;
-          position: relative;
-          left: calc(-50vw + 50%);
-          margin: 2rem 0;
+          width: 100vw;
+          margin-left: calc(-50vw + 50%);
+          margin-top: 2rem;
+          margin-bottom: 2rem;
+          display: flex;
+          justify-content: center;
         }
 
-        .pipeline-img {
-          width: 100% !important;
+        .pipeline-wrapper .pipeline-img {
+          width: 860px;
+          max-width: 90vw;
           height: auto;
-          display: block;
+        }
+
+        @media (max-width: 640px) {
+          .pipeline-wrapper .pipeline-img {
+            width: 100%;
+            max-width: 100%;
+          }
         }
 
         @media (max-width: 640px) {

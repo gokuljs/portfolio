@@ -956,6 +956,17 @@ X wins because it showed up in both lists.`}</code></pre>
           Add debug logging at every step. Make it optional so it does not slow things down in production, but make sure you can turn it on and see what each stage received, what it returned, and what got dropped. When something goes wrong, that trail is how you find it.
         </p>
 
+        <h2>Overall Architecture</h2>
+        <div className="pipeline-wrapper">
+          <ThemeImage
+            lightSrc="/blogs/overall-pipeline-white.svg"
+            darkSrc="/blogs/overall-pipline-dark.svg"
+            alt="Overall retrieval pipeline architecture"
+            className="pipeline-img"
+            expandable
+          />
+        </div>
+
       </BlogArticleLayout>
     </>
   );

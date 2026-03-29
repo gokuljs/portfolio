@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { BlogArticleLayout } from '@/components/ui/blog-article-layout';
+import { ThemeImage } from '@/components/ui/theme-image';
 import { getBlogBySlug, generateBlogMetadata, generateBlogJsonLd } from '@/data/blogs-data';
 
 const slug = 'retrieval-from-first-principles';
@@ -429,6 +430,14 @@ Steps:
         <p>
           That is the limit of keyword search. That is where semantic search begins.
         </p>
+        <div className="pipeline-wrapper">
+          <ThemeImage
+            lightSrc="/blogs/Keyword-searq-query-pipeline-white.svg"
+            darkSrc="/blogs/keyword-search-query-pipeline-dark.svg"
+            alt="Keyword search query processing pipeline"
+            className="pipeline-img"
+          />
+        </div>
 
       </BlogArticleLayout>
     </>

@@ -557,6 +557,19 @@ export function BlogArticleLayout({
           display: block;
         }
 
+        .pipeline-wrapper {
+          width: 100%;
+          position: relative;
+          left: calc(-50vw + 50%);
+          margin: 2rem 0;
+        }
+
+        .pipeline-img {
+          width: 100% !important;
+          height: auto;
+          display: block;
+        }
+
         @media (max-width: 640px) {
           .blog-content[data-theme="light"],
           .blog-content[data-theme="dark"] { font-size: 15.5px; line-height: 1.78; }

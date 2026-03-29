@@ -772,6 +772,83 @@ alpha = 0.0   0% keyword, 100% semantic`}</code></pre>
         <p>
           There is no universal right answer. Build your system so alpha is configurable, test it against real queries from your users, and tune from there.
         </p>
+        <p>
+          But weighted combination has a flaw. Here is where it breaks.
+        </p>
+        <pre><code>{`Query: "python asyncio tutorial"
+
+BM25 scores:                    Semantic scores:
+  doc_A: 45.2                     doc_A: 0.92
+  doc_B: 44.8                     doc_C: 0.85
+  doc_C: 44.1                     doc_B: 0.41
+  doc_D: 41.0                     doc_D: 0.38
+
+After min-max normalization (0 to 1):
+
+BM25 normalized:                Semantic normalized:
+  doc_A: 1.00                     doc_A: 1.00
+  doc_B: 0.90                     doc_C: 0.87
+  doc_C: 0.74                     doc_B: 0.06
+  doc_D: 0.00                     doc_D: 0.00
+
+Weighted combination (alpha = 0.5):
+  doc_A: 0.5 * 1.00 + 0.5 * 1.00 = 1.00
+  doc_B: 0.5 * 0.90 + 0.5 * 0.06 = 0.48
+  doc_C: 0.5 * 0.74 + 0.5 * 0.87 = 0.81
+  doc_D: 0.5 * 0.00 + 0.5 * 0.00 = 0.00
+
+Final ranking: doc_A, doc_C, doc_B, doc_D`}</code></pre>
+        <p>
+          Look at doc_B. In BM25, it scored 44.8, barely behind doc_A at 45.2. Almost identical. But after normalization, that tiny gap of 0.4 became a gap of 0.10. And semantic gave doc_B a 0.41, which normalized to 0.06, almost zero. So a document that was genuinely relevant by keyword match got crushed because normalization turned small score differences into large ones. The weighted combination punished doc_B for something the raw scores never said.
+        </p>
+        <p>
+          This is the fundamental problem. Min-max normalization is sensitive to the distribution of scores. When one system returns tightly clustered scores and the other returns spread out ones, the blending gets distorted. Your rankings end up shaped by the math, not by relevance.
+        </p>
+
+        <h3>Reciprocal Rank Fusion (RRF)</h3>
+        <p>
+          RRF sidesteps the problem entirely. It throws away the scores and uses only the ranks. It does not matter what the BM25 score was or what the cosine similarity was. All that matters is: where did each document land in each list?
+        </p>
+        <pre><code>{`RRF score = sum of 1 / (k + rank) for each system
+
+k is a constant (typically 60)
+
+Example: document X ranks #2 in BM25 and #5 in semantic
+  RRF = 1/(60+2) + 1/(60+5) = 0.016 + 0.015 = 0.031
+
+Document Y ranks #1 in BM25 but absent from semantic
+  RRF = 1/(60+1) + 0 = 0.016
+
+X wins because it showed up in both lists.`}</code></pre>
+        <p>
+          No normalization needed. No alpha to tune. Documents that rank well in both systems rise to the top naturally.
+        </p>
+        <p>
+          The k parameter controls how steeply the ranking drops off. A lower k like 20 gives much more weight to the top-ranked results and almost nothing to the rest. A higher k like 100 flattens the curve, so lower-ranked results still have meaningful influence. The default of 60 is a reasonable middle ground for most use cases.
+        </p>
+
+        <h3>Query Enhancement</h3>
+        <p>
+          Everything so far assumes the user typed a good query. They usually did not. People misspell words, write vague questions, and leave out context that would make the search work better. The retrieval pipeline can only find what the query asks for. If the query is bad, the results are bad.
+        </p>
+        <p>
+          You can fix this before the search even runs. Pass the raw query through an LLM first. Let it fix typos, expand abbreviations, break apart complex questions into simpler ones, and add missing context. Then search with the cleaned-up version instead of the original.
+        </p>
+        <p>
+          The user types &quot;how do i fix timout erors in my api&quot;. The LLM rewrites it to &quot;how to fix timeout errors in REST API requests&quot;. Now the search has the right spelling, the right terminology, and enough specificity to return useful results.
+        </p>
+        <p>
+          It is a small step that makes everything downstream work better. The retrieval does not get smarter. The query just stops being the bottleneck.
+        </p>
+        <div className="pipeline-wrapper">
+          <ThemeImage
+            lightSrc="/blogs/semantic-search-pipeline-white.svg"
+            darkSrc="/blogs/semantic-search-pipeline-dark.svg"
+            alt="Semantic search pipeline"
+            className="pipeline-img"
+            expandable
+          />
+        </div>
 
       </BlogArticleLayout>
     </>

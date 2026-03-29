@@ -94,9 +94,7 @@ export function TableOfContents({ theme = 'light' }: TableOfContentsProps) {
               ? (isLight ? '#9ca3af' : '#555555')
               : (isLight ? '#6b7280' : '#888888');
 
-          const fontSize = isActive
-            ? (isH3 ? 12.5 : 13.5)
-            : (isH3 ? 10 : 11);
+          const fontSize = isH3 ? 11 : 11.5;
 
           const paddingTop    = isActive ? 6 : 3;
           const paddingBottom = isActive ? 6 : 3;
@@ -122,18 +120,19 @@ export function TableOfContents({ theme = 'light' }: TableOfContentsProps) {
                   color: textColor,
                   fontWeight: isActive ? 500 : 400,
                   letterSpacing: isActive ? 0 : 0.2,
+                  skewX: isActive ? -8 : 0,
                   opacity: 1,
                 }}
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 style={{
                   display: 'block',
                   fontFamily: "'Lora', Georgia, serif",
-                  fontStyle: isActive ? 'italic' : 'normal',
                   fontSize: `${fontSize}px`,
                   lineHeight: 1.5,
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   whiteSpace: 'nowrap',
+                  transformOrigin: 'left center',
                 }}
               >
                 {heading.text}

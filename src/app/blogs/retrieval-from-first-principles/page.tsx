@@ -507,6 +507,9 @@ Steps:
         <p>
           Also check what similarity metric your model was trained for. Most modern models are trained for cosine similarity. Some use dot product. If the model was optimized for cosine and you run dot product at query time, the rankings shift. Match the metric to the model.
         </p>
+        <blockquote>
+          Note: this is one of those silent failures. The system runs, results come back, no error anywhere. But the rankings are wrong because the metric does not match what the model was trained for. You will spend hours debugging retrieval quality before you think to check this.
+        </blockquote>
 
         <h3>Cosine Similarity</h3>
         <p>
@@ -537,6 +540,17 @@ Steps:
           style={{ width: '100%', maxWidth: '400px', margin: '1.5rem auto' }}
           expandable
         />
+
+        <h3>Which One to Use</h3>
+        <p>
+          For most RAG systems, cosine similarity is the right default. You care about whether two texts mean the same thing, not how long or detailed they are. Cosine normalizes that away.
+        </p>
+        <p>
+          Use dot product when magnitude carries signal. Some models encode confidence or specificity in the vector length. A longer vector means the model is more certain about the meaning. In that case, you want magnitude to influence the score. Dot product preserves it. Cosine discards it.
+        </p>
+        <p>
+          In practice, check the model card. If it says cosine, use cosine. If it says inner product or dot product, use that. Do not mix them. The model was trained to optimize for one, and using the other will shift your rankings in ways that are hard to debug.
+        </p>
 
       </BlogArticleLayout>
     </>

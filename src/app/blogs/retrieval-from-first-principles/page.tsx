@@ -481,7 +481,7 @@ Steps:
           lightSrc="/blogs/embedding-space-light.svg"
           darkSrc="/blogs/embedding-space-dark.svg"
           alt="Embedding space: similar words cluster together, different words are far apart"
-          style={{ maxWidth: '560px', margin: '1.5rem auto' }}
+          style={{ width: '100%', maxWidth: '560px', margin: '1.5rem auto' }}
           expandable
         />
 
@@ -505,8 +505,38 @@ Steps:
           One rule that is non-negotiable: the same embedding model must be used for both indexing and querying. If you embed your documents with model A and your queries with model B, the vector spaces will not align. The distances will be meaningless. Your results will be garbage and you will not get an error telling you why.
         </p>
         <p>
-          Also check what similarity metric your model was trained for. Most modern models are trained for cosine similarity. Some use dot product or euclidean distance. If the model was optimized for cosine and you run dot product at query time, the rankings shift. Match the metric to the model.
+          Also check what similarity metric your model was trained for. Most modern models are trained for cosine similarity. Some use dot product. If the model was optimized for cosine and you run dot product at query time, the rankings shift. Match the metric to the model.
         </p>
+
+        <h3>Cosine Similarity</h3>
+        <p>
+          Cosine similarity measures the angle between two vectors. It does not care about length. Two vectors pointing in the same direction score 1, no matter how long or short they are. Two vectors at right angles score 0. Opposite directions score -1.
+        </p>
+        <p>
+          This makes it useful when you care purely about meaning. A short document and a long document about the same topic will have vectors pointing in the same direction. Cosine treats them equally.
+        </p>
+        <ThemeImage
+          lightSrc="/blogs/cosine-similarity-light.svg"
+          darkSrc="/blogs/cosine-similarity-dark.svg"
+          alt="Cosine similarity: measures angle between vectors, ignores magnitude"
+          style={{ width: '100%', maxWidth: '400px', margin: '1.5rem auto' }}
+          expandable
+        />
+
+        <h3>Dot Product</h3>
+        <p>
+          Dot product cares about both direction and magnitude. Two vectors pointing the same way score high, but a longer vector scores even higher. It rewards not just similar meaning, but confidence in that meaning.
+        </p>
+        <p>
+          If your embedding model produces vectors where magnitude encodes importance or confidence, dot product captures that signal. Cosine throws it away.
+        </p>
+        <ThemeImage
+          lightSrc="/blogs/dot-product-light.svg"
+          darkSrc="/blogs/dot-product-dark.svg"
+          alt="Dot product: measures both direction and magnitude of vectors"
+          style={{ width: '100%', maxWidth: '400px', margin: '1.5rem auto' }}
+          expandable
+        />
 
       </BlogArticleLayout>
     </>

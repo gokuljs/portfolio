@@ -850,6 +850,43 @@ X wins because it showed up in both lists.`}</code></pre>
           />
         </div>
 
+        <h2>Reranking</h2>
+        <p>
+          A search might return 50 or 100 documents. The user cares about the top 5 to 10. Getting those right is what matters.
+        </p>
+        <p>
+          Reranking does something that neither BM25 nor vector search can. It looks at the query and the full document together at the same time. BM25 matches keywords without understanding the query. Vector search compares pre-computed embeddings without seeing the actual text. Reranking sees both, side by side, and scores relevance based on that full picture.
+        </p>
+        <p>
+          That is why it is more accurate. It is also why it is slow. You cannot pre-compute anything. Every query-document pair has to be scored from scratch. You cannot afford to run this on your entire corpus.
+        </p>
+        <p>
+          So you do not. You use BM25 and vector search to quickly eliminate the majority of documents and get a rough top 50 to 100. Then you run the expensive reranker only on those candidates. Fast retrieval first, precise reranking second.
+        </p>
+        <p>
+          You can make this faster. Instead of scoring each document individually against the query in separate LLM calls, you batch them. Pass all the candidate documents to the LLM in one call and ask it to rank them together.
+        </p>
+        <p>
+          This is better for two reasons. Speed and cost, obviously. You are not re-sending the system prompt and query for every single document. But the bigger win is quality. When the LLM scores documents one at a time, each score is independent. It picks a number on some arbitrary scale with no reference point. When it sees all the documents together, it compares them against each other in the same context. The ranking is relative, which is what you actually want.
+        </p>
+
+        <h3>Cross-Encoder Reranking</h3>
+        <p>
+          There is a faster alternative to using an LLM for reranking. A cross-encoder.
+        </p>
+        <p>
+          The embeddings we used for semantic search came from a bi-encoder. It embeds the query and the document separately, then you compare them with cosine similarity. A cross-encoder does something different. It takes the query and the document together as a single input and outputs a relevance score directly. No separate embeddings, no cosine similarity. Just one number.
+        </p>
+        <p>
+          Because the cross-encoder sees the query and document side by side in the same pass, it catches subtle relationships that bi-encoders miss. It understands how the query interacts with the document, not just how similar their embeddings are.
+        </p>
+        <p>
+          The big advantage over LLM reranking is speed. A cross-encoder is a small regression model. It does one thing: take a query-document pair, output a score. No generation, no chain of thought, no token-by-token output. It is much faster and cheaper than calling an LLM.
+        </p>
+        <p>
+          The other advantage is that you can fine-tune it on your own data. Train it on query-document pairs from your domain, and it learns the exact relevance patterns your users care about. That is harder and more expensive to do with an LLM. You can explore pre-trained cross-encoders and how to use them at <a href="https://sbert.net/examples/cross_encoder/applications/README.html" target="_blank" rel="noopener noreferrer">sbert.net</a>.
+        </p>
+
       </BlogArticleLayout>
     </>
   );

@@ -588,21 +588,10 @@ Search (per query):
 
         <h3>Vector Databases</h3>
         <p>
-          Storing embeddings in a list and looping through them works for a demo. It does not work for production. When you have millions of documents, you need a database built specifically for vectors.
+          Looping through a list of embeddings works for a demo. At a million documents, it does not. You need a database built for vectors.
         </p>
         <p>
-          A vector database does three things a list cannot: fast similarity search using specialized indexes, persistent storage so embeddings survive restarts, and concurrent access so multiple users can search at the same time.
-        </p>
-        <pre><code>{`Traditional Database            Vector Database
-Data: rows and columns          Data: high-dimensional vectors
-Query: exact match (WHERE)      Query: nearest neighbors
-Index: B-tree, hash             Index: HNSW, IVF, LSH
-Use: transactional data         Use: embeddings, semantic search`}</code></pre>
-        <p>
-          The key to speed is the indexing. Instead of checking every vector, the database pre-organizes them into structures that narrow the search space. HNSW builds a graph where similar vectors are neighbors. IVF clusters vectors into groups and only searches the relevant clusters. LSH hashes vectors into buckets so you only compare within the same bucket.
-        </p>
-        <p>
-          All of these trade a small amount of accuracy for a massive gain in speed. You might miss the absolute nearest neighbor, but you find very close ones in milliseconds instead of seconds. For retrieval, that tradeoff is almost always worth it.
+          The key difference is indexing. Instead of comparing every vector, the database pre-organizes them so it only checks a small subset. The details of how these indexes work are beyond the scope of this post, but the tradeoff is simple: you might miss the absolute nearest neighbor, but you get very close ones in milliseconds instead of seconds.
         </p>
 
         <h3>Chunking</h3>
@@ -610,7 +599,7 @@ Use: transactional data         Use: embeddings, semantic search`}</code></pre>
           With keyword search, you index entire documents. With semantic search, you cannot. An embedding model compresses text into a fixed-size vector. The longer the text, the more meaning gets averaged together, and the less precise the vector becomes.
         </p>
         <p>
-          A full document about a movie covers the plot, the cast, the budget, the reviews, the box office. If you embed all of that as one vector, a query about &quot;box office performance&quot; matches weakly because the vector represents everything at once. The specific signal gets diluted.
+          A long technical document covers architecture decisions, deployment steps, error handling, and performance benchmarks. If you embed all of that as one vector, a query about &quot;how to handle timeout errors&quot; matches weakly because the vector represents everything at once. The specific signal gets diluted.
         </p>
         <p>
           Chunking fixes this. You split the document into smaller pieces and embed each piece separately. A query about box office hits the chunk that actually talks about box office, not the chunk about the cast.
@@ -689,7 +678,7 @@ After:
           Anthropic tested this across codebases, scientific papers, and financial filings. Contextual embeddings alone reduced retrieval failures by 35%. Combining contextual embeddings with contextual BM25 reduced failures by 49%. Add reranking and failures dropped by 67%.
         </p>
         <p>
-          The cost is a one-time preprocessing step per chunk. You pass the full document and the chunk to the LLM and ask for a short situating context. With prompt caching, this costs roughly $1 per million document tokens.
+          The cost is a one-time preprocessing step per chunk. You pass the full document and the chunk to the LLM and ask for a short situating context.
         </p>
 
       </BlogArticleLayout>

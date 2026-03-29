@@ -375,6 +375,38 @@ doc_length / avg_doc_length:
           A focused short document that mentions the term twice will outscore a bloated long document that mentions it five times. That is the behaviour you want.
         </p>
 
+        <h4>Tuning k1 and b</h4>
+        <p>
+          Both parameters have sensible defaults that work for most cases. But your corpus is not generic, and tuning them matters more than most people expect.
+        </p>
+        <p>
+          k1 controls how much term repetition still counts. A low k1 means the first occurrence of a term does almost all the work. A high k1 means multiple occurrences keep adding meaningful score before the curve flattens.
+        </p>
+        <pre><code>{`k1 = 0.5   saturation is aggressive. First occurrence dominates.
+           Good for: short documents, product titles, code identifiers,
+           queries where one mention is as strong as ten.
+
+k1 = 1.2   default. Works well for most general text corpora.
+
+k1 = 2.0   saturation is slow. Repetition keeps contributing longer.
+           Good for: long technical documents, legal text, scientific papers
+           where a term recurring throughout genuinely signals relevance.`}</code></pre>
+        <p>
+          b controls how hard you penalize long documents. A high b means document length matters a lot. A low b means you mostly ignore it.
+        </p>
+        <pre><code>{`b = 0.0   length is ignored entirely. Every document competes on raw TF.
+          Good for: corpora where length correlates with coverage,
+          encyclopedic content, or documents of uniform length.
+
+b = 0.75  default. Partial normalization, works well in practice.
+
+b = 1.0   full normalization. Length is fully accounted for.
+          Good for: mixed corpora with huge length variance,
+          FAQs mixed with long articles, or boilerplate-heavy documents.`}</code></pre>
+        <p>
+          When tuning, change one parameter at a time and evaluate against real queries from your domain. The defaults are a good starting point, not an endpoint.
+        </p>
+
         <h4>The Complete BM25 Formula</h4>
         <p>
           Put the fixed IDF and the saturating, length-normalized TF together and you get the full BM25 score:

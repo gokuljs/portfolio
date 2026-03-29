@@ -449,6 +449,42 @@ Steps:
           />
         </div>
 
+        <h2>Semantic Search</h2>
+        <p>
+          Keyword search matches words. Semantic search matches meaning. That is the fundamental difference.
+        </p>
+        <p>
+          Search for &quot;heart attack&quot; and keyword search will never find a document that says &quot;myocardial infarction&quot;. Search for &quot;how to make code run faster&quot; and it will miss a document titled &quot;performance optimization techniques&quot;. The words are different. The meaning is the same. Keyword search cannot cross that gap.
+        </p>
+        <p>
+          Semantic search can. It handles three things that keyword search fundamentally cannot.
+        </p>
+        <p>
+          Synonym matching. &quot;Car&quot; and &quot;automobile&quot; are different strings but the same concept. Keyword search treats them as unrelated. Semantic search knows they are the same.
+        </p>
+        <p>
+          Conceptual queries. A user searching for &quot;movies about loneliness in space&quot; is not looking for documents that contain those exact words. They are looking for documents about that idea. Keyword search needs the exact terms. Semantic search understands the concept.
+        </p>
+        <p>
+          Natural language. People do not search in keywords. They ask questions. &quot;Why does my database keep locking up?&quot; is a natural language query. The relevant document might talk about &quot;deadlocks&quot; and &quot;contention&quot;. Semantic search bridges that gap.
+        </p>
+        <p>
+          The thing that makes all of this work is embeddings.
+        </p>
+        <p>
+          An embedding is a vector. A vector is a list of numbers. That is it. You take a piece of text, pass it through a model, and you get back a list of numbers that represents the meaning of that text. Not the words. The meaning.
+        </p>
+        <p>
+          Texts with similar meaning end up close together in this space. Texts with different meaning end up far apart.
+        </p>
+        <ThemeImage
+          lightSrc="/blogs/embedding-space-light.svg"
+          darkSrc="/blogs/embedding-space-dark.svg"
+          alt="Embedding space: similar words cluster together, different words are far apart"
+          style={{ maxWidth: '560px', margin: '1.5rem auto' }}
+          expandable
+        />
+
       </BlogArticleLayout>
     </>
   );

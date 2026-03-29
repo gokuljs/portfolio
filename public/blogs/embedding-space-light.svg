@@ -1,0 +1,35 @@
+<svg viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="560" height="400" fill="#fafaf8" rx="10"/>
+
+  <!-- Axes -->
+  <line x1="50" y1="360" x2="530" y2="360" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="50" y1="360" x2="50" y2="30" stroke="#d1d5db" stroke-width="1"/>
+
+  <!-- Vehicles cluster -->
+  <circle cx="140" cy="120" r="6" fill="#16a34a"/>
+  <text x="155" y="125" fill="#16a34a" font-family="monospace" font-size="13">"car"</text>
+  <circle cx="170" cy="145" r="6" fill="#16a34a"/>
+  <text x="185" y="150" fill="#16a34a" font-family="monospace" font-size="13">"automobile"</text>
+  <circle cx="125" cy="155" r="6" fill="#16a34a"/>
+  <text x="65" y="172" fill="#16a34a" font-family="monospace" font-size="13">"vehicle"</text>
+  <ellipse cx="148" cy="140" rx="65" ry="40" fill="none" stroke="#16a34a" stroke-width="1" stroke-dasharray="4,4" opacity="0.3"/>
+
+  <!-- Database cluster -->
+  <circle cx="380" cy="100" r="6" fill="#2563eb"/>
+  <text x="395" y="105" fill="#2563eb" font-family="monospace" font-size="13">"deadlock"</text>
+  <circle cx="410" cy="135" r="6" fill="#2563eb"/>
+  <text x="425" y="140" fill="#2563eb" font-family="monospace" font-size="13">"contention"</text>
+  <circle cx="365" cy="140" r="6" fill="#2563eb"/>
+  <text x="300" y="157" fill="#2563eb" font-family="monospace" font-size="13">"lock"</text>
+  <ellipse cx="385" cy="125" rx="65" ry="40" fill="none" stroke="#2563eb" stroke-width="1" stroke-dasharray="4,4" opacity="0.3"/>
+
+  <!-- Food cluster -->
+  <circle cx="260" cy="310" r="6" fill="#dc2626"/>
+  <text x="275" y="315" fill="#dc2626" font-family="monospace" font-size="13">"banana"</text>
+  <circle cx="220" cy="330" r="6" fill="#dc2626"/>
+  <text x="235" y="335" fill="#dc2626" font-family="monospace" font-size="13">"fruit"</text>
+  <ellipse cx="245" cy="320" rx="55" ry="30" fill="none" stroke="#dc2626" stroke-width="1" stroke-dasharray="4,4" opacity="0.3"/>
+
+  <!-- Caption -->
+  <text x="280" y="385" text-anchor="middle" fill="#6b7280" font-family="monospace" font-size="11">similar meaning = close together, different meaning = far apart</text>
+</svg>

@@ -565,6 +565,133 @@ Same direction + longer vectors = higher score.`}</code></pre>
           In practice, check the model card. If it says cosine, use cosine. If it says inner product or dot product, use that. Do not mix them. The model was trained to optimize for one, and using the other will shift your rankings in ways that are hard to debug.
         </p>
 
+        <h3>How Semantic Search Works</h3>
+        <p>
+          The pipeline has two phases. Indexing happens once. Search happens on every query.
+        </p>
+        <pre><code>{`Indexing (once):
+1. Take each document
+2. Convert it to a vector using your embedding model
+3. Store the vector in a vector store
+
+Search (per query):
+1. Convert the user query to a vector using the same model
+2. Compare the query vector against all stored vectors
+3. Rank by similarity score
+4. Return the top results`}</code></pre>
+        <p>
+          That is it. No text preprocessing, no inverted index, no BM25 scoring. You embed, you compare, you rank.
+        </p>
+        <p>
+          But this only works at small scale. Comparing the query vector against every stored vector one by one is O(n). With a million documents, that is a million comparisons per query. It does not scale.
+        </p>
+
+        <h3>Vector Databases</h3>
+        <p>
+          Storing embeddings in a list and looping through them works for a demo. It does not work for production. When you have millions of documents, you need a database built specifically for vectors.
+        </p>
+        <p>
+          A vector database does three things a list cannot: fast similarity search using specialized indexes, persistent storage so embeddings survive restarts, and concurrent access so multiple users can search at the same time.
+        </p>
+        <pre><code>{`Traditional Database            Vector Database
+Data: rows and columns          Data: high-dimensional vectors
+Query: exact match (WHERE)      Query: nearest neighbors
+Index: B-tree, hash             Index: HNSW, IVF, LSH
+Use: transactional data         Use: embeddings, semantic search`}</code></pre>
+        <p>
+          The key to speed is the indexing. Instead of checking every vector, the database pre-organizes them into structures that narrow the search space. HNSW builds a graph where similar vectors are neighbors. IVF clusters vectors into groups and only searches the relevant clusters. LSH hashes vectors into buckets so you only compare within the same bucket.
+        </p>
+        <p>
+          All of these trade a small amount of accuracy for a massive gain in speed. You might miss the absolute nearest neighbor, but you find very close ones in milliseconds instead of seconds. For retrieval, that tradeoff is almost always worth it.
+        </p>
+
+        <h3>Chunking</h3>
+        <p>
+          With keyword search, you index entire documents. With semantic search, you cannot. An embedding model compresses text into a fixed-size vector. The longer the text, the more meaning gets averaged together, and the less precise the vector becomes.
+        </p>
+        <p>
+          A full document about a movie covers the plot, the cast, the budget, the reviews, the box office. If you embed all of that as one vector, a query about &quot;box office performance&quot; matches weakly because the vector represents everything at once. The specific signal gets diluted.
+        </p>
+        <p>
+          Chunking fixes this. You split the document into smaller pieces and embed each piece separately. A query about box office hits the chunk that actually talks about box office, not the chunk about the cast.
+        </p>
+
+        <h4>Fixed-Size Chunking</h4>
+        <p>
+          The simplest approach. Split text every N words or N tokens. Predictable sizes, simple to implement, easy to control token limits. But it is dumb. It splits in the middle of sentences, in the middle of thoughts.
+        </p>
+
+        <h4>Chunk Overlap</h4>
+        <p>
+          Fixed-size chunking breaks context at boundaries. Consider this text:
+        </p>
+        <pre><code>{`"the bear attack was terrifying. The stunning special effects led to record breaking sales."
+
+Without overlap:
+  chunk 1: "the bear attack was"
+  chunk 2: "terrifying. The stunning special effects led"
+  chunk 3: "to record breaking sales."
+
+What was terrifying? What had record breaking sales? Context is lost.
+
+With overlap:
+  chunk 1: "the bear attack was terrifying."
+  chunk 2: "terrifying. The stunning special effects led to record breaking sales."
+
+Now each chunk carries enough context to make sense on its own.`}</code></pre>
+        <p>
+          How much overlap? There is no universal answer. Make it configurable and test on your data.
+        </p>
+
+        <h4>Semantic Chunking</h4>
+        <p>
+          Even with overlap, word-based splitting cuts at arbitrary positions. &quot;Ted explores themes&quot; gets separated from &quot;of friendship and growing up&quot;. The author&apos;s intended meaning is split across chunks.
+        </p>
+        <p>
+          Semantic chunking respects natural language structure. Instead of splitting at word counts, you split at sentence or paragraph boundaries. Each chunk contains a complete thought as the author organized it.
+        </p>
+        <pre><code>{`Word-based:
+  "Ted explores themes"
+  "of friendship and growing up"
+  "growing up while John must"
+
+Semantic:
+  "Ted is a 2012 comedy film directed by Seth MacFarlane."
+  "The story follows John Bennett and his magical teddy bear."
+  "The film explores themes of friendship and growing up."`}</code></pre>
+
+        <h4>The Edge Cases</h4>
+        <p>
+          Chunking seems straightforward until you run it on real data. Tables get jumbled when extracted from PDFs. Headers and footers repeat in every chunk. Column layouts merge text from different columns. Code blocks break semantic boundaries. Long quoted sections separate from their attribution.
+        </p>
+        <p>
+          There is no algorithm that handles all of these. The way to get reliable chunks is to create them and manually inspect the results. A lot.
+        </p>
+
+        <h3>Contextual Retrieval</h3>
+        <p>
+          Chunking creates a new problem. When you break a document into pieces, each piece loses the context of the whole. A chunk that says &quot;revenue grew by 3% over the previous quarter&quot; does not say which company or which quarter. The chunk is correct but useless for retrieval because the query needs to match on company and time period.
+        </p>
+        <p>
+          Anthropic published a solution for this called <a href="https://www.anthropic.com/engineering/contextual-retrieval" target="_blank" rel="noopener noreferrer">Contextual Retrieval</a>. The idea: before embedding a chunk, use an LLM to prepend a short context that situates the chunk within the original document.
+        </p>
+        <pre><code>{`Before:
+  "Revenue grew by 3% over the previous quarter."
+
+After:
+  "This chunk is from ACME Corp's Q2 2023 SEC filing.
+   Previous quarter revenue was $314 million.
+   Revenue grew by 3% over the previous quarter."`}</code></pre>
+        <p>
+          The chunk now carries enough context to match the right queries. The embedding captures not just the content but what the content refers to.
+        </p>
+        <p>
+          Anthropic tested this across codebases, scientific papers, and financial filings. Contextual embeddings alone reduced retrieval failures by 35%. Combining contextual embeddings with contextual BM25 reduced failures by 49%. Add reranking and failures dropped by 67%.
+        </p>
+        <p>
+          The cost is a one-time preprocessing step per chunk. You pass the full document and the chunk to the LLM and ask for a short situating context. With prompt caching, this costs roughly $1 per million document tokens.
+        </p>
+
       </BlogArticleLayout>
     </>
   );

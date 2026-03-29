@@ -967,6 +967,23 @@ X wins because it showed up in both lists.`}</code></pre>
           />
         </div>
 
+        <h2>Conclusion</h2>
+        <p>
+          Every retrieval algorithm exists because the previous one had a flaw.
+        </p>
+        <p>
+          If you are starting from scratch, start with BM25 for keyword search and contextual retrieval for semantic search. That is a strong baseline. From there, spend time building a good evaluation dataset. Give recall more weight than precision. The documents your pipeline misses are the ones that hurt you, and no amount of reranking can fix what was never retrieved.
+        </p>
+        <p>
+          Good evals are the only way to make your pipeline better. They are the knob you turn. Without them, every change is a guess.
+        </p>
+        <p>
+          That is the full arc. Each layer exists for a reason. If you understand the reason, you know when to use it and when to skip it.
+        </p>
+        <p>
+          The bare-metal implementation of everything covered here is at <a href="https://github.com/gokuljs/DeepRAG" target="_blank" rel="noopener noreferrer">DeepRAG</a>. Read the code. Trace the trail.
+        </p>
+
       </BlogArticleLayout>
     </>
   );

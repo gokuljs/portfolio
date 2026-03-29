@@ -887,6 +887,75 @@ X wins because it showed up in both lists.`}</code></pre>
           The other advantage is that you can fine-tune it on your own data. Train it on query-document pairs from your domain, and it learns the exact relevance patterns your users care about. That is harder and more expensive to do with an LLM. You can explore pre-trained cross-encoders and how to use them at <a href="https://sbert.net/examples/cross_encoder/applications/README.html" target="_blank" rel="noopener noreferrer">sbert.net</a>.
         </p>
 
+        <h2>Evaluation</h2>
+        <p>
+          This is the most important part of your retrieval pipeline. Everything else you have built so far, the chunking, the embeddings, the hybrid search, the reranking, all of it is guesswork until you measure it.
+        </p>
+        <p>
+          Evaluation is the knob. It is what tells you whether your chunk size is right. Whether your chunk overlap is too small. Whether your alpha is wrong. Whether the reranker is making things better or worse. Without evaluation, you are tuning blind.
+        </p>
+        <p>
+          And the quality of your evaluation depends entirely on the quality of your dataset. A golden dataset of queries paired with their expected results. The better the dataset, the more you can trust the numbers. The more you can trust the numbers, the more confidently you can change things. Spend time here. Build the dataset carefully. It is the foundation everything else sits on.
+        </p>
+        <p>
+          Three metrics matter.
+        </p>
+
+        <h3>Precision</h3>
+        <p>
+          Your system returns 10 documents for a query. You compare them against your golden dataset. 7 of the 10 are actually relevant. Precision is 7 out of 10. That is 0.7.
+        </p>
+        <pre><code>{`precision = relevant_retrieved / total_retrieved`}</code></pre>
+        <p>
+          In practice you measure this as Precision@K, where K is the number of results the user actually sees. If your UI shows the top 5, you care about Precision@5. The documents beyond that do not matter because nobody looks at them.
+        </p>
+
+        <h3>Recall</h3>
+        <p>
+          Precision asks how much of what you returned is relevant. Recall asks a different question. How much of what is relevant did you actually find?
+        </p>
+        <pre><code>{`recall = relevant_retrieved / total_relevant`}</code></pre>
+        <p>
+          Say there are 20 relevant documents in your corpus for a query. Your system retrieved 8 of them. Recall is 8 out of 20. That is 0.4. You found less than half of what was there.
+        </p>
+        <p>
+          This matters more than most people think. If your pipeline does not retrieve the relevant documents in the first stage, nothing downstream can save you. Your reranker cannot rerank documents it never received. In medical, legal, and safety applications, missing relevant information is not just bad UX. It has consequences.
+        </p>
+        <p>
+          I always optimize for recall first. If the pipeline is not surfacing all the relevant documents, that is the bigger problem. Precision you can improve later with reranking. Missing documents you cannot fix after the fact.
+        </p>
+
+        <h3>The Tradeoff</h3>
+        <p>
+          Higher recall usually means lower precision. You retrieve more documents to make sure you do not miss anything, but that means more irrelevant ones slip in. Tighten precision and you start dropping relevant results. They pull in opposite directions.
+        </p>
+        <p>
+          The right balance is a product question as much as a technical one. What is worse for your users, seeing some irrelevant results or missing the answer entirely?
+        </p>
+
+        <h3>F1 Score</h3>
+        <p>
+          When you need a single number that captures both precision and recall, you use F1. It is the harmonic mean of the two.
+        </p>
+        <pre><code>{`f1 = 2 * (precision * recall) / (precision + recall)`}</code></pre>
+        <p>
+          F1 punishes imbalance. A system with 0.95 precision and 0.10 recall gets an F1 of 0.18. It looks great on precision but it is barely finding anything. F1 exposes that. A system with 0.70 precision and 0.70 recall gets an F1 of 0.70. Balanced and honest.
+        </p>
+        <p>
+          Use F1 when precision and recall matter equally. Use it when you want to compare different pipeline configurations against each other with one number. But if one metric matters more than the other for your use case, optimize for that directly instead of hiding behind an average.
+        </p>
+
+        <h3>Error Analysis</h3>
+        <p>
+          Metrics tell you something is wrong. They do not tell you where. When a query returns bad results, you need to trace it through the entire pipeline and find exactly where it broke.
+        </p>
+        <p>
+          Did the preprocessing strip something it should not have? Did query rewriting change the meaning? Did keyword search miss it? Did semantic search rank it low? Did the reranker push it down? The failure could be at any stage, and each stage has different fixes.
+        </p>
+        <p>
+          Add debug logging at every step. Make it optional so it does not slow things down in production, but make sure you can turn it on and see what each stage received, what it returned, and what got dropped. When something goes wrong, that trail is how you find it.
+        </p>
+
       </BlogArticleLayout>
     </>
   );

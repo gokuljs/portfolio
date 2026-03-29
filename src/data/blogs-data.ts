@@ -17,8 +17,8 @@ export const blogsData: Blog[] = [
     title: 'The Art of Retrieval',
     description: 'Every retrieval algorithm exists because the previous one had a flaw. This is a deep dive into how search evolved, and why it had to.',
     date: '2026-03-20',
-    readTime: '18 min read',
-    tags: ['Search', 'RAG', 'Vector Databases', 'Information Retrieval', 'Embeddings', 'BM25'],
+    readTime: '35 min read',
+    tags: ['RAG', 'BM25', 'TF-IDF', 'Semantic Search', 'Hybrid Search', 'Reranking',],
     featured: true,
   },
   {

@@ -119,7 +119,6 @@ export function TableOfContents({ theme = 'light' }: TableOfContentsProps) {
             >
               <motion.span
                 animate={{
-                  fontSize,
                   color: textColor,
                   fontWeight: isActive ? 500 : 400,
                   letterSpacing: isActive ? 0 : 0.2,

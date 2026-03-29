@@ -8,14 +8,12 @@
   align-items: center;
   gap: 12px;
   padding: 13px 16px 18px;
-  background: rgba(8, 8, 8, 0.94);
+  background: var(--site-nav-bg);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--site-border);
   border-radius: 14px;
-  box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.55),
-    0 0 0 1px rgba(255, 255, 255, 0.03);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
   max-width: min(400px, 90vw);
   overflow: hidden;
   pointer-events: none;
@@ -51,14 +49,14 @@
 .toastTitle {
   font-size: 0.8rem;
   font-weight: 600;
-  color: #fff;
+  color: var(--site-text-heading);
   letter-spacing: 0.01em;
   white-space: nowrap;
 }
 
 .toastSub {
   font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--site-text-muted);
   line-height: 1.45;
 }
 
@@ -91,15 +89,15 @@
   left: 0;
   width: 100%;
   z-index: 9999;
-  background: rgba(0, 0, 0, 0);
-  border-bottom: 1px solid rgba(255, 255, 255, 0);
+  background: transparent;
+  border-bottom: 1px solid transparent;
   transition: background 0.4s ease, border-color 0.4s ease, transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 
   &.scrolled {
-    background: rgba(0, 0, 0, 0.92);
+    background: var(--site-nav-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom-color: transparent;
+    border-bottom-color: var(--site-border);
   }
 
   &.hidden {
@@ -109,11 +107,11 @@
 
 /* ─── Logo ─── */
 .logo {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  font-family: var(--font-lora), Georgia, 'Times New Roman', serif;
   font-style: normal;
   font-size: 1.05rem;
   font-weight: 500;
-  color: #fff;
+  color: var(--site-text-heading);
   text-decoration: none;
   letter-spacing: -0.01em;
   transition: opacity 0.2s ease;
@@ -130,7 +128,7 @@
   gap: 2.5rem;
 
   a {
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--site-text-muted);
     text-decoration: none;
     font-size: 0.72rem;
     letter-spacing: 0.12em;
@@ -140,11 +138,10 @@
     white-space: nowrap;
 
     &:hover {
-      color: #fff;
+      color: var(--site-text-heading);
     }
   }
 
-  /* hidden on desktop, shown in mobile drawer */
   .mobileDownload {
     display: none;
   }
@@ -155,17 +152,56 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 1.5rem;
+  gap: 1.2rem;
+}
+
+/* ─── Theme swatches ─── */
+.themeSwatches {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: border 0.15s, transform 0.15s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.swatchLight {
+  background: #f5f5f0;
+  border: 1.5px solid #ccc;
+
+  &.swatchActive {
+    border: 2px solid #111;
+  }
+}
+
+.swatchDark {
+  background: #141414;
+  border: 1.5px solid #555;
+
+  &.swatchActive {
+    border: 2px solid #888;
+  }
 }
 
 .downloadBtn {
   font-size: 0.72rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--site-text-muted);
   text-decoration: none;
   padding: 0.45rem 1.1rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--site-border);
   border-radius: 2rem;
   background: none;
   cursor: pointer;
@@ -179,9 +215,9 @@
   }
 
   &:hover {
-    color: #fff;
-    border-color: rgba(255, 255, 255, 0.5);
-    background: rgba(255, 255, 255, 0.05);
+    color: var(--site-text-heading);
+    border-color: var(--site-text-muted);
+    background: var(--site-surface);
 
     span {
       transform: translateY(2px);
@@ -206,7 +242,7 @@
     display: block;
     height: 1px;
     width: 100%;
-    background: #fff;
+    background: var(--site-text-heading);
     transition: transform 0.25s ease, opacity 0.25s ease, width 0.25s ease;
     transform-origin: center;
   }
@@ -240,13 +276,17 @@
     display: none;
   }
 
+  .themeSwatches {
+    margin-right: 4px;
+  }
+
   .nav {
     position: fixed;
     top: 0;
     right: -100%;
     width: 70%;
     height: 100vh;
-    background: rgba(5, 5, 5, 0.97);
+    background: var(--site-nav-bg);
     backdrop-filter: blur(20px);
     flex-direction: column;
     align-items: flex-start;
@@ -254,7 +294,7 @@
     padding: 3rem 2rem;
     gap: 2rem;
     transition: right 0.35s cubic-bezier(0.77, 0, 0.18, 1);
-    border-left: 1px solid rgba(255, 255, 255, 0.06);
+    border-left: 1px solid var(--site-border);
 
     &.open {
       right: 0;
@@ -269,13 +309,13 @@
       display: block;
       margin-top: 1rem;
       padding: 0.6rem 1.4rem;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid var(--site-border);
       border-radius: 2rem;
       font-size: 0.78rem;
       background: none;
       cursor: pointer;
       font-family: inherit;
-      color: rgba(255, 255, 255, 0.75);
+      color: var(--site-text-muted);
       letter-spacing: 0.08em;
       text-transform: uppercase;
       font-weight: 500;

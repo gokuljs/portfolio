@@ -4,12 +4,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { ReadingProgressBar } from './reading-progress';
 import { TableOfContents } from './table-of-contents';
 import { calculateReadingTime } from '@/utils/reading-time';
-
-type Theme = 'light' | 'dark';
+import { useTheme, type Theme } from '@/components/ThemeProvider';
 
 interface BlogArticleLayoutProps {
   children: React.ReactNode;
@@ -35,63 +34,16 @@ export function BlogArticleLayout({
   const estimatedReadTime = readingTime || calculateReadingTime(children);
   const isoDate = dateISO ?? date;
 
-  const [theme, setTheme] = useState<Theme>('light');
-  const [mounted, setMounted] = useState(false);
+  const { theme, mounted, toggleTheme } = useTheme();
 
   useEffect(() => {
-    const saved = localStorage.getItem('blog-theme') as Theme | null;
-    if (saved === 'light' || saved === 'dark') {
-      setTheme(saved);
-    } else {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setTheme(prefersDark ? 'dark' : 'light');
-    }
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    const color = theme === 'light' ? '#fafaf8' : '#141414';
-    document.documentElement.style.backgroundColor = color;
-    document.body.style.backgroundColor = color;
+    if (!mounted) return;
+    const navbar = document.querySelector('header');
+    if (navbar) navbar.style.display = 'none';
     return () => {
-      document.documentElement.style.backgroundColor = '';
-      document.body.style.backgroundColor = '';
+      if (navbar) navbar.style.display = '';
     };
-  }, [theme]);
-
-  const toggleTheme = (t: Theme, originEl?: HTMLElement) => {
-    if (t === theme) return;
-
-    const color = t === 'light' ? '#fafaf8' : '#141414';
-
-    const apply = () => {
-      // Set bg synchronously so it's captured in the transition snapshot
-      document.documentElement.style.backgroundColor = color;
-      document.body.style.backgroundColor = color;
-      setTheme(t);
-      localStorage.setItem('blog-theme', t);
-    };
-
-    if (!('startViewTransition' in document)) {
-      apply();
-      return;
-    }
-
-    const rect = originEl?.getBoundingClientRect();
-    const x = rect ? rect.left + rect.width / 2 : window.innerWidth;
-    const y = rect ? rect.top + rect.height / 2 : 0;
-    const maxRadius = Math.hypot(
-      Math.max(x, window.innerWidth - x),
-      Math.max(y, window.innerHeight - y)
-    );
-
-    document.documentElement.style.setProperty('--vt-x', `${x}px`);
-    document.documentElement.style.setProperty('--vt-y', `${y}px`);
-    document.documentElement.style.setProperty('--vt-r', `${maxRadius}px`);
-
-    (document as Document & { startViewTransition: (cb: () => void) => void })
-      .startViewTransition(apply);
-  };
+  }, [mounted]);
 
   const isLight = theme === 'light';
 
@@ -159,7 +111,7 @@ export function BlogArticleLayout({
           {/* Theme swatches */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <button
-              onClick={(e) => toggleTheme('light', e.currentTarget)}
+              onClick={(e) => toggleTheme('light' as Theme, e.currentTarget)}
               title="Light mode"
               style={{
                 width: 16,
@@ -176,7 +128,7 @@ export function BlogArticleLayout({
               }}
             />
             <button
-              onClick={(e) => toggleTheme('dark', e.currentTarget)}
+              onClick={(e) => toggleTheme('dark' as Theme, e.currentTarget)}
               title="Dark mode"
               style={{
                 width: 16,
@@ -420,27 +372,6 @@ export function BlogArticleLayout({
       </article>
 
       <style jsx global>{`
-        /* ── Circular theme-switch reveal ── */
-        @keyframes vt-reveal {
-          from { clip-path: circle(0px at var(--vt-x) var(--vt-y)); }
-          to   { clip-path: circle(var(--vt-r) at var(--vt-x) var(--vt-y)); }
-        }
-        ::view-transition-group(root),
-        ::view-transition-image-pair(root),
-        ::view-transition-old(root),
-        ::view-transition-new(root) {
-          border: none !important;
-          outline: none !important;
-          box-shadow: none !important;
-        }
-        ::view-transition-new(root) {
-          animation: vt-reveal 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-        ::view-transition-old(root) {
-          animation: none;
-          z-index: -1;
-        }
-
         /* ── Selection colours ── */
         article[data-theme="light"] *::selection {
           background: #c8b89a !important;

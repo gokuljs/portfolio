@@ -2,13 +2,14 @@
 .hero {
   width: 100%;
   min-height: 100vh;
-  background: #000;
-  color: #fff;
+  background: var(--site-bg);
+  color: var(--site-text);
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: hidden;
   font-family: sans-serif;
+  transition: background 0.25s, color 0.25s;
 }
 
 /* ─── Side panel (top-right) ─── */
@@ -48,7 +49,7 @@
 .overline {
   font-size: 0.64rem;
   letter-spacing: 0.22em;
-  color: rgba(255, 255, 255, 0.32);
+  color: var(--site-text-subtle);
   text-transform: uppercase;
   margin: 0 0 1.2rem;
   will-change: opacity, letter-spacing;
@@ -78,8 +79,6 @@
   margin: 0 0 1.6rem;
 }
 
-/* Each character lives inside an overflow:hidden wrapper so the
-   GSAP y:'115%' slide-up is clipped */
 .charWrap {
   display: inline-block;
   overflow: hidden;
@@ -89,7 +88,7 @@
 
 .char {
   display: inline-block;
-  background: linear-gradient(to bottom, #ffffff 45%, rgba(255, 255, 255, 0.5));
+  background: var(--site-gradient-heading);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -107,14 +106,14 @@
     font-size: 0.7rem;
     letter-spacing: 0.04em;
     line-height: 1.75;
-    color: rgba(255, 255, 255, 0.35);
+    color: var(--site-text-muted);
 
     &:first-child {
       font-size: 0.6rem;
       font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.5);
+      color: var(--site-text-subtle);
       margin-bottom: 0.4rem;
     }
   }
@@ -123,7 +122,7 @@
 /* ─── Divider ─── */
 .rule {
   height: 1px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--site-border);
   margin: 0 0 1.6rem;
   will-change: transform;
 }
@@ -138,7 +137,7 @@
 .roles {
   font-size: 0.64rem;
   letter-spacing: 0.16em;
-  color: rgba(255, 255, 255, 0.3);
+  color: var(--site-text-subtle);
   text-transform: uppercase;
   margin: 0;
 }
@@ -151,18 +150,18 @@
   letter-spacing: 0.13em;
   text-transform: uppercase;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.62);
+  color: var(--site-text-muted);
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid var(--site-border);
   border-radius: 2rem;
   padding: 0.65rem 1.8rem;
   cursor: pointer;
   transition: color 0.25s, border-color 0.25s, background 0.25s;
 
   &:hover {
-    color: #fff;
-    border-color: rgba(255, 255, 255, 0.5);
-    background: rgba(255, 255, 255, 0.05);
+    color: var(--site-text-heading);
+    border-color: var(--site-text-muted);
+    background: var(--site-surface);
   }
 }
 

@@ -10,7 +10,7 @@ export default function Experience() {
         <div>
           <div className="mb-8">
             <div className="flex items-center gap-4 mb-3">
-              <div className="h-12 w-12 rounded-full bg-neutral-800 flex items-center justify-center overflow-hidden border border-neutral-700">
+              <div className="h-12 w-12 rounded-full flex items-center justify-center overflow-hidden" style={{ background: 'var(--site-surface)', border: '1px solid var(--site-border)' }}>
                 <img
                   src="/rime-logo.png"
                   alt="Rime Logo"
@@ -18,21 +18,21 @@ export default function Experience() {
                 />
               </div>
               <div>
-                <h3 className="text-base font-medium text-white">Rime TTS</h3>
-                <p className="text-xs text-neutral-400">Senior Software Engineer</p>
+                <h3 className="text-base font-medium" style={{ color: 'var(--site-text-heading)' }}>Rime TTS</h3>
+                <p className="text-xs" style={{ color: 'var(--site-text-muted)' }}>Senior Software Engineer</p>
               </div>
             </div>
-            <p className="text-sm font-normal text-neutral-500 !mt-2">
+            <p className="text-sm font-normal !mt-2" style={{ color: 'var(--site-text-subtle)' }}>
               San Francisco • Full-time • Remote
             </p>
-            <p className="!mt-2 text-sm font-normal text-neutral-200 leading-relaxed">
+            <p className="!mt-2 text-sm font-normal leading-relaxed" style={{ color: 'var(--site-text)' }}>
               Rime was a great place to build real-time systems with a strong team and
               a lot of ownership. I owned the full voice pipeline, from frontend UX to
               WebRTC transport with LiveKit and Pipecat. Shipped integrations so customers
               could get low-latency voice that actually worked. When audio broke in
               production, I was the one tracing it through the stack and pushing fixes.
               Got comfortable making tradeoffs between speed, reliability, and cost. The
-              kind of work where you hear the difference when it's done right.
+              kind of work where you hear the difference when it&apos;s done right.
             </p>
           </div>
 
@@ -42,7 +42,8 @@ export default function Experience() {
               alt="Rime TTS"
               width={800}
               height={800}
-              className="w-full rounded-lg border border-neutral-800 object-contain h-auto max-h-[400px]"
+              className="w-full rounded-lg object-contain h-auto max-h-[400px]"
+              style={{ border: '1px solid var(--site-border)' }}
             />
           </div>
         </div>
@@ -54,7 +55,7 @@ export default function Experience() {
         <div >
           <div className="mb-8">
             <div className="flex items-center gap-4 mb-3">
-              <div className="h-12 w-12 rounded-full bg-neutral-800 flex items-center justify-center overflow-hidden border border-neutral-700">
+              <div className="h-12 w-12 rounded-full flex items-center justify-center overflow-hidden" style={{ background: 'var(--site-surface)', border: '1px solid var(--site-border)' }}>
                 <img
                   src="/teamble.svg"
                   alt="Company Logo"
@@ -62,14 +63,14 @@ export default function Experience() {
                 />
               </div>
               <div>
-                <h3 className="text-base font-medium text-white">Teamble</h3>
-                <p className="text-xs text-neutral-400">Lead Engineer</p>
+                <h3 className="text-base font-medium" style={{ color: 'var(--site-text-heading)' }}>Teamble</h3>
+                <p className="text-xs" style={{ color: 'var(--site-text-muted)' }}>Lead Engineer</p>
               </div>
             </div>
-            <p className="text-sm font-normal text-neutral-500 !mt-2">
+            <p className="text-sm font-normal !mt-2" style={{ color: 'var(--site-text-subtle)' }}>
               New York City, NY, USA • Full-time • Remote
             </p>
-            <p className="!mt-2 text-sm font-normal text-neutral-200 leading-relaxed">
+            <p className="!mt-2 text-sm font-normal leading-relaxed" style={{ color: 'var(--site-text)' }}>
               Architected high-performance web apps with Node.js and React.
               Built a full design system from scratch, dramatically speeding up
               development. Refactored backend logic and SQL to optimize API
@@ -87,7 +88,8 @@ export default function Experience() {
               alt="hero template"
               width={800}
               height={800}
-              className="w-full rounded-lg border border-neutral-800 object-contain h-auto max-h-[400px]"
+              className="w-full rounded-lg object-contain h-auto max-h-[400px]"
+              style={{ border: '1px solid var(--site-border)' }}
             />
           </div>
         </div>
@@ -100,7 +102,7 @@ export default function Experience() {
           <div className="mb-8">
             <div className="flex items-center justify-between gap-4 mb-3">
               <div className="flex gap-2">
-                <div className="h-12 w-12 rounded-full bg-neutral-800 flex items-center justify-center overflow-hidden border border-neutral-700">
+                <div className="h-12 w-12 rounded-full flex items-center justify-center overflow-hidden" style={{ background: 'var(--site-surface)', border: '1px solid var(--site-border)' }}>
                   <img
                     src="/ae-logo.svg"
                     alt="Company Logo"
@@ -108,8 +110,8 @@ export default function Experience() {
                   />
                 </div>
                 <div>
-                  <h3 className="text-base font-medium text-white">Aerotime</h3>
-                  <p className="text-xs text-neutral-400">Founding Engineer</p>
+                  <h3 className="text-base font-medium" style={{ color: 'var(--site-text-heading)' }}>Aerotime</h3>
+                  <p className="text-xs" style={{ color: 'var(--site-text-muted)' }}>Founding Engineer</p>
                 </div>
               </div>
               <div className="flex items-center ml-auto !mt-2 ">
@@ -122,15 +124,15 @@ export default function Experience() {
                 />
               </div>
             </div>
-            <p className="text-sm font-normal text-neutral-500 !mt-2">
+            <p className="text-sm font-normal !mt-2" style={{ color: 'var(--site-text-subtle)' }}>
               San Francisco, California • Full-time • Remote
             </p>
-            <p className="!mt-2 text-sm font-normal text-neutral-200 leading-relaxed">
+            <p className="!mt-2 text-sm font-normal leading-relaxed" style={{ color: 'var(--site-text)' }}>
               Found my people here. This team showed me you truly become who you
               surround yourself with. Wore all the hats as a founding engineer
               coded frontend to backend, built our JS SDK from scratch, and
               geeked out deploying LLaMA and Stable Diffusion models. The best
-              part? Talking directly with users, turning their "what if" moments
+              part? Talking directly with users, turning their &ldquo;what if&rdquo; moments
               into actual features. Felt like building my own startup, except
               with brilliant teammates who pushed me daily. Still miss our 3AM
               debugging sessions and spontaneous whiteboard jams.
@@ -149,7 +151,7 @@ export default function Experience() {
         <div key={"tifin"}>
           <div className="mb-8">
             <div className="flex items-center gap-4 mb-3">
-              <div className="h-12 w-12 rounded-full bg-neutral-800 flex items-center justify-center overflow-hidden border border-neutral-700">
+              <div className="h-12 w-12 rounded-full flex items-center justify-center overflow-hidden" style={{ background: 'var(--site-surface)', border: '1px solid var(--site-border)' }}>
                 <img
                   src="/tifin-logo.svg"
                   alt="Company Logo"
@@ -157,16 +159,16 @@ export default function Experience() {
                 />
               </div>
               <div>
-                <h3 className="text-base font-medium text-white">
+                <h3 className="text-base font-medium" style={{ color: 'var(--site-text-heading)' }}>
                   TIFIN Fintech
                 </h3>
-                <p className="text-xs text-neutral-400">Software Engineer</p>
+                <p className="text-xs" style={{ color: 'var(--site-text-muted)' }}>Software Engineer</p>
               </div>
             </div>
-            <p className="text-sm font-normal text-neutral-500 !mt-2">
+            <p className="text-sm font-normal !mt-2" style={{ color: 'var(--site-text-subtle)' }}>
               Bangalore, India • Full-time
             </p>
-            <p className="!mt-2 text-sm font-normal text-neutral-200 leading-relaxed">
+            <p className="!mt-2 text-sm font-normal leading-relaxed" style={{ color: 'var(--site-text)' }}>
               Full-stack developer at TIFIN Wealth specializing in modern web
               architecture. Spearheaded frontend development using Next.js and
               React.js while driving backend integrations to enhance platform
@@ -185,7 +187,8 @@ export default function Experience() {
               alt="hero template"
               width={800}
               height={800}
-              className="w-full rounded-lg border border-neutral-800 object-contain h-auto max-h-[400px]"
+              className="w-full rounded-lg object-contain h-auto max-h-[400px]"
+              style={{ border: '1px solid var(--site-border)' }}
             />
           </div>
         </div>

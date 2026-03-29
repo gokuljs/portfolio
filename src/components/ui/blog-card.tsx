@@ -26,9 +26,11 @@ export function BlogListItem({ blog, index }: BlogListItemProps) {
       transition={{ duration: 0.3, delay: index * 0.08 }}
     >
       <Link href={`/blogs/${blog.slug}`}>
-        <article className="group py-5 hover:bg-white/[0.02] -mx-4 px-4 rounded-lg transition-all cursor-pointer">
-          {/* Date and read time */}
-          <div className="flex items-center gap-1.5 text-sm text-neutral-500 mb-2">
+        <article
+          className="group py-5 -mx-4 px-4 rounded-lg transition-all cursor-pointer"
+          style={{ borderBottom: '1px solid var(--site-border-subtle)' }}
+        >
+          <div className="flex items-center gap-1.5 text-sm mb-2" style={{ color: 'var(--site-text-muted)' }}>
             <time dateTime={blog.date}>
               {formatDate(blog.date)}
             </time>
@@ -40,23 +42,24 @@ export function BlogListItem({ blog, index }: BlogListItemProps) {
             )}
           </div>
           
-          {/* Title */}
-          <h2 className="text-base md:text-lg font-normal text-white group-hover:text-neutral-300 transition-colors leading-snug">
+          <h2
+            className="text-base md:text-lg font-normal transition-colors leading-snug"
+            style={{ color: 'var(--site-text-heading)' }}
+          >
             {blog.title}
           </h2>
           
-          {/* Description */}
-          <p className="text-sm text-neutral-500 mt-1.5 line-clamp-2 leading-relaxed">
+          <p className="text-sm mt-1.5 line-clamp-2 leading-relaxed" style={{ color: 'var(--site-text-muted)' }}>
             {blog.description}
           </p>
           
-          {/* Tags */}
           {blog.tags && blog.tags.length > 0 && (
             <div className="flex gap-2 mt-2.5">
               {blog.tags.slice(0, 3).map((tag) => (
                 <span 
                   key={tag}
-                  className="text-xs text-neutral-600"
+                  className="text-xs"
+                  style={{ color: 'var(--site-text-subtle)' }}
                 >
                   {tag}
                 </span>

@@ -5,6 +5,7 @@ import VisitTracker from '@/components/VisitTracker';
 import { Analytics } from '@vercel/analytics/next';
 import Navbar from './ui/components/Navbar';
 import WhatsNewPanel from '@/components/ui/WhatsNewPanel';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 const lora = Lora({
@@ -97,13 +98,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={lora.variable}>
+    <html lang="en" className={lora.variable} suppressHydrationWarning>
       <body className={inter.className} suppressHydrationWarning>
-        <VisitTracker />
-        <Navbar />
-        {children}
-        <WhatsNewPanel />
-        <Analytics />
+        <ThemeProvider>
+          <VisitTracker />
+          <Navbar />
+          {children}
+          <WhatsNewPanel />
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   );

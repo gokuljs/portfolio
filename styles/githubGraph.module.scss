@@ -22,7 +22,7 @@
     text-align: left;
     margin-bottom: 40px;
     padding: 0 2.5rem;
-    background: linear-gradient(to bottom, #ffffff 45%, rgba(255, 255, 255, 0.5));
+    background: var(--site-gradient-heading);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -49,16 +49,16 @@
     }
   }
 
-  // Card sizes itself to the heatmap's natural width
   .card {
     position: relative;
     width: fit-content;
     max-width: 100%;
     margin: 0 auto;
     border-radius: 0.875rem;
-    border: none;
-    background: #000;
+    border: 1px solid var(--site-border);
+    background: var(--site-bg);
     padding: 28px 28px 24px;
+    transition: background 0.25s, border-color 0.25s;
 
     @media (max-width: 600px) {
       padding: 20px 16px;
@@ -66,7 +66,6 @@
     }
   }
 
-  // Heatmap row — natural width, centered, scrolls on small screens
   .calendarSection {
     display: flex;
     flex-direction: column;
@@ -83,11 +82,10 @@
   .divider {
     width: 100%;
     height: 1px;
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--site-border);
     margin: 20px 0;
   }
 
-  // Bottom grid fills card width — card width is locked by JS after heatmap renders
   .bottomRow {
     width: 100%;
     overflow: hidden;
@@ -102,7 +100,6 @@
     }
   }
 
-  // Org badge pills row
   .orgBadges {
     display: flex;
     flex-wrap: wrap;
@@ -116,31 +113,28 @@
     gap: 6px;
     padding: 4px 10px;
     border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--site-pill-border);
     font-size: 11px;
-    color: rgba(255, 255, 255, 0.55);
+    color: var(--site-text-muted);
     text-decoration: none;
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--site-pill-bg);
     transition: border-color 0.15s, color 0.15s;
     white-space: nowrap;
 
     &:hover {
-      border-color: rgba(255, 255, 255, 0.22);
-      color: rgba(255, 255, 255, 0.8);
+      border-color: var(--site-text-subtle);
+      color: var(--site-text-heading);
     }
   }
 
-  // Fixed-height wrapper — height is auto (wraps content) in activity view,
-  // and 160px (scrollable) in PR list view, set via inline style in the component
   .contentArea {
     overflow: hidden;
     flex-shrink: 0;
   }
 
-  // "Activity overview" prose block
   .activitySection {
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.45);
+    color: var(--site-text-muted);
     line-height: 1.7;
   }
 
@@ -154,7 +148,6 @@
     }
   }
 
-  // Rime repos get de-emphasized — dim on load, fade further when sibling links are hovered
   .repoLinkDim {
     opacity: 0.5;
     font-weight: 400;
@@ -173,7 +166,6 @@
     opacity: 0.3;
   }
 
-  // "See more / See less" toggle
   .seeMore {
     display: inline-flex;
     align-items: center;
@@ -181,7 +173,7 @@
     margin-top: 14px;
     font-size: 10px;
     letter-spacing: 0.05em;
-    color: rgba(255, 255, 255, 0.28);
+    color: var(--site-text-subtle);
     cursor: pointer;
     background: none;
     border: none;
@@ -190,11 +182,10 @@
     transition: color 0.15s;
 
     &:hover {
-      color: rgba(255, 255, 255, 0.55);
+      color: var(--site-text-muted);
     }
   }
 
-  // Scrollable PR list (shown when "See more" is expanded)
   .prList {
     height: 100%;
     overflow-y: auto;
@@ -208,11 +199,11 @@
       background: transparent;
     }
     &::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.1);
+      background: var(--site-border);
       border-radius: 999px;
     }
     &::-webkit-scrollbar-thumb:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: var(--site-text-subtle);
     }
   }
 }

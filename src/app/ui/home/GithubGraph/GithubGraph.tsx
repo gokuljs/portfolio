@@ -4,6 +4,7 @@ import styles from '@styles/githubGraph.module.scss';
 import dynamic from 'next/dynamic';
 import Dropdown from '../Components/Dropdown/dropdown';
 import { GitPullRequest } from 'lucide-react';
+import { useTheme } from '@/components/ThemeProvider';
 
 const GitHubCalendar = dynamic(
   () => import('react-github-calendar').then((mod) => mod.GitHubCalendar),
@@ -54,6 +55,8 @@ function smooth(pts: [number, number][]) {
 }
 
 function OrgChart({ prs }: { prs: PR[] }) {
+  const { theme } = useTheme();
+  const isLight = theme === 'light';
   const [hover, setHover] = useState<{ mi: number; x: number } | null>(null);
 
   const W = 700, H = 160;
@@ -156,11 +159,11 @@ function OrgChart({ prs }: { prs: PR[] }) {
           return (
             <g key={j}>
               <line x1={PAD.l} y1={y} x2={W - PAD.r} y2={y}
-                stroke={j === 0 ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.045)'}
+                stroke={j === 0 ? (isLight ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)') : (isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.045)')}
                 strokeWidth={j === 0 ? 1 : 0.75} />
               {val > 0 && (
                 <text x={PAD.l - 7} y={y + 3.5} fontSize="8"
-                  fill="rgba(255,255,255,0.22)" textAnchor="end">{val}</text>
+                  fill={isLight ? 'rgba(0,0,0,0.25)' : 'rgba(255,255,255,0.22)'} textAnchor="end">{val}</text>
               )}
             </g>
           );
@@ -196,7 +199,7 @@ function OrgChart({ prs }: { prs: PR[] }) {
         {hover && (
           <>
             <line x1={hover.x} y1={PAD.t} x2={hover.x} y2={PAD.t + cH}
-              stroke="rgba(255,255,255,0.15)" strokeWidth="1" strokeDasharray="3,3" />
+              stroke={isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.15)'} strokeWidth="1" strokeDasharray="3,3" />
 
             {series.map((s) => {
               const val = data[s][hover.mi];
@@ -223,13 +226,13 @@ function OrgChart({ prs }: { prs: PR[] }) {
               return (
                 <g style={{ pointerEvents: 'none' }}>
                   <rect x={tx} y={ty} width={TW} height={TH} rx="5"
-                    fill="rgba(10,10,12,0.97)" stroke="rgba(255,255,255,0.09)" strokeWidth="0.75" />
+                    fill={isLight ? 'rgba(255,255,255,0.97)' : 'rgba(10,10,12,0.97)'} stroke={isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.09)'} strokeWidth="0.75" />
                   <text x={tx + 10} y={ty + 15} fontSize="8.5"
-                    fill="rgba(255,255,255,0.38)" fontWeight="600" letterSpacing="0.07em">
+                    fill={isLight ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.38)'} fontWeight="600" letterSpacing="0.07em">
                     {month.toUpperCase()}
                   </text>
                   <text x={tx + TW - 10} y={ty + 15} fontSize="8.5"
-                    fill="rgba(255,255,255,0.55)" textAnchor="end" fontWeight="700">
+                    fill={isLight ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.55)'} textAnchor="end" fontWeight="700">
                     {total} PRs
                   </text>
                   {tipRows.map((e, j) => (
@@ -237,7 +240,7 @@ function OrgChart({ prs }: { prs: PR[] }) {
                       <rect x={tx + 10} y={ty + 24 + j * ROW + 3}
                         width="7" height="7" rx="1.5" fill={e.color} fillOpacity="0.9" />
                       <text x={tx + 21} y={ty + 24 + j * ROW + 10}
-                        fontSize="8.5" fill="rgba(255,255,255,0.65)">{e.label}</text>
+                        fontSize="8.5" fill={isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.65)'}>{e.label}</text>
                       <text x={tx + TW - 10} y={ty + 24 + j * ROW + 10}
                         fontSize="9" fill={e.color} textAnchor="end" fontWeight="700">{e.val}</text>
                     </g>
@@ -251,7 +254,7 @@ function OrgChart({ prs }: { prs: PR[] }) {
         {/* X-axis date labels */}
         {xLabels.map(i => (
           <text key={i} x={xOf(i)} y={H - 5}
-            fontSize="8" fill="rgba(255,255,255,0.2)" textAnchor="middle">
+            fontSize="8" fill={isLight ? 'rgba(0,0,0,0.25)' : 'rgba(255,255,255,0.2)'} textAnchor="middle">
             {new Date(months[i] + '-01').toLocaleDateString('en-US', { month: 'short', year: '2-digit' })}
           </text>
         ))}
@@ -266,8 +269,8 @@ function OrgChart({ prs }: { prs: PR[] }) {
             style={{ display: 'flex', alignItems: 'center', gap: 6, textDecoration: 'none' }}
             className="group">
             <div style={{ width: 20, height: 2, borderRadius: 1, background: orgColor(s) }} />
-            <span style={{ fontSize: 9.5, color: 'rgba(255,255,255,0.32)', letterSpacing: '0.04em' }}
-              className="group-hover:text-white/55 transition-colors">
+            <span style={{ fontSize: 9.5, color: 'var(--site-text-subtle)', letterSpacing: '0.04em' }}
+              className="transition-colors">
               {seriesLabel(s)}
             </span>
             <span style={{
@@ -291,6 +294,8 @@ function timeAgo(d: string) {
 
 
 const GithubGraph = () => {
+  const { theme } = useTheme();
+  const isLight = theme === 'light';
   const [loading, setIsLoading] = useState(true);
   const [gitHubYearList, setGithubYearList] = useState<number[]>([]);
   const [dropdownState, setDropdownState] = useState<boolean>(false);
@@ -435,12 +440,15 @@ const GithubGraph = () => {
             <GitHubCalendar
               username="gokuljs"
               year={selectedYear ?? undefined}
-              colorScheme="dark"
+              colorScheme={isLight ? 'light' : 'dark'}
               blockSize={15}
               fontSize={12}
               loading={loading}
-              theme={{ dark: ['#0a0a0a', '#2e2e2e', '#555555', '#7b7b7b', '#bcbcbc'] }}
-              style={{ color: '#F0F1F4' }}
+              theme={isLight
+                ? { light: ['#ebedf0', '#c6c6c0', '#999990', '#6b6b64', '#3d3d38'] }
+                : { dark: ['#0a0a0a', '#2e2e2e', '#555555', '#7b7b7b', '#bcbcbc'] }
+              }
+              style={{ color: isLight ? '#2d2d2d' : '#F0F1F4' }}
             />
           </div>
 
@@ -474,12 +482,12 @@ const GithubGraph = () => {
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }} className="animate-pulse">
                 <div style={{ display: 'flex', gap: 8, marginBottom: 12 }}>
                   {Array.from({ length: 3 }).map((_, i) => (
-                    <div key={i} style={{ height: 26, width: 90, borderRadius: 6, background: 'rgba(255,255,255,0.05)' }} />
+                    <div key={i} style={{ height: 26, width: 90, borderRadius: 6, background: 'var(--site-surface)' }} />
                   ))}
                 </div>
                 <div style={{ height: 160, display: 'flex', flexDirection: 'column', gap: 8 }}>
                   {Array.from({ length: 4 }).map((_, i) => (
-                    <div key={i} style={{ height: 14, borderRadius: 4, background: 'rgba(255,255,255,0.04)', width: i === 3 ? '60%' : '100%' }} />
+                    <div key={i} style={{ height: 14, borderRadius: 4, background: 'var(--site-surface)', width: i === 3 ? '60%' : '100%' }} />
                   ))}
                 </div>
               </div>
@@ -491,7 +499,7 @@ const GithubGraph = () => {
                 {/* Activity overview — collapsed default view */}
                 {!showPRs && (
                   <div className={styles.activitySection}>
-                    <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', fontWeight: 500, marginBottom: 10 }}>
+                    <p style={{ fontSize: 11, color: 'var(--site-text-muted)', fontWeight: 500, marginBottom: 10 }}>
                       Activity overview
                     </p>
                     <p style={{ fontSize: 12 }}>
@@ -513,7 +521,7 @@ const GithubGraph = () => {
                         );
                       })}
                       {otherRepoCount > 0 && (
-                        <span style={{ color: 'rgba(255,255,255,0.35)' }}>
+                        <span style={{ color: 'var(--site-text-subtle)' }}>
                           {' '}and {otherRepoCount} other {otherRepoCount === 1 ? 'repository' : 'repositories'}
                         </span>
                       )}
@@ -527,19 +535,19 @@ const GithubGraph = () => {
                     {prs.map((pr, idx) => (
                       <a key={pr.id} href={pr.html_url} target="_blank" rel="noopener noreferrer"
                         className="group"
-                        style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 4px', borderBottom: '1px solid rgba(255,255,255,0.04)', textDecoration: 'none', flexShrink: 0 }}>
+                        style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 4px', borderBottom: '1px solid var(--site-border-subtle)', textDecoration: 'none', flexShrink: 0 }}>
                         <GitPullRequest style={{ width: 11, height: 11, flexShrink: 0, color: pr.state === 'merged' ? '#a855f7' : '#22c55e' }} />
                         <div style={{ flex: 1, minWidth: 0 }}>
-                          <p style={{ fontSize: idx < 3 ? 11 : 10, color: idx < 3 ? '#d4d4d4' : '#737373', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', lineHeight: 1.3, fontWeight: idx < 3 ? 500 : 400 }}>
+                          <p style={{ fontSize: idx < 3 ? 11 : 10, color: idx < 3 ? 'var(--site-text)' : 'var(--site-text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', lineHeight: 1.3, fontWeight: idx < 3 ? 500 : 400 }}>
                             {pr.title}
                           </p>
-                          <p style={{ fontSize: 9, color: '#525252', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{pr.repo}</p>
+                          <p style={{ fontSize: 9, color: 'var(--site-text-subtle)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{pr.repo}</p>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 5, flexShrink: 0 }}>
                           <span style={{ fontSize: 8.5, padding: '1px 5px', borderRadius: 999, background: pr.state === 'merged' ? 'rgba(168,85,247,0.15)' : 'rgba(34,197,94,0.15)', color: pr.state === 'merged' ? '#c084fc' : '#4ade80' }}>
                             {pr.state}
                           </span>
-                          <span style={{ fontSize: 8.5, color: '#525252' }}>{timeAgo(pr.created_at)}</span>
+                          <span style={{ fontSize: 8.5, color: 'var(--site-text-subtle)' }}>{timeAgo(pr.created_at)}</span>
                         </div>
                       </a>
                     ))}
@@ -567,7 +575,7 @@ const GithubGraph = () => {
               Open source contributions
             </p>
             {prLoading && (
-              <div style={{ height: 160, borderRadius: 6, background: 'rgba(255,255,255,0.03)' }} className="animate-pulse" />
+              <div style={{ height: 160, borderRadius: 6, background: 'var(--site-surface)' }} className="animate-pulse" />
             )}
             {!prLoading && prs.length > 0 && <OrgChart prs={prs} />}
           </div>

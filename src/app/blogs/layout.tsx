@@ -30,7 +30,14 @@ export default function BlogsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="min-h-screen w-full bg-black overflow-x-hidden font-['SF_Pro_Display',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,sans-serif]">
+    <main
+      className="min-h-screen w-full overflow-x-hidden"
+      style={{
+        background: 'var(--site-bg)',
+        fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+        transition: 'background 0.25s',
+      }}
+    >
       {children}
     </main>
   );

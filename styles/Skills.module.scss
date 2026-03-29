@@ -21,9 +21,10 @@
     letter-spacing: -0.01em;
     text-align: center;
     margin-bottom: 48px;
-    color: #f0f0ee;
+    color: var(--site-text-heading);
     font-family: var(--font-lora), Georgia, 'Times New Roman', serif;
     width: 100%;
+    transition: color 0.25s;
 
     @media (max-width: 600px) {
       margin-bottom: 36px;
@@ -31,10 +32,9 @@
     }
   }
 
-  // ── Row table ────────────────────────────────────────────────────────────────
   .table {
     width: 100%;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid var(--site-border);
   }
 
   .row {
@@ -42,7 +42,7 @@
     grid-template-columns: 148px 1fr;
     gap: 28px;
     padding: 18px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid var(--site-border);
     align-items: flex-start;
 
     @media (max-width: 580px) {
@@ -52,7 +52,6 @@
     }
   }
 
-  // ── Category label ───────────────────────────────────────────────────────────
   .catLabel {
     display: flex;
     align-items: center;
@@ -63,7 +62,7 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: var(--cc, white);
+      background: var(--cc, currentColor);
       flex-shrink: 0;
     }
 
@@ -72,12 +71,11 @@
       font-weight: 600;
       letter-spacing: 0.07em;
       text-transform: uppercase;
-      color: var(--cc, rgba(255, 255, 255, 0.5));
+      color: var(--cc, var(--site-text-muted));
       opacity: 0.75;
     }
   }
 
-  // ── Skill pills ──────────────────────────────────────────────────────────────
   .pills {
     display: flex;
     flex-wrap: wrap;
@@ -90,18 +88,15 @@
     border-radius: 6px;
     font-size: 0.8rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.9);
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    transition:
-      background 0.18s ease,
-      border-color 0.18s ease,
-      opacity 0.18s ease;
+    color: var(--site-pill-text);
+    background: var(--site-pill-bg);
+    border: 1px solid var(--site-pill-border);
+    transition: background 0.18s ease, border-color 0.18s ease, opacity 0.18s ease;
     font-feature-settings: 'cv04' on, 'ss08' on;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.09);
-      border-color: rgba(255, 255, 255, 0.18);
+      background: var(--site-surface-hover);
+      border-color: var(--site-text-subtle);
       opacity: 1 !important;
     }
   }

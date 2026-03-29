@@ -36,14 +36,17 @@ export const metadata: Metadata = {
 
 export default function ExperiencePage() {
   return (
-    <section className="min-h-screen bg-black py-12 md:py-24">
+    <section
+      className="min-h-screen py-12 md:py-24"
+      style={{ background: 'var(--site-bg)', transition: 'background 0.25s' }}
+    >
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto mb-12 md:mb-20">
           <p style={{
             fontSize: '10px',
             letterSpacing: '0.25em',
             textTransform: 'uppercase',
-            color: 'rgba(255,255,255,0.3)',
+            color: 'var(--site-text-subtle)',
             marginBottom: '0.75rem',
             fontFamily: 'system-ui, -apple-system, sans-serif',
           }}>
@@ -55,15 +58,16 @@ export default function ExperiencePage() {
             fontWeight: 600,
             lineHeight: 1.2,
             letterSpacing: '-0.01em',
-            color: '#f0f0ee',
+            color: 'var(--site-text-heading)',
             margin: '0 0 1rem',
+            transition: 'color 0.25s',
           }}>
             Professional Experience
           </h1>
           <p style={{
             fontSize: '0.875rem',
             lineHeight: 1.7,
-            color: 'rgba(255,255,255,0.35)',
+            color: 'var(--site-text-muted)',
             fontFamily: 'system-ui, -apple-system, sans-serif',
             margin: 0,
           }}>

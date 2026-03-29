@@ -9,6 +9,7 @@ export interface Blog {
   image?: string; // OG image for social sharing (e.g. '/blogs/my-post.png')
   featured?: boolean; // pinned to top of listing
 }
+console.log("hello")
 
 export const blogsData: Blog[] = [
   {

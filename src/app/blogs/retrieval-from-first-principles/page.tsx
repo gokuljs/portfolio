@@ -477,6 +477,9 @@ Steps:
         <p>
           Texts with similar meaning end up close together in this space. Texts with different meaning end up far apart.
         </p>
+        <p>
+          And unlike keyword search, you do not need to preprocess anything. No lowercasing, no stemming, no stopword removal, no punctuation stripping. The embedding model handles all of that internally. It is context-aware. &quot;Running a server&quot; and &quot;running in a park&quot; produce different vectors because the model understands the difference. Keyword search would treat both as the same stem.
+        </p>
         <ThemeImage
           lightSrc="/blogs/embedding-space-light.svg"
           darkSrc="/blogs/embedding-space-dark.svg"
@@ -518,6 +521,12 @@ Steps:
         <p>
           This makes it useful when you care purely about meaning. A short document and a long document about the same topic will have vectors pointing in the same direction. Cosine treats them equally.
         </p>
+        <pre><code>{`cosine_similarity(A, B) = (A . B) / (|A| * |B|)
+
+Range: -1 to 1
+  1  = identical direction
+  0  = perpendicular (unrelated)
+ -1  = opposite direction`}</code></pre>
         <ThemeImage
           lightSrc="/blogs/cosine-similarity-light.svg"
           darkSrc="/blogs/cosine-similarity-dark.svg"
@@ -533,6 +542,10 @@ Steps:
         <p>
           If your embedding model produces vectors where magnitude encodes importance or confidence, dot product captures that signal. Cosine throws it away.
         </p>
+        <pre><code>{`dot_product(A, B) = A1*B1 + A2*B2 + ... + An*Bn
+
+No fixed range. Scales with vector magnitude.
+Same direction + longer vectors = higher score.`}</code></pre>
         <ThemeImage
           lightSrc="/blogs/dot-product-light.svg"
           darkSrc="/blogs/dot-product-dark.svg"

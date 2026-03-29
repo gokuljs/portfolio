@@ -60,7 +60,7 @@ export default function BuildingSimpleVoiceAgentPage() {
         lightSrc="/blogs/sst-llm-tts-white.svg"
         darkSrc="/blogs/sst-llm-tts.svg"
         alt="Architecture diagram: STT to LLM to TTS pipeline"
-        style={{ width: '65%', margin: '0 auto', display: 'block' }}
+        style={{ width: '65%', margin: '0 auto' }}
       />
 
       <h2>Diving Into the Code</h2>

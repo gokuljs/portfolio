@@ -68,7 +68,21 @@ export function TableOfContents({ theme = 'light' }: TableOfContentsProps) {
     setActiveId(id);
     const scrollTarget = element.getBoundingClientRect().top + window.scrollY - 120;
     window.scrollTo({ top: Math.max(0, scrollTarget), behavior: 'smooth' });
-    setTimeout(() => { isClickScrolling.current = false; }, 600);
+
+    let debounceTimer: ReturnType<typeof setTimeout>;
+    const unlock = () => {
+      isClickScrolling.current = false;
+      window.removeEventListener('scrollend', onScrollEnd);
+      window.removeEventListener('scroll', onScrollDuringClick);
+    };
+    const onScrollEnd = () => { unlock(); };
+    const onScrollDuringClick = () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(unlock, 150);
+    };
+    window.addEventListener('scrollend', onScrollEnd, { once: true });
+    window.addEventListener('scroll', onScrollDuringClick, { passive: true });
+    setTimeout(() => { unlock(); }, 3000);
   };
 
   if (headings.length === 0) return null;

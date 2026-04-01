@@ -1,17 +1,21 @@
 export const skills = [
+  // LANGUAGES
+  { name: 'TypeScript', category: 'Languages' },
+  { name: 'JavaScript', category: 'Languages' },
+  { name: 'Python', category: 'Languages' },
+
   // AI & AGENTS
   { name: 'LangChain', category: 'AI Agents' },
   { name: 'LangGraph', category: 'AI Agents' },
   { name: 'LlamaIndex', category: 'AI Agents' },
   { name: 'Hugging Face', category: 'AI Agents' },
-  { name: 'RAG', category: 'AI Agents' },
+  { name: 'TF-IDF', category: 'AI Agents' },
+  { name: 'BM25', category: 'AI Agents' },
+  { name: 'Semantic Search', category: 'AI Agents' },
   { name: 'Hybrid Search', category: 'AI Agents' },
+  { name: 'Reranking', category: 'AI Agents' },
+  { name: 'Multimodal RAG', category: 'AI Agents' },
   { name: 'Agent Orchestration', category: 'AI Agents' },
-
-  // LANGUAGES
-  { name: 'TypeScript', category: 'Languages' },
-  { name: 'JavaScript', category: 'Languages' },
-  { name: 'Python', category: 'Languages' },
 
   // REAL-TIME
   { name: 'WebRTC', category: 'Real-time' },

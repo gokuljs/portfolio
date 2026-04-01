@@ -1282,6 +1282,18 @@
 "@nolyfill/is-core-module@1.0.39":
   version "1.0.39"
 
+"@paper-design/shaders-react@^0.0.72":
+  version "0.0.72"
+  resolved "https://registry.npmjs.org/@paper-design/shaders-react/-/shaders-react-0.0.72.tgz"
+  integrity sha512-q6KwquL93ZVNcuSM7pqzW0z/VLjnDVb/NSpYyGJBxf7MEHHCXx37E+zw/Px6RZLt3SGCUerIDDCGCMT385oW0w==
+  dependencies:
+    "@paper-design/shaders" "0.0.72"
+
+"@paper-design/shaders@0.0.72":
+  version "0.0.72"
+  resolved "https://registry.npmjs.org/@paper-design/shaders/-/shaders-0.0.72.tgz"
+  integrity sha512-rk2BFuV5ood2DaivbxJC2jQMzaB434isDUzdUQ85Cy0OWnUMuxl8kyGMR74TDPyjo3EvcHIyreNLkJdRG+GfSA==
+
 "@parcel/watcher-darwin-arm64@2.5.4":
   version "2.5.4"
 
@@ -2654,7 +2666,7 @@
 "@types/react-dom@*", "@types/react-dom@^19.2.3":
   version "19.2.3"
 
-"@types/react@*", "@types/react@^19.2.0", "@types/react@^19.2.8":
+"@types/react@*", "@types/react@^18 || ^19", "@types/react@^19.2.0", "@types/react@^19.2.8":
   version "19.2.8"
   dependencies:
     csstype "^3.2.2"
@@ -4513,7 +4525,7 @@ react-style-singleton@^2.2.2, react-style-singleton@^2.2.3:
     get-nonce "^1.0.0"
     tslib "^2.0.0"
 
-"react@^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react@^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc", "react@^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc", "react@^16.x || ^17.x || ^18.x || ^19.0.0 || ^19.0.0-rc", "react@^18 || ^19 || ^19.0.0-rc", "react@^18.0.0 || ^19.0.0", "react@^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0", react@^19.2.3, "react@>= 16", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0 || ^19.0.0-0", react@>=16, react@>=16.8.0, react@>=17.0.0, react@>=18.2.0, "react@16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc":
+"react@^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react@^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc", "react@^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc", "react@^16.x || ^17.x || ^18.x || ^19.0.0 || ^19.0.0-rc", "react@^18 || ^19", "react@^18 || ^19 || ^19.0.0-rc", "react@^18.0.0 || ^19.0.0", "react@^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0", react@^19.2.3, "react@>= 16", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0 || ^19.0.0-0", react@>=16, react@>=16.8.0, react@>=17.0.0, react@>=18.2.0, "react@16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc":
   version "19.2.3"
 
 readdirp@^4.0.1:

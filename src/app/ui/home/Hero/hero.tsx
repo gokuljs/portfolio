@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import styles from '@styles/hero.module.scss';
 import SocialDock from '../../components/SocialDock/SocialDock';
 import HeroSidePanel, { HeroSidePanelMobile } from './HeroSidePanel';
+import DitherHeroEffect from '@/components/ui/dither-hero-effect';
 const NAME = 'GOKUL JS';
 
 
@@ -14,15 +15,15 @@ const Hero: React.FC = () => {
   const ruleRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const ctaBtnRef = useRef<HTMLAnchorElement>(null);
+  const ditherRef = useRef<HTMLDivElement>(null);
 
-  // Runs synchronously before the first browser paint — elements are hidden
-  // before any pixel is drawn, eliminating the flash of visible content.
   useLayoutEffect(() => {
     const chars = charsRef.current.filter(Boolean) as HTMLSpanElement[];
     gsap.set(overlineRef.current, { opacity: 0, letterSpacing: '0.55em' });
     gsap.set(chars, { y: '115%' });
     gsap.set(ruleRef.current, { scaleX: 0, transformOrigin: 'left center' });
     gsap.set(bottomRef.current, { opacity: 0, y: 12 });
+    gsap.set(ditherRef.current, { opacity: 0 });
   }, []);
 
   useEffect(() => {
@@ -33,12 +34,17 @@ const Hero: React.FC = () => {
     // gsap.to() to animate toward the final CSS values.
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    tl.to(overlineRef.current, {
+    tl.to(ditherRef.current, {
+      opacity: 1,
+      duration: 1.5,
+      ease: 'power2.out',
+    }, 0)
+    .to(overlineRef.current, {
       opacity: 1,
       letterSpacing: '0.22em',
       duration: 0.9,
       ease: 'power2.out',
-    })
+    }, 0.3)
     .to(chars, {
       y: '0%',
       duration: 0.85,
@@ -123,6 +129,10 @@ const Hero: React.FC = () => {
 
   return (
     <div className={styles.hero}>
+
+      <div ref={ditherRef} className={styles.ditherLayer}>
+        <DitherHeroEffect />
+      </div>
 
       <div className={styles.heroSide}>
         <HeroSidePanel />

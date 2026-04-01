@@ -439,7 +439,7 @@ const GithubGraph = () => {
               blockSize={15}
               fontSize={12}
               loading={loading}
-              theme={{ dark: ['#0a0a0a', '#2e2e2e', '#555555', '#7b7b7b', '#bcbcbc'] }}
+              theme={{ dark: ['#1A1A19', '#31511E', '#5A7830', '#859F3D', '#F6FCDF'] }}
               style={{ color: '#F0F1F4' }}
             />
           </div>

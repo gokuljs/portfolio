@@ -7,7 +7,7 @@ export default function Experience() {
     {
       title: 'Jun 25 - Present',
       content: (
-        <div>
+        <div key="rime">
           <div className="mb-8">
             <div className="flex items-center gap-4 mb-3">
               <div className="h-12 w-12 rounded-full bg-neutral-800 flex items-center justify-center overflow-hidden border border-neutral-700">
@@ -51,7 +51,7 @@ export default function Experience() {
     {
       title: 'Jun 24 - Mar 25',
       content: (
-        <div >
+        <div key="teamble">
           <div className="mb-8">
             <div className="flex items-center gap-4 mb-3">
               <div className="h-12 w-12 rounded-full bg-neutral-800 flex items-center justify-center overflow-hidden border border-neutral-700">
@@ -96,7 +96,7 @@ export default function Experience() {
     {
       title: 'Nov 22 – Feb 24',
       content: (
-        <div>
+        <div key="aerotime">
           <div className="mb-8">
             <div className="flex items-center justify-between gap-4 mb-3">
               <div className="flex gap-2">
@@ -146,7 +146,7 @@ export default function Experience() {
     {
       title: 'Nov 21 - Nov 22',
       content: (
-        <div key={"tifin"}>
+        <div key="tifin">
           <div className="mb-8">
             <div className="flex items-center gap-4 mb-3">
               <div className="h-12 w-12 rounded-full bg-neutral-800 flex items-center justify-center overflow-hidden border border-neutral-700">

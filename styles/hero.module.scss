@@ -114,6 +114,11 @@
 .quote {
   max-width: 480px;
   margin: 0 0 2rem;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
 
   p {
     margin: 0;
@@ -165,7 +170,9 @@
   text-transform: uppercase;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.62);
-  background: transparent;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 2rem;
   padding: 0.65rem 1.8rem;

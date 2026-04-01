@@ -43,17 +43,17 @@ export default function DitherHeroEffect() {
         <GrainGradient
           width={dimensions.w}
           height={dimensions.h}
-          colors={['#000000', '#1a191a', '#000000', '#8f8f94']}
+          colors={['#000000', '#000000', '#000000', '#d5d1e6']}
           colorBack="#000000"
-          softness={0.65}
-          intensity={0}
+          softness={1}
+          intensity={1}
           noise={1}
           shape="truchet"
-          speed={0.74}
-          scale={2.92}
-          rotation={280}
-          offsetX={-0.24}
-          offsetY={-0.3}
+          speed={0.96}
+          scale={2.28}
+          rotation={80}
+          offsetX={1}
+          offsetY={-0.28}
         />
       )}
     </div>

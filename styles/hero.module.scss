@@ -114,9 +114,7 @@
 .quote {
   max-width: 480px;
   margin: 0 0 2rem;
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+
   padding: 0.8rem 1rem;
   border-radius: 8px;
 
@@ -125,14 +123,14 @@
     font-size: 0.7rem;
     letter-spacing: 0.04em;
     line-height: 1.75;
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.9);
 
     &:first-child {
       font-size: 0.6rem;
       font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.5);
+      color: #fff;
       margin-bottom: 0.4rem;
     }
   }
@@ -171,8 +169,6 @@
   font-weight: 500;
   color: rgba(255, 255, 255, 0.62);
   background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 2rem;
   padding: 0.65rem 1.8rem;

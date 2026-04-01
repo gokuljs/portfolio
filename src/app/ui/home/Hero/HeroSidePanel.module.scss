@@ -3,10 +3,35 @@
   flex-direction: column;
   width: 300px;
   flex-shrink: 0;
-  background: rgba(0, 0, 0, 0.6);
-  border-radius: 12px;
-  padding: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.92);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.08) 45%,
+      rgba(255, 255, 255, 0.12) 50%,
+      rgba(255, 255, 255, 0.08) 55%,
+      transparent 60%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 4s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 /* ─── Block ─── */
@@ -21,7 +46,7 @@
   font-size: 0.5rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.4);
   margin: 0;
 }
 
@@ -48,9 +73,9 @@
   font-size: 0.48rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.22);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 3px;
   padding: 2px 5px;
   display: inline-block;
@@ -60,21 +85,21 @@
 .paperTitle {
   font-size: 0.7rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.4;
   margin: 0;
 }
 
 .paperAuthors {
   font-size: 0.52rem;
-  color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.45);
   margin: 0;
   letter-spacing: 0.02em;
 }
 
 .paperHook {
   font-size: 0.6rem;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.6);
   line-height: 1.6;
   margin: 0;
   font-style: italic;
@@ -111,7 +136,7 @@
 .buildTitle {
   font-size: 0.68rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.85);
   line-height: 1.4;
   margin: 0;
 }
@@ -128,22 +153,22 @@
   text-transform: uppercase;
   padding: 2px 5px;
   border-radius: 2px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 /* ─── Divider ─── */
 .divider {
   height: 1px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 /* ─── Sparkline ─── */
 .commitCount {
   font-size: 0.5rem;
   letter-spacing: 0.06em;
-  color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.4);
   font-variant-numeric: tabular-nums;
 }
 
@@ -175,18 +200,18 @@
 .buildGoal {
   font-size: 0.65rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.95);
   line-height: 1.4;
   margin: 0;
   letter-spacing: 0.01em;
-  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  border-left: 2px solid rgba(255, 255, 255, 0.35);
   padding-left: 8px;
 }
 
 /* ─── Build description ─── */
 .buildDesc {
   font-size: 0.58rem;
-  color: rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.5);
   line-height: 1.6;
   margin: 0;
   letter-spacing: 0.01em;

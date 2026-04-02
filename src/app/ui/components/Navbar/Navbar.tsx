@@ -28,18 +28,22 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     let lastY = window.scrollY;
+    let rafId = 0;
     const onScroll = () => {
-      const currentY = window.scrollY;
-      setScrolled(currentY > 20);
-      if (currentY > lastY && currentY > 80) {
-        setHidden(true);
-      } else {
-        setHidden(false);
-      }
-      lastY = currentY;
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        const currentY = window.scrollY;
+        setScrolled(currentY > 20);
+        setHidden(currentY > lastY && currentY > 80);
+        lastY = currentY;
+        rafId = 0;
+      });
     };
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(rafId);
+    };
   }, []);
 
   const showToast = useCallback((message: string, type: 'error' | 'info' = 'error') => {

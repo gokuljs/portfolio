@@ -7,6 +7,7 @@ export default function DitherHeroEffect() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ w: 0, h: 0 });
   const [isMobile, setIsMobile] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     if (window.innerWidth < 768) {
@@ -24,6 +25,18 @@ export default function DitherHeroEffect() {
     window.addEventListener('resize', measure);
     return () => window.removeEventListener('resize', measure);
   }, []);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || isMobile) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setVisible(entry.isIntersecting),
+      { threshold: 0 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [isMobile]);
 
   if (isMobile) return null;
 
@@ -49,7 +62,7 @@ export default function DitherHeroEffect() {
           intensity={1}
           noise={1}
           shape="truchet"
-          speed={0.96}
+          speed={visible ? 0.96 : 0}
           scale={2.28}
           rotation={80}
           offsetX={1}

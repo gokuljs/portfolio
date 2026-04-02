@@ -6,12 +6,11 @@
   display: flex;
   gap: 1rem; /* Adjust spacing between icons as needed */
   padding: 0.75rem 1.5rem; /* Adjust padding as needed */
-  background: radial-gradient(circle, #0a0a0a, #000000);
-  border-radius: 30px; /* Rounded corners */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-  backdrop-filter: blur(10px); /* Glassmorphism effect */
-  -webkit-backdrop-filter: blur(10px); /* Safari support for glassmorphism */
-  z-index: 1000; /* Ensure it's above other content */
+  background: rgba(10, 10, 10, 0.95);
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  z-index: 1000;
 }
 
 .socialLink {

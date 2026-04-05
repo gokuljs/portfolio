@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { BlogArticleLayout } from '@/components/ui/blog-article-layout';
+import { HeerichScene } from '@/components/ui/heerich-scene';
 
 export const metadata: Metadata = {
   title: 'What I\'m Betting On',
@@ -57,6 +58,8 @@ export default function BettingOnPage() {
         dateISO="2026-04-04"
         tags={['World Models', 'Systems Engineering', 'AI Infrastructure', 'WebRTC', 'Go']}
       >
+        <HeerichScene />
+
         <p>
           I am a systems engineer. That is what I do well. Real-time media infrastructure, low-latency pipelines, the kind of work where a few milliseconds of jitter means the whole experience falls apart. Right now I am building a Selective Forwarding Unit from the ground up in Go. The piece of infrastructure that routes video streams in real-time conferencing without mixing or transcoding them. It is the kind of thing that sounds straightforward until you actually try to build one that works at scale.
         </p>

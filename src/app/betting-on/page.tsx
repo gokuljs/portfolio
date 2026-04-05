@@ -61,7 +61,10 @@ export default function BettingOnPage() {
         <HeerichScene />
 
         <p>
-          I am a systems engineer. That is what I do well. Real-time media infrastructure, low-latency pipelines, the kind of work where a few milliseconds of jitter means the whole experience falls apart. Right now I am building a Selective Forwarding Unit from the ground up in Go. The piece of infrastructure that routes video streams in real-time conferencing without mixing or transcoding them. It is the kind of thing that sounds straightforward until you actually try to build one that works at scale.
+          I have spent most of my time building real-time systems and shipping AI into production. Voice pipelines where latency is measured in milliseconds. Multi-agent systems that actually had to work for real users. Deploying and running open-source LLMs before it was the obvious thing to do. The kind of work where you learn fast because the feedback is immediate and unforgiving.
+        </p>
+        <p>
+          Right now I am building a Selective Forwarding Unit from the ground up in Go. The piece of infrastructure that routes video streams in real-time conferencing without mixing or transcoding them. It is the kind of thing that sounds straightforward until you actually try to build one that works at scale.
         </p>
         <p>
           But this essay is not about where I am. It is about where I am going. And more honestly, where I <em>think</em> I am going. I am still figuring this out. I might be wrong about parts of it. I am writing it down anyway because writing forces clarity, and I would rather be wrong in public than vague in private.

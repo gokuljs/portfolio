@@ -28,8 +28,8 @@ export function HeerichScene() {
       const e = new Heerich({
         camera: { type: 'orthographic', angle: 128, pitch: 12},
         style: {
-          fill: isLight ? '#fafaf8' : '#fbf4ea',
-          stroke: isLight ? '#555555' : '#e0e0de',
+          fill: isLight ? '#fafaf8' : '#141414',
+          stroke: isLight ? '#555555' : '#525252',
           strokeWidth: 0.3,
         },
       });

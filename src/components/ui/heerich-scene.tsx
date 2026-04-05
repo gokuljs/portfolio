@@ -25,35 +25,24 @@ export function HeerichScene() {
       const theme = getTheme();
       const isLight = theme === 'light';
 
-      const s = 7;
-      const taper = 0.85;
-
-      const h = new Heerich({
-        camera: { type: 'isometric', angle: 135 },
+      const e = new Heerich({
+        camera: { type: 'orthographic', angle: 128, pitch: 12},
         style: {
-          fill: isLight ? '#fafaf8' : '#141414',
+          fill: isLight ? '#fafaf8' : '#fbf4ea',
           stroke: isLight ? '#555555' : '#e0e0de',
-          strokeWidth: 0.2,
+          strokeWidth: 0.3,
         },
       });
 
-      h.applyGeometry({
-        type: 'box',
-        position: [0, 0, 0],
-        size: [s, s, s],
-        scale: (x: number, y: number, z: number) => {
-          const t = 1 - y / s;
-          const f = 1 - t * taper;
-          const cx = (x + 0.5) / s - 0.5;
-          const cz = (z + 0.5) / s - 0.5;
-          const dist = Math.sqrt(cx * cx + cz * cz) * 2;
-          const yf = Math.max(0.05, 1 - dist * taper);
-          return [f, yf, f];
-        },
-        scaleOrigin: ((_x: number, y: number, _z: number) => [0.5, y % 2 === 0 ? 0 : 1, 0.5]) as unknown as number[],
+      e.applyGeometry({
+        type: 'line',
+        from: [0, 0, 0],
+        to: [8, 8, 8],
+        radius: 1.5,
+        shape: 'rounded',
       });
 
-      const svg = h.toSVG({ padding: 20 });
+      const svg = e.toSVG({ padding: 20 });
       if (!cancelled && containerRef.current) {
         containerRef.current.innerHTML = svg;
         setLoaded(true);

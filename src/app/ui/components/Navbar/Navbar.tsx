@@ -12,7 +12,6 @@ const navLinks = [
   { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '/projects' },
   { label: 'Blogs', href: '/blogs' },
-  { label: 'Betting On', href: '/betting-on' },
 ];
 
 const RESUME = '/GokulJS.pdf';

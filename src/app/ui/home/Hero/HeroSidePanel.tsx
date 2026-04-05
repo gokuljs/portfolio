@@ -129,6 +129,15 @@ function PanelContent({ bars, total, loaded }: { bars: WeeklyBar[]; total: numbe
           {loaded && bars.length > 0 && <MiniSparkline bars={bars} maxVal={maxBar} />}
         </div>
       </div>
+
+      <div className={styles.divider} />
+
+      <div className={styles.block}>
+        <p className={styles.blockLabel}>next</p>
+        <a href="/betting-on" className={styles.bettingOnLink}>
+          <span className={styles.bettingOnText}>What I&apos;m Betting On</span>
+        </a>
+      </div>
     </>
   );
 }

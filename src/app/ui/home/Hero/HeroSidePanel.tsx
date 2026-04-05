@@ -136,6 +136,7 @@ function PanelContent({ bars, total, loaded }: { bars: WeeklyBar[]; total: numbe
         <p className={styles.blockLabel}>next</p>
         <a href="/betting-on" className={styles.bettingOnLink}>
           <span className={styles.bettingOnText}>What I&apos;m Betting On</span>
+          <span className={styles.bettingOnArrow}>→</span>
         </a>
       </div>
     </>

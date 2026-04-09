@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
 
-  const isBlogArticle = pathname.startsWith('/blogs/');
+  const isBlogArticle = pathname.startsWith('/blogs/') || pathname === '/betting-on';
 
   useEffect(() => {
     let lastY = window.scrollY;

@@ -95,6 +95,20 @@ export default function BettingOnPage() {
           The gap is the intersection. Real-time media systems on one side. Deep ML understanding on the other. World models in the middle. Very few people are positioned to work across all three. That is where I am trying to be.
         </p>
 
+        <h2>The Audio Dimension</h2>
+        <p>
+          There is another angle here that I have been paying attention to. World models are not just visual. The real world has sound. And the field is only now starting to figure out what that means.
+        </p>
+        <p>
+          In late 2025, researchers published the first formal framework for audio-visual world models. Multimodal environment simulation with synchronized audio and visual observations. Before that paper, nobody had even formally defined what an audio-visual world model is. A separate survey appeared around the same time establishing the idea of embodied active acoustic intelligence: AI systems that build internal physics engines through sound.
+        </p>
+        <p>
+          The practical results followed quickly. There are now audio world models for robot manipulation that predict future sound states. A robot filling a bottle can anticipate the changing pitch of the water. Runway&apos;s GWM-1 includes audio-driven conversational avatars with real-time lip-sync at 24 fps. Native audio generation became standard across the major video models in late 2025. Google&apos;s Veo 3, Kuaishou&apos;s Kling 2.6, ByteDance&apos;s Seedance 2.0, all generating synchronized sound alongside video.
+        </p>
+        <p>
+          This matters for my bet because real-time audio is where I started. Voice pipelines. Audio routing. Latency-sensitive media delivery. If world models are going multimodal, and they clearly are, the infrastructure layer needs to handle audio and video together. That is not a minor implementation detail. It changes the architecture of the serving layer. The synchronization requirements. The bandwidth estimation. It is exactly the kind of problem where systems expertise meets ML in a way that neither side can solve alone.
+        </p>
+
         <h2>What I Am Doing About It</h2>
         <p>
           The SFU is the systems foundation. It is teaching me everything about real-time media routing. How you handle SRTP streams, how you manage bandwidth estimation, how you deal with packet loss and jitter in a way that does not destroy the user experience. This is not theoretical knowledge. It is the kind of understanding you only get by building the thing yourself and debugging it at 2am when the audio starts crackling.
@@ -117,6 +131,26 @@ export default function BettingOnPage() {
           That is not a project a pure ML researcher would build. It is not a project a pure systems engineer would build. It requires genuinely understanding both sides. That is why I think it matters.
         </p>
 
+        <h2>The Post-AI Winners</h2>
+        <p>
+          There is a narrative going around that AI will flatten everything. That domain expertise stops mattering. That the people who build the models win and everyone else becomes irrelevant.
+        </p>
+        <p>
+          I think that is wrong. I think it is doomer thinking dressed up as insight.
+        </p>
+        <p>
+          The winners in a post-AI world will not be the people who built the best foundation model. They will be the people who have deep domain knowledge in a specific field and know how to use AI to make that field radically better. The cardiologist who uses AI to catch what she would have missed. The structural engineer who uses generative design to explore solutions he never would have drawn by hand. The systems programmer who uses AI to accelerate debugging but understands why the packet loss is happening in the first place.
+        </p>
+        <p>
+          AI is a lever. Levers are useless without someone who understands what needs to be moved.
+        </p>
+        <p>
+          This is part of why I am not trying to become an ML researcher. I am trying to become someone with deep enough systems knowledge and deep enough ML understanding that I can build things neither side would build alone. The AI does not replace the domain. It amplifies it. And the people who will be hardest to replace are the ones whose domain knowledge runs deep enough that AI makes them dangerous rather than redundant.
+        </p>
+        <p>
+          The doomer version of this story says there is nothing left to do. I think the opposite is true. There has never been more to do. The tools just got better. The question is whether you have something worth building with them.
+        </p>
+
         <h2>Why I Think World Models Are the Next Decade</h2>
         <p>
           LLMs changed everything about how we interact with text. But the world is not text. It is three-dimensional, it obeys physics, things move and break and interact in ways that language can describe but cannot simulate.
@@ -125,7 +159,7 @@ export default function BettingOnPage() {
           World models are the attempt to build systems that actually understand this. Systems that can predict what happens when you push a block off a table. Systems that can generate plausible futures from a current observation. Systems that can serve as the internal simulation engine for a robot trying to figure out how to pick up a cup without knocking over the one next to it.
         </p>
         <p>
-          This is where the next decade of AI progress happens. Not LLMs alone. Systems that understand physics, predict futures, and interact with the real world in real time. The labs know it. That is why NVIDIA, Meta, and Google are all investing heavily. But the infrastructure to support these systems at scale barely exists yet.
+          This is where the next decade of AI progress happens. Not LLMs alone. Systems that understand physics, predict futures, and interact with the real world in real time. The labs know it. NVIDIA, Meta, Google, Runway, World Labs, and now AMI Labs are all investing heavily. Over 2.5 billion dollars has been deployed into world model startups in the last eighteen months alone. Sora&apos;s shutdown proved that building the model is only half the problem. Serving it interactively, reliably, at cost, is the other half. The infrastructure to support these systems at scale barely exists yet.
         </p>
         <p>
           Someone has to build it. I want to be one of those people.
@@ -139,10 +173,10 @@ export default function BettingOnPage() {
           What I have is a clear direction, the technical foundation to pursue it, and the honesty to say I am still working toward it. This page is not a list of accomplishments. It is a statement of intent. A bet I am making with my time and energy.
         </p>
         <p>
-          Bets can be wrong. This one might be. Maybe world models do not pan out the way I think they will. Maybe the intersection I am targeting turns out to be less valuable than I expect. I do not think so, but I hold the possibility.
+          Bets can be wrong. This one might be. Maybe world models do not pan out the way I think they will. Maybe the intersection I am targeting turns out to be less valuable than I expect. Maybe the generative school wins and the embedding school fades, or vice versa, and the infrastructure requirements end up looking completely different from what I am imagining. I do not think so, but I hold the possibility.
         </p>
         <p>
-          What I do know is that I would rather bet on something I genuinely believe in, something that excites me, something that feels like it matters, than play it safe and optimize for the obvious. The worst case is I end up with deep systems knowledge <em>and</em> deep ML knowledge. There are worse positions to be in.
+          What I do know is that I would rather bet on something I believe in, something that excites me, something that feels like it matters, than play it safe and optimize for the obvious. The worst case is I end up with deep systems knowledge <em>and</em> deep ML knowledge. There are worse positions to be in.
         </p>
 
         <h2>The Stack</h2>

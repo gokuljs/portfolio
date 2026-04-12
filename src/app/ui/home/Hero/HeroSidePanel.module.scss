@@ -10,28 +10,6 @@
   position: relative;
   overflow: hidden;
 
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      105deg,
-      transparent 40%,
-      rgba(255, 255, 255, 0.08) 45%,
-      rgba(255, 255, 255, 0.12) 50%,
-      rgba(255, 255, 255, 0.08) 55%,
-      transparent 60%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 4s ease-in-out infinite;
-    pointer-events: none;
-    z-index: 1;
-  }
-}
-
-@keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
 }
 
 /* ─── Block ─── */
@@ -328,4 +306,58 @@
   padding: 8px 20px 24px;
   overflow-y: auto;
   max-height: 75vh;
+}
+
+.bettingOnLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.75;
+
+    .bettingOnArrow {
+      transform: translateX(3px);
+      opacity: 1;
+    }
+  }
+}
+
+.bettingOnText {
+  font-size: 0.65rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.9);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.5) 40%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(255, 255, 255, 0.5) 60%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 6s linear infinite;
+  animation-delay: 3s;
+}
+
+.bettingOnArrow {
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.4);
+  opacity: 0.6;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 50%;
+  }
+  100% {
+    background-position: -200% 50%;
+  }
 }

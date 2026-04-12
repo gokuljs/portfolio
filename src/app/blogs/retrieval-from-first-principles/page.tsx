@@ -3,6 +3,8 @@ import { BlogArticleLayout } from '@/components/ui/blog-article-layout';
 import { ThemeImage } from '@/components/ui/theme-image';
 import { getBlogBySlug, generateBlogMetadata, generateBlogJsonLd } from '@/data/blogs-data';
 
+export const dynamic = 'force-static';
+
 const slug = 'retrieval-from-first-principles';
 const blog = getBlogBySlug(slug)!;
 const jsonLd = generateBlogJsonLd(slug)!;

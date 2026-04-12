@@ -4,6 +4,8 @@ import { VideoThumbnail } from '@/components/ui/video-thumbnail';
 import { ThemeImage } from '@/components/ui/theme-image';
 import { getBlogBySlug, generateBlogMetadata, generateBlogJsonLd } from '@/data/blogs-data';
 
+export const dynamic = 'force-static';
+
 const slug = 'real-time-voice-agent-infrastructure';
 const blog = getBlogBySlug(slug)!;
 const jsonLd = generateBlogJsonLd(slug)!;

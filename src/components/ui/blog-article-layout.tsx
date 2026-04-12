@@ -36,7 +36,6 @@ export function BlogArticleLayout({
   const isoDate = dateISO ?? date;
 
   const [theme, setTheme] = useState<Theme>('light');
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem('blog-theme') as Theme | null;
@@ -46,7 +45,6 @@ export function BlogArticleLayout({
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       setTheme(prefersDark ? 'dark' : 'light');
     }
-    setMounted(true);
   }, []);
 
   useEffect(() => {
@@ -102,8 +100,6 @@ export function BlogArticleLayout({
   const textLink  = isLight ? '#6b7280' : '#737373';
   const textLinkHover = isLight ? '#111' : '#e5e5e5';
 
-  if (!mounted) return null;
-
   return (
     <>
       <ReadingProgressBar />
@@ -122,6 +118,7 @@ export function BlogArticleLayout({
 
       {/* Minimal top bar */}
       <header
+        suppressHydrationWarning
         style={{
           position: 'fixed',
           top: 0, left: 0, right: 0,
@@ -213,6 +210,7 @@ export function BlogArticleLayout({
       </header>
 
       <article
+        suppressHydrationWarning
         style={{
           minHeight: '100vh',
           background: bg,

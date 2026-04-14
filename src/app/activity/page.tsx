@@ -14,10 +14,10 @@ const FILTERS: { value: Filter; label: string }[] = [
   { value: 'done', label: 'Done' },
 ];
 
-const DOT_CLASS: Record<string, string> = {
-  active: styles.dotActive,
-  paused: styles.dotPaused,
-  complete: styles.dotComplete,
+const STATUS_CLASS: Record<string, string> = {
+  active: styles.statusActive,
+  paused: styles.statusPaused,
+  complete: styles.statusComplete,
 };
 
 function formatDate(iso: string) {
@@ -30,24 +30,23 @@ export default function ActivityPage() {
 
   const filtered = useMemo(() => {
     let items = filter === 'all' ? activities : activities.filter((a) => a.category === filter);
-
     items = [...items].sort((a, b) => {
       const da = new Date(a.date).getTime();
       const db = new Date(b.date).getTime();
       return sort === 'newest' ? db - da : da - db;
     });
-
     return items;
   }, [filter, sort]);
 
   return (
     <div className={styles.page}>
-      <section className={styles.container}>
+      <div className={styles.container}>
         <div className={styles.header}>
-          <h1 className={styles.title}>Activity</h1>
-          <a href="/" className={styles.back}>
-            ← back
-          </a>
+          <div className={styles.headerLeft}>
+            <h1 className={styles.title}>Activity</h1>
+            <span className={styles.countBadge}>{filtered.length}</span>
+          </div>
+          <a href="/" className={styles.back}>← back</a>
         </div>
 
         <div className={styles.toolbar}>
@@ -70,41 +69,30 @@ export default function ActivityPage() {
           </button>
         </div>
 
-        <p className={styles.issueCount}>{filtered.length} items</p>
-
         <div className={styles.list}>
           {filtered.length === 0 && <div className={styles.empty}>No items match this filter.</div>}
-
           {filtered.map((item) => (
             <div key={item.id} className={styles.row}>
-              <div className={`${styles.dot} ${DOT_CLASS[item.status] ?? styles.dotComplete}`} />
-              <span className={styles.label}>{item.category}</span>
-              <div className={styles.content}>
-                <p className={styles.itemTitle}>
-                  {item.url ? (
-                    <a href={item.url} target="_blank" rel="noopener noreferrer">
-                      {item.title}
-                    </a>
-                  ) : (
-                    item.title
-                  )}
-                </p>
-                {item.detail && <p className={styles.detail}>{item.detail}</p>}
-                {item.tags && item.tags.length > 0 && (
-                  <div className={styles.tags}>
-                    {item.tags.map((tag) => (
-                      <span key={tag} className={styles.tag}>
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+              <div className={`${styles.statusIcon} ${STATUS_CLASS[item.status] ?? styles.statusComplete}`} />
+              <span className={styles.rowTitle}>{item.title}</span>
+              {item.detail && <span className={styles.rowDetail}>{item.detail}</span>}
+              <div className={styles.actions}>
+                {item.codeUrl && (
+                  <a href={item.codeUrl} target="_blank" rel="noopener noreferrer" className={styles.actionBtn}>
+                    Code
+                  </a>
+                )}
+                {item.blogUrl && (
+                  <a href={item.blogUrl} className={styles.actionBtn}>
+                    Blog
+                  </a>
                 )}
               </div>
               <span className={styles.date}>{formatDate(item.date)}</span>
             </div>
           ))}
         </div>
-      </section>
+      </div>
     </div>
   );
 }

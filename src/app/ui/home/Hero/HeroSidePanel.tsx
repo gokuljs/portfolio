@@ -5,8 +5,7 @@ import Link from 'next/link';
 import { activities } from '@/data/activity-data';
 import styles from './HeroSidePanel.module.scss';
 
-const mainReading = activities.find((a) => a.main && a.category === 'reading');
-const mainBuilding = activities.find((a) => a.main && a.category === 'building');
+const mainItems = activities.filter((a) => a.main);
 
 interface WeeklyBar { label: string; count: number; weekStart: string; }
 
@@ -79,48 +78,35 @@ function PanelContent({ bars, total, loaded }: { bars: WeeklyBar[]; total: numbe
 
   return (
     <>
-      {mainReading && (
-        <>
-          <div className={styles.block}>
-            <p className={styles.blockLabel}>reading</p>
-            <a href={mainReading.url} target="_blank" rel="noopener noreferrer" className={styles.paperLink}>
-              {mainReading.paper && <span className={styles.paperVenue}>{mainReading.paper.venue}</span>}
-              <p className={styles.paperTitle}>{mainReading.title}</p>
-              {mainReading.paper && <p className={styles.paperAuthors}>{mainReading.paper.authors}</p>}
-              {mainReading.description && <p className={styles.paperHook}>{mainReading.description}</p>}
-            </a>
-          </div>
-          <div className={styles.divider} />
-        </>
-      )}
-
-      {mainBuilding && (
-        <>
+      {mainItems.map((item, i) => (
+        <div key={item.id}>
           <div className={styles.block}>
             <div className={styles.blockLabelRow}>
-              <p className={styles.blockLabel}>building</p>
-              {mainBuilding.status === 'active' && <span className={styles.activePulse} />}
+              <p className={styles.blockLabel}>{item.category}</p>
+              {item.status === 'active' && <span className={styles.activePulse} />}
             </div>
-            <a href={mainBuilding.url} target="_blank" rel="noopener noreferrer" className={styles.buildLink}>
-              <p className={styles.buildTitle}>{mainBuilding.title}</p>
-              {mainBuilding.detail && (
-                <p className={styles.buildGoal}>{mainBuilding.detail}</p>
-              )}
-              {mainBuilding.description && (
-                <p className={styles.buildDesc}>{mainBuilding.description}</p>
-              )}
-              {mainBuilding.tags && (
-                <div className={styles.tags}>
-                  {mainBuilding.tags.slice(0, 4).map(tag => (
-                    <span key={tag} className={styles.tag}>{tag}</span>
-                  ))}
-                </div>
+            <a
+              href={item.codeUrl || item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={item.paper ? styles.paperLink : styles.buildLink}
+            >
+              {item.paper && <span className={styles.paperVenue}>{item.paper.venue}</span>}
+              <p className={item.paper ? styles.paperTitle : styles.buildTitle}>{item.title}</p>
+              {item.paper && <p className={styles.paperAuthors}>{item.paper.authors}</p>}
+              {item.detail && !item.paper && <p className={styles.buildGoal}>{item.detail}</p>}
+              {item.description && (
+                <p className={item.paper ? styles.paperHook : styles.buildDesc}>
+                  {item.description}
+                </p>
               )}
             </a>
           </div>
-          <div className={styles.divider} />
-        </>
-      )}
+          {i < mainItems.length - 1 && <div className={styles.divider} />}
+        </div>
+      ))}
+
+      <div className={styles.divider} />
 
       <div className={styles.block}>
         <div className={styles.blockLabelRow}>
@@ -169,9 +155,9 @@ export function HeroSidePanelMobile() {
       {/* Badge */}
       <button className={styles.mobileBadge} onClick={() => setOpen(true)}>
         <span className={styles.mobilePulse} />
-        {mainBuilding && <span className={styles.mobileBuilding}>{mainBuilding.title}</span>}
-        {mainReading?.paper && (
-          <span className={styles.mobileReading}>{mainReading.paper.venue}</span>
+        {mainItems[0] && <span className={styles.mobileBuilding}>{mainItems[0].title}</span>}
+        {mainItems[1]?.paper && (
+          <span className={styles.mobileReading}>{mainItems[1].paper.venue}</span>
         )}
       </button>
 

@@ -1,158 +1,106 @@
 'use client';
 
-import { currentResearch } from '@/data/research-data';
+import { useState, useMemo } from 'react';
+import { activities, type ActivityCategory } from '@/data/activity-data';
+import styles from './activity.module.scss';
 
-type Row = {
-  id: string;
-  label: string;
-  title: string;
-  detail?: string;
-  url?: string;
-  external?: boolean;
-  status?: 'active' | 'done' | 'reading';
-  date?: string;
+type Filter = 'all' | ActivityCategory;
+type SortDir = 'newest' | 'oldest';
+
+const FILTERS: { value: Filter; label: string }[] = [
+  { value: 'all', label: 'All' },
+  { value: 'reading', label: 'Reading' },
+  { value: 'building', label: 'Building' },
+  { value: 'done', label: 'Done' },
+];
+
+const DOT_CLASS: Record<string, string> = {
+  active: styles.dotActive,
+  paused: styles.dotPaused,
+  complete: styles.dotComplete,
 };
 
-function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }
 
-const STATUS_COLOR: Record<string, string> = {
-  active: '#f5a623',
-  done: '#22c55e',
-  reading: '#60a5fa',
-};
-
 export default function ActivityPage() {
-  const { paper, title, goal, status, github } = currentResearch;
+  const [filter, setFilter] = useState<Filter>('all');
+  const [sort, setSort] = useState<SortDir>('newest');
 
-  const rows: Row[] = [];
+  const filtered = useMemo(() => {
+    let items = filter === 'all' ? activities : activities.filter((a) => a.category === filter);
 
-  if (paper) {
-    rows.push({
-      id: 'reading',
-      label: 'reading',
-      title: paper.title,
-      detail: paper.authors,
-      url: paper.url,
-      external: true,
-      status: 'done',
+    items = [...items].sort((a, b) => {
+      const da = new Date(a.date).getTime();
+      const db = new Date(b.date).getTime();
+      return sort === 'newest' ? db - da : da - db;
     });
-  }
 
-  rows.push({
-    id: 'building',
-    label: 'building',
-    title,
-    detail: goal,
-    url: github,
-    external: true,
-    status: 'done',
-  });
-
+    return items;
+  }, [filter, sort]);
 
   return (
-    <div className="w-full bg-black" style={{ minHeight: '100vh' }}>
-      <style>{`
-        .a-mono {
-          font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
-        }
-        .a-row {
-          display: grid;
-          grid-template-columns: 6px 60px 1fr auto;
-          gap: 12px;
-          align-items: baseline;
-          padding: 11px 0;
-          border-bottom: 1px solid rgba(255,255,255,0.04);
-        }
-        .a-row:last-child { border-bottom: none; }
-        .a-dot {
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          margin-top: 5px;
-        }
-        .a-label {
-          font-size: 11px;
-          color: rgba(255,255,255,0.2);
-          letter-spacing: 0.04em;
-        }
-        .a-content {
-          min-width: 0;
-        }
-        .a-title {
-          font-size: 14px;
-          color: rgba(255,255,255,0.75);
-          margin: 0;
-          line-height: 1.45;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-        .a-title a {
-          color: inherit;
-          text-decoration: none;
-          transition: color 0.12s;
-        }
-        .a-title a:hover { color: #fff; }
-        .a-detail {
-          font-size: 11px;
-          color: rgba(255,255,255,0.18);
-          margin: 2px 0 0;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-        .a-date {
-          font-size: 11px;
-          color: rgba(255,255,255,0.15);
-          white-space: nowrap;
-          padding-top: 2px;
-        }
-        .a-back {
-          font-size: 12px;
-          color: rgba(255,255,255,0.2);
-          text-decoration: none;
-          transition: color 0.15s;
-        }
-        .a-back:hover { color: rgba(255,255,255,0.5); }
-      `}</style>
-
-      <section style={{ maxWidth: 680, margin: '0 auto', padding: '120px 24px 60px', width: '100%' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 28 }}>
-          <h1 style={{ fontSize: 13, fontWeight: 500, color: 'rgba(255,255,255,0.4)', margin: 0 }}>
-            Activity
-          </h1>
-          <a href="/" className="a-back a-mono">← back</a>
+    <div className={styles.page}>
+      <section className={styles.container}>
+        <div className={styles.header}>
+          <h1 className={styles.title}>Activity</h1>
+          <a href="/" className={styles.back}>
+            ← back
+          </a>
         </div>
 
-        <div>
-          {rows.map((row) => (
-            <div key={row.id} className="a-row">
-              <div
-                className="a-dot"
-                style={{ background: STATUS_COLOR[row.status || 'done'] || STATUS_COLOR.done }}
-              />
-              <span className="a-label a-mono">{row.label}</span>
-              <div className="a-content">
-                <p className="a-title">
-                  {row.url ? (
-                    <a
-                      href={row.url}
-                      target={row.external ? '_blank' : undefined}
-                      rel={row.external ? 'noopener noreferrer' : undefined}
-                    >
-                      {row.title}
+        <div className={styles.toolbar}>
+          <div className={styles.filters}>
+            {FILTERS.map((f) => (
+              <button
+                key={f.value}
+                className={`${styles.filterBtn} ${filter === f.value ? styles.filterBtnActive : ''}`}
+                onClick={() => setFilter(f.value)}
+              >
+                {f.label}
+              </button>
+            ))}
+          </div>
+          <button
+            className={styles.sortBtn}
+            onClick={() => setSort((s) => (s === 'newest' ? 'oldest' : 'newest'))}
+          >
+            {sort === 'newest' ? '↓ Newest' : '↑ Oldest'}
+          </button>
+        </div>
+
+        <p className={styles.issueCount}>{filtered.length} items</p>
+
+        <div className={styles.list}>
+          {filtered.length === 0 && <div className={styles.empty}>No items match this filter.</div>}
+
+          {filtered.map((item) => (
+            <div key={item.id} className={styles.row}>
+              <div className={`${styles.dot} ${DOT_CLASS[item.status] ?? styles.dotComplete}`} />
+              <span className={styles.label}>{item.category}</span>
+              <div className={styles.content}>
+                <p className={styles.itemTitle}>
+                  {item.url ? (
+                    <a href={item.url} target="_blank" rel="noopener noreferrer">
+                      {item.title}
                     </a>
                   ) : (
-                    row.title
+                    item.title
                   )}
                 </p>
-                {row.detail && <p className="a-detail a-mono">{row.detail}</p>}
+                {item.detail && <p className={styles.detail}>{item.detail}</p>}
+                {item.tags && item.tags.length > 0 && (
+                  <div className={styles.tags}>
+                    {item.tags.map((tag) => (
+                      <span key={tag} className={styles.tag}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
-              <span className="a-date a-mono">
-                {row.date ? formatDate(row.date) : ''}
-              </span>
+              <span className={styles.date}>{formatDate(item.date)}</span>
             </div>
           ))}
         </div>

@@ -2,8 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { currentResearch } from '@/data/research-data';
+import { activities } from '@/data/activity-data';
 import styles from './HeroSidePanel.module.scss';
+
+const mainReading = activities.find((a) => a.main && a.category === 'reading');
+const mainBuilding = activities.find((a) => a.main && a.category === 'building');
 
 interface WeeklyBar { label: string; count: number; weekStart: string; }
 
@@ -73,52 +76,51 @@ function useCommits() {
 /* ── Shared panel content ── */
 function PanelContent({ bars, total, loaded }: { bars: WeeklyBar[]; total: number; loaded: boolean }) {
   const maxBar = Math.max(...bars.map(b => b.count), 1);
-  const { paper } = currentResearch;
 
   return (
     <>
-      {paper && (
+      {mainReading && (
         <>
           <div className={styles.block}>
             <p className={styles.blockLabel}>reading</p>
-            <a href={paper.url} target="_blank" rel="noopener noreferrer" className={styles.paperLink}>
-              <span className={styles.paperVenue}>{paper.venue}</span>
-              <p className={styles.paperTitle}>{paper.title}</p>
-              <p className={styles.paperAuthors}>{paper.authors}</p>
-              <p className={styles.paperHook}>
-                A hypernetwork that reads a doc once and generates a LoRA adapter in a single forward pass —
-                the LLM answers without the doc ever touching the context window.
-                If this scales, it basically kills the retrieval problem.
-              </p>
+            <a href={mainReading.url} target="_blank" rel="noopener noreferrer" className={styles.paperLink}>
+              {mainReading.paper && <span className={styles.paperVenue}>{mainReading.paper.venue}</span>}
+              <p className={styles.paperTitle}>{mainReading.title}</p>
+              {mainReading.paper && <p className={styles.paperAuthors}>{mainReading.paper.authors}</p>}
+              {mainReading.description && <p className={styles.paperHook}>{mainReading.description}</p>}
             </a>
           </div>
           <div className={styles.divider} />
         </>
       )}
 
-      <div className={styles.block}>
-        <div className={styles.blockLabelRow}>
-          <p className={styles.blockLabel}>building</p>
-          <span className={styles.activePulse} />
-        </div>
-        <a href={currentResearch.github} target="_blank" rel="noopener noreferrer" className={styles.buildLink}>
-          <p className={styles.buildTitle}>{currentResearch.title}</p>
-          {currentResearch.goal && (
-            <p className={styles.buildGoal}>{currentResearch.goal}</p>
-          )}
-          <p className={styles.buildDesc}>
-            Implementing the full retrieval stack — BM25, dense vectors, hybrid fusion,
-            cross-encoder re-ranking — with eval pipelines.
-          </p>
-          <div className={styles.tags}>
-            {currentResearch.tags.slice(0, 4).map(tag => (
-              <span key={tag} className={styles.tag}>{tag}</span>
-            ))}
+      {mainBuilding && (
+        <>
+          <div className={styles.block}>
+            <div className={styles.blockLabelRow}>
+              <p className={styles.blockLabel}>building</p>
+              {mainBuilding.status === 'active' && <span className={styles.activePulse} />}
+            </div>
+            <a href={mainBuilding.url} target="_blank" rel="noopener noreferrer" className={styles.buildLink}>
+              <p className={styles.buildTitle}>{mainBuilding.title}</p>
+              {mainBuilding.detail && (
+                <p className={styles.buildGoal}>{mainBuilding.detail}</p>
+              )}
+              {mainBuilding.description && (
+                <p className={styles.buildDesc}>{mainBuilding.description}</p>
+              )}
+              {mainBuilding.tags && (
+                <div className={styles.tags}>
+                  {mainBuilding.tags.slice(0, 4).map(tag => (
+                    <span key={tag} className={styles.tag}>{tag}</span>
+                  ))}
+                </div>
+              )}
+            </a>
           </div>
-        </a>
-      </div>
-
-      <div className={styles.divider} />
+          <div className={styles.divider} />
+        </>
+      )}
 
       <div className={styles.block}>
         <div className={styles.blockLabelRow}>
@@ -152,7 +154,6 @@ export default function HeroSidePanel() {
 export function HeroSidePanelMobile() {
   const [open, setOpen] = useState(false);
   const { bars, total, loaded } = useCommits();
-  const { paper } = currentResearch;
 
   useEffect(() => {
     if (open) {
@@ -168,9 +169,9 @@ export function HeroSidePanelMobile() {
       {/* Badge */}
       <button className={styles.mobileBadge} onClick={() => setOpen(true)}>
         <span className={styles.mobilePulse} />
-        <span className={styles.mobileBuilding}>{currentResearch.tagline}</span>
-        {paper && (
-          <span className={styles.mobileReading}>{paper.venue}</span>
+        {mainBuilding && <span className={styles.mobileBuilding}>{mainBuilding.title}</span>}
+        {mainReading?.paper && (
+          <span className={styles.mobileReading}>{mainReading.paper.venue}</span>
         )}
       </button>
 

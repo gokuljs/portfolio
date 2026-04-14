@@ -40,8 +40,7 @@ export const activities: ActivityItem[] = [
     detail: 'Charakorn, Cetin, Uesaka, Lange · Sakana AI',
     description:
       'A hypernetwork that reads a doc once and generates a LoRA adapter in a single forward pass — the LLM answers without the doc ever touching the context window. If this scales, it basically kills the retrieval problem.',
-    codeUrl: 'https://github.com/gokuljs/DeepRAG',
-    blogUrl: '/blogs/retrieval-from-first-principles',
+    url: 'https://arxiv.org/pdf/2602.15902',
     status: 'complete',
     date: '2025-04-10',
     main: true,

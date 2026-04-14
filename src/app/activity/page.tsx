@@ -9,8 +9,7 @@ type SortDir = 'newest' | 'oldest';
 
 const FILTERS: { value: Filter; label: string }[] = [
   { value: 'all', label: 'All' },
-  { value: 'reading', label: 'Reading' },
-  { value: 'building', label: 'Building' },
+  { value: 'building', label: 'In Progress' },
   { value: 'done', label: 'Done' },
 ];
 
@@ -75,8 +74,14 @@ export default function ActivityPage() {
           {filtered.map((item) => (
             <div key={item.id} className={styles.row}>
               <div className={`${styles.statusIcon} ${STATUS_CLASS[item.status] ?? styles.statusComplete}`} />
-              <span className={styles.rowTitle}>{item.title}</span>
-              {item.detail && <span className={styles.rowDetail}>{item.detail}</span>}
+              <div className={styles.rowContent}>
+                {item.url ? (
+                  <a href={item.url} target="_blank" rel="noopener noreferrer" className={styles.rowTitle}>{item.title}</a>
+                ) : (
+                  <span className={styles.rowTitle}>{item.title}</span>
+                )}
+                {item.detail && <span className={styles.rowDetail}>{item.detail}</span>}
+              </div>
               <div className={styles.actions}>
                 {item.codeUrl && (
                   <a href={item.codeUrl} target="_blank" rel="noopener noreferrer" className={styles.actionBtn}>

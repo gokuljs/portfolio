@@ -1,38 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
 import { currentResearch } from '@/data/research-data';
-import { blogsData } from '@/data/blogs-data';
-import Footer from '@/app/ui/home/Footer/Footer';
-
-function timeAgo(dateStr: string) {
-  const days = Math.floor((Date.now() - new Date(dateStr).getTime()) / 86400000);
-  if (days === 0) return 'today';
-  if (days === 1) return '1d ago';
-  if (days < 30) return `${days}d ago`;
-  if (days < 365) return `${Math.floor(days / 30)}mo ago`;
-  return `${Math.floor(days / 365)}y ago`;
-}
-
-function useCommitTotal(username: string) {
-  const [total, setTotal] = useState<number | null>(null);
-  useEffect(() => {
-    fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`)
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.contributions) {
-          setTotal(data.contributions.reduce((s: number, d: { count: number }) => s + d.count, 0));
-        }
-      })
-      .catch(() => {});
-  }, [username]);
-  return total;
-}
 
 type Item = {
   id: string;
-  type: 'reading' | 'building' | 'blog' | 'commits';
+  type: 'reading' | 'building';
   title: string;
   meta: string;
   url?: string;
@@ -43,7 +15,6 @@ type Item = {
 
 export default function ActivityPage() {
   const { paper, title, goal, tags, status, github } = currentResearch;
-  const commitTotal = useCommitTotal('gokuljs');
 
   const items: Item[] = [];
 
@@ -69,29 +40,8 @@ export default function ActivityPage() {
     active: status === 'active',
   });
 
-  if (commitTotal !== null) {
-    items.push({
-      id: 'commits',
-      type: 'commits',
-      title: `${commitTotal.toLocaleString()} commits`,
-      meta: 'last year · github.com/gokuljs',
-      url: 'https://github.com/gokuljs',
-      external: true,
-    });
-  }
-
-  blogsData.forEach((blog) => {
-    items.push({
-      id: blog.id,
-      type: 'blog',
-      title: blog.title,
-      meta: `${timeAgo(blog.date)}  ·  ${blog.readTime || ''}`,
-      url: `/blogs/${blog.slug}`,
-    });
-  });
-
   return (
-    <div className="min-h-screen w-full bg-black">
+    <div className="w-full bg-black" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <style>{`
         .hn-mono {
           font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
@@ -100,7 +50,7 @@ export default function ActivityPage() {
           display: flex;
           align-items: baseline;
           gap: 14px;
-          padding: 12px 0;
+          padding: 14px 0;
           border-bottom: 1px solid rgba(255,255,255,0.04);
         }
         .hn-item:last-child { border-bottom: none; }
@@ -110,12 +60,12 @@ export default function ActivityPage() {
           min-width: 0;
           display: flex;
           flex-direction: column;
-          gap: 3px;
+          gap: 4px;
           transition: opacity 0.12s;
         }
         .hn-link:hover { opacity: 0.7; }
         .hn-title {
-          font-size: 14px;
+          font-size: 15px;
           font-weight: 500;
           color: #d4d4d4;
           line-height: 1.45;
@@ -125,18 +75,16 @@ export default function ActivityPage() {
           font-size: 11px;
           color: rgba(255,255,255,0.22);
           margin: 0;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
+          line-height: 1.5;
         }
         .hn-type {
           font-size: 10px;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          width: 64px;
+          width: 68px;
           flex-shrink: 0;
           color: rgba(255,255,255,0.18);
-          padding-top: 2px;
+          padding-top: 3px;
         }
         .hn-tags {
           display: flex;
@@ -162,12 +110,22 @@ export default function ActivityPage() {
           margin-right: 6px;
           vertical-align: middle;
         }
+        .hn-back {
+          font-size: 12px;
+          color: rgba(255,255,255,0.2);
+          text-decoration: none;
+          transition: color 0.15s;
+        }
+        .hn-back:hover { color: rgba(255,255,255,0.5); }
       `}</style>
 
-      <section style={{ maxWidth: 640, margin: '0 auto', padding: '140px 24px 80px' }}>
-        <h1 style={{ fontSize: 14, fontWeight: 500, color: 'rgba(255,255,255,0.5)', margin: '0 0 32px', letterSpacing: '-0.01em' }}>
-          Activity
-        </h1>
+      <section style={{ maxWidth: 640, margin: '0 auto', padding: '140px 24px 0', width: '100%', flex: 1 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 32 }}>
+          <h1 style={{ fontSize: 14, fontWeight: 500, color: 'rgba(255,255,255,0.5)', margin: 0, letterSpacing: '-0.01em' }}>
+            Activity
+          </h1>
+          <a href="/" className="hn-back hn-mono">← back</a>
+        </div>
 
         <div>
           {items.map((item) => {
@@ -180,7 +138,7 @@ export default function ActivityPage() {
                   {item.active && <span className="hn-dot" />}
                   {item.title}
                 </p>
-                <p className={`hn-meta hn-mono`}>{item.meta}</p>
+                <p className="hn-meta hn-mono">{item.meta}</p>
                 {item.tags && (
                   <div className="hn-tags hn-mono">
                     {item.tags.map((t) => (
@@ -194,22 +152,14 @@ export default function ActivityPage() {
             return (
               <div key={item.id} className="hn-item">
                 <span className="hn-type hn-mono">{item.type}</span>
-                {isExternal ? (
-                  <a href={href} target="_blank" rel="noopener noreferrer" className="hn-link">
-                    {content}
-                  </a>
-                ) : (
-                  <Link href={href} className="hn-link">
-                    {content}
-                  </Link>
-                )}
+                <a href={href} target={isExternal ? '_blank' : undefined} rel={isExternal ? 'noopener noreferrer' : undefined} className="hn-link">
+                  {content}
+                </a>
               </div>
             );
           })}
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 }

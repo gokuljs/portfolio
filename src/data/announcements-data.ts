@@ -10,6 +10,16 @@ export type Announcement = {
 
 export const announcements: Announcement[] = [
   {
+    id: 'blog-retrieval-from-first-principles',
+    title: 'The Art of Retrieval',
+    description:
+      'Every retrieval algorithm exists because the previous one had a flaw. A deep dive into how search evolved from TF-IDF to hybrid pipelines, and why it had to.',
+    image: '/retrival.png',
+    url: '/blogs/retrieval-from-first-principles',
+    date: '2026-03-20',
+    tag: 'Blog',
+  },
+  {
     id: 'blog-real-time-voice-agent-infrastructure',
     title: 'How Real-Time Voice Agents Work: Architecture and Latency',
     description:

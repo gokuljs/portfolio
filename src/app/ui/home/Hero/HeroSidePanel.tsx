@@ -85,22 +85,29 @@ function PanelContent({ bars, total, loaded }: { bars: WeeklyBar[]; total: numbe
               <p className={styles.blockLabel}>{item.category}</p>
               {item.status === 'active' && <span className={styles.activePulse} />}
             </div>
-            <a
-              href={item.codeUrl || item.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={item.paper ? styles.paperLink : styles.buildLink}
-            >
-              {item.paper && <span className={styles.paperVenue}>{item.paper.venue}</span>}
-              <p className={item.paper ? styles.paperTitle : styles.buildTitle}>{item.title}</p>
-              {item.paper && <p className={styles.paperAuthors}>{item.paper.authors}</p>}
-              {item.detail && !item.paper && <p className={styles.buildGoal}>{item.detail}</p>}
-              {item.description && (
-                <p className={item.paper ? styles.paperHook : styles.buildDesc}>
-                  {item.description}
-                </p>
-              )}
-            </a>
+            {(() => {
+              const href = item.codeUrl || item.url;
+              const inner = (
+                <>
+                  {item.paper && <span className={styles.paperVenue}>{item.paper.venue}</span>}
+                  <p className={item.paper ? styles.paperTitle : styles.buildTitle}>{item.title}</p>
+                  {item.paper && <p className={styles.paperAuthors}>{item.paper.authors}</p>}
+                  {item.detail && !item.paper && <p className={styles.buildGoal}>{item.detail}</p>}
+                  {item.description && (
+                    <p className={item.paper ? styles.paperHook : styles.buildDesc}>
+                      {item.description}
+                    </p>
+                  )}
+                </>
+              );
+              return href ? (
+                <a href={href} target="_blank" rel="noopener noreferrer" className={item.paper ? styles.paperLink : styles.buildLink}>
+                  {inner}
+                </a>
+              ) : (
+                <div className={item.paper ? styles.paperLink : styles.buildLink}>{inner}</div>
+              );
+            })()}
           </div>
           {i < mainItems.length - 1 && <div className={styles.divider} />}
         </div>

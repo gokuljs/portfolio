@@ -24,9 +24,9 @@ export const activities: ActivityItem[] = [
     id: 'agent-harness',
     category: 'reading',
     title: 'AI Agent Harness Internals',
-    detail: 'Agent loops, streaming tool execution, MCP, subagent orchestration.',
+    detail: 'How the runtime behind AI agents actually works, end to end.',
     description:
-      'Researching the core runtime that makes AI agents work: agent loop architecture, streaming tool calls over SSE, partial tool-call parsing mid-stream, doom-loop detection, context window compaction, rate-limit aware retry, multi-provider LLM abstraction, JSON Schema tool validation, permission-gated execution, subagent spawning, swarm orchestration, and MCP for dynamic tool discovery.',
+      'Every AI agent you use runs inside a harness. The harness is the loop that calls the LLM, parses the response, executes tools, and decides what happens next. Most people treat it as a black box. I want to understand every layer of it. How does the agent loop manage execution control flow? How do you stream tool calls over SSE and parse partial JSON mid-stream without waiting for the full response? What detects when an agent is stuck in a doom loop, and how do you break it? What happens when the context window overflows, and how does compaction decide what to keep? How do you retry against rate limits without losing work? How does one harness talk to multiple LLM providers and normalize the differences? How are tools defined, validated against JSON Schema, and gated by permissions per agent role? How do subagents get spawned, tracked, and cleaned up? How does MCP let agents discover tools at runtime instead of hardcoding them? These are the questions. The goal is to understand the full runtime, not just use it.',
     status: 'active',
     date: '2025-04-14',
     main: true,

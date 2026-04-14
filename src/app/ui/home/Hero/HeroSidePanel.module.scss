@@ -38,8 +38,8 @@
 .block {
   display: flex;
   flex-direction: column;
-  gap: 7px;
-  padding: 12px 0;
+  gap: 5px;
+  padding: 10px 0;
 }
 
 .blockLabel {
@@ -103,6 +103,10 @@
   line-height: 1.6;
   margin: 0;
   font-style: italic;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* ─── Building ─── */
@@ -124,7 +128,7 @@
 .buildLink {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   text-decoration: none;
   transition: opacity 0.2s;
 
@@ -215,6 +219,10 @@
   line-height: 1.6;
   margin: 0;
   letter-spacing: 0.01em;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* ─── View full activity button ─── */

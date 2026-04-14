@@ -18,6 +18,7 @@ const STATUS_CLASS: Record<string, string> = {
   active: styles.statusActive,
   paused: styles.statusPaused,
   complete: styles.statusComplete,
+  backlog: styles.statusBacklog,
 };
 
 function formatDate(iso: string) {

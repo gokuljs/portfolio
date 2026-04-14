@@ -1,5 +1,5 @@
 export type ActivityCategory = 'reading' | 'building' | 'done';
-export type ActivityStatus = 'active' | 'paused' | 'complete';
+export type ActivityStatus = 'active' | 'complete' | 'backlog' | 'paused';
 
 export interface ActivityItem {
   id: string;

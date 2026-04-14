@@ -59,6 +59,17 @@ export const metadata: Metadata = {
     site: '@gokul_js029',
     creator: '@gokul_js029',
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   keywords: [
     'Gokul JS',
     'Founding Engineer',
@@ -101,7 +112,7 @@ export default function RootLayout({
       <body className={inter.className} suppressHydrationWarning>
         <VisitTracker />
         <Navbar />
-        {children}
+        <main id="main-content">{children}</main>
         <WhatsNewPanel />
         <Analytics />
       </body>

@@ -35,9 +35,9 @@ export const activities: ActivityItem[] = [
     id: 'gosfu',
     category: 'building',
     title: 'GoSFU: Realtime Voice AI over WebRTC',
-    detail: 'Go SFU with Pion, STT/LLM/TTS pipeline, end-to-end latency analysis.',
+    detail: 'What actually happens between someone speaking and hearing an AI respond.',
     description:
-      'Building a minimal audio-first SFU in Go using Pion, wired into a streaming AI pipeline (STT, LLM, TTS). The real focus is measuring and understanding system behavior: per-stage latency breakdowns, streaming vs batch tradeoffs, backpressure handling, failure modes at every layer, and bottleneck identification across the full mic-to-speaker path.',
+      'You speak into a mic. An AI responds in your ear. The gap between those two moments is where every interesting systems problem lives. The audio travels as RTP packets over WebRTC into a Go SFU built on Pion. The SFU hands it to a speech-to-text service, which streams a transcript to an LLM, which streams tokens to a text-to-speech service, which streams audio back through the SFU to the client. Every stage adds latency. How much? Where exactly? Does streaming STT actually beat batching, or does it just feel like it should? What happens when the LLM is slow and audio chunks pile up? When do you drop stale audio vs queue it? When ICE negotiation fails or the STT service times out mid-sentence, what does graceful degradation actually look like? The goal is not just to make it work. It is to measure every stage, find the bottleneck, and understand why the system behaves the way it does under real conditions.',
     status: 'active',
     date: '2025-04-14',
     main: true,

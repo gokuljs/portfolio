@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { currentResearch } from '@/data/research-data';
 import styles from './HeroSidePanel.module.scss';
 
@@ -129,6 +130,10 @@ function PanelContent({ bars, total, loaded }: { bars: WeeklyBar[]; total: numbe
           {loaded && bars.length > 0 && <MiniSparkline bars={bars} maxVal={maxBar} />}
         </div>
       </div>
+
+      <Link href="/activity" className={styles.viewFullBtn}>
+        <span className={styles.viewFullBtnText}>View full activity →</span>
+      </Link>
     </>
   );
 }

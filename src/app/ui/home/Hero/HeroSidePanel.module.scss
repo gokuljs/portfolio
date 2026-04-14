@@ -38,8 +38,8 @@
 .block {
   display: flex;
   flex-direction: column;
-  gap: 7px;
-  padding: 12px 0;
+  gap: 5px;
+  padding: 10px 0;
 }
 
 .blockLabel {
@@ -103,6 +103,10 @@
   line-height: 1.6;
   margin: 0;
   font-style: italic;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* ─── Building ─── */
@@ -124,7 +128,7 @@
 .buildLink {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   text-decoration: none;
   transition: opacity 0.2s;
 
@@ -173,7 +177,7 @@
 }
 
 .sparklineWrap {
-  height: 40px;
+  height: 32px;
   width: 100%;
 }
 
@@ -215,6 +219,34 @@
   line-height: 1.6;
   margin: 0;
   letter-spacing: 0.01em;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ─── View full activity button ─── */
+.viewFullBtn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 6px;
+  padding: 0;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: #e0a458;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #f0c070;
+  }
+}
+
+.viewFullBtnText {
+  color: inherit;
 }
 
 /* ─── Mobile badge ─── */

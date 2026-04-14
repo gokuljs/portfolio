@@ -1,0 +1,408 @@
+.page {
+  width: 100%;
+  min-height: 100vh;
+  background: #000;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 100px 32px 60px;
+  width: 100%;
+}
+
+/* ─── Header ─── */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+.countBadge {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.back {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.3);
+  text-decoration: none;
+  transition: color 0.15s;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+
+/* ─── Toolbar ─── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  margin-bottom: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.filterBtn {
+  font-size: 13px;
+  padding: 5px 12px;
+  border-radius: 5px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  transition: color 0.12s, background 0.12s;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.04);
+  }
+}
+
+.filterBtnActive {
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.sortBtn {
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: color 0.12s;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.55);
+  }
+}
+
+/* ─── Row list ─── */
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 42px;
+  padding: 0 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  transition: background 0.1s;
+  user-select: none;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.03);
+  }
+}
+
+.rowSelected {
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom-color: transparent;
+}
+
+/* ─── Status icon ─── */
+.statusIcon {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.statusComplete {
+  background: none;
+  border: 1.5px solid #5e6ad2;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border-radius: 50%;
+    background: #5e6ad2;
+  }
+}
+
+.statusActive {
+  border: 1.5px solid #f2994a;
+  background: linear-gradient(to top, #f2994a 50%, transparent 50%);
+}
+
+.statusBacklog {
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-style: dashed;
+}
+
+.statusPaused {
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+}
+
+/* ─── Row content (title + detail inline) ─── */
+.rowContent {
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.rowTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-decoration: none;
+  flex-shrink: 0;
+  max-width: 55%;
+  transition: color 0.12s;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.rowDetail {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+/* ─── Action links (row hover) ─── */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 0.12s;
+
+  .row:hover & {
+    opacity: 1;
+  }
+}
+
+.actionBtn {
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.45);
+  text-decoration: none;
+  transition: color 0.12s, background 0.12s;
+  white-space: nowrap;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* ─── Date ─── */
+.date {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.2);
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: 52px;
+  text-align: right;
+}
+
+/* ─── Detail card ─── */
+.card {
+  padding: 20px 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  animation: cardSlide 0.15s ease-out;
+}
+
+@keyframes cardSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.cardStatus {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cardStatusLabel {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.02em;
+}
+
+.cardClose {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.2);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: color 0.12s, background 0.12s;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.06);
+  }
+}
+
+.cardTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 8px;
+  line-height: 1.4;
+}
+
+.cardDetail {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 0 0 10px;
+  line-height: 1.5;
+}
+
+.cardDesc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.3);
+  margin: 0 0 16px;
+  line-height: 1.6;
+}
+
+.cardMeta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.cardDate {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.cardCategory {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.cardLinks {
+  display: flex;
+  gap: 6px;
+}
+
+.cardLinkBtn {
+  font-size: 12px;
+  padding: 5px 14px;
+  border-radius: 5px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.12s, background 0.12s, border-color 0.12s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.14);
+    color: rgba(255, 255, 255, 0.85);
+  }
+}
+
+.cardLinkCode {
+  composes: cardLinkBtn;
+}
+
+.cardLinkBlog {
+  composes: cardLinkBtn;
+}
+
+.cardLinkUrl {
+  composes: cardLinkBtn;
+}
+
+/* ─── Empty state ─── */
+.empty {
+  padding: 48px 0;
+  text-align: center;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 640px) {
+  .container {
+    padding: 90px 16px 40px;
+  }
+
+  .row {
+    gap: 8px;
+    height: 40px;
+    padding: 0 4px;
+  }
+
+  .rowDetail {
+    display: none;
+  }
+
+  .actions {
+    opacity: 1;
+  }
+
+  .rowTitle {
+    font-size: 13px;
+  }
+}

@@ -39,7 +39,7 @@ const STORAGE_KEY = 'whats_new_seen_id';
 const LATEST_5 = announcements.slice(0, 5);
 
 const TAG_COLORS: Record<string, { bg: string; color: string }> = {
-  Blog:          { bg: 'rgba(59,130,246,0.18)',  color: '#60a5fa' },
+  Blog:          { bg: 'rgba(255,255,255,0.12)', color: '#e5e5e5' },
   'Open Source': { bg: 'rgba(34,197,94,0.18)',   color: '#4ade80' },
   Update:        { bg: 'rgba(168,85,247,0.18)',  color: '#c084fc' },
   Research:      { bg: 'rgba(251,191,36,0.18)',  color: '#fbbf24' },

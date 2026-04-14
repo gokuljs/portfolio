@@ -52,7 +52,7 @@ export const activities: ActivityItem[] = [
     codeUrl: 'https://github.com/gokuljs/DeepRAG',
     blogUrl: '/blogs/retrieval-from-first-principles',
     status: 'complete',
-    date: '2025-04-14',
+    date: '2026-03-20',
     main: false,
   },
   {
@@ -64,7 +64,7 @@ export const activities: ActivityItem[] = [
       'A hypernetwork that reads a doc once and generates a LoRA adapter in a single forward pass. The LLM answers without the doc ever touching the context window. If this scales, it basically kills the retrieval problem.',
     url: 'https://arxiv.org/pdf/2602.15902',
     status: 'complete',
-    date: '2025-04-10',
+    date: '2026-02-28',
     main: false,
     paper: {
       venue: 'arxiv · 2602.15902',

@@ -3,6 +3,7 @@ export interface Blog {
   slug: string;
   title: string;
   description: string;
+  metaDescription?: string; // SEO meta description; falls back to description if not set
   date: string; // ISO date string for sorting
   readTime?: string;
   tags?: string[];
@@ -17,9 +18,10 @@ export const blogsData: Blog[] = [
     slug: 'retrieval-from-first-principles',
     title: 'The Art of Retrieval',
     description: 'Every retrieval algorithm exists because the previous one had a flaw. This is a deep dive into how search evolved, and why it had to.',
+    metaDescription: 'Learn how retrieval actually works from the ground up. This guide walks through keyword search, inverted indexes, TF-IDF, BM25, semantic search, embeddings, cosine similarity, vector databases, chunking strategies, contextual retrieval, ColBERT, late chunking, hybrid search, RRF, cross-encoder reranking, and evaluation — so you walk away with a clear mental model of how to build a production RAG pipeline.',
     date: '2026-03-20',
     readTime: '35 min read',
-    tags: ['RAG', 'BM25', 'TF-IDF', 'Semantic Search', 'Hybrid Search', 'Reranking',],
+    tags: ['RAG', 'Retrieval-Augmented Generation', 'BM25', 'TF-IDF', 'Semantic Search', 'Hybrid Search', 'Reranking', 'Cross-Encoder', 'Bi-Encoder', 'ColBERT', 'Late Chunking', 'Contextual Retrieval', 'Vector Database', 'Embeddings', 'Cosine Similarity', 'Inverted Index', 'Reciprocal Rank Fusion', 'Information Retrieval', 'LLM', 'Chunking'],
     featured: true,
   },
   {
@@ -69,11 +71,13 @@ export const generateBlogJsonLd = (slug: string) => {
     ? `https://gokuljs.com${blog.image}`
     : `https://gokuljs.com/gokuljs.png`;
 
+  const seoDescription = blog.metaDescription ?? blog.description;
+
   const articleJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: blog.title,
-    description: blog.description,
+    description: seoDescription,
     image: ogImage,
     datePublished: blog.date,
     dateModified: blog.date,
@@ -112,13 +116,15 @@ export const generateBlogMetadata = (slug: string) => {
   const blog = getBlogBySlug(slug);
   if (!blog) return {};
 
+  const seoDescription = blog.metaDescription ?? blog.description;
+
   let ogImage: string;
   if (blog.image) {
     ogImage = `https://gokuljs.com${blog.image}`;
   } else {
     const ogParams = new URLSearchParams({
       title: blog.title,
-      description: blog.description,
+      description: seoDescription,
       tags: (blog.tags ?? []).join(','),
     });
     ogImage = `/api/og?${ogParams.toString()}`;
@@ -126,13 +132,13 @@ export const generateBlogMetadata = (slug: string) => {
 
   return {
     title: blog.title,
-    description: blog.description,
+    description: seoDescription,
     alternates: {
       canonical: `https://gokuljs.com/blogs/${blog.slug}`,
     },
     openGraph: {
       title: blog.title,
-      description: blog.description,
+      description: seoDescription,
       url: `https://gokuljs.com/blogs/${blog.slug}`,
       type: 'article' as const,
       publishedTime: blog.date,
@@ -150,7 +156,7 @@ export const generateBlogMetadata = (slug: string) => {
     twitter: {
       card: 'summary_large_image' as const,
       title: blog.title,
-      description: blog.description,
+      description: seoDescription,
       images: [ogImage],
       site: '@gokul_js029',
       creator: '@gokul_js029',

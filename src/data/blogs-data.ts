@@ -14,6 +14,16 @@ export interface Blog {
 
 export const blogsData: Blog[] = [
   {
+    id: '4',
+    slug: 'raft-consensus-algorithm',
+    title: 'How the Raft Consensus Algorithm Works',
+    description: 'A breakdown of Raft: how distributed servers elect a leader, replicate logs, and stay consistent even when nodes fail.',
+    metaDescription: 'Learn how the Raft consensus algorithm works from the ground up. This guide covers leader election, log replication, heartbeats, term-based voting, log consistency checks, and how the system handles failures — giving you a clear mental model of how distributed consensus actually works.',
+    date: '2026-04-23',
+    readTime: '10 min read',
+    tags: ['Distributed Systems', 'Raft', 'Consensus Algorithm', 'Leader Election', 'Log Replication', 'Fault Tolerance', 'Distributed Databases'],
+  },
+  {
     id: '3',
     slug: 'retrieval-from-first-principles',
     title: 'The Art of Retrieval',
@@ -46,8 +56,16 @@ export const blogsData: Blog[] = [
   },
 ];
 
-// Helper function to get blogs sorted by date (newest first), featured pinned to top
+// Helper function to get blogs sorted by date (newest first)
 export const getSortedBlogs = (order: 'desc' | 'asc' = 'desc'): Blog[] => {
+  return [...blogsData].sort((a, b) => {
+    const diff = new Date(b.date).getTime() - new Date(a.date).getTime();
+    return order === 'desc' ? diff : -diff;
+  });
+};
+
+// Helper function to get blogs with featured pinned to top, then sorted by date
+export const getSortedBlogsWithFeatured = (order: 'desc' | 'asc' = 'desc'): Blog[] => {
   return [...blogsData].sort((a, b) => {
     if (a.featured && !b.featured) return -1;
     if (!a.featured && b.featured) return 1;

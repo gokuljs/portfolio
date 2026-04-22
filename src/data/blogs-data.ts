@@ -21,7 +21,7 @@ export const blogsData: Blog[] = [
     metaDescription: 'Learn how the Raft consensus algorithm works from the ground up. This guide covers leader election, log replication, heartbeats, term-based voting, log consistency checks, and how the system handles failures — giving you a clear mental model of how distributed consensus actually works.',
     date: '2026-04-23',
     readTime: '10 min read',
-    tags: ['Distributed Systems', 'Raft', 'Consensus Algorithm', 'Leader Election', 'Log Replication', 'Fault Tolerance', 'Distributed Databases', 'etcd', 'Paxos'],
+    tags: ['Distributed Systems', 'Raft', 'Consensus Algorithm', 'Leader Election', 'Log Replication', 'Fault Tolerance', 'Distributed Databases'],
   },
   {
     id: '3',

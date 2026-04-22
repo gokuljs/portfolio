@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'motion/react';
-import { MapPinOff, AlertCircle } from 'lucide-react';
+import { MapPinOff, AlertCircle, ShieldOff } from 'lucide-react';
 import styles from '@styles/navbar.module.scss';
 
 const navLinks = [
@@ -20,7 +20,7 @@ const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
-  const [toast, setToast] = useState<{ message: string; type: 'error' | 'info' } | null>(null);
+  const [toast, setToast] = useState<{ message: string; type: 'error' | 'info'; reason?: string } | null>(null);
   const pathname = usePathname();
   const router = useRouter();
 
@@ -46,8 +46,8 @@ const Navbar: React.FC = () => {
     };
   }, []);
 
-  const showToast = useCallback((message: string, type: 'error' | 'info' = 'error') => {
-    setToast({ message, type });
+  const showToast = useCallback((message: string, type: 'error' | 'info' = 'error', reason?: string) => {
+    setToast({ message, type, reason });
     setTimeout(() => setToast(null), 4000);
   }, []);
 
@@ -65,11 +65,16 @@ const Navbar: React.FC = () => {
   const handleDownload = async () => {
     setMenuOpen(false);
     try {
-      const res = await fetch('/api/check-resume-access');
-      const { allowed } = await res.json();
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const res = await fetch(`/api/check-resume-access?tz=${encodeURIComponent(tz)}`);
+      const { allowed, reason } = await res.json();
 
       if (!allowed) {
-        showToast('Resume download is not available in your region.', 'error');
+        const message =
+          reason === 'vpn'
+            ? 'Resume download is not available over VPN or proxy connections.'
+            : 'Resume download is not available in your region.';
+        showToast(message, 'error', reason);
         return;
       }
 
@@ -111,11 +116,11 @@ const Navbar: React.FC = () => {
             transition={{ duration: 0.22, ease: 'easeOut' }}
           >
             <div className={`${styles.toastIcon} ${toast.type === 'error' ? styles.toastIconError : styles.toastIconInfo}`}>
-              {toast.type === 'error' ? <MapPinOff size={15} /> : <AlertCircle size={15} />}
+              {toast.reason === 'vpn' ? <ShieldOff size={15} /> : toast.type === 'error' ? <MapPinOff size={15} /> : <AlertCircle size={15} />}
             </div>
             <div className={styles.toastBody}>
               <span className={styles.toastTitle}>
-                {toast.type === 'error' ? 'Not available in your region' : 'Info'}
+                {toast.reason === 'vpn' ? 'VPN/Proxy detected' : toast.type === 'error' ? 'Not available in your region' : 'Info'}
               </span>
               <span className={styles.toastSub}>{toast.message}</span>
             </div>

@@ -22,6 +22,7 @@ export const blogsData: Blog[] = [
     date: '2026-04-23',
     readTime: '10 min read',
     tags: ['Distributed Systems', 'Raft', 'Consensus Algorithm', 'Leader Election', 'Log Replication', 'Fault Tolerance', 'Distributed Databases'],
+    image: '/blogs/raft-consensus-sketch-dark.png',
   },
   {
     id: '3',

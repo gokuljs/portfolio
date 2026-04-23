@@ -16,7 +16,7 @@ export const blogsData: Blog[] = [
   {
     id: '4',
     slug: 'raft-consensus-algorithm',
-    title: 'How the Raft Consensus Algorithm Works',
+    title: 'The Consensus Algorithm',
     description: 'A breakdown of Raft: how distributed servers elect a leader, replicate logs, and stay consistent even when nodes fail.',
     metaDescription: 'Learn how the Raft consensus algorithm works from the ground up. This guide covers leader election, log replication, heartbeats, term-based voting, log consistency checks, and how the system handles failures — giving you a clear mental model of how distributed consensus actually works.',
     date: '2026-04-23',

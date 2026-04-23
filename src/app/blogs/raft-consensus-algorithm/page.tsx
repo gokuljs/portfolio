@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { BlogArticleLayout } from '@/components/ui/blog-article-layout';
+import { ThemeImage } from '@/components/ui/theme-image';
 import { getBlogBySlug, generateBlogMetadata, generateBlogJsonLd } from '@/data/blogs-data';
 
 export const dynamic = 'force-static';
@@ -28,6 +29,16 @@ export default function RaftConsensusAlgorithmPage() {
         dateISO={blog.date}
         tags={blog.tags}
       >
+        <div className="pipeline-wrapper">
+          <ThemeImage
+            lightSrc="/blogs/raft-consensus-sketch-light.png"
+            darkSrc="/blogs/raft-consensus-sketch-dark.png"
+            alt="Raft consensus algorithm - leader and follower nodes"
+            className="pipeline-img"
+            expandable
+          />
+        </div>
+
         <p>
           I was looking at the Raft consensus algorithm. Why it exists, why it is so important in distributed systems. The reason is it purely solves this one problem: how do multiple machines agree on the same data, even when some of them fail?
         </p>

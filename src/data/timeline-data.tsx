@@ -85,7 +85,7 @@ export const timelineData = [
     ),
   },
   {
-    period: 'November 2022 – January 2024',
+    period: 'November 2022 – May 2024',
     title: 'Founding Engineer',
     company: 'Aerotime, Y Combinator (W21)',
     location: 'San Francisco, California',

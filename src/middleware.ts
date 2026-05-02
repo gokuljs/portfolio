@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-const BLOCKED_IPS = new Set(['122.161.52.104', '49.206.134.154']);
+const BLOCKED_IPS = new Set(['122.161.52.104']);
 
 const BOT_USER_AGENTS =
   /googlebot|google-inspectiontool|storebot-google|googleother|bingbot|slurp|duckduckbot|baiduspider|yandexbot|sogou|exabot|facebot|ia_archiver|linkedinbot|twitterbot|applebot|semrushbot|ahrefsbot|mj12bot|dotbot/i;
